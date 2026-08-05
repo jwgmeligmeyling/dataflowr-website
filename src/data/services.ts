@@ -57,7 +57,7 @@ export const services: Record<Lang, Record<ServiceKey, ServiceContent>> = {
       related: ['integraties', 'claire', 'training'],
       metaTitle: 'Exact Online Premium implementatie & partner',
       metaDescription:
-        'Alles uit Exact Online Premium halen: implementatie, migratie, Smart Closing, de Power BI Connector en multi-entiteit op één lijn. Boutique Exact Online integratiepartner.',
+        'Alles uit Exact Online Premium halen: implementatie, migratie, Smart Closing, de Power BI Connector en multi-entiteit op één lijn. Gespecialiseerde Exact Online integratiepartner.',
     },
     integraties: {
       nav: 'Integraties',
@@ -228,7 +228,7 @@ export const services: Record<Lang, Record<ServiceKey, ServiceContent>> = {
       related: ['integraties', 'claire', 'training'],
       metaTitle: 'Exact Online Premium implementation & partner',
       metaDescription:
-        'Get everything out of Exact Online Premium: implementation, migration, Smart Closing, the Power BI Connector and multi-entity alignment. Boutique Exact Online integration partner.',
+        'Get everything out of Exact Online Premium: implementation, migration, Smart Closing, the Power BI Connector and multi-entity alignment. Specialised Exact Online integration partner.',
     },
     integraties: {
       nav: 'Integrations',
