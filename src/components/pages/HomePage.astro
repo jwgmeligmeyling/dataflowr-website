@@ -532,12 +532,37 @@ const schema = [
 
   /* ---------- Diensten ---------- */
   .services {
-    background: color-mix(in srgb, #ffffff 62%, transparent);
+    position: relative;
+    overflow: hidden;
+    background:
+      radial-gradient(1000px 540px at 88% -5%, color-mix(in srgb, var(--hl) 7%, transparent), transparent 62%),
+      radial-gradient(860px 480px at -8% 110%, color-mix(in srgb, var(--pos) 8%, transparent), transparent 58%),
+      color-mix(in srgb, #ffffff 62%, transparent);
     border-top: 1px solid color-mix(in srgb, var(--brand) 7%, transparent);
     border-bottom: 1px solid color-mix(in srgb, var(--brand) 7%, transparent);
     scroll-margin-top: 80px;
   }
-  .services-inner { padding-top: 120px; padding-bottom: 120px; }
+  .services::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-image: radial-gradient(color-mix(in srgb, var(--brand) 14%, transparent) 1px, transparent 1.4px);
+    background-size: 24px 24px;
+    -webkit-mask-image: radial-gradient(720px 480px at 84% 2%, #000, transparent 76%);
+    mask-image: radial-gradient(720px 480px at 84% 2%, #000, transparent 76%);
+  }
+  .services::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent 4%, color-mix(in srgb, var(--hl) 45%, transparent) 38%, color-mix(in srgb, var(--pos) 50%, transparent) 62%, transparent 96%);
+  }
+  .services-inner { position: relative; z-index: 1; padding-top: 120px; padding-bottom: 120px; }
   .services h2 { margin-bottom: 22px; }
   .services-sub { margin: 0 0 52px; max-width: 620px; font-size: 16px; line-height: 1.7; color: var(--muted); text-wrap: pretty; }
   .service-list { border-top: 1px solid color-mix(in srgb, var(--brand) 12%, transparent); }
