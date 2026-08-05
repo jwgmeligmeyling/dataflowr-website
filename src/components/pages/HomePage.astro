@@ -249,15 +249,15 @@ const schema = [
       <p class="eyebrow eyebrow--thin why-eyebrow" data-reveal="0">{t.servicesEyebrow}</p>
       <h2 data-reveal="80">{t.servicesTitle}</h2>
       <p class="services-sub" data-reveal="120">{t.servicesSub}</p>
-      <div class="service-list">
+      <div class="service-grid">
         {t.serviceRows.map((row, i) => (
-          <a href={routes.services[row.key][lang]} class="service-row" data-reveal={String(i * 60)}>
-            <span class="service-num">{String(i + 1).padStart(2, '0')}</span>
-            <div>
-              <h3>{row.title}</h3>
-              <p>{row.body}</p>
+          <a href={routes.services[row.key][lang]} class="service-card" data-reveal={String(i * 60)}>
+            <div class="service-card-top">
+              <span class="service-num">{String(i + 1).padStart(2, '0')}</span>
+              <span class="service-arrow" aria-hidden="true">→</span>
             </div>
-            <span class="service-arrow" aria-hidden="true">→</span>
+            <h3>{row.title}</h3>
+            <p>{row.body}</p>
           </a>
         ))}
       </div>
@@ -540,27 +540,61 @@ const schema = [
   .services-inner { padding-top: 120px; padding-bottom: 120px; }
   .services h2 { margin-bottom: 22px; }
   .services-sub { margin: 0 0 52px; max-width: 620px; font-size: 16px; line-height: 1.7; color: var(--muted); text-wrap: pretty; }
-  .service-list { border-top: 1px solid color-mix(in srgb, var(--brand) 12%, transparent); }
-  .service-row {
-    display: grid;
-    grid-template-columns: 110px 1fr 40px;
-    gap: 32px;
-    align-items: center;
-    padding: 34px 18px 34px 6px;
-    border-bottom: 1px solid color-mix(in srgb, var(--brand) 12%, transparent);
+  .service-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .service-card {
+    display: flex;
+    flex-direction: column;
+    padding: 26px 26px 28px;
+    border: 1px solid color-mix(in srgb, var(--brand) 9%, transparent);
+    border-radius: 20px;
+    background: #ffffff;
     color: var(--brand);
-    transition: background 0.3s, padding-left 0.3s;
+    transition: transform 0.35s, box-shadow 0.35s, border-color 0.35s;
   }
-  .service-row:hover { background: color-mix(in srgb, var(--hl) 4%, transparent); padding-left: 18px; color: var(--brand); }
-  .service-num { font-size: 44px; font-weight: 300; line-height: 1; color: var(--hl); }
-  .service-row h3 { margin: 0 0 6px; font-size: 21px; font-weight: 700; letter-spacing: -0.01em; }
-  .service-row p { margin: 0; max-width: 720px; font-size: 14.5px; line-height: 1.6; color: var(--muted); }
-  .service-arrow { font-size: 22px; color: var(--hl); }
-  @media (max-width: 720px) {
-    .service-row { grid-template-columns: 1fr; gap: 10px; }
-    .service-num { font-size: 30px; }
-    .service-arrow { display: none; }
+  .service-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 18px 50px color-mix(in srgb, var(--brand) 10%, transparent);
+    border-color: color-mix(in srgb, var(--hl) 28%, transparent);
+    color: var(--brand);
   }
+  .service-card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  .service-num {
+    display: grid;
+    place-items: center;
+    width: 46px;
+    height: 46px;
+    border-radius: 13px;
+    background: linear-gradient(135deg,
+      color-mix(in srgb, var(--hl) 12%, #ffffff),
+      color-mix(in srgb, var(--pos) 16%, #ffffff));
+    font-size: 15px;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    color: var(--hl);
+    transition: background 0.3s, color 0.3s;
+  }
+  .service-card:hover .service-num { background: var(--hl); color: #ffffff; }
+  .service-card h3 { margin: 0 0 8px; font-size: 19px; font-weight: 700; letter-spacing: -0.01em; }
+  .service-card p { margin: 0; font-size: 14px; line-height: 1.6; color: var(--muted); }
+  .service-arrow {
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1.5px solid color-mix(in srgb, var(--hl) 32%, transparent);
+    font-size: 17px;
+    color: var(--hl);
+    transition: background 0.3s, border-color 0.3s, color 0.3s, transform 0.3s;
+  }
+  .service-card:hover .service-arrow { background: var(--hl); border-color: var(--hl); color: #ffffff; transform: translateX(3px); }
+  @media (max-width: 1020px) { .service-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 680px) { .service-grid { grid-template-columns: 1fr; } }
   .services-note { margin: 32px 0 0; font-size: 14.5px; color: var(--muted); }
   .services-note-cta { font-weight: 700; }
 
@@ -685,7 +719,7 @@ const schema = [
     color: var(--bg);
   }
   .cta-nebula { position: absolute; left: 50%; top: -320px; margin-left: -460px; filter: blur(140px) saturate(1.1); opacity: 0.4; }
-  .cta-inner { position: relative; max-width: 880px; margin: 0 auto; padding: 130px 40px; text-align: center; }
+  .cta-inner { position: relative; max-width: 880px; margin: 0 auto; padding: 84px 40px; text-align: center; }
   .cta h2 {
     margin: 0 0 18px;
     font-size: clamp(36px, 4.4vw, 58px);
