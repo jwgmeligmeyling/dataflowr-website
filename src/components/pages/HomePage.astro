@@ -6,6 +6,7 @@
  */
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Logo from '../Logo.astro';
+import ClaireMark from '../ClaireMark.astro';
 import { abs, routes, CALENDLY_URL, type Lang } from '../../lib/site';
 
 interface Props {
@@ -279,7 +280,7 @@ const schema = [
       </div>
       <div class="claire-card" data-reveal="120">
         <div class="claire-card-head">
-          <span class="claire-card-badge" aria-hidden="true">C</span>
+          <span class="claire-card-badge" aria-hidden="true"><ClaireMark size={38} /></span>
           <span class="claire-card-id"><strong>Claire</strong><span>{t.claireCardStatus}</span></span>
         </div>
         <p class="claire-card-quote">{t.claireCardQuote}</p>
@@ -631,11 +632,6 @@ const schema = [
     flex: none;
     width: 38px;
     height: 38px;
-    border-radius: 50%;
-    background: var(--pos);
-    color: var(--brand);
-    font-weight: 700;
-    font-size: 16px;
     display: grid;
     place-items: center;
   }

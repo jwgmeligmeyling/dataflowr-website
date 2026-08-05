@@ -5,6 +5,7 @@
  * variant="solid"   — subpages: solid brand background.
  */
 import Logo from './Logo.astro';
+import ClaireMark from './ClaireMark.astro';
 import { routes, ui, type Lang, type ServiceKey } from '../lib/site';
 
 interface Props {
@@ -37,7 +38,7 @@ const serviceKeys = Object.keys(routes.services) as ServiceKey[];
         <div class="panel">
           <span class="panel-heading">{t.product}</span>
           <a href={routes.claire[lang]} class="claire-item">
-            <span class="claire-badge" aria-hidden="true">C</span>
+            <span class="claire-badge" aria-hidden="true"><ClaireMark size={32} /></span>
             <span class="claire-text">
               <span class="claire-name">Claire</span>
               <span class="claire-sub">{t.claireTag}</span>
@@ -143,11 +144,6 @@ const serviceKeys = Object.keys(routes.services) as ServiceKey[];
     flex: none;
     width: 32px;
     height: 32px;
-    border-radius: 50%;
-    background: var(--pos);
-    color: var(--brand);
-    font-weight: 700;
-    font-size: 14px;
     display: grid;
     place-items: center;
   }
