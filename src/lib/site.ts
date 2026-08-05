@@ -8,6 +8,7 @@ export const LINKEDIN_DAAN = 'https://www.linkedin.com/in/daan-jansen-329a541a1/
 export const LINKEDIN_JANWILLEM = 'https://www.linkedin.com/in/jwgmeligmeyling/';
 export const EMAIL_DAAN = 'daan@dataflowr.nl';
 export const EMAIL_JANWILLEM = 'janwillem@dataflowr.nl';
+export const EMAIL_INFO = 'info@dataflowr.nl';
 
 /** Registered company details (KVK). */
 export const COMPANY = {
@@ -98,11 +99,10 @@ export const ui = {
     footerTagline: 'Gespecialiseerde integratiepartner',
     footerBody: 'Procesoptimalisatie en integraties binnen het Exact Online ecosysteem, met de precisie van een specialist.',
     footerContact: 'Contact',
-    footerOnline: 'Online',
     footerMeet: 'Ontmoet ons',
     footerMeetItems: ['Exact Online Live', 'CFO User Groups', 'Partnerevents'],
     footerCopyright: '© 2026 DataFlowr',
-    footerMotto: 'All You Need is a Premium Partner',
+    footerMotto: 'Premium partner van',
     footerCompact: '© 2026 DataFlowr · Gespecialiseerde Exact Online integratiepartner',
     serviceNavDescriptions: {
       'exact-online-premium': 'Implementatie & partner',
@@ -138,11 +138,10 @@ export const ui = {
     footerTagline: 'Specialised integration partner',
     footerBody: 'Process optimisation and integrations within the Exact Online ecosystem, with the precision of a specialist.',
     footerContact: 'Contact',
-    footerOnline: 'Online',
     footerMeet: 'Meet us',
     footerMeetItems: ['Exact Online Live', 'CFO User Groups', 'Partner events'],
     footerCopyright: '© 2026 DataFlowr',
-    footerMotto: 'All You Need is a Premium Partner',
+    footerMotto: 'Premium partner of',
     footerCompact: '© 2026 DataFlowr · Specialised Exact Online integration partner',
     serviceNavDescriptions: {
       'exact-online-premium': 'Implementation & partner',

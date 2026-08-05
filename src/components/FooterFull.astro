@@ -1,7 +1,7 @@
 ---
 /** Full footer (home, Claire, service pages). Compact logo top-left per design review. */
 import Logo from './Logo.astro';
-import { routes, ui, LINKEDIN_URL, EMAIL_DAAN, EMAIL_JANWILLEM, type Lang } from '../lib/site';
+import { ui, EMAIL_DAAN, EMAIL_INFO, type Lang } from '../lib/site';
 
 interface Props {
   lang: Lang;
@@ -24,15 +24,7 @@ const t = ui[lang];
         <p class="heading">{t.footerContact}</p>
         <div class="links">
           <a href={`mailto:${EMAIL_DAAN}`}>{EMAIL_DAAN}</a>
-          <a href={`mailto:${EMAIL_JANWILLEM}`}>{EMAIL_JANWILLEM}</a>
-          <a href={routes.about[lang]}>{t.cta}</a>
-        </div>
-      </div>
-      <div class="col">
-        <p class="heading">{t.footerOnline}</p>
-        <div class="links">
-          <a href="https://dataflowr.nl">dataflowr.nl</a>
-          <a href={LINKEDIN_URL} target="_blank" rel="noopener">linkedin.com/company/dataflowr</a>
+          <a href={`mailto:${EMAIL_INFO}`}>{EMAIL_INFO}</a>
         </div>
       </div>
       <div class="col">
@@ -44,7 +36,7 @@ const t = ui[lang];
     </div>
     <div class="legal">
       <span>{t.footerCopyright}</span>
-      <span class="motto">{t.footerMotto}</span>
+      <span class="motto">{t.footerMotto} <span class="exact-logo" role="img" aria-label="Exact"><span class="exact-eq" aria-hidden="true"></span>exact</span></span>
     </div>
   </div>
 </footer>
@@ -85,5 +77,32 @@ const t = ui[lang];
     font-size: 12.5px;
     color: var(--muted);
   }
-  .motto { font-size: 11px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; }
+  .motto {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+  .exact-logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.14em;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1;
+    text-transform: lowercase;
+    color: #e30613;
+    transform: translateY(-1px);
+  }
+  .exact-eq {
+    display: inline-block;
+    width: 0.6em;
+    height: 0.44em;
+    border-top: 0.16em solid currentColor;
+    border-bottom: 0.16em solid currentColor;
+  }
 </style>
