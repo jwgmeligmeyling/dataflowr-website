@@ -4,6 +4,7 @@ export const CALENDLY_URL = 'https://calendly.com/daan-dataflowr';
 export const LINKEDIN_URL = 'https://linkedin.com/company/dataflowr';
 export const EMAIL_DAAN = 'daan@dataflowr.nl';
 export const EMAIL_JANWILLEM = 'janwillem@dataflowr.nl';
+export const EMAIL_INFO = 'info@dataflowr.nl';
 
 export type Lang = 'nl' | 'en';
 
@@ -49,15 +50,14 @@ export const ui = {
     home: 'Home',
     menu: 'Menu',
     skip: 'Naar hoofdinhoud',
-    footerTagline: 'Boutique integratiepartner',
-    footerBody: 'Procesoptimalisatie en integraties binnen het Exact Online ecosysteem, met de precisie van een boetiek.',
+    footerTagline: 'Gespecialiseerde integratiepartner',
+    footerBody: 'Procesoptimalisatie en integraties binnen het Exact Online ecosysteem, met de precisie van een specialist.',
     footerContact: 'Contact',
-    footerOnline: 'Online',
     footerMeet: 'Ontmoet ons',
     footerMeetItems: ['Exact Online Live', 'CFO User Groups', 'Partnerevents'],
     footerCopyright: '© 2026 DataFlowr',
-    footerMotto: 'All You Need is a Premium Partner',
-    footerCompact: '© 2026 DataFlowr · Boutique Exact Online integratiepartner',
+    footerMotto: 'Premium partner van',
+    footerCompact: '© 2026 DataFlowr · Gespecialiseerde Exact Online integratiepartner',
     serviceNavDescriptions: {
       'exact-online-premium': 'Implementatie & partner',
       integraties: 'Systemen & data koppelen',
@@ -89,15 +89,14 @@ export const ui = {
     home: 'Home',
     menu: 'Menu',
     skip: 'Skip to main content',
-    footerTagline: 'Boutique integration partner',
-    footerBody: 'Process optimisation and integrations within the Exact Online ecosystem, with the precision of a boutique.',
+    footerTagline: 'Specialised integration partner',
+    footerBody: 'Process optimisation and integrations within the Exact Online ecosystem, with the precision of a specialist.',
     footerContact: 'Contact',
-    footerOnline: 'Online',
     footerMeet: 'Meet us',
     footerMeetItems: ['Exact Online Live', 'CFO User Groups', 'Partner events'],
     footerCopyright: '© 2026 DataFlowr',
-    footerMotto: 'All You Need is a Premium Partner',
-    footerCompact: '© 2026 DataFlowr · Boutique Exact Online integration partner',
+    footerMotto: 'Premium partner of',
+    footerCompact: '© 2026 DataFlowr · Specialised Exact Online integration partner',
     serviceNavDescriptions: {
       'exact-online-premium': 'Implementation & partner',
       integraties: 'Connect systems & data',

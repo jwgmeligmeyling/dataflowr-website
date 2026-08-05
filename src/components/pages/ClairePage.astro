@@ -7,6 +7,7 @@
  */
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Logo from '../Logo.astro';
+import ClaireMark from '../ClaireMark.astro';
 import { abs, routes, ui, EMAIL_DAAN, type Lang } from '../../lib/site';
 
 interface Props {
@@ -467,7 +468,7 @@ const schema = [
       <!-- chat demo -->
       <div class="chat" data-noselect aria-hidden="true">
         <div class="chat-head">
-          <span class="chat-avatar">C<span class="chat-status"></span></span>
+          <span class="chat-avatar"><ClaireMark size={40} /><span class="chat-status"></span></span>
           <span class="chat-id"><strong>Claire</strong><span>{t.chatRole}</span></span>
           <span class="chat-live">{t.chatLive}</span>
         </div>
@@ -665,7 +666,7 @@ const schema = [
           <div data-ob-panel="1">
             <div class="ob-p1">
               <div class="ob-logos ob-logos--pop">
-                <span class="ob-logo-c" aria-hidden="true">C</span>
+                <span class="ob-logo-c" aria-hidden="true"><ClaireMark size={46} /></span>
                 <span class="ob-dots" aria-hidden="true">···</span>
                 <span class="ob-logo-exact" aria-hidden="true">=exact</span>
               </div>
@@ -681,7 +682,7 @@ const schema = [
           <div data-ob-panel="2" hidden>
             <div class="ob-p2">
               <div class="ob-logos ob-logos--sm">
-                <span class="ob-logo-c ob-logo-c--sm" aria-hidden="true">C</span>
+                <span class="ob-logo-c ob-logo-c--sm" aria-hidden="true"><ClaireMark size={34} /></span>
                 <span class="ob-plus" aria-hidden="true">+</span>
                 <span class="ob-logo-exact ob-logo-exact--sm" aria-hidden="true">=exact</span>
               </div>
@@ -701,7 +702,7 @@ const schema = [
           <div data-ob-panel="3" hidden>
             <div class="ob-p3">
               <div class="ob-logos">
-                <span class="ob-logo-c ob-logo-c--md" aria-hidden="true">C</span>
+                <span class="ob-logo-c ob-logo-c--md" aria-hidden="true"><ClaireMark size={42} /></span>
                 <span class="ob-dots" aria-hidden="true">···</span>
                 <span class="ob-logo-exact ob-logo-exact--md" aria-hidden="true">=exact</span>
               </div>
@@ -719,7 +720,7 @@ const schema = [
                 <span class="ob-toast-body"><strong>{t.ob4ToastTitle}</strong><span>{t.ob4ToastSub}</span></span>
               </div>
               <div class="ob-p4">
-                <span class="ob-logo-c" aria-hidden="true">C</span>
+                <span class="ob-logo-c" aria-hidden="true"><ClaireMark size={46} /></span>
                 <h3>{t.ob4Title}</h3>
                 <p>{t.ob4Body}</p>
                 <div class="ob-suggestions">
@@ -760,7 +761,7 @@ const schema = [
   <!-- ============ CTA ============ -->
   <section id="cta" class="cta">
     <div class="cta-inner">
-      <span class="cta-avatar" aria-hidden="true">C<span class="cta-status"></span></span>
+      <span class="cta-avatar" aria-hidden="true"><ClaireMark size={62} /><span class="cta-status"></span></span>
       <h2>{t.ctaTitle}</h2>
       <p class="cta-sub">{t.ctaSub}</p>
       <div class="cta-btns">
@@ -879,11 +880,6 @@ const schema = [
     flex: none;
     width: 40px;
     height: 40px;
-    border-radius: 50%;
-    background: var(--teal);
-    color: var(--brand);
-    font-weight: 700;
-    font-size: 17px;
     display: grid;
     place-items: center;
   }
@@ -1232,16 +1228,11 @@ const schema = [
     flex: none;
     width: 46px;
     height: 46px;
-    border-radius: 12px;
-    background: linear-gradient(135deg, var(--hl), var(--pos));
-    color: #ffffff;
-    font-weight: 700;
-    font-size: 21px;
     display: grid;
     place-items: center;
   }
-  .ob-logo-c--sm { width: 34px; height: 34px; border-radius: 9px; font-size: 16px; }
-  .ob-logo-c--md { width: 42px; height: 42px; border-radius: 11px; font-size: 19px; }
+  .ob-logo-c--sm { width: 34px; height: 34px; }
+  .ob-logo-c--md { width: 42px; height: 42px; }
   .ob-dots { letter-spacing: 4px; color: var(--muted); }
   .ob-plus { color: var(--muted); font-weight: 600; }
   .ob-logo-exact {
@@ -1403,11 +1394,6 @@ const schema = [
     place-items: center;
     width: 62px;
     height: 62px;
-    border-radius: 50%;
-    background: var(--teal);
-    color: var(--brand);
-    font-weight: 700;
-    font-size: 25px;
     margin-bottom: 22px;
   }
   .cta-status { position: absolute; right: 1px; bottom: 1px; width: 13px; height: 13px; border-radius: 50%; background: var(--ok); border: 2.5px solid var(--brand); }
