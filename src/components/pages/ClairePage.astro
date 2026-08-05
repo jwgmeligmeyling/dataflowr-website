@@ -994,8 +994,28 @@ const schema = [
   }
 
   /* ---------- Q&A praktijk ---------- */
-  .qa { background: var(--bg); border-top: 1px solid var(--line); scroll-margin-top: 80px; }
-  .qa-inner { padding-top: 92px; padding-bottom: 92px; }
+  .qa {
+    position: relative;
+    overflow: hidden;
+    background:
+      radial-gradient(1000px 540px at 88% -5%, color-mix(in srgb, var(--hl) 7%, transparent), transparent 62%),
+      radial-gradient(860px 480px at -8% 110%, color-mix(in srgb, var(--pos) 8%, transparent), transparent 58%),
+      var(--bg);
+    border-top: 1px solid var(--line);
+    scroll-margin-top: 80px;
+  }
+  .qa::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-image: radial-gradient(color-mix(in srgb, var(--brand) 14%, transparent) 1px, transparent 1.4px);
+    background-size: 24px 24px;
+    -webkit-mask-image: radial-gradient(2100px 1100px at 92% 0%, #000 40%, transparent 92%);
+    mask-image: radial-gradient(2100px 1100px at 92% 0%, #000 40%, transparent 92%);
+  }
+  .qa-inner { position: relative; z-index: 1; padding-top: 92px; padding-bottom: 92px; }
   .qa-sub { margin: 0 0 46px; max-width: 680px; font-size: 16px; line-height: 1.7; color: var(--muted); }
   .qa-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(400px, 100%), 1fr)); gap: 16px; }
   .qa-card {
@@ -1006,9 +1026,10 @@ const schema = [
     display: grid;
     gap: 14px;
     align-content: start;
+    box-shadow: 0 8px 28px rgba(13, 27, 39, 0.05);
     transition: transform 0.3s, box-shadow 0.3s;
   }
-  .qa-card:hover { transform: translateY(-3px); box-shadow: 0 16px 44px rgba(13, 27, 39, 0.09); }
+  .qa-card:hover { transform: translateY(-3px); box-shadow: 0 18px 50px rgba(13, 27, 39, 0.1); }
   .qa-cat { font-size: 10.5px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--posText); }
   .qa-q { margin: 0; display: flex; gap: 9px; font-size: 14.5px; line-height: 1.45; font-weight: 500; color: var(--brand); }
   .qa-caret { color: var(--hl); font-weight: 700; }
