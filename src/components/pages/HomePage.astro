@@ -25,7 +25,7 @@ const nl = {
   heroSub:
     'DataFlowr is een integratie- en automatiseringspartner voor Exact Online. Wij verbinden systemen, automatiseren workflows en geven uw finance team grip, in tijd, kosten en controle.',
   heroCta: 'Plan een kennismaking',
-  heroCta2: 'Bekijk onze aanpak',
+  heroCta2: 'Bekijk onze diensten',
   heroNote: '30 minuten · vrijblijvend · u spreekt direct een founder',
   scroll: 'Scroll',
   ticker: ['Exact Online Premium', 'Power BI', 'Smart Closing', 'Mollie', 'Pay.nl', 'Make · iPaaS', 'Camunda', 'Webshops & portalen', 'PSP-reconciliatie', 'API-integraties'],
@@ -64,15 +64,6 @@ const nl = {
   claireCardStatus: 'live in Exact Online',
   claireCardQuote: '"Welke inkoopfacturen staan langer dan 60 dagen open?"',
   claireCardItems: ['Realtime rapportage uit het grootboek', 'Afsluitcontroles op de eerste werkdag', 'Debiteurenbewaking met concept-herinneringen', 'Werkt in Claude, ChatGPT en Copilot'],
-  approachEyebrow: 'Projectaanpak',
-  approachTitle: 'Van quick scan naar draaiende automatisering.',
-  steps: [
-    { num: '01', title: 'Quick Scan', body: 'Huidige processen, volumes, knelpunten en ambitie in kaart brengen.', chip: '1 sessie op locatie' },
-    { num: '02', title: 'Blueprint', body: 'Procesontwerp, KPI-definitie, besluitregels en data- en integratiemapping.', chip: '1–2 weken' },
-    { num: '03', title: 'Delivery', body: 'Agile build sprints. Integratie, workflowconfiguratie, testen en oplevering.', chip: '4–12 weken' },
-    { num: '04', title: 'Maintenance', body: 'Doorlopend beheer, monitoring, optimalisatie en support.', chip: 'Doorlopend' },
-  ],
-  approachNote: 'Servicemodel: projecten, consultancy en doorlopende onderhoudscontracten.',
   ctaTitle: 'Klaar om uw financiële processen te moderniseren?',
   ctaSub: 'Plan een vrijblijvend gesprek van 30 minuten.',
   ctaButton: 'Neem contact op',
@@ -90,7 +81,7 @@ const en: typeof nl = {
   heroSub:
     'DataFlowr is an integration and automation partner for Exact Online. We connect systems, automate workflows and give your finance team grip, on time, cost and control.',
   heroCta: 'Get in touch',
-  heroCta2: 'See how we work',
+  heroCta2: 'View our services',
   heroNote: '30 minutes · no strings · you speak to a founder directly',
   scroll: 'Scroll',
   ticker: ['Exact Online Premium', 'Power BI', 'Smart Closing', 'Mollie', 'Pay.nl', 'Make · iPaaS', 'Camunda', 'Webshops & portals', 'PSP reconciliation', 'API integrations'],
@@ -129,15 +120,6 @@ const en: typeof nl = {
   claireCardStatus: 'live in Exact Online',
   claireCardQuote: '"Which purchase invoices are more than 60 days overdue?"',
   claireCardItems: ['Real-time reporting from the ledger', 'Close checks on the first working day', 'Receivables watch with drafted reminders', 'Works in Claude, ChatGPT and Copilot'],
-  approachEyebrow: 'Project approach',
-  approachTitle: 'From quick scan to running automation.',
-  steps: [
-    { num: '01', title: 'Quick Scan', body: 'Mapping current processes, volumes, bottlenecks and ambition.', chip: '1 on-site session' },
-    { num: '02', title: 'Blueprint', body: 'Process design, KPI definition, decision rules and data & integration mapping.', chip: '1–2 weeks' },
-    { num: '03', title: 'Delivery', body: 'Agile build sprints. Integration, workflow configuration, testing and delivery.', chip: '4–12 weeks' },
-    { num: '04', title: 'Maintenance', body: 'Ongoing management, monitoring, optimisation and support.', chip: 'Ongoing' },
-  ],
-  approachNote: 'Service model: projects, consultancy and ongoing maintenance contracts.',
   ctaTitle: 'Ready to modernise your financial processes?',
   ctaSub: 'Book a no-obligation 30-minute call.',
   ctaButton: 'Get in touch',
@@ -183,7 +165,7 @@ const schema = [
       <p class="hero-sub" data-reveal="160">{t.heroSub}</p>
       <div class="hero-ctas" data-reveal="240">
         <a href={routes.about[lang]} class="btn-signal hero-btn">{t.heroCta}</a>
-        <a href="#aanpak" class="hero-btn2">{t.heroCta2}</a>
+        <a href="#diensten" class="hero-btn2">{t.heroCta2}</a>
       </div>
       <p class="hero-note" data-reveal="320">{t.heroNote}</p>
     </div>
@@ -243,28 +225,6 @@ const schema = [
     </div>
   </section>
 
-  <!-- ============ DIENSTEN ============ -->
-  <section id="diensten" class="services">
-    <div class="wrap services-inner">
-      <p class="eyebrow eyebrow--thin why-eyebrow" data-reveal="0">{t.servicesEyebrow}</p>
-      <h2 data-reveal="80">{t.servicesTitle}</h2>
-      <p class="services-sub" data-reveal="120">{t.servicesSub}</p>
-      <div class="service-list">
-        {t.serviceRows.map((row, i) => (
-          <a href={routes.services[row.key][lang]} class="service-row" data-reveal={String(i * 60)}>
-            <span class="service-num">{String(i + 1).padStart(2, '0')}</span>
-            <div>
-              <h3>{row.title}</h3>
-              <p>{row.body}</p>
-            </div>
-            <span class="service-arrow" aria-hidden="true">→</span>
-          </a>
-        ))}
-      </div>
-      <p class="services-note">{t.servicesNote} <a href="#contact" class="services-note-cta">{t.servicesNoteCta}</a></p>
-    </div>
-  </section>
-
   <!-- ============ CLAIRE (PRODUCT) ============ -->
   <section id="claire" class="claire">
     <div class="nebula claire-nebula" aria-hidden="true"><Logo mode="mark" h={680} /></div>
@@ -292,23 +252,25 @@ const schema = [
     </div>
   </section>
 
-  <!-- ============ AANPAK ============ -->
-  <section id="aanpak" class="approach">
-    <div class="wrap approach-inner">
-      <p class="eyebrow eyebrow--thin why-eyebrow" data-reveal="0">{t.approachEyebrow}</p>
-      <h2 data-reveal="80">{t.approachTitle}</h2>
-      <div class="steps">
-        {t.steps.map((step, i) => (
-          <div class="step" data-reveal={String(i * 90)}>
-            <div class="step-rail"><span class="step-node"></span><span class={`step-line ${i === 3 ? 'step-line--last' : ''}`}></span></div>
-            <span class="step-num">{step.num}</span>
-            <h3>{step.title}</h3>
-            <p>{step.body}</p>
-            <span class="step-chip">{step.chip}</span>
-          </div>
+  <!-- ============ DIENSTEN ============ -->
+  <section id="diensten" class="services">
+    <div class="wrap services-inner">
+      <p class="eyebrow eyebrow--thin why-eyebrow" data-reveal="0">{t.servicesEyebrow}</p>
+      <h2 data-reveal="80">{t.servicesTitle}</h2>
+      <p class="services-sub" data-reveal="120">{t.servicesSub}</p>
+      <div class="service-list">
+        {t.serviceRows.map((row, i) => (
+          <a href={routes.services[row.key][lang]} class="service-row" data-reveal={String(i * 60)}>
+            <span class="service-num">{String(i + 1).padStart(2, '0')}</span>
+            <div>
+              <h3>{row.title}</h3>
+              <p>{row.body}</p>
+            </div>
+            <span class="service-arrow" aria-hidden="true">→</span>
+          </a>
         ))}
       </div>
-      <p class="approach-note">{t.approachNote}</p>
+      <p class="services-note">{t.servicesNote} <a href="#contact" class="services-note-cta">{t.servicesNoteCta}</a></p>
     </div>
   </section>
 
@@ -455,7 +417,7 @@ const schema = [
   }
   .why-head-main { flex: 1 1 480px; min-width: 0; }
   .why-eyebrow { color: color-mix(in srgb, var(--hl) 85%, var(--brand)); margin-bottom: 18px; gap: 14px; }
-  .why h2, .services h2, .approach h2 {
+  .why h2, .services h2 {
     margin: 0;
     max-width: 680px;
     font-size: clamp(38px, 4vw, 54px);
@@ -575,8 +537,8 @@ const schema = [
   .claire-nebula { position: absolute; right: -140px; top: -190px; filter: blur(120px) saturate(1.15); opacity: 0.4; --logoBase: transparent; }
   .claire-inner {
     position: relative;
-    padding-top: 110px;
-    padding-bottom: 110px;
+    padding-top: 72px;
+    padding-bottom: 72px;
     display: grid;
     grid-template-columns: 1.1fr 460px;
     gap: 60px;
@@ -643,38 +605,6 @@ const schema = [
   .claire-card-items { display: grid; gap: 10px; }
   .claire-card-items > span { display: flex; align-items: center; gap: 10px; font-size: 13px; }
   .claire-card-items .dot { margin-top: 0; }
-
-  /* ---------- Aanpak ---------- */
-  .approach { scroll-margin-top: 80px; }
-  .approach-inner { padding-top: 120px; padding-bottom: 120px; }
-  .approach h2 { margin-bottom: 64px; max-width: 720px; }
-  .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 40px; }
-  .step { display: flex; flex-direction: column; gap: 12px; }
-  .step-rail { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
-  .step-node {
-    flex: none;
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    border: 2px solid var(--hl);
-    background: color-mix(in srgb, var(--hl) 20%, transparent);
-  }
-  .step-line { flex: 1; height: 1px; background: color-mix(in srgb, var(--brand) 14%, transparent); }
-  .step-line--last { background: transparent; }
-  .step-num { font-size: 46px; font-weight: 300; line-height: 1; color: var(--hl); }
-  .step h3 { margin: 4px 0 0; font-size: 19px; font-weight: 700; }
-  .step p { margin: 0; flex: 1; font-size: 14.5px; line-height: 1.65; color: var(--muted); }
-  .step-chip {
-    align-self: flex-start;
-    font-size: 11.5px;
-    font-weight: 500;
-    letter-spacing: 0.08em;
-    padding: 6px 13px;
-    border-radius: 99px;
-    border: 1px solid color-mix(in srgb, var(--hl) 40%, transparent);
-    color: color-mix(in srgb, var(--hl) 85%, var(--brand));
-  }
-  .approach-note { margin: 40px 0 0; font-size: 14px; color: var(--muted); }
 
   /* ---------- CTA ---------- */
   .cta {
