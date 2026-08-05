@@ -1,0 +1,16 @@
+{
+  "name": "dataflowr-website",
+  "version": "1.0.0",
+  "description": "DataFlowr marketing website - boutique Exact Online Premium integration partner",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.7.3",
+    "astro": "^7.1.6"
+  }
+}

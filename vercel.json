@@ -1,0 +1,11 @@
+{
+  "redirects": [
+    { "source": "/services/premium", "destination": "/diensten/exact-online-premium", "permanent": true },
+    { "source": "/services/integrations", "destination": "/diensten/integraties", "permanent": true },
+    { "source": "/services/make", "destination": "/diensten/make", "permanent": true },
+    { "source": "/services/mcp", "destination": "/claire", "permanent": true },
+    { "source": "/services/camunda", "destination": "/diensten/camunda", "permanent": true },
+    { "source": "/services/rpa", "destination": "/diensten/rpa", "permanent": true },
+    { "source": "/services/training", "destination": "/diensten/training", "permanent": true }
+  ]
+}

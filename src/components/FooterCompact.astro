@@ -1,0 +1,38 @@
+---
+/** Compact footer (article + about pages). */
+import Logo from './Logo.astro';
+import { ui, type Lang } from '../lib/site';
+
+interface Props {
+  lang: Lang;
+  /** Article variant sits on white with a --line border. */
+  tone?: 'bg' | 'white';
+}
+const { lang, tone = 'bg' } = Astro.props;
+const t = ui[lang];
+---
+<footer class={`compact compact--${tone}`}>
+  <div class="wrap inner">
+    <span class="lockup"><Logo mode="mark" h={20} /><span class="name">DataFlowr</span></span>
+    <p class="legal">{t.footerCompact}</p>
+  </div>
+</footer>
+
+<style>
+  .compact--bg { border-top: 1px solid color-mix(in srgb, var(--brand) 9%, transparent); }
+  .compact--white { border-top: 1px solid var(--line); background: #ffffff; }
+  .inner {
+    padding-top: 28px;
+    padding-bottom: 28px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 12.5px;
+    color: var(--muted);
+  }
+  .lockup { display: flex; align-items: center; gap: 9px; }
+  .name { font-weight: 600; color: var(--brand); }
+  .legal { margin: 0; }
+</style>

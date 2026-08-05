@@ -1,0 +1,172 @@
+---
+/** About page — implementation of "Over ons.dc.html". */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { abs, routes, ui, EMAIL_DAAN, EMAIL_JANWILLEM, type Lang } from '../../lib/site';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const other: Lang = lang === 'nl' ? 'en' : 'nl';
+
+const nl = {
+  metaTitle: 'Over ons, twee consultants uit de praktijk',
+  metaDescription:
+    'DataFlowr is opgericht door Daan Jansen (financial control & consultancy) en Jan-Willem Gmelig Meyling (solution architect & software engineer). Samen één doel: bedrijven efficiënter laten werken door financiële automatisering.',
+  eyebrow: 'Over ons',
+  title: 'Twee consultants uit de praktijk.',
+  intro:
+    'Allebei een andere achtergrond, samen de perfecte match. Ontmoet in de consultancy, krachten gebundeld in 2025 · met één doel: bedrijven efficiënter laten werken door financiële automatisering.',
+  daanRole: 'Co-founder · Financial Consultant',
+  daanBio:
+    'Achtergrond in financial control en consultancy. Kent financiële processen, rapportage-eisen en governance van binnenuit, en weet precies waar het knelt in closing, facturatie en reconciliatie.',
+  daanSlot: 'Foto Daan',
+  jwRole: 'Co-founder · Solution Architect',
+  jwBio:
+    'Solution architect en software engineer. Bouwt integraties, workflows en AI-oplossingen, met ervaring in het opschalen van development teams en tech-gedreven transformaties.',
+  jwSlot: 'Foto Jan-Willem',
+  outro: 'Benieuwd wat we voor uw organisatie kunnen betekenen? We denken graag vrijblijvend mee.',
+  cta: 'Plan een kennismaking',
+};
+
+const en: typeof nl = {
+  metaTitle: 'About us, two consultants from practice',
+  metaDescription:
+    'DataFlowr was founded by Daan Jansen (financial control & consultancy) and Jan-Willem Gmelig Meyling (solution architect & software engineer). One shared goal: helping companies work more efficiently through financial automation.',
+  eyebrow: 'About us',
+  title: 'Two consultants from practice.',
+  intro:
+    'Different backgrounds, together the perfect match. We met in consultancy and joined forces in 2025 · with one goal: helping companies work more efficiently through financial automation.',
+  daanRole: 'Co-founder · Financial Consultant',
+  daanBio:
+    'Background in financial control and consultancy. Knows financial processes, reporting requirements and governance from the inside, and knows exactly where it pinches in closing, invoicing and reconciliation.',
+  daanSlot: 'Photo Daan',
+  jwRole: 'Co-founder · Solution Architect',
+  jwBio:
+    'Solution architect and software engineer. Builds integrations, workflows and AI solutions, with experience scaling development teams and tech-driven transformations.',
+  jwSlot: 'Photo Jan-Willem',
+  outro: 'Curious what we could mean for your organisation? We are happy to think along, no strings attached.',
+  cta: 'Get in touch',
+};
+
+const t = lang === 'nl' ? nl : en;
+const path = routes.about[lang];
+const altPath = routes.about[other];
+
+const schema = [
+  {
+    '@type': 'AboutPage',
+    '@id': abs(`${path}#page`),
+    url: abs(path),
+    name: t.metaTitle,
+    description: t.metaDescription,
+    about: { '@id': abs('/#organization') },
+  },
+];
+---
+<BaseLayout
+  lang={lang}
+  title={t.metaTitle}
+  description={t.metaDescription}
+  path={path}
+  altPath={altPath}
+  navVariant="solid"
+  ctaHref={`mailto:${EMAIL_DAAN}`}
+  footer="compact-bg"
+  schema={schema}
+>
+  <section class="wrap about">
+    <p class="eyebrow eyebrow--thin about-eyebrow">{t.eyebrow}</p>
+    <h1>{t.title}</h1>
+    <p class="intro">{t.intro}</p>
+    <div class="founders">
+      <div class="founder">
+        <div class="founder-photo">
+          <div class="img-slot img-slot--rounded" role="img" aria-label={t.daanSlot}>{t.daanSlot}</div>
+        </div>
+        <div class="founder-body">
+          <h2>Daan Jansen</h2>
+          <p class="founder-role">{t.daanRole}</p>
+          <p class="founder-bio">{t.daanBio}</p>
+          <a href={`mailto:${EMAIL_DAAN}`} class="founder-mail">{EMAIL_DAAN}</a>
+        </div>
+      </div>
+      <div class="founder">
+        <div class="founder-photo">
+          <div class="img-slot img-slot--rounded" role="img" aria-label={t.jwSlot}>{t.jwSlot}</div>
+        </div>
+        <div class="founder-body">
+          <h2>Jan-Willem Gmelig Meyling</h2>
+          <p class="founder-role">{t.jwRole}</p>
+          <p class="founder-bio">{t.jwBio}</p>
+          <a href={`mailto:${EMAIL_JANWILLEM}`} class="founder-mail">{EMAIL_JANWILLEM}</a>
+        </div>
+      </div>
+    </div>
+    <div class="outro">
+      <p>{t.outro}</p>
+      <a href={`${routes.home[lang]}#contact`} class="outro-cta">{t.cta}</a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .about { padding-top: 96px; padding-bottom: 110px; }
+  .about-eyebrow { color: color-mix(in srgb, var(--hl) 85%, var(--brand)); margin-bottom: 18px; gap: 14px; }
+  h1 {
+    margin: 0 0 22px;
+    font-size: clamp(40px, 4.5vw, 58px);
+    line-height: 1.06;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    text-wrap: balance;
+  }
+  .intro { margin: 0 0 56px; max-width: 720px; font-size: 16.5px; line-height: 1.7; color: var(--muted); text-wrap: pretty; }
+  .founders { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(400px, 100%), 1fr)); gap: 20px; }
+  .founder {
+    background: #ffffff;
+    border: 1px solid color-mix(in srgb, var(--brand) 9%, transparent);
+    border-radius: 20px;
+    padding: 30px;
+    display: flex;
+    gap: 24px;
+    align-items: flex-start;
+    transition: transform 0.35s, box-shadow 0.35s;
+  }
+  .founder:hover { transform: translateY(-3px); box-shadow: 0 18px 50px color-mix(in srgb, var(--brand) 10%, transparent); }
+  .founder-photo { flex: none; width: 118px; height: 148px; }
+  .founder-body { min-width: 0; }
+  .founder h2 { margin: 0 0 4px; font-size: 20px; font-weight: 700; }
+  .founder-role {
+    margin: 0 0 12px;
+    font-size: 11.5px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: color-mix(in srgb, var(--hl) 85%, var(--brand));
+  }
+  .founder-bio { margin: 0 0 14px; font-size: 14.5px; line-height: 1.65; color: var(--muted); }
+  .founder-mail { font-size: 13.5px; font-weight: 700; }
+  .outro {
+    margin-top: 64px;
+    padding-top: 44px;
+    border-top: 1px solid color-mix(in srgb, var(--brand) 9%, transparent);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .outro p { margin: 0; max-width: 560px; font-size: 16px; line-height: 1.6; color: var(--muted); text-wrap: pretty; }
+  .outro-cta {
+    white-space: nowrap;
+    background: var(--signal);
+    color: var(--signalText);
+    font-weight: 700;
+    font-size: 14px;
+    padding: 14px 26px;
+    border-radius: 99px;
+    box-shadow: 0 10px 30px color-mix(in srgb, var(--signal) 30%, transparent);
+  }
+  .outro-cta:hover { filter: brightness(1.06); color: var(--signalText); }
+</style>

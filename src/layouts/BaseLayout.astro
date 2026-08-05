@@ -1,0 +1,140 @@
+---
+/**
+ * Base layout: SEO head (canonical, hreflang, Open Graph, JSON-LD),
+ * fonts, global styles, nav and footer.
+ */
+import '../styles/global.css';
+import SiteNav from '../components/SiteNav.astro';
+import FooterFull from '../components/FooterFull.astro';
+import FooterCompact from '../components/FooterCompact.astro';
+import {
+  abs,
+  SITE_NAME,
+  LINKEDIN_URL,
+  CALENDLY_URL,
+  EMAIL_DAAN,
+  EMAIL_JANWILLEM,
+  ui,
+  type Lang,
+} from '../lib/site';
+
+interface Props {
+  lang: Lang;
+  title: string;
+  description: string;
+  /** Path of this page (NL variant) and its EN alternate, for canonical + hreflang. */
+  path: string;
+  altPath: string;
+  navVariant?: 'overlay' | 'solid';
+  ctaHref?: string;
+  footer?: 'full' | 'compact-bg' | 'compact-white' | 'none';
+  ogType?: 'website' | 'article';
+  /** Additional page-specific JSON-LD blocks. */
+  schema?: Record<string, unknown>[];
+}
+const {
+  lang,
+  title,
+  description,
+  path,
+  altPath,
+  navVariant = 'solid',
+  ctaHref,
+  footer = 'full',
+  ogType = 'website',
+  schema = [],
+} = Astro.props;
+
+const t = ui[lang];
+const canonical = abs(path);
+const alternate = abs(altPath);
+const nlUrl = lang === 'nl' ? canonical : alternate;
+const enUrl = lang === 'en' ? canonical : alternate;
+const fullTitle = title.includes(SITE_NAME) ? title : `${title} | ${SITE_NAME}`;
+const ogImage = abs('/og/og-default.png');
+
+const organization = {
+  '@type': 'Organization',
+  '@id': abs('/#organization'),
+  name: SITE_NAME,
+  url: abs('/'),
+  logo: abs('/og/logo-mark.png'),
+  description:
+    lang === 'nl'
+      ? 'Boutique Exact Online Premium integratiepartner en hyperautomation consultancy. Integraties, workflow-orkestratie, RPA, training en Claire, de AI-laag boven op Exact Online.'
+      : 'Boutique Exact Online Premium integration partner and hyperautomation consultancy. Integrations, workflow orchestration, RPA, training and Claire, the AI layer on top of Exact Online.',
+  sameAs: [LINKEDIN_URL],
+  email: EMAIL_DAAN,
+  areaServed: 'NL',
+  founder: [
+    { '@type': 'Person', name: 'Daan Jansen', jobTitle: 'Co-founder · Financial Consultant', email: `mailto:${EMAIL_DAAN}` },
+    { '@type': 'Person', name: 'Jan-Willem Gmelig Meyling', jobTitle: 'Co-founder · Solution Architect', email: `mailto:${EMAIL_JANWILLEM}` },
+  ],
+  contactPoint: {
+    '@type': 'ContactPoint',
+    contactType: 'sales',
+    email: EMAIL_DAAN,
+    url: CALENDLY_URL,
+    availableLanguage: ['nl', 'en'],
+  },
+};
+
+const website = {
+  '@type': 'WebSite',
+  '@id': abs('/#website'),
+  url: abs('/'),
+  name: SITE_NAME,
+  publisher: { '@id': abs('/#organization') },
+  inLanguage: ['nl-NL', 'en'],
+};
+
+const jsonLd = { '@context': 'https://schema.org', '@graph': [organization, website, ...schema] };
+---
+<!doctype html>
+<html lang={lang === 'nl' ? 'nl-NL' : 'en'}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang="nl" href={nlUrl} />
+    <link rel="alternate" hreflang="en" href={enUrl} />
+    <link rel="alternate" hreflang="x-default" href={nlUrl} />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta name="theme-color" content="#0D1B27" />
+    <meta name="generator" content={Astro.generator} />
+
+    <meta property="og:site_name" content={SITE_NAME} />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content={lang === 'nl' ? 'nl_NL' : 'en_US'} />
+    <meta property="og:locale:alternate" content={lang === 'nl' ? 'en_US' : 'nl_NL'} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600;700;800&display=swap" />
+
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  </head>
+  <body>
+    <a href="#main" class="skip-link">{t.skip}</a>
+    <SiteNav lang={lang} variant={navVariant} ctaHref={ctaHref ?? `mailto:${EMAIL_DAAN}`} altHref={altPath} />
+    <main id="main">
+      <slot />
+    </main>
+    {footer === 'full' && <FooterFull lang={lang} />}
+    {footer === 'compact-bg' && <FooterCompact lang={lang} tone="bg" />}
+    {footer === 'compact-white' && <FooterCompact lang={lang} tone="white" />}
+  </body>
+</html>

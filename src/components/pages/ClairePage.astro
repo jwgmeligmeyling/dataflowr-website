@@ -1,0 +1,1419 @@
+---
+/**
+ * Claire product page — implementation of "Claire.dc.html".
+ * Hero chat demo, AI-assistant band, Q&A practice cards, capabilities,
+ * month-end close feature, security, interactive onboarding flow,
+ * three ways to use Claire, CTA.
+ */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Logo from '../Logo.astro';
+import { abs, routes, ui, EMAIL_DAAN, type Lang } from '../../lib/site';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const other: Lang = lang === 'nl' ? 'en' : 'nl';
+const startId = lang === 'nl' ? 'aan-de-slag' : 'get-started';
+
+type Chip = 'ok' | 'warn' | null;
+interface Cell { text: string; chip?: Chip }
+interface QaCard {
+  cat: string;
+  q: string;
+  tableTitle?: string;
+  cols: { label: string; align: 'left' | 'right' }[];
+  rows: Cell[][];
+  note?: string;
+}
+
+const nl = {
+  metaTitle: 'Claire, AI in uw Exact Online administratie',
+  metaDescription:
+    'Claire is de AI-collega van DataFlowr. Veilig gekoppeld aan Exact Online beantwoordt ze cijfervragen, bereidt de maandafsluiting voor en bewaakt uw debiteuren. Werkt in Claude, ChatGPT en Copilot. Binnen een dag live.',
+  heroEyebrow: 'De AI-collega van DataFlowr',
+  heroTitlePre: 'Maak kennis met ',
+  heroTitlePost: '.',
+  heroLead1: 'Claire praat niet alleen over uw administratie. ',
+  heroLead2: 'Ze werkt erin.',
+  heroSub:
+    'Veilig gekoppeld aan Exact Online haalt Claire cijfers op, zet werk klaar en bewaakt uw processen, van openstaande facturen tot maandafsluiting.',
+  heroCta: 'Verbind Exact Online',
+  heroCta2: 'Plan een kennismaking',
+  heroNote1: 'Binnen een dag live',
+  heroNote2: 'gebouwd op MCP, de open standaard',
+  chatRole: 'Financieel assistent · online',
+  chatLive: 'Live in uw administratie',
+  chatQ: 'Claire, hoe staan we ervoor met de openstaande facturen?',
+  chatA1a: 'Goedemorgen! Ik keek net in uw administratie: er staan ',
+  chatA1b: '14 facturen open, samen €48.200',
+  chatA1c: '. Drie daarvan zijn ouder dan 60 dagen.',
+  chatWorkTitle: 'Claire werkte in uw administratie',
+  chatWork: ['Openstaande debiteuren opgehaald', 'Ouderdomsanalyse opgesteld'],
+  chatWorkPending: 'Concept-herinneringen klaargezet',
+  chatWorkPendingState: 'wacht op akkoord',
+  chatA2: 'Zal ik de drie oudste een vriendelijke herinnering sturen?',
+  chatBtnYes: 'Ja, verstuur ze',
+  chatBtnNo: 'Eerst bekijken',
+  bandLabel: 'Claire werkt in uw eigen AI-assistent',
+  bandNote: 'of elke MCP-client · wisselen kan altijd',
+  challengeEyebrow: 'De uitdaging',
+  challengeTitle: 'De cijfers bestaan al. Ze zijn alleen moeilijk bereikbaar.',
+  challengeBody:
+    'In Exact Online is elk antwoord tien klikken verderop, als u het snelste pad kent. En bij de volgende vraag begint hetzelfde proces van exports, draaitabellen en overtypwerk opnieuw. Meer mensen aannemen lost dit zelden op: het werk is niet te veel, het werk is te handmatig.',
+  doCards: [
+    { quote: '"Claire, wie moet er nog betalen?"', title: 'Debiteurenbewaking', body: 'Ze bewaakt openstaande posten, stelt ouderdomsanalyses op en zet herinneringen klaar, of stuurt ze op schema.' },
+    { quote: '"Claire, bereid de maandafsluiting voor."', title: 'Maandafsluiting', body: 'Ze loopt de checklist na, signaleert ontbrekende boekingen en levert een afsluiting op die klaar is voor controle.' },
+    { quote: '"Claire, hoe ziet Q4 eruit?"', title: 'Rapportage & prognose', body: 'Ze beantwoordt cijfervragen in gewone taal en onderbouwt elk antwoord met data rechtstreeks uit uw boekhouding.' },
+  ],
+  praktijkEyebrow: 'Bekijk het in actie',
+  praktijkTitle: 'Stel de vraag zoals u die aan een collega zou stellen.',
+  praktijkSub:
+    'Claire haalt de actuele cijfers rechtstreeks uit Exact Online en antwoordt als tekst, tabel of overzichtskaart, direct in het gesprek.',
+  praktijkDisclaimer: 'Voorbeelden uit onze demo-omgeving; bedragen en namen zijn fictief.',
+  qaCards: [
+    {
+      cat: 'Maandafsluiting',
+      q: 'Voer mijn afsluitcontroles voor juni uit',
+      tableTitle: 'Afsluitcontrole · jun 2026',
+      cols: [{ label: 'Controle', align: 'left' }, { label: 'Resultaat', align: 'left' }],
+      rows: [
+        [{ text: 'Beginbalansen sluiten aan' }, { text: '✓ Gecheckt', chip: 'ok' }],
+        [{ text: 'Tussenrekeningen leeg' }, { text: '⚠ 3 posten', chip: 'warn' }],
+        [{ text: 'Subadministraties sluiten aan' }, { text: '✓ Gecheckt', chip: 'ok' }],
+        [{ text: 'Btw-codes consistent' }, { text: '✓ Gecheckt', chip: 'ok' }],
+      ],
+      note: '1 punt vraagt uw beoordeling. Correcties pas na uw akkoord.',
+    },
+    {
+      cat: 'Rapportage',
+      q: 'Toon mijn winst-en-verliesrekening tegen vorig jaar',
+      cols: [{ label: '', align: 'left' }, { label: '2026', align: 'right' }, { label: '2025', align: 'right' }, { label: 'Δ', align: 'right' }],
+      rows: [
+        [{ text: 'Omzet' }, { text: '€4.128.400' }, { text: '€3.701.900' }, { text: '+11,5%' }],
+        [{ text: 'Brutomarge' }, { text: '€1.735.200' }, { text: '€1.612.300' }, { text: '+7,6%' }],
+        [{ text: 'Bedrijfslasten' }, { text: '€1.114.800' }, { text: '€944.100' }, { text: '+18,1%' }],
+        [{ text: 'Nettoresultaat' }, { text: '€620.400' }, { text: '€668.200' }, { text: '−7,2%' }],
+      ],
+    },
+    {
+      cat: 'Debiteuren',
+      q: 'Toon alle openstaande verkoopfacturen',
+      cols: [{ label: 'Factuur', align: 'left' }, { label: 'Klant', align: 'left' }, { label: 'Bedrag', align: 'right' }, { label: 'Dagen', align: 'right' }],
+      rows: [
+        [{ text: 'VK-2026-214' }, { text: 'Acme Group' }, { text: '€22.480' }, { text: '18' }],
+        [{ text: 'VK-2026-198' }, { text: 'Helder BV' }, { text: '€8.950' }, { text: '34' }],
+        [{ text: 'VK-2026-167' }, { text: 'Van Dijk Techniek' }, { text: '€18.200' }, { text: '94' }],
+      ],
+      note: '14 facturen open, samen €48.200. Herinneringen klaargezet.',
+    },
+    {
+      cat: 'Analyse',
+      q: 'Wie zijn mijn top klanten op omzet dit kwartaal?',
+      cols: [{ label: '#', align: 'left' }, { label: 'Klant', align: 'left' }, { label: 'Omzet', align: 'right' }],
+      rows: [
+        [{ text: '1' }, { text: 'Acme Group' }, { text: '€642.900' }],
+        [{ text: '2' }, { text: 'Nordwerk Supply' }, { text: '€418.150' }],
+        [{ text: '3' }, { text: 'Helder BV' }, { text: '€310.400' }],
+        [{ text: '4' }, { text: 'Tech Solutions' }, { text: '€288.700' }],
+      ],
+      note: 'Samen 41% van de kwartaalomzet, een concentratie om te volgen.',
+    },
+    {
+      cat: 'Cashflow',
+      q: 'Hoe staat onze cash-runway ervoor?',
+      cols: [{ label: 'Kengetal', align: 'left' }, { label: 'Nu', align: 'right' }, { label: 'Status', align: 'right' }],
+      rows: [
+        [{ text: 'Liquide middelen' }, { text: '€1.840.000' }, { text: '✓ Gezond', chip: 'ok' }],
+        [{ text: 'Burn rate p/m' }, { text: '€142.000' }, { text: '✓ Stabiel', chip: 'ok' }],
+        [{ text: 'Runway' }, { text: '12,9 mnd' }, { text: '✓ > 12 mnd', chip: 'ok' }],
+        [{ text: 'DSO' }, { text: '46 dagen' }, { text: '⚠ was 52', chip: 'warn' }],
+      ],
+    },
+    {
+      cat: 'Voorraad',
+      q: 'Welke artikelen raken bijna uit voorraad?',
+      cols: [{ label: 'Artikel', align: 'left' }, { label: 'Voorraad', align: 'right' }, { label: 'Gebruik p/d', align: 'right' }, { label: 'Dagen', align: 'right' }],
+      rows: [
+        [{ text: 'Widget A' }, { text: '48' }, { text: '5,2' }, { text: '9' }],
+        [{ text: 'Connector B' }, { text: '72' }, { text: '5,1' }, { text: '14' }],
+        [{ text: 'Kabel C' }, { text: '96' }, { text: '4,4' }, { text: '22' }],
+      ],
+      note: 'Besteladvies klaargezet voor de twee snelst lopende artikelen.',
+    },
+  ] as QaCard[],
+  capsEyebrow: 'Kernmogelijkheden',
+  capsTitle: 'Eén gesprek, de hele administratie.',
+  capsSub:
+    'Claire ontsluit vrijwel elk onderdeel van Exact Online, in het gesprek én autonoom volgens schema. Vier gebieden waar dat direct waarde oplevert.',
+  caps: [
+    { title: 'Rapportage & inzicht', items: ['Realtime balans, W&V en kasstroom, tot op de grootboekrekening', 'KPI-stoplicht: DSO, werkkapitaal, runway met signalering', 'Herleidbaar: elk antwoord toont de brongegevens'] },
+    { title: 'Financiële processen', items: ['Verkoop & facturatie: van offerte tot factuur', 'Inkoop & crediteuren: facturen en openstaande betalingen', 'Boekingen: ze controleert memorialen en stelt correcties voor'] },
+    { title: 'Klanten & projecten', items: ['CRM: klanten, leveranciers, verkoopkansen en offertes', 'Projecten & uren: budgetten, planning, tijdregistratie', 'In beeld: interactieve tabellen en kaarten in het gesprek'] },
+    { title: 'Monitoring & signalering', items: ['Autonoom volgens schema: afsluitcontroles, wekelijkse overzichten', 'Debiteurenbewaking: signaleert achterstand, zet herinnering klaar', 'Rust: u hoort het pas als er iets van u nodig is'] },
+  ],
+  closeEyebrow: 'Uitgelicht',
+  closeTitle: 'De AI-gestuurde maandafsluiting.',
+  closeSub:
+    'De maandafsluiting is waar controle en tijdsdruk botsen. Claire is dat extra paar ogen dat elke maand naar dezelfde administratie kijkt, een vaste reeks deterministische controles, en onderzoek naar wat opvalt.',
+  closeSteps: [
+    { kicker: '01 · VAST', title: 'Controleren', body: 'Een vaste reeks afsluitcontroles draait op uw administratie.' },
+    { kicker: '02 · ANALYSE', title: 'Onderzoeken', body: 'Afwijkingen worden uitgezocht en boekingen gescand op posten die om een oordeel vragen.' },
+    { kicker: '03 · RAPPORT', title: 'Rapporteren', body: 'U ontvangt een close-readiness rapport met bevindingen en aanbevelingen.' },
+    { kicker: '04 · U BESLIST', title: 'Beoordelen', body: 'U beoordeelt elke bevinding; correcties pas na uw akkoord.' },
+  ],
+  secEyebrow: 'Veiligheid & beheer',
+  secTitle: 'Een beheerd product, geen losse scripts.',
+  secCardTitle: 'Lezen vrij, schrijven na akkoord',
+  secCardBody:
+    'Claire leest en rekent zelfstandig, maar schrijft nooit ongevraagd: elke wijziging staat klaar als voorstel en wacht op uw akkoord.',
+  secProposalLabel: 'Voorstel · wacht op uw akkoord',
+  secProposalBody: 'Betalingsherinnering versturen, Van Dijk Techniek · VK-2026-167 · €18.200',
+  secApprove: '✓ Goedkeuren',
+  secNotNow: 'Nu niet',
+  secItems: [
+    { title: 'Toegang per gebruiker', body: 'Iedereen koppelt met zijn eigen Exact Online-account en kan precies wat hij daar mag, niets meer. Elke actie wordt onder de eigen gebruiker gelogd.' },
+    { title: 'Geen schaduwkopie', body: 'Uw data blijft in Exact Online. Claire haalt per vraag alleen op wat nodig is; er ontstaat geen kopie in een extern platform.' },
+    { title: 'Onderhoud is ons werk', body: 'Wijzigingen in de Exact Online-API en nieuwe functionaliteit zijn ons probleem, niet het uwe. Centraal beheerd, met een stabiele interface.' },
+  ],
+  obEyebrow: 'Aan de slag',
+  obTitle: 'Live in drie klikken.',
+  obSub:
+    'Geen implementatietraject. Uw koppelintentie reist mee door het inloggen heen, dus u komt precies terug waar u was. Klik de flow hieronder door.',
+  obSteps: ['Koppeling', 'Inloggen', 'Toestemming', 'Klaar'],
+  obUrls: ['dataflowr.nl/claire', 'dataflowr.nl/login?returnTo=%2Fclaire%2Fstart', 'dataflowr.nl/claire/start', 'dataflowr.nl/claire/chat'],
+  ob1Title: 'Koppel Exact Online aan Claire',
+  ob1Body: 'Eén knop, geen omwegen. De koppeling start direct; registreren gebeurt onderweg, in dezelfde stap.',
+  ob1Btn: 'Koppel Exact Online →',
+  ob1Checks: ['Gratis starten', 'Klaar in 2 minuten', 'Claire boekt niets zonder uw akkoord'],
+  ob2Title: 'Nog één stap: log in om Exact Online te koppelen',
+  ob2Body: 'Uw account bewaart de koppeling en uw gesprekken. Registreren gaat in dezelfde stap; u komt hierna direct terug bij deze koppeling.',
+  ob2ContinuePre: 'U gaat verder met: ',
+  ob2ContinueStrong: 'Exact Online koppelen aan Claire',
+  ob2Btn: 'Inloggen of registreren →',
+  ob2Checks: ['Geen creditcard', 'Claire leest alleen mee'],
+  ob3Title: 'Welkom terug. We gaan verder waar u was.',
+  ob3Body: 'U wordt doorgestuurd naar Exact Online om de koppeling goed te keuren. Daarna staat Claire voor u klaar.',
+  ob3NothingPre: 'Gebeurt er niets? ',
+  ob3Btn: 'Doorgaan naar Exact Online →',
+  ob4ToastTitle: 'Exact Online gekoppeld',
+  ob4ToastSub: 'Acme Holding B.V. · 3 administraties gevonden',
+  ob4Title: 'Waarmee kan ik u helpen?',
+  ob4Body: 'Ik kijk mee in Acme Nederland. Stel uw vraag, of kies hieronder.',
+  ob4Sug1Title: 'Hoe staat de omzet ervoor?',
+  ob4Sug1Sub: 'Deze maand versus vorige maand, per klant',
+  ob4Sug2Title: 'Welke facturen staan open?',
+  ob4Sug2Sub: 'Openstaande debiteuren, gesorteerd op ouderdom',
+  ob4Input: 'Stel uw vraag aan Claire...',
+  ob4Restart: '↺ Opnieuw bekijken',
+  obFoot1: 'Beveiligde OAuth · geen schaduwkopie · maandelijks opzegbaar',
+  obFoot2: 'Liever samen doorlopen? Plan een kennismaking van 30 minuten en we zetten het samen op.',
+  waysTitle: 'Drie manieren om Claire in te zetten.',
+  ways: [
+    { title: 'Interactief', body: 'Open uw AI-assistent en stel een vraag over uw boekhouding in gewone taal.', quote: '"Welke inkoopfacturen staan langer dan 60 dagen open?"' },
+    { title: 'Autonoom', body: 'Een agent voert volgens planning zelfstandig werk uit en meldt zich alleen wanneer er iets van u nodig is.', quote: '"Elke eerste werkdag: voer mijn afsluitcontroles uit en stuur de actielijst."' },
+    { title: 'Geïntegreerd', body: 'Gebruik de connector in Make, n8n of Zapier als bouwsteen in uw automatiseringen.', quote: '"Controleer elke binnenkomende factuur en markeer dubbele in #finance."' },
+  ],
+  ctaTitle: 'Claire kan volgende week bij u beginnen.',
+  ctaSub: 'Plan een kennismaking van 30 minuten, u spreekt direct een founder.',
+  ctaBtn: 'Plan een kennismaking',
+  ctaBtn2: 'Zelf Exact Online verbinden',
+};
+
+const en: typeof nl = {
+  metaTitle: 'Claire, AI in your Exact Online administration',
+  metaDescription:
+    "Claire is DataFlowr's AI colleague. Securely connected to Exact Online, she answers questions about your figures, prepares the month-end close and watches your receivables. Works in Claude, ChatGPT and Copilot. Live within a day.",
+  heroEyebrow: 'The AI colleague from DataFlowr',
+  heroTitlePre: 'Meet ',
+  heroTitlePost: '.',
+  heroLead1: "Claire doesn't just talk about your books. ",
+  heroLead2: 'She works in them.',
+  heroSub:
+    'Securely connected to Exact Online, Claire retrieves figures, prepares work and monitors your processes, from outstanding invoices to the month-end close.',
+  heroCta: 'Connect Exact Online',
+  heroCta2: 'Get in touch',
+  heroNote1: 'Live within a day',
+  heroNote2: 'built on MCP, the open standard',
+  chatRole: 'Financial assistant · online',
+  chatLive: 'Live in your books',
+  chatQ: 'Claire, how are we doing on outstanding invoices?',
+  chatA1a: 'Good morning! I just checked your books: ',
+  chatA1b: '14 invoices are open, €48,200 in total',
+  chatA1c: '. Three of them are older than 60 days.',
+  chatWorkTitle: 'Claire worked in your books',
+  chatWork: ['Outstanding receivables retrieved', 'Ageing analysis prepared'],
+  chatWorkPending: 'Draft reminders prepared',
+  chatWorkPendingState: 'awaiting approval',
+  chatA2: 'Shall I send the three oldest a friendly reminder?',
+  chatBtnYes: 'Yes, send them',
+  chatBtnNo: 'Review first',
+  bandLabel: 'Claire works in your own AI assistant',
+  bandNote: 'or any MCP client · switching stays possible',
+  challengeEyebrow: 'The challenge',
+  challengeTitle: "The figures already exist. They're just hard to reach.",
+  challengeBody:
+    "In Exact Online every answer is ten clicks away, if you know the fastest route. And with the next question, the same cycle of exports, pivot tables and re-typing starts all over. Hiring more people rarely fixes it: the work isn't too much, it's too manual.",
+  doCards: [
+    { quote: '"Claire, who still needs to pay?"', title: 'Receivables monitoring', body: 'She watches outstanding items, builds ageing analyses and prepares reminders, or sends them on schedule.' },
+    { quote: '"Claire, prepare the month-end close."', title: 'Month-end close', body: "She runs the checklist, flags missing entries and delivers a close that's ready for review." },
+    { quote: '"Claire, how does Q4 look?"', title: 'Reporting & forecast', body: 'She answers number questions in plain language and backs every answer with data straight from your books.' },
+  ],
+  praktijkEyebrow: 'See it in action',
+  praktijkTitle: "Ask it the way you'd ask a colleague.",
+  praktijkSub:
+    'Claire fetches the current figures straight from Exact Online and answers as text, table or overview, right in the conversation.',
+  praktijkDisclaimer: 'Examples from our demo environment; amounts and names are fictional.',
+  qaCards: [
+    {
+      cat: 'Month-end close',
+      q: 'Run my close checks for June',
+      tableTitle: 'Close check · Jun 2026',
+      cols: [{ label: 'Check', align: 'left' }, { label: 'Result', align: 'left' }],
+      rows: [
+        [{ text: 'Opening balances reconcile' }, { text: '✓ Checked', chip: 'ok' }],
+        [{ text: 'Suspense accounts clear' }, { text: '⚠ 3 items', chip: 'warn' }],
+        [{ text: 'Sub-ledgers reconcile' }, { text: '✓ Checked', chip: 'ok' }],
+        [{ text: 'VAT codes consistent' }, { text: '✓ Checked', chip: 'ok' }],
+      ],
+      note: '1 item needs your review. Corrections only after your approval.',
+    },
+    {
+      cat: 'Reporting',
+      q: 'Show my P&L against last year',
+      cols: [{ label: '', align: 'left' }, { label: '2026', align: 'right' }, { label: '2025', align: 'right' }, { label: 'Δ', align: 'right' }],
+      rows: [
+        [{ text: 'Revenue' }, { text: '€4,128,400' }, { text: '€3,701,900' }, { text: '+11.5%' }],
+        [{ text: 'Gross margin' }, { text: '€1,735,200' }, { text: '€1,612,300' }, { text: '+7.6%' }],
+        [{ text: 'Operating costs' }, { text: '€1,114,800' }, { text: '€944,100' }, { text: '+18.1%' }],
+        [{ text: 'Net result' }, { text: '€620,400' }, { text: '€668,200' }, { text: '−7.2%' }],
+      ],
+    },
+    {
+      cat: 'Receivables',
+      q: 'Show all outstanding sales invoices',
+      cols: [{ label: 'Invoice', align: 'left' }, { label: 'Customer', align: 'left' }, { label: 'Amount', align: 'right' }, { label: 'Days', align: 'right' }],
+      rows: [
+        [{ text: 'VK-2026-214' }, { text: 'Acme Group' }, { text: '€22,480' }, { text: '18' }],
+        [{ text: 'VK-2026-198' }, { text: 'Helder BV' }, { text: '€8,950' }, { text: '34' }],
+        [{ text: 'VK-2026-167' }, { text: 'Van Dijk Techniek' }, { text: '€18,200' }, { text: '94' }],
+      ],
+      note: '14 invoices open, €48,200 in total. Reminders drafted.',
+    },
+    {
+      cat: 'Analysis',
+      q: 'Who are my top customers by revenue this quarter?',
+      cols: [{ label: '#', align: 'left' }, { label: 'Customer', align: 'left' }, { label: 'Revenue', align: 'right' }],
+      rows: [
+        [{ text: '1' }, { text: 'Acme Group' }, { text: '€642,900' }],
+        [{ text: '2' }, { text: 'Nordwerk Supply' }, { text: '€418,150' }],
+        [{ text: '3' }, { text: 'Helder BV' }, { text: '€310,400' }],
+        [{ text: '4' }, { text: 'Tech Solutions' }, { text: '€288,700' }],
+      ],
+      note: 'Together 41% of quarterly revenue, a concentration risk worth watching.',
+    },
+    {
+      cat: 'Cash flow',
+      q: 'How is our cash runway looking?',
+      cols: [{ label: 'Metric', align: 'left' }, { label: 'Now', align: 'right' }, { label: 'Status', align: 'right' }],
+      rows: [
+        [{ text: 'Cash position' }, { text: '€1,840,000' }, { text: '✓ Healthy', chip: 'ok' }],
+        [{ text: 'Burn rate p/m' }, { text: '€142,000' }, { text: '✓ Stable', chip: 'ok' }],
+        [{ text: 'Runway' }, { text: '12.9 mo' }, { text: '✓ > 12 mo', chip: 'ok' }],
+        [{ text: 'DSO' }, { text: '46 days' }, { text: '⚠ was 52', chip: 'warn' }],
+      ],
+    },
+    {
+      cat: 'Inventory',
+      q: 'Which items are running low on stock?',
+      cols: [{ label: 'Item', align: 'left' }, { label: 'Stock', align: 'right' }, { label: 'Use p/d', align: 'right' }, { label: 'Days', align: 'right' }],
+      rows: [
+        [{ text: 'Widget A' }, { text: '48' }, { text: '5.2' }, { text: '9' }],
+        [{ text: 'Connector B' }, { text: '72' }, { text: '5.1' }, { text: '14' }],
+        [{ text: 'Cable C' }, { text: '96' }, { text: '4.4' }, { text: '22' }],
+      ],
+      note: 'Reorder advice prepared for the two fastest-moving items.',
+    },
+  ],
+  capsEyebrow: 'Core capabilities',
+  capsTitle: 'One conversation, the whole administration.',
+  capsSub:
+    'Claire opens up nearly every part of Exact Online, in conversation and autonomously on schedule. Four areas where that pays off immediately.',
+  caps: [
+    { title: 'Reporting & insight', items: ['Real-time balance sheet, P&L and cash flow, down to the ledger', 'KPI traffic lights: DSO, working capital, runway with alerts', 'Traceable: every answer shows its source data'] },
+    { title: 'Financial processes', items: ['Sales & invoicing: from quote to invoice', 'Purchasing & payables: invoices and open payments', 'Entries: she reviews journals and proposes corrections'] },
+    { title: 'Clients & projects', items: ['CRM: customers, suppliers, opportunities and quotes', 'Projects & hours: budgets, planning, time tracking', 'On screen: interactive tables and cards in the chat'] },
+    { title: 'Monitoring & alerts', items: ['Autonomous on schedule: close checks, weekly overviews', 'Receivables watch: flags overdue items, drafts the reminder', 'Calm: you only hear from her when she needs you'] },
+  ],
+  closeEyebrow: 'Featured',
+  closeTitle: 'The AI-driven month-end close.',
+  closeSub:
+    'The close is where control and time pressure collide. Claire is the extra pair of eyes that looks at the same administration every month, running a fixed set of deterministic checks and investigating what stands out.',
+  closeSteps: [
+    { kicker: '01 · FIXED', title: 'Check', body: 'A fixed set of close checks runs on your books.' },
+    { kicker: '02 · ANALYSIS', title: 'Investigate', body: 'Anomalies are investigated and entries scanned for items that need a judgement.' },
+    { kicker: '03 · REPORT', title: 'Report', body: 'You get a close-readiness report with findings and recommendations.' },
+    { kicker: '04 · YOU DECIDE', title: 'Review', body: 'You review each finding; corrections only happen after your approval.' },
+  ],
+  secEyebrow: 'Security & control',
+  secTitle: 'A managed product, not loose scripts.',
+  secCardTitle: 'Read freely, write on approval',
+  secCardBody:
+    'Claire reads and calculates on her own, but never writes unprompted: every change waits as a proposal for your explicit approval.',
+  secProposalLabel: 'Proposal · waiting for your approval',
+  secProposalBody: 'Send payment reminder, Van Dijk Techniek · VK-2026-167 · €18,200',
+  secApprove: '✓ Approve',
+  secNotNow: 'Not now',
+  secItems: [
+    { title: 'Access per user', body: 'Everyone connects with their own Exact Online account and can do exactly what they may there, nothing more. Every action is logged under their name.' },
+    { title: 'No shadow copy', body: 'Your data stays in Exact Online. Claire fetches only what a given answer needs; no copy of your books ends up in an external platform.' },
+    { title: 'Maintenance is our job', body: 'Changes to the Exact Online API and new features are our problem, not yours. A centrally managed service with a stable interface.' },
+  ],
+  obEyebrow: 'Get started',
+  obTitle: 'Live in three clicks.',
+  obSub:
+    'No implementation project. Your intent travels with you through sign-in, so you land right back where you were. Click through the flow below.',
+  obSteps: ['Connect', 'Sign in', 'Consent', 'Done'],
+  obUrls: ['dataflowr.nl/claire', 'dataflowr.nl/login?returnTo=%2Fclaire%2Fstart', 'dataflowr.nl/claire/start', 'dataflowr.nl/claire/chat'],
+  ob1Title: 'Connect Exact Online to Claire',
+  ob1Body: 'One button, no detours. The connection starts right away; registration happens along the way, in the same step.',
+  ob1Btn: 'Connect Exact Online →',
+  ob1Checks: ['Free to start', 'Ready in 2 minutes', 'Claire posts nothing without your approval'],
+  ob2Title: 'One more step: sign in to connect Exact Online',
+  ob2Body: 'Your account keeps the connection and your conversations. Registration happens in the same step; afterwards you return straight to this connection.',
+  ob2ContinuePre: 'You are continuing with: ',
+  ob2ContinueStrong: 'connecting Exact Online to Claire',
+  ob2Btn: 'Sign in or register →',
+  ob2Checks: ['No credit card', 'Claire only reads along'],
+  ob3Title: 'Welcome back. Continuing where you were.',
+  ob3Body: 'You are being forwarded to Exact Online to approve the connection. After that, Claire is ready for you.',
+  ob3NothingPre: 'Nothing happening? ',
+  ob3Btn: 'Continue to Exact Online →',
+  ob4ToastTitle: 'Exact Online connected',
+  ob4ToastSub: 'Acme Holding B.V. · 3 administrations found',
+  ob4Title: 'What can I help you with?',
+  ob4Body: 'I am reading along in Acme Nederland. Ask your question, or pick one below.',
+  ob4Sug1Title: 'How is revenue doing?',
+  ob4Sug1Sub: 'This month versus last month, per customer',
+  ob4Sug2Title: 'Which invoices are outstanding?',
+  ob4Sug2Sub: 'Open receivables, sorted by age',
+  ob4Input: 'Ask Claire your question...',
+  ob4Restart: '↺ Watch again',
+  obFoot1: 'Secure OAuth · no shadow copy · cancel monthly',
+  obFoot2: "Prefer we walk you through it? Book a 30-minute intro and we'll set it up together.",
+  waysTitle: 'Three ways to put Claire to work.',
+  ways: [
+    { title: 'Interactive', body: 'Open your AI assistant and ask a question about your books in plain language.', quote: '"Which purchase invoices are more than 60 days overdue?"' },
+    { title: 'Autonomous', body: 'An agent runs work on a schedule and only reports back when it needs you.', quote: '"Every first working day: run my close checks and send the action list."' },
+    { title: 'Integrated', body: 'Use the connector in Make, n8n or Zapier as a building block in your automations.', quote: '"Check every incoming invoice and flag duplicates in #finance."' },
+  ],
+  ctaTitle: 'Claire can start with you next week.',
+  ctaSub: "Book a 30-minute intro, you'll speak to a founder directly.",
+  ctaBtn: 'Get in touch',
+  ctaBtn2: 'Connect Exact Online yourself',
+};
+
+const t = lang === 'nl' ? nl : en;
+const path = routes.claire[lang];
+const altPath = routes.claire[other];
+
+const schema = [
+  {
+    '@type': 'SoftwareApplication',
+    '@id': abs(`${path}#product`),
+    name: 'Claire',
+    applicationCategory: 'BusinessApplication',
+    operatingSystem: 'Web',
+    description: t.metaDescription,
+    url: abs(path),
+    publisher: { '@id': abs('/#organization') },
+  },
+  {
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: ui[lang].home, item: abs(routes.home[lang]) },
+      { '@type': 'ListItem', position: 2, name: 'Claire', item: abs(path) },
+    ],
+  },
+];
+---
+<BaseLayout
+  lang={lang}
+  title={t.metaTitle}
+  description={t.metaDescription}
+  path={path}
+  altPath={altPath}
+  navVariant="solid"
+  ctaHref="#cta"
+  footer="full"
+  schema={schema}
+>
+  <!-- ============ HERO ============ -->
+  <section id="top" class="hero">
+    <div class="nebula hero-nebula" aria-hidden="true"><Logo mode="mark" h={820} /></div>
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow eyebrow--teal">{t.heroEyebrow}</p>
+        <h1>{t.heroTitlePre}<span class="accent">Claire</span>{t.heroTitlePost}</h1>
+        <p class="hero-lead">{t.heroLead1}<span class="hero-lead-accent">{t.heroLead2}</span></p>
+        <p class="hero-sub">{t.heroSub}</p>
+        <div class="hero-ctas">
+          <a href={`#${startId}`} class="btn-signal hero-btn">{t.heroCta}</a>
+          <a href="#cta" class="btn-ghost-dark hero-btn2">{t.heroCta2}</a>
+        </div>
+        <p class="hero-note">{t.heroNote1} · {t.heroNote2}</p>
+      </div>
+
+      <!-- chat demo -->
+      <div class="chat" data-noselect aria-hidden="true">
+        <div class="chat-head">
+          <span class="chat-avatar">C<span class="chat-status"></span></span>
+          <span class="chat-id"><strong>Claire</strong><span>{t.chatRole}</span></span>
+          <span class="chat-live">{t.chatLive}</span>
+        </div>
+        <div class="chat-body">
+          <div class="msg msg--user" style="animation-delay:0.2s">{t.chatQ}</div>
+          <div class="msg msg--claire" style="animation-delay:1.1s">{t.chatA1a}<strong>{t.chatA1b}</strong>{t.chatA1c}</div>
+          <div class="chat-work" style="animation-delay:2.1s">
+            <span class="chat-work-title">{t.chatWorkTitle}</span>
+            {t.chatWork.map((item) => (
+              <span class="chat-work-row"><span class="wdot"></span><strong>{item}</strong><span class="chat-check">✓</span></span>
+            ))}
+            <span class="chat-work-row"><span class="wdot wdot--pulse"></span><strong>{t.chatWorkPending}</strong><span class="chat-pending">{t.chatWorkPendingState}</span></span>
+          </div>
+          <div class="msg msg--claire" style="animation-delay:3.1s">{t.chatA2}</div>
+          <div class="chat-actions" style="animation-delay:3.9s">
+            <span class="chat-btn-yes">{t.chatBtnYes}</span>
+            <span class="chat-btn-no">{t.chatBtnNo}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ AI-ASSISTENTEN ============ -->
+  <section class="band">
+    <div class="wrap band-inner">
+      <span class="band-label">{t.bandLabel}</span>
+      <span class="band-pill"><span class="band-icon" style="color:#D97757"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="display:block"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 13v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V5h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"></path></svg></span>Claude</span>
+      <span class="band-pill"><span class="band-icon" style="color:#10A37F"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" style="display:block" role="img" xmlns="http://www.w3.org/2000/svg"><path d="M22.2819 9.8211a5.9847 5.9847 0 0 0-.5157-4.9108 6.0462 6.0462 0 0 0-6.5098-2.9A6.0651 6.0651 0 0 0 4.9807 4.1818a5.9847 5.9847 0 0 0-3.9977 2.9 6.0462 6.0462 0 0 0 .7427 7.0966 5.98 5.98 0 0 0 .511 4.9107 6.051 6.051 0 0 0 6.5146 2.9001A5.9847 5.9847 0 0 0 13.2599 24a6.0557 6.0557 0 0 0 5.7718-4.2058 5.9894 5.9894 0 0 0 3.9977-2.9001 6.0557 6.0557 0 0 0-.7475-7.0729zm-9.022 12.6081a4.4755 4.4755 0 0 1-2.8764-1.0408l.1419-.0804 4.7783-2.7582a.7948.7948 0 0 0 .3927-.6813v-6.7369l2.02 1.1686a.071.071 0 0 1 .038.052v5.5826a4.504 4.504 0 0 1-4.4945 4.4944zm-9.6607-4.1254a4.4708 4.4708 0 0 1-.5346-3.0137l.142.0852 4.783 2.7582a.7712.7712 0 0 0 .7806 0l5.8428-3.3685v2.3324a.0804.0804 0 0 1-.0332.0615L9.74 19.9502a4.4992 4.4992 0 0 1-6.1408-1.6464zM2.3408 7.8956a4.485 4.485 0 0 1 2.3655-1.9728V11.6a.7664.7664 0 0 0 .3879.6765l5.8144 3.3543-2.0201 1.1685a.0757.0757 0 0 1-.071 0l-4.8303-2.7865A4.504 4.504 0 0 1 2.3408 7.872zm16.5963 3.8558L13.1038 8.364 15.1192 7.2a.0757.0757 0 0 1 .071 0l4.8303 2.7913a4.4944 4.4944 0 0 1-.6765 8.1042v-5.6772a.79.79 0 0 0-.407-.667zm2.0107-3.0231l-.142-.0852-4.7735-2.7818a.7759.7759 0 0 0-.7854 0L9.409 9.2297V6.8974a.0662.0662 0 0 1 .0284-.0615l4.8303-2.7866a4.4992 4.4992 0 0 1 6.6802 4.66zM8.3065 12.863l-2.02-1.1638a.0804.0804 0 0 1-.038-.0567V6.0742a4.4992 4.4992 0 0 1 7.3757-3.4537l-.142.0805L8.704 5.459a.7948.7948 0 0 0-.3927.6813zm1.0976-2.3654l2.602-1.4998 2.6069 1.4998v2.9994l-2.5974 1.4997-2.6067-1.4997Z"></path></svg></span>ChatGPT</span>
+      <span class="band-pill"><span class="band-icon" style="color:#0078D4"><svg width="16" height="16" viewBox="0 0 28 28" style="display:block"><defs><linearGradient id="copilot-grad-1" x1="14" y1="3" x2="14" y2="25" gradientUnits="userSpaceOnUse"><stop stop-color="#70ccc4"></stop><stop offset="0.5" stop-color="#a67dd8"></stop><stop offset="1" stop-color="#e0716c"></stop></linearGradient></defs><path d="M14 3C8.477 3 4 7.477 4 13v2c0 5.523 4.477 10 10 10s10-4.477 10-10v-2c0-5.523-4.477-10-10-10z" fill="url(#copilot-grad-1)"></path><ellipse cx="10" cy="12" rx="2" ry="2.5" fill="white"></ellipse><ellipse cx="18" cy="12" rx="2" ry="2.5" fill="white"></ellipse><path d="M9 18c0 0 2 3 5 3s5-3 5-3" stroke="white" stroke-linecap="round" fill="none"></path></svg></span>Microsoft Copilot</span>
+      <span class="band-note">{t.bandNote}</span>
+    </div>
+  </section>
+
+  <!-- ============ UITDAGING ============ -->
+  <section class="challenge">
+    <div class="challenge-inner">
+      <p class="eyebrow eyebrow--bare challenge-eyebrow">{t.challengeEyebrow}</p>
+      <h2>{t.challengeTitle}</h2>
+      <p class="challenge-body">{t.challengeBody}</p>
+    </div>
+  </section>
+
+  <!-- ============ WAT CLAIRE DOET ============ -->
+  <section id="wat" class="do">
+    <div class="wrap do-inner">
+      <div class="do-grid">
+        {t.doCards.map((card) => (
+          <div class="do-card">
+            <span class="do-quote">{card.quote}</span>
+            <h3>{card.title}</h3>
+            <p>{card.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ IN DE PRAKTIJK (Q&A) ============ -->
+  <section id="praktijk" class="qa">
+    <div class="wrap qa-inner">
+      <p class="eyebrow">{t.praktijkEyebrow}</p>
+      <h2>{t.praktijkTitle}</h2>
+      <p class="qa-sub">{t.praktijkSub}</p>
+      <div class="qa-grid">
+        {t.qaCards.map((card) => (
+          <div class="qa-card">
+            <span class="qa-cat">{card.cat}</span>
+            <p class="qa-q"><span class="qa-caret" aria-hidden="true">›</span><span>{card.q}</span></p>
+            <div class="qa-result">
+              {card.tableTitle && <p class="qa-table-title">{card.tableTitle}</p>}
+              <table>
+                <thead>
+                  <tr>{card.cols.map((c) => <th class={c.align === 'right' ? 'r' : ''}>{c.label}</th>)}</tr>
+                </thead>
+                <tbody>
+                  {card.rows.map((row) => (
+                    <tr>
+                      {row.map((cell, ci) => (
+                        <td class={card.cols[ci].align === 'right' ? 'r' : ''}>
+                          {cell.chip ? <span class={`chip chip--${cell.chip}`}>{cell.text}</span> : cell.text}
+                        </td>
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              {card.note && <p class="qa-note">{card.note}</p>}
+            </div>
+          </div>
+        ))}
+      </div>
+      <p class="qa-disclaimer">{t.praktijkDisclaimer}</p>
+    </div>
+  </section>
+
+  <!-- ============ KERNMOGELIJKHEDEN ============ -->
+  <section id="mogelijkheden" class="caps">
+    <div class="wrap caps-inner">
+      <p class="eyebrow">{t.capsEyebrow}</p>
+      <h2>{t.capsTitle}</h2>
+      <p class="caps-sub">{t.capsSub}</p>
+      <div class="caps-grid">
+        {t.caps.map((cap) => (
+          <div class="caps-card">
+            <h3>{cap.title}</h3>
+            <ul>
+              {cap.items.map((item) => <li><span class="dot dot--teal"></span><span>{item}</span></li>)}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ MAANDAFSLUITING ============ -->
+  <section class="close">
+    <div class="nebula close-nebula" aria-hidden="true"><Logo mode="mark" h={620} /></div>
+    <div class="wrap close-inner">
+      <p class="eyebrow eyebrow--teal">{t.closeEyebrow}</p>
+      <h2>{t.closeTitle}</h2>
+      <p class="close-sub">{t.closeSub}</p>
+      <div class="close-grid">
+        {t.closeSteps.map((step) => (
+          <div class="close-card">
+            <p class="close-kicker">{step.kicker}</p>
+            <h3>{step.title}</h3>
+            <p>{step.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ VEILIGHEID ============ -->
+  <section id="veiligheid" class="sec">
+    <div class="wrap sec-inner">
+      <p class="eyebrow">{t.secEyebrow}</p>
+      <h2>{t.secTitle}</h2>
+      <div class="sec-grid">
+        <div class="sec-card">
+          <h3>{t.secCardTitle}</h3>
+          <p>{t.secCardBody}</p>
+          <div class="sec-proposal" data-noselect>
+            <span class="sec-proposal-label">{t.secProposalLabel}</span>
+            <p>{t.secProposalBody}</p>
+            <div class="sec-proposal-btns">
+              <span class="sec-approve">{t.secApprove}</span>
+              <span class="sec-notnow">{t.secNotNow}</span>
+            </div>
+          </div>
+        </div>
+        <div class="sec-list">
+          {t.secItems.map((item, i) => (
+            <div class={`sec-item ${i < t.secItems.length - 1 ? 'sec-item--rule' : ''}`}>
+              <span class="sec-check" aria-hidden="true">✓</span>
+              <div>
+                <h3>{item.title}</h3>
+                <p>{item.body}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ AAN DE SLAG (ONBOARDING) ============ -->
+  <section id={startId} class="ob">
+    <div class="wrap ob-inner">
+      <div class="ob-head">
+        <p class="eyebrow eyebrow--bare ob-eyebrow">{t.obEyebrow}</p>
+        <h2>{t.obTitle}</h2>
+        <p class="ob-sub">{t.obSub}</p>
+      </div>
+      <div class="ob-frame" data-noselect data-ob>
+        <div class="ob-chrome">
+          <span class="ob-lights" aria-hidden="true"><span></span><span></span><span></span></span>
+          <span class="ob-url" data-ob-url>{t.obUrls[0]}</span>
+          <span class="ob-chrome-spacer" aria-hidden="true"></span>
+        </div>
+        <div class="ob-stepper">
+          {t.obSteps.map((label, i) => (
+            <>
+              <button data-ob-goto={i + 1} class="ob-step-btn">
+                <span class="ob-step-num" data-ob-num={i + 1}>{i + 1}</span>
+                <span class="ob-step-label" data-ob-label={i + 1}>{label}</span>
+              </button>
+              {i < 3 && <span class="ob-step-line" data-ob-line={i + 1} aria-hidden="true"></span>}
+            </>
+          ))}
+        </div>
+        <div class="ob-stage">
+          <!-- Stap 1 -->
+          <div data-ob-panel="1">
+            <div class="ob-p1">
+              <div class="ob-logos ob-logos--pop">
+                <span class="ob-logo-c" aria-hidden="true">C</span>
+                <span class="ob-dots" aria-hidden="true">···</span>
+                <span class="ob-logo-exact" aria-hidden="true">=exact</span>
+              </div>
+              <h3>{t.ob1Title}</h3>
+              <p>{t.ob1Body}</p>
+              <button data-ob-goto="2" class="ob-primary">{t.ob1Btn}</button>
+              <div class="ob-checks">
+                {t.ob1Checks.map((c) => <span><span class="ob-check">✓</span>{c}</span>)}
+              </div>
+            </div>
+          </div>
+          <!-- Stap 2 -->
+          <div data-ob-panel="2" hidden>
+            <div class="ob-p2">
+              <div class="ob-logos ob-logos--sm">
+                <span class="ob-logo-c ob-logo-c--sm" aria-hidden="true">C</span>
+                <span class="ob-plus" aria-hidden="true">+</span>
+                <span class="ob-logo-exact ob-logo-exact--sm" aria-hidden="true">=exact</span>
+              </div>
+              <h3>{t.ob2Title}</h3>
+              <p>{t.ob2Body}</p>
+              <div class="ob-continue">
+                <span>{t.ob2ContinuePre}<strong>{t.ob2ContinueStrong}</strong></span>
+                <code>?returnTo=/claire/start</code>
+              </div>
+              <div><button data-ob-goto="3" class="ob-primary">{t.ob2Btn}</button></div>
+              <div class="ob-checks ob-checks--left">
+                {t.ob2Checks.map((c) => <span><span class="ob-check">✓</span>{c}</span>)}
+              </div>
+            </div>
+          </div>
+          <!-- Stap 3 -->
+          <div data-ob-panel="3" hidden>
+            <div class="ob-p3">
+              <div class="ob-logos">
+                <span class="ob-logo-c ob-logo-c--md" aria-hidden="true">C</span>
+                <span class="ob-dots" aria-hidden="true">···</span>
+                <span class="ob-logo-exact ob-logo-exact--md" aria-hidden="true">=exact</span>
+              </div>
+              <h3>{t.ob3Title}</h3>
+              <p>{t.ob3Body}</p>
+              <div class="ob-progress"><span data-ob-bar></span></div>
+              <p class="ob-nothing">{t.ob3NothingPre}<button data-ob-goto="4" class="ob-linkbtn">{t.ob3Btn}</button></p>
+            </div>
+          </div>
+          <!-- Stap 4 -->
+          <div data-ob-panel="4" hidden>
+            <div class="ob-p4-wrap">
+              <div class="ob-toast">
+                <span class="ob-toast-check">✓</span>
+                <span class="ob-toast-body"><strong>{t.ob4ToastTitle}</strong><span>{t.ob4ToastSub}</span></span>
+              </div>
+              <div class="ob-p4">
+                <span class="ob-logo-c" aria-hidden="true">C</span>
+                <h3>{t.ob4Title}</h3>
+                <p>{t.ob4Body}</p>
+                <div class="ob-suggestions">
+                  <span class="ob-sug"><strong>{t.ob4Sug1Title}</strong><span>{t.ob4Sug1Sub}</span></span>
+                  <span class="ob-sug"><strong>{t.ob4Sug2Title}</strong><span>{t.ob4Sug2Sub}</span></span>
+                </div>
+                <div class="ob-input">
+                  <span class="ob-input-hint">{t.ob4Input}</span>
+                  <span class="ob-input-send" aria-hidden="true">→</span>
+                </div>
+                <button data-ob-goto="1" class="ob-restart">{t.ob4Restart}</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="ob-foot1"><span class="ob-live-dot"></span>{t.obFoot1}</p>
+      <p class="ob-foot2">{t.obFoot2}</p>
+    </div>
+  </section>
+
+  <!-- ============ DRIE MANIEREN ============ -->
+  <section class="ways">
+    <div class="wrap ways-inner">
+      <h2>{t.waysTitle}</h2>
+      <div class="ways-grid">
+        {t.ways.map((way) => (
+          <div class="way-card">
+            <h3>{way.title}</h3>
+            <p>{way.body}</p>
+            <span class="way-quote">{way.quote}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CTA ============ -->
+  <section id="cta" class="cta">
+    <div class="cta-inner">
+      <span class="cta-avatar" aria-hidden="true">C<span class="cta-status"></span></span>
+      <h2>{t.ctaTitle}</h2>
+      <p class="cta-sub">{t.ctaSub}</p>
+      <div class="cta-btns">
+        <a href={`mailto:${EMAIL_DAAN}`} class="btn-signal cta-btn">{t.ctaBtn}</a>
+        <a href={`#${startId}`} class="btn-ghost-dark cta-btn2">{t.ctaBtn2}</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  // Onboarding flow stepper: staat van de 4 stappen, klikbaar door de flow.
+  const frame = document.querySelector<HTMLElement>('[data-ob]');
+  if (frame) {
+    const urlEl = frame.querySelector<HTMLElement>('[data-ob-url]');
+    const urlList = [
+      'dataflowr.nl/claire',
+      'dataflowr.nl/login?returnTo=%2Fclaire%2Fstart',
+      'dataflowr.nl/claire/start',
+      'dataflowr.nl/claire/chat',
+    ];
+    const setStep = (n: number) => {
+      frame.querySelectorAll<HTMLElement>('[data-ob-panel]').forEach((p) => {
+        const on = Number(p.dataset.obPanel) === n;
+        p.hidden = !on;
+        if (on) {
+          // Retrigger de entree-animaties bij elke stapwissel.
+          p.querySelectorAll<HTMLElement>('.ob-p1,.ob-p2,.ob-p3,.ob-p4,.ob-toast,[data-ob-bar]').forEach((el) => {
+            el.style.animation = 'none';
+            void el.offsetWidth;
+            el.style.animation = '';
+          });
+        }
+      });
+      for (let i = 1; i <= 4; i++) {
+        const num = frame.querySelector<HTMLElement>(`[data-ob-num="${i}"]`);
+        const label = frame.querySelector<HTMLElement>(`[data-ob-label="${i}"]`);
+        const line = frame.querySelector<HTMLElement>(`[data-ob-line="${i}"]`);
+        const active = i === n;
+        const done = i < n;
+        if (num) {
+          num.textContent = done ? '✓' : String(i);
+          num.classList.toggle('is-active', active);
+          num.classList.toggle('is-done', done);
+        }
+        label?.classList.toggle('is-active', active);
+        line?.classList.toggle('is-done', done);
+      }
+      if (urlEl) urlEl.textContent = urlList[Math.min(n, 4) - 1];
+    };
+    frame.querySelectorAll<HTMLElement>('[data-ob-goto]').forEach((btn) => {
+      btn.addEventListener('click', () => setStep(Number(btn.dataset.obGoto)));
+    });
+    setStep(1);
+  }
+</script>
+
+<style>
+  /* ---------- Hero ---------- */
+  .hero {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(180deg, var(--brand), color-mix(in srgb, var(--brand) 78%, var(--hl)));
+  }
+  .hero-nebula {
+    position: absolute;
+    right: -160px;
+    top: -220px;
+    filter: blur(120px) saturate(1.15);
+    opacity: 0.5;
+    --logoBase: transparent;
+    --logoBovenA: #FF301D; --logoBovenB: #FF301D;
+    --logoOnderA: #1B5FB3; --logoOnderB: #1B5FB3;
+    --logoRechtsA: #4DCBC9; --logoRechtsB: #4DCBC9;
+  }
+  .hero-grid {
+    position: relative;
+    padding-top: 76px;
+    padding-bottom: 84px;
+    display: grid;
+    grid-template-columns: 1.05fr minmax(0, 500px);
+    gap: 64px;
+    align-items: center;
+  }
+  @media (max-width: 1080px) { .hero-grid { grid-template-columns: 1fr; gap: 44px; } }
+  .hero-copy { color: var(--bg); }
+  .hero h1 {
+    margin: 0 0 22px;
+    font-size: clamp(48px, 5.4vw, 72px);
+    line-height: 1.03;
+    font-weight: 700;
+    letter-spacing: -0.035em;
+    text-wrap: balance;
+  }
+  .hero .eyebrow { margin-bottom: 22px; }
+  .accent { color: var(--teal); }
+  .hero-lead { margin: 0 0 14px; font-size: clamp(19px, 2vw, 23px); line-height: 1.45; font-weight: 500; color: #ffffff; text-wrap: pretty; }
+  .hero-lead-accent { color: var(--teal); font-weight: 700; }
+  .hero-sub { margin: 0 0 34px; max-width: 520px; font-size: 16px; line-height: 1.7; color: color-mix(in srgb, var(--bg) 76%, transparent); text-wrap: pretty; }
+  .hero-ctas { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; }
+  .hero-btn { font-size: 15px; padding: 16px 30px; }
+  .hero-btn2 { font-size: 15px; padding: 15px 28px; }
+  .hero-note { margin: 22px 0 0; font-size: 12.5px; color: color-mix(in srgb, var(--bg) 55%, transparent); }
+
+  /* Chat demo */
+  .chat {
+    background: #ffffff;
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    box-shadow: 0 30px 70px rgba(13, 27, 39, 0.4);
+    overflow: hidden;
+  }
+  .chat-head { display: flex; align-items: center; gap: 12px; padding: 16px 20px; border-bottom: 1px solid var(--line); }
+  .chat-avatar {
+    position: relative;
+    flex: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--teal);
+    color: var(--brand);
+    font-weight: 700;
+    font-size: 17px;
+    display: grid;
+    place-items: center;
+  }
+  .chat-status { position: absolute; right: -1px; bottom: -1px; width: 11px; height: 11px; border-radius: 50%; background: var(--ok); border: 2px solid #fff; }
+  .chat-id { display: grid; gap: 1px; }
+  .chat-id strong { font-size: 14.5px; color: var(--brand); }
+  .chat-id span:last-child { font-size: 11.5px; color: var(--muted); }
+  .chat-live {
+    margin-left: auto;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--posText);
+    border: 1px solid color-mix(in srgb, var(--posText) 55%, transparent);
+    border-radius: 99px;
+    padding: 4px 10px;
+  }
+  .chat-body { padding: 22px 20px; display: grid; gap: 14px; background: var(--bg); }
+  .msg { font-size: 13.5px; line-height: 1.55; padding: 12px 16px; animation: claire-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) both; }
+  .msg--user { justify-self: end; max-width: 82%; background: var(--hl); color: #fff; border-radius: 16px 16px 4px 16px; }
+  .msg--claire { justify-self: start; max-width: 88%; background: #ffffff; border: 1px solid var(--line); color: var(--brand); border-radius: 16px 16px 16px 4px; line-height: 1.6; }
+  .chat-work {
+    justify-self: start;
+    width: 88%;
+    background: #ffffff;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 14px 16px;
+    display: grid;
+    gap: 10px;
+    animation: claire-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+  .chat-work-title { font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+  .chat-work-row { display: flex; align-items: center; gap: 10px; font-size: 12.5px; color: var(--brand); }
+  .chat-work-row strong { font-weight: 600; }
+  .wdot { flex: none; width: 6px; height: 6px; border-radius: 50%; background: var(--teal); }
+  .wdot--pulse { background: var(--hl); animation: claire-pulse 1.6s ease-in-out infinite; }
+  .chat-check { margin-left: auto; color: var(--ok); font-weight: 700; }
+  .chat-pending { margin-left: auto; color: var(--hl); font-weight: 600; }
+  .chat-actions { display: flex; gap: 10px; animation: claire-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) both; }
+  .chat-btn-yes { background: var(--hl); color: #fff; font-size: 12.5px; font-weight: 700; padding: 9px 18px; border-radius: 99px; }
+  .chat-btn-no { border: 1.5px solid var(--line); background: #fff; color: var(--muted); font-size: 12.5px; font-weight: 500; padding: 8px 16px; border-radius: 99px; }
+
+  /* ---------- Band ---------- */
+  .band { background: #ffffff; border-bottom: 1px solid var(--line); }
+  .band-inner {
+    padding-top: 34px;
+    padding-bottom: 34px;
+    display: flex;
+    align-items: center;
+    gap: 14px 26px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .band-label { font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
+  .band-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    border: 1px solid var(--line);
+    border-radius: 99px;
+    padding: 9px 18px;
+    font-size: 14.5px;
+    font-weight: 700;
+    color: var(--brand);
+    background: #ffffff;
+  }
+  .band-icon { display: grid; place-items: center; }
+  .band-note { font-size: 12.5px; color: var(--muted); }
+
+  /* ---------- Uitdaging ---------- */
+  .challenge { background: #ffffff; }
+  .challenge-inner { max-width: 900px; margin: 0 auto; padding: 96px 40px 20px; text-align: center; }
+  .challenge-eyebrow { justify-content: center; }
+  .challenge h2 {
+    margin: 0 0 20px;
+    font-size: clamp(30px, 3.6vw, 44px);
+    line-height: 1.1;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    text-wrap: balance;
+  }
+  .challenge-body { margin: 0; font-size: 17px; line-height: 1.7; color: var(--muted); text-wrap: pretty; }
+
+  /* ---------- Wat Claire doet ---------- */
+  .do { background: #ffffff; scroll-margin-top: 80px; }
+  .do-inner { padding-top: 64px; padding-bottom: 92px; }
+  .do-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); gap: 18px; }
+  .do-card {
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 28px;
+    display: grid;
+    gap: 12px;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .do-card:hover { transform: translateY(-3px); box-shadow: 0 16px 44px rgba(13, 27, 39, 0.10); }
+  .do-quote { font-size: 13px; line-height: 1.5; color: var(--muted); background: var(--bg); border-radius: 12px 12px 12px 4px; padding: 10px 14px; font-style: italic; }
+  .do-card h3 { margin: 0; font-size: 18px; font-weight: 700; }
+  .do-card p { margin: 0; font-size: 14px; line-height: 1.65; color: var(--muted); }
+
+  /* ---------- Sectiekoppen ---------- */
+  .qa h2, .caps h2, .close h2, .sec h2 {
+    margin: 0 0 14px;
+    max-width: 720px;
+    font-size: clamp(30px, 3.6vw, 44px);
+    line-height: 1.1;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    text-wrap: balance;
+  }
+
+  /* ---------- Q&A praktijk ---------- */
+  .qa { background: var(--bg); border-top: 1px solid var(--line); scroll-margin-top: 80px; }
+  .qa-inner { padding-top: 92px; padding-bottom: 92px; }
+  .qa-sub { margin: 0 0 46px; max-width: 680px; font-size: 16px; line-height: 1.7; color: var(--muted); }
+  .qa-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(400px, 100%), 1fr)); gap: 16px; }
+  .qa-card {
+    background: #ffffff;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 24px;
+    display: grid;
+    gap: 14px;
+    align-content: start;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .qa-card:hover { transform: translateY(-3px); box-shadow: 0 16px 44px rgba(13, 27, 39, 0.09); }
+  .qa-cat { font-size: 10.5px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--posText); }
+  .qa-q { margin: 0; display: flex; gap: 9px; font-size: 14.5px; line-height: 1.45; font-weight: 500; color: var(--brand); }
+  .qa-caret { color: var(--hl); font-weight: 700; }
+  .qa-result { background: var(--bg); border-radius: 12px; padding: 16px 18px; }
+  .qa-table-title { margin: 0 0 12px; font-size: 11.5px; font-weight: 700; color: var(--brand); }
+  .qa-result table { width: 100%; border-collapse: collapse; }
+  .qa-result th {
+    padding: 0 0 7px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-align: left;
+  }
+  .qa-result td {
+    padding: 7px 0;
+    font-size: 12.5px;
+    line-height: 1.4;
+    font-variant-numeric: tabular-nums;
+    border-bottom: 1px solid var(--line);
+    color: var(--muted);
+    font-weight: 400;
+  }
+  .qa-result tr td:first-child { color: var(--brand); font-weight: 500; }
+  .qa-result tbody tr:last-child td { border-bottom: none; }
+  .qa-result .r { text-align: right; }
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11px;
+    font-weight: 700;
+    border-radius: 99px;
+    padding: 3px 9px;
+    white-space: nowrap;
+  }
+  .chip--ok { color: var(--posText); background: #E4F6F8; }
+  .chip--warn { color: #B3210F; background: #FDE8E5; }
+  .qa-note { margin: 12px 0 0; font-size: 11.5px; line-height: 1.5; color: var(--muted); }
+  .qa-disclaimer { margin: 26px 0 0; font-size: 12.5px; color: var(--muted); }
+
+  /* ---------- Kernmogelijkheden ---------- */
+  .caps { background: #ffffff; border-top: 1px solid var(--line); scroll-margin-top: 80px; }
+  .caps-inner { padding-top: 92px; padding-bottom: 92px; }
+  .caps h2 { margin-bottom: 12px; max-width: 680px; }
+  .caps-sub { margin: 0 0 46px; max-width: 640px; font-size: 16px; line-height: 1.7; color: var(--muted); }
+  .caps-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr)); gap: 16px; }
+  .caps-card { background: #ffffff; border: 1px solid var(--line); border-radius: 16px; padding: 26px; }
+  .caps-card h3 { margin: 0 0 14px; font-size: 17px; font-weight: 700; }
+  .caps-card ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 11px; }
+  .caps-card li { display: flex; gap: 11px; font-size: 13.5px; line-height: 1.55; color: var(--muted); }
+  .dot { flex: none; width: 6px; height: 6px; border-radius: 50%; margin-top: 6px; background: var(--pos); }
+  .dot--teal { background: var(--teal); }
+
+  /* ---------- Maandafsluiting ---------- */
+  .close { position: relative; overflow: hidden; background: var(--brand); color: var(--bg); }
+  .close-nebula {
+    position: absolute;
+    left: -140px;
+    bottom: -200px;
+    filter: blur(120px) saturate(1.1);
+    opacity: 0.34;
+    --logoBase: transparent;
+    --logoBovenA: #FF301D; --logoBovenB: #FF301D;
+    --logoOnderA: #1B5FB3; --logoOnderB: #1B5FB3;
+    --logoRechtsA: #4DCBC9; --logoRechtsB: #4DCBC9;
+  }
+  .close-inner { position: relative; padding-top: 92px; padding-bottom: 92px; }
+  .close h2 { margin-bottom: 18px; max-width: 760px; }
+  .close-sub { margin: 0 0 48px; max-width: 720px; font-size: 16px; line-height: 1.7; color: color-mix(in srgb, var(--bg) 76%, transparent); }
+  .close-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr)); gap: 16px; }
+  .close-card {
+    background: color-mix(in srgb, #ffffff 6%, transparent);
+    border: 1px solid color-mix(in srgb, var(--bg) 14%, transparent);
+    border-radius: 14px;
+    padding: 24px;
+  }
+  .close-kicker { margin: 0 0 10px; font-size: 11px; font-weight: 700; letter-spacing: 0.16em; color: var(--teal); }
+  .close-card h3 { margin: 0 0 8px; font-size: 17px; font-weight: 700; }
+  .close-card p:last-child { margin: 0; font-size: 13.5px; line-height: 1.55; color: color-mix(in srgb, var(--bg) 66%, transparent); }
+
+  /* ---------- Veiligheid ---------- */
+  .sec { background: #ffffff; scroll-margin-top: 80px; }
+  .sec-inner { padding-top: 92px; padding-bottom: 92px; }
+  .sec h2 { margin-bottom: 46px; max-width: 680px; }
+  .sec-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(420px, 100%), 1fr)); gap: 16px; align-items: stretch; }
+  .sec-card { background: var(--brand); color: var(--bg); border-radius: 18px; padding: 34px; display: grid; gap: 14px; align-content: start; }
+  .sec-card h3 { margin: 0; font-size: 22px; font-weight: 700; letter-spacing: -0.02em; }
+  .sec-card > p { margin: 0; font-size: 14.5px; line-height: 1.65; color: color-mix(in srgb, var(--bg) 74%, transparent); }
+  .sec-proposal {
+    margin-top: 10px;
+    background: color-mix(in srgb, #ffffff 8%, transparent);
+    border: 1px solid color-mix(in srgb, var(--bg) 16%, transparent);
+    border-radius: 14px;
+    padding: 18px;
+    display: grid;
+    gap: 14px;
+  }
+  .sec-proposal-label { font-size: 10px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--pos); }
+  .sec-proposal p { margin: 0; font-size: 13.5px; line-height: 1.55; }
+  .sec-proposal-btns { display: flex; gap: 10px; flex-wrap: wrap; }
+  .sec-approve { background: var(--pos); color: var(--brand); font-size: 12.5px; font-weight: 700; padding: 9px 18px; border-radius: 99px; }
+  .sec-notnow {
+    border: 1px solid color-mix(in srgb, var(--bg) 30%, transparent);
+    font-size: 12.5px;
+    font-weight: 600;
+    padding: 8px 17px;
+    border-radius: 99px;
+    color: color-mix(in srgb, var(--bg) 80%, transparent);
+  }
+  .sec-list { border: 1px solid var(--line); border-radius: 18px; padding: 10px 30px; display: grid; align-content: center; }
+  .sec-item { display: grid; grid-template-columns: auto 1fr; gap: 18px; align-items: start; padding: 22px 0; }
+  .sec-item--rule { border-bottom: 1px solid var(--line); }
+  .sec-check {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: color-mix(in srgb, var(--ok) 14%, transparent);
+    color: var(--ok);
+    font-weight: 700;
+    font-size: 13px;
+    display: grid;
+    place-items: center;
+    margin-top: 2px;
+  }
+  .sec-item h3 { margin: 0 0 5px; font-size: 15.5px; font-weight: 700; }
+  .sec-item p { margin: 0; font-size: 13.5px; line-height: 1.6; color: var(--muted); }
+
+  /* ---------- Onboarding ---------- */
+  .ob { background: var(--bg); border-top: 1px solid var(--line); scroll-margin-top: 72px; }
+  .ob-inner { padding-top: 92px; padding-bottom: 92px; }
+  .ob-head { text-align: center; margin-bottom: 42px; }
+  .ob-eyebrow { justify-content: center; }
+  .ob h2 {
+    margin: 0 auto 14px;
+    max-width: 680px;
+    font-size: clamp(30px, 3.6vw, 44px);
+    line-height: 1.1;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    text-wrap: balance;
+  }
+  .ob-sub { margin: 0 auto; max-width: 600px; font-size: 16px; line-height: 1.7; color: var(--muted); text-wrap: pretty; }
+  .ob-frame {
+    max-width: 1020px;
+    margin: 0 auto;
+    background: #ffffff;
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    box-shadow: 0 26px 64px rgba(13, 27, 39, 0.10);
+    overflow: hidden;
+  }
+  .ob-chrome {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 18px;
+    border-bottom: 1px solid var(--line);
+    background: color-mix(in srgb, var(--bg) 55%, #ffffff);
+  }
+  .ob-lights { display: flex; gap: 7px; }
+  .ob-lights span { width: 10px; height: 10px; border-radius: 50%; }
+  .ob-lights span:nth-child(1) { background: #FF5F57; }
+  .ob-lights span:nth-child(2) { background: #FEBC2E; }
+  .ob-lights span:nth-child(3) { background: #28C840; }
+  .ob-url {
+    flex: 1;
+    max-width: 440px;
+    margin: 0 auto;
+    background: #ffffff;
+    border: 1px solid var(--line);
+    border-radius: 99px;
+    padding: 6px 16px;
+    font-size: 12px;
+    color: var(--muted);
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .ob-chrome-spacer { width: 44px; }
+  .ob-stepper { display: flex; align-items: center; gap: 10px; justify-content: center; padding: 22px 30px 4px; flex-wrap: wrap; }
+  .ob-step-btn { display: flex; align-items: center; gap: 8px; background: none; border: none; cursor: pointer; padding: 6px 2px; }
+  .ob-step-num {
+    flex: none;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-size: 12px;
+    font-weight: 700;
+    transition: background 0.25s;
+    color: var(--muted);
+    background: color-mix(in srgb, var(--muted) 18%, transparent);
+  }
+  .ob-step-num.is-active { color: #fff; background: var(--hl); }
+  .ob-step-num.is-done { color: #fff; background: var(--ok); }
+  .ob-step-label { font-size: 13px; font-weight: 500; color: var(--muted); }
+  .ob-step-label.is-active { font-weight: 700; color: var(--brand); }
+  .ob-step-line {
+    flex: 0 1 34px;
+    min-width: 12px;
+    height: 2px;
+    border-radius: 2px;
+    background: color-mix(in srgb, var(--muted) 20%, transparent);
+  }
+  .ob-step-line.is-done { background: var(--ok); }
+  .ob-stage { position: relative; padding: 30px 40px 40px; min-height: 330px; }
+  @media (max-width: 640px) { .ob-stage { padding: 24px 20px 30px; } }
+
+  .ob-p1 { display: grid; justify-items: center; text-align: center; gap: 16px; padding-top: 8px; animation: ob-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) both; }
+  .ob-logos { display: flex; align-items: center; gap: 16px; }
+  .ob-logos--pop { animation: ob-pop 0.55s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both; }
+  .ob-logo-c {
+    flex: none;
+    width: 46px;
+    height: 46px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, var(--hl), var(--pos));
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 21px;
+    display: grid;
+    place-items: center;
+  }
+  .ob-logo-c--sm { width: 34px; height: 34px; border-radius: 9px; font-size: 16px; }
+  .ob-logo-c--md { width: 42px; height: 42px; border-radius: 11px; font-size: 19px; }
+  .ob-dots { letter-spacing: 4px; color: var(--muted); }
+  .ob-plus { color: var(--muted); font-weight: 600; }
+  .ob-logo-exact {
+    flex: none;
+    width: 46px;
+    height: 46px;
+    border-radius: 12px;
+    background: #E30613;
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 11px;
+    display: grid;
+    place-items: center;
+    letter-spacing: -0.02em;
+  }
+  .ob-logo-exact--sm { width: 34px; height: 34px; border-radius: 9px; font-size: 8px; }
+  .ob-logo-exact--md { width: 42px; height: 42px; border-radius: 11px; font-size: 10px; }
+  .ob-p1 h3 { margin: 6px 0 0; font-size: 25px; font-weight: 700; letter-spacing: -0.02em; }
+  .ob-p1 > p { margin: 0; max-width: 520px; font-size: 14.5px; line-height: 1.65; color: var(--muted); }
+  .ob-primary {
+    background: var(--hl);
+    color: #ffffff;
+    border: none;
+    font-weight: 700;
+    font-size: 14.5px;
+    padding: 14px 28px;
+    border-radius: 99px;
+    cursor: pointer;
+    transition: transform 0.25s, box-shadow 0.25s;
+  }
+  .ob-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(27, 95, 179, 0.4); }
+  .ob-checks { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; }
+  .ob-checks--left { justify-content: flex-start; }
+  .ob-checks span { display: inline-flex; align-items: center; gap: 7px; font-size: 12.5px; color: var(--muted); }
+  .ob-check { color: var(--ok); font-weight: 700; }
+
+  .ob-p2 { max-width: 560px; margin: 0 auto; display: grid; gap: 16px; padding-top: 4px; animation: ob-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) both; }
+  .ob-logos--sm { gap: 12px; }
+  .ob-p2 h3 { margin: 0; font-size: 23px; font-weight: 700; letter-spacing: -0.02em; text-wrap: balance; }
+  .ob-p2 > p { margin: 0; font-size: 14.5px; line-height: 1.65; color: var(--muted); }
+  .ob-continue {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 13px 16px;
+    flex-wrap: wrap;
+  }
+  .ob-continue > span { font-size: 13px; color: var(--brand); }
+  .ob-continue code { margin-left: auto; font-size: 11.5px; color: var(--muted); }
+
+  .ob-p3 { max-width: 560px; margin: 0 auto; display: grid; justify-items: center; text-align: center; gap: 16px; padding-top: 26px; animation: ob-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) both; }
+  .ob-logos { gap: 14px; }
+  .ob-p3 h3 { margin: 0; font-size: 24px; font-weight: 700; letter-spacing: -0.02em; text-wrap: balance; }
+  .ob-p3 > p { margin: 0; max-width: 480px; font-size: 14.5px; line-height: 1.65; color: var(--muted); }
+  .ob-progress {
+    width: 100%;
+    max-width: 420px;
+    height: 8px;
+    border-radius: 99px;
+    background: color-mix(in srgb, var(--muted) 16%, transparent);
+    overflow: hidden;
+  }
+  .ob-progress span {
+    display: block;
+    width: 72%;
+    height: 100%;
+    border-radius: 99px;
+    background: linear-gradient(90deg, var(--hl), var(--pos));
+    animation: ob-bar 1.7s cubic-bezier(0.3, 0.8, 0.4, 1) 0.2s both;
+  }
+  .ob-nothing { margin: 4px 0 0; font-size: 13px; color: var(--muted); }
+  .ob-linkbtn { background: none; border: none; cursor: pointer; font-size: 13px; font-weight: 700; color: var(--hl); padding: 0; }
+
+  .ob-p4-wrap { position: relative; }
+  .ob-toast {
+    position: absolute;
+    top: -6px;
+    right: -14px;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    animation: ob-toast 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.45s both;
+    background: #0C6B4E;
+    color: #ffffff;
+    border-radius: 12px;
+    padding: 12px 16px;
+    box-shadow: 0 14px 34px rgba(12, 107, 78, 0.35);
+    max-width: 280px;
+  }
+  @media (max-width: 720px) { .ob-toast { position: static; margin-bottom: 14px; } }
+  .ob-toast-check { font-weight: 700; }
+  .ob-toast-body { display: grid; gap: 2px; font-size: 12.5px; line-height: 1.45; }
+  .ob-toast-body span:last-child { opacity: 0.85; }
+  .ob-p4 { display: grid; justify-items: center; text-align: center; gap: 14px; padding-top: 6px; animation: ob-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) both; }
+  .ob-p4 h3 { margin: 2px 0 0; font-size: 25px; font-weight: 700; letter-spacing: -0.02em; }
+  .ob-p4 > p { margin: 0; font-size: 14.5px; color: var(--muted); }
+  .ob-suggestions { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr)); gap: 12px; width: 100%; max-width: 620px; }
+  .ob-sug { border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; text-align: left; display: grid; gap: 3px; background: #ffffff; }
+  .ob-sug strong { font-size: 13.5px; }
+  .ob-sug span:last-child { font-size: 12px; color: var(--muted); }
+  .ob-input {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    max-width: 620px;
+    animation: ob-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.25s both;
+    border: 1px solid var(--line);
+    border-radius: 99px;
+    padding: 10px 10px 10px 20px;
+    background: #ffffff;
+    box-shadow: 0 10px 30px rgba(13, 27, 39, 0.06);
+  }
+  .ob-input-hint { flex: 1; text-align: left; font-size: 13.5px; color: var(--muted); }
+  .ob-input-send {
+    flex: none;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: var(--hl);
+    color: #ffffff;
+    display: grid;
+    place-items: center;
+    font-weight: 700;
+  }
+  .ob-restart { background: none; border: none; cursor: pointer; font-size: 12.5px; color: var(--muted); padding: 2px; }
+  .ob-restart:hover { color: var(--hl); }
+  .ob-foot1 { margin: 20px auto 0; text-align: center; font-size: 13px; color: var(--muted); }
+  .ob-live-dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--ok); margin-right: 8px; vertical-align: 2px; }
+  .ob-foot2 { margin: 10px auto 0; max-width: 720px; text-align: center; font-size: 13px; line-height: 1.6; color: var(--muted); }
+
+  /* ---------- Drie manieren ---------- */
+  .ways { background: #ffffff; border-top: 1px solid var(--line); }
+  .ways-inner { padding-top: 92px; padding-bottom: 92px; }
+  .ways h2 {
+    margin: 0 0 46px;
+    max-width: 680px;
+    font-size: clamp(28px, 3.2vw, 40px);
+    line-height: 1.12;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    text-wrap: balance;
+  }
+  .ways-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); gap: 18px; }
+  .way-card { border: 1px solid var(--line); border-radius: 16px; padding: 28px; display: grid; gap: 12px; }
+  .way-card h3 { margin: 0; font-size: 18px; font-weight: 700; }
+  .way-card p { margin: 0; font-size: 14px; line-height: 1.65; color: var(--muted); }
+  .way-quote { font-size: 13px; line-height: 1.5; color: var(--brand); background: var(--bg); border-radius: 12px; padding: 11px 14px; font-style: italic; }
+
+  /* ---------- CTA ---------- */
+  .cta { background: var(--brand); color: var(--bg); }
+  .cta-inner { max-width: 860px; margin: 0 auto; padding: 92px 40px; text-align: center; }
+  .cta-avatar {
+    position: relative;
+    display: inline-grid;
+    place-items: center;
+    width: 62px;
+    height: 62px;
+    border-radius: 50%;
+    background: var(--teal);
+    color: var(--brand);
+    font-weight: 700;
+    font-size: 25px;
+    margin-bottom: 22px;
+  }
+  .cta-status { position: absolute; right: 1px; bottom: 1px; width: 13px; height: 13px; border-radius: 50%; background: var(--ok); border: 2.5px solid var(--brand); }
+  .cta h2 { margin: 0 0 14px; font-size: clamp(32px, 4vw, 46px); line-height: 1.08; font-weight: 700; letter-spacing: -0.03em; text-wrap: balance; }
+  .cta-sub { margin: 0 0 34px; font-size: 16.5px; line-height: 1.6; color: color-mix(in srgb, var(--bg) 74%, transparent); }
+  .cta-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+  .cta-btn { font-size: 16px; padding: 17px 40px; }
+  .cta-btn2 { font-size: 16px; padding: 16px 34px; }
+</style>

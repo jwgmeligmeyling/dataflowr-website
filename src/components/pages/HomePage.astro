@@ -1,0 +1,703 @@
+---
+/**
+ * Home page — implementation of "DataFlowr Landing v4.dc.html" (leading design),
+ * locked to palette 0a. Hero has the neural-network canvas, nebula parallax,
+ * scroll reveals and cursor-aware bento tiles (see /src/scripts/home-fx.ts).
+ */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Logo from '../Logo.astro';
+import { abs, routes, CALENDLY_URL, type Lang } from '../../lib/site';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+
+const nl = {
+  metaTitle: 'DataFlowr | Boutique Exact Online Premium integratiepartner',
+  metaDescription:
+    'DataFlowr is een boutique integratie- en automatiseringspartner binnen het Exact Online ecosysteem. Wij verbinden systemen, automatiseren workflows en geven uw finance team grip, in tijd, kosten en controle.',
+  heroEyebrow: 'Exact Online Premium · Integratiepartner',
+  heroTitlePre: 'Financiële processen die ',
+  heroTitleAccent: 'stromen',
+  heroTitlePost: '.',
+  heroSub:
+    'DataFlowr is een integratie- en automatiseringspartner binnen het Exact Online ecosysteem. Wij verbinden systemen, automatiseren workflows en geven uw finance team grip, in tijd, kosten en controle.',
+  heroCta: 'Plan een kennismaking',
+  heroCta2: 'Bekijk onze aanpak',
+  heroNote: '30 minuten · vrijblijvend · u spreekt direct een founder',
+  scroll: 'Scroll',
+  ticker: ['Exact Online Premium', 'Power BI', 'Smart Closing', 'Mollie', 'Pay.nl', 'Make · iPaaS', 'Camunda', 'Webshops & portalen', 'PSP-reconciliatie', 'API-integraties'],
+  whyEyebrow: 'Waarom DataFlowr',
+  whyTitle: 'Finance-expertise ontmoet workflow-technologie.',
+  whyIntro:
+    'Wij helpen organisaties met gefragmenteerde systemen, hoge handmatige workload en beperkte transparantie. Door integraties, orkestratie en slimme automatisering ontstaat een proces dat schaalbaar én controleerbaar is.',
+  tiles: [
+    { kicker: '01 · Exact Online', title: 'We kennen het ecosysteem door en door.', items: ['Diepgaande API- en Premium-kennis', 'Early adopter Power BI Connector & Smart Closing', 'Eigen connectors voor Make & iPaaS'] },
+    { kicker: '02 · Finance', title: 'We weten hoe financeprocessen werken.', items: ['Workflows rond controls en auditability', 'Ervaring in closing, facturatie en reconciliatie', 'Beveiliging, compliance en helder eigenaarschap'] },
+    { kicker: '03 · Software', title: 'We weten hoe we het moeten bouwen.', items: ['Integratie, orkestratie en custom portalen', 'AI-ondersteuning bij cijferbeoordeling', 'Portalen, dashboards en maatwerktools'] },
+  ],
+  darkTileTitle: 'Drie disciplines, één team.',
+  darkTileSub: 'Dat maakt ons uniek als Exact Online partner.',
+  darkTileItems: ['100% focus op Exact Online', 'Early adopter Premium-features', 'Direct contact met de founders', 'Geworteld in de Randstad'],
+  servicesEyebrow: 'Diensten',
+  servicesTitle: 'Wat wij voor u bouwen.',
+  servicesSub: 'Zes disciplines, één team. Per situatie combineren we ze, en vaak zit Claire, ons eigen product, er bovenop.',
+  serviceRows: [
+    { key: 'exact-online-premium', title: 'Exact Online Premium', body: 'Implementatie, migratie en de Premium-features daadwerkelijk in gebruik, Smart Closing, de Power BI Connector en de API’s eronder.' },
+    { key: 'integraties', title: 'Integraties', body: 'Webshops, PSP’s, CRM en portalen gekoppeld aan Exact Online. Data één keer invoeren, overal kloppend, inclusief PSP-reconciliatie.' },
+    { key: 'make', title: 'Make & low-code', body: 'Automatiseringen in Make en n8n die uw team zelf kan lezen en aanpassen. Met eigen Exact Online-connectors waar de standaard tekortkomt.' },
+    { key: 'camunda', title: 'Camunda', body: 'Orkestratie met BPMN en DMN voor processen die dagen doorlopen, langs meerdere mensen gaan en herleidbaar moeten zijn.' },
+    { key: 'rpa', title: 'RPA', body: 'Klikwerk overnemen waar een systeem geen API heeft. Elke run identiek, gelogd met screenshots, als brug, niet als eindoplossing.' },
+    { key: 'training', title: 'Training', body: 'Uw team leert de tools zelf beheren, geoefend op uw eigen administratie. Kennis blijft intern, geen afhankelijkheid van één partij.' },
+  ] as { key: keyof typeof routes.services; title: string; body: string }[],
+  servicesNote: 'Iets anders nodig? Geen standaardpakket, maar een gereedschapskist voor maatwerk dat native integreert.',
+  servicesNoteCta: 'Leg het ons voor →',
+  claireEyebrow: 'Ons product',
+  claireTitlePre: 'Maak kennis met ',
+  claireTitlePost: ', de AI-laag boven op Exact Online.',
+  claireP1: 'De cijfers bestaan al, ze zijn alleen tien klikken verderop. Claire beantwoordt vragen in gewone taal, rechtstreeks uit uw eigen administratie, en zet autonoom werk klaar volgens schema.',
+  claireP2: 'Niets wordt geboekt zonder uw akkoord. Uw data blijft in Exact Online staan, geen schaduwkopie.',
+  claireCta: 'Ontdek Claire',
+  claireCta2: 'Verbind Exact Online',
+  claireCardStatus: 'live in Exact Online',
+  claireCardQuote: '"Welke inkoopfacturen staan langer dan 60 dagen open?"',
+  claireCardItems: ['Realtime rapportage uit het grootboek', 'Afsluitcontroles op de eerste werkdag', 'Debiteurenbewaking met concept-herinneringen', 'Werkt in Claude, ChatGPT en Copilot'],
+  approachEyebrow: 'Projectaanpak',
+  approachTitle: 'Van quick scan naar draaiende automatisering.',
+  steps: [
+    { num: '01', title: 'Quick Scan', body: 'Huidige processen, volumes, knelpunten en ambitie in kaart brengen.', chip: '1 sessie op locatie' },
+    { num: '02', title: 'Blueprint', body: 'Procesontwerp, KPI-definitie, besluitregels en data- en integratiemapping.', chip: '1–2 weken' },
+    { num: '03', title: 'Delivery', body: 'Agile build sprints. Integratie, workflowconfiguratie, testen en oplevering.', chip: '4–12 weken' },
+    { num: '04', title: 'Maintenance', body: 'Doorlopend beheer, monitoring, optimalisatie en support.', chip: 'Doorlopend' },
+  ],
+  approachNote: 'Servicemodel: projecten, consultancy en doorlopende onderhoudscontracten.',
+  ctaTitle: 'Klaar om uw financiële processen te moderniseren?',
+  ctaSub: 'Plan een vrijblijvend gesprek van 30 minuten.',
+  ctaButton: 'Neem contact op',
+};
+
+const en: typeof nl = {
+  metaTitle: 'DataFlowr | Boutique Exact Online Premium integration partner',
+  metaDescription:
+    'DataFlowr is a boutique integration and automation partner within the Exact Online ecosystem. We connect systems, automate workflows and give your finance team grip, on time, cost and control.',
+  heroEyebrow: 'Exact Online Premium · Integration partner',
+  heroTitlePre: 'Financial processes that ',
+  heroTitleAccent: 'flow',
+  heroTitlePost: '.',
+  heroSub:
+    'DataFlowr is an integration and automation partner within the Exact Online ecosystem. We connect systems, automate workflows and give your finance team grip, on time, cost and control.',
+  heroCta: 'Get in touch',
+  heroCta2: 'See how we work',
+  heroNote: '30 minutes · no strings · you speak to a founder directly',
+  scroll: 'Scroll',
+  ticker: ['Exact Online Premium', 'Power BI', 'Smart Closing', 'Mollie', 'Pay.nl', 'Make · iPaaS', 'Camunda', 'Webshops & portals', 'PSP reconciliation', 'API integrations'],
+  whyEyebrow: 'Why DataFlowr',
+  whyTitle: 'Finance expertise meets workflow technology.',
+  whyIntro:
+    'We help organisations with fragmented systems, a high manual workload and limited transparency. Through integrations, orchestration and smart automation, a process emerges that is both scalable and controllable.',
+  tiles: [
+    { kicker: '01 · Exact Online', title: 'We know the ecosystem inside out.', items: ['Deep API and Premium knowledge', 'Early adopter of the Power BI Connector & Smart Closing', 'Our own connectors for Make & iPaaS'] },
+    { kicker: '02 · Finance', title: 'We know how finance processes work.', items: ['Workflows built around controls and auditability', 'Experience in closing, invoicing and reconciliation', 'Security, compliance and clear ownership'] },
+    { kicker: '03 · Software', title: 'We know how to build it.', items: ['Integration, orchestration and custom portals', 'AI support in reviewing the figures', 'Portals, dashboards and custom tools'] },
+  ],
+  darkTileTitle: 'Three disciplines, one team.',
+  darkTileSub: 'That is what makes us unique as an Exact Online partner.',
+  darkTileItems: ['100% focus on Exact Online', 'Early adopter of Premium features', 'Direct contact with the founders', 'Rooted in the Randstad'],
+  servicesEyebrow: 'Services',
+  servicesTitle: 'What we build for you.',
+  servicesSub: 'Six disciplines, one team. We combine them per case, and Claire, our own product, often sits on top.',
+  serviceRows: [
+    { key: 'exact-online-premium', title: 'Exact Online Premium', body: 'Implementation, migration and the Premium features actually in use, Smart Closing, the Power BI Connector and the APIs underneath.' },
+    { key: 'integraties', title: 'Integrations', body: 'Webshops, PSPs, CRM and portals connected to Exact Online. Enter data once, correct everywhere, including PSP reconciliation.' },
+    { key: 'make', title: 'Make & low-code', body: 'Automations in Make and n8n your team can read and adapt themselves. With our own Exact Online connectors where the standard falls short.' },
+    { key: 'camunda', title: 'Camunda', body: 'Orchestration with BPMN and DMN for processes that run for days, pass through several people and must be traceable.' },
+    { key: 'rpa', title: 'RPA', body: 'Taking over click-work where a system has no API. Every run identical, logged with screenshots, as a bridge, not an end state.' },
+    { key: 'training', title: 'Training', body: 'Your team learns to manage the tools themselves, practised on your own administration. Knowledge stays in-house, no dependency on one party.' },
+  ],
+  servicesNote: 'Need something else? No standard package, but a toolkit for custom work that integrates natively.',
+  servicesNoteCta: 'Put it to us →',
+  claireEyebrow: 'Our product',
+  claireTitlePre: 'Meet ',
+  claireTitlePost: ', the AI layer on top of Exact Online.',
+  claireP1: 'The figures already exist, they are just ten clicks away. Claire answers questions in plain language, straight from your own administration, and prepares work autonomously on schedule.',
+  claireP2: 'Nothing is posted without your approval. Your data stays in Exact Online, no shadow copy.',
+  claireCta: 'Discover Claire',
+  claireCta2: 'Connect Exact Online',
+  claireCardStatus: 'live in Exact Online',
+  claireCardQuote: '"Which purchase invoices are more than 60 days overdue?"',
+  claireCardItems: ['Real-time reporting from the ledger', 'Close checks on the first working day', 'Receivables watch with drafted reminders', 'Works in Claude, ChatGPT and Copilot'],
+  approachEyebrow: 'Project approach',
+  approachTitle: 'From quick scan to running automation.',
+  steps: [
+    { num: '01', title: 'Quick Scan', body: 'Mapping current processes, volumes, bottlenecks and ambition.', chip: '1 on-site session' },
+    { num: '02', title: 'Blueprint', body: 'Process design, KPI definition, decision rules and data & integration mapping.', chip: '1–2 weeks' },
+    { num: '03', title: 'Delivery', body: 'Agile build sprints. Integration, workflow configuration, testing and delivery.', chip: '4–12 weeks' },
+    { num: '04', title: 'Maintenance', body: 'Ongoing management, monitoring, optimisation and support.', chip: 'Ongoing' },
+  ],
+  approachNote: 'Service model: projects, consultancy and ongoing maintenance contracts.',
+  ctaTitle: 'Ready to modernise your financial processes?',
+  ctaSub: 'Book a no-obligation 30-minute call.',
+  ctaButton: 'Get in touch',
+};
+
+const t = lang === 'nl' ? nl : en;
+const other: Lang = lang === 'nl' ? 'en' : 'nl';
+
+const schema = [
+  {
+    '@type': 'ProfessionalService',
+    '@id': abs(`${routes.home[lang]}#service`),
+    name: 'DataFlowr',
+    description: t.metaDescription,
+    url: abs(routes.home[lang]),
+    areaServed: 'NL',
+    parentOrganization: { '@id': abs('/#organization') },
+  },
+];
+---
+<BaseLayout
+  lang={lang}
+  title={t.metaTitle}
+  description={t.metaDescription}
+  path={routes.home[lang]}
+  altPath={routes.home[other]}
+  navVariant="overlay"
+  ctaHref="#contact"
+  footer="full"
+  schema={schema}
+>
+  <!-- ============ HERO ============ -->
+  <section id="top" class="hero">
+    <div class="nebula hero-nebula" data-nebula="hero" aria-hidden="true">
+      <Logo mode="mark" h={980} />
+    </div>
+    <canvas data-hero-canvas aria-hidden="true" class="hero-canvas"></canvas>
+    <div class="hero-shade" aria-hidden="true"></div>
+    <div class="grain" aria-hidden="true"></div>
+    <div class="wrap hero-inner">
+      <p class="eyebrow eyebrow--thin eyebrow--dim" data-reveal="0">{t.heroEyebrow}</p>
+      <h1 data-reveal="80">{t.heroTitlePre}<span class="accent">{t.heroTitleAccent}</span>{t.heroTitlePost}</h1>
+      <p class="hero-sub" data-reveal="160">{t.heroSub}</p>
+      <div class="hero-ctas" data-reveal="240">
+        <a href={CALENDLY_URL} target="_blank" rel="noopener" class="btn-signal hero-btn">{t.heroCta}</a>
+        <a href="#aanpak" class="hero-btn2">{t.heroCta2}</a>
+      </div>
+      <p class="hero-note" data-reveal="320">{t.heroNote}</p>
+    </div>
+    <div class="scroll-cue" aria-hidden="true">
+      <span class="cue-label">{t.scroll}</span>
+      <span class="cue-line"></span>
+    </div>
+  </section>
+
+  <!-- ============ TICKER ============ -->
+  <section class="ticker" aria-hidden="true">
+    <div class="ticker-track">
+      {[0, 1].map((copy) => (
+        <div class="ticker-group" aria-hidden={copy === 1 ? 'true' : undefined}>
+          {t.ticker.map((item, i) => (
+            <>
+              <span class="ticker-item">{item}</span>
+              <span class={`ticker-dot ${i % 2 ? 'ticker-dot--pos' : 'ticker-dot--hl'}`}></span>
+            </>
+          ))}
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- ============ WAAROM · BENTO ============ -->
+  <section id="waarom" class="why">
+    <div class="wrap why-inner">
+      <div class="why-head">
+        <div class="why-head-main" data-reveal="0">
+          <p class="eyebrow eyebrow--thin why-eyebrow">{t.whyEyebrow}</p>
+          <h2>{t.whyTitle}</h2>
+        </div>
+        <p class="why-intro" data-reveal="120">{t.whyIntro}</p>
+      </div>
+      <div class="bento" data-bento>
+        {t.tiles.map((tile, i) => (
+          <div class={`tile ${i === 0 ? 'span7' : 'span5'}`} data-reveal={i % 2 ? '90' : '0'} data-tile-glow>
+            <p class="tile-kicker">{tile.kicker}</p>
+            <h3>{tile.title}</h3>
+            <ul>
+              {tile.items.map((item) => <li><span class="dot"></span>{item}</li>)}
+            </ul>
+          </div>
+        ))}
+        <div class="tile tile--dark span7" data-reveal="90">
+          <div class="nebula tile-nebula" aria-hidden="true"><Logo mode="mark" h={380} /></div>
+          <div class="tile-dark-inner">
+            <h3>{t.darkTileTitle}</h3>
+            <p class="tile-dark-sub">{t.darkTileSub}</p>
+            <div class="tile-dark-grid">
+              {t.darkTileItems.map((item) => <div><span class="dot"></span>{item}</div>)}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ DIENSTEN ============ -->
+  <section id="diensten" class="services">
+    <div class="wrap services-inner">
+      <p class="eyebrow eyebrow--thin why-eyebrow" data-reveal="0">{t.servicesEyebrow}</p>
+      <h2 data-reveal="80">{t.servicesTitle}</h2>
+      <p class="services-sub" data-reveal="120">{t.servicesSub}</p>
+      <div class="service-list">
+        {t.serviceRows.map((row, i) => (
+          <a href={routes.services[row.key][lang]} class="service-row" data-reveal={String(i * 60)}>
+            <span class="service-num">{String(i + 1).padStart(2, '0')}</span>
+            <div>
+              <h3>{row.title}</h3>
+              <p>{row.body}</p>
+            </div>
+            <span class="service-arrow" aria-hidden="true">→</span>
+          </a>
+        ))}
+      </div>
+      <p class="services-note">{t.servicesNote} <a href="#contact" class="services-note-cta">{t.servicesNoteCta}</a></p>
+    </div>
+  </section>
+
+  <!-- ============ CLAIRE (PRODUCT) ============ -->
+  <section id="claire" class="claire">
+    <div class="nebula claire-nebula" aria-hidden="true"><Logo mode="mark" h={680} /></div>
+    <div class="wrap claire-inner">
+      <div>
+        <p class="eyebrow eyebrow--thin eyebrow--pos" data-reveal="0">{t.claireEyebrow}</p>
+        <h2 data-reveal="70">{t.claireTitlePre}<span class="claire-accent">Claire</span>{t.claireTitlePost}</h2>
+        <p class="claire-p1" data-reveal="130">{t.claireP1}</p>
+        <p class="claire-p2" data-reveal="170">{t.claireP2}</p>
+        <div class="claire-ctas" data-reveal="220">
+          <a href={routes.claire[lang]} class="claire-btn">{t.claireCta}</a>
+          <a href={routes.claireStart[lang]} class="btn-ghost-dark claire-btn2">{t.claireCta2}</a>
+        </div>
+      </div>
+      <div class="claire-card" data-reveal="120">
+        <div class="claire-card-head">
+          <span class="claire-card-badge" aria-hidden="true">C</span>
+          <span class="claire-card-id"><strong>Claire</strong><span>{t.claireCardStatus}</span></span>
+        </div>
+        <p class="claire-card-quote">{t.claireCardQuote}</p>
+        <div class="claire-card-items">
+          {t.claireCardItems.map((item) => <span><span class="dot"></span>{item}</span>)}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ AANPAK ============ -->
+  <section id="aanpak" class="approach">
+    <div class="wrap approach-inner">
+      <p class="eyebrow eyebrow--thin why-eyebrow" data-reveal="0">{t.approachEyebrow}</p>
+      <h2 data-reveal="80">{t.approachTitle}</h2>
+      <div class="steps">
+        {t.steps.map((step, i) => (
+          <div class="step" data-reveal={String(i * 90)}>
+            <div class="step-rail"><span class="step-node"></span><span class={`step-line ${i === 3 ? 'step-line--last' : ''}`}></span></div>
+            <span class="step-num">{step.num}</span>
+            <h3>{step.title}</h3>
+            <p>{step.body}</p>
+            <span class="step-chip">{step.chip}</span>
+          </div>
+        ))}
+      </div>
+      <p class="approach-note">{t.approachNote}</p>
+    </div>
+  </section>
+
+  <!-- ============ CONTACT CTA ============ -->
+  <section id="contact" class="cta">
+    <div class="nebula cta-nebula" data-nebula="cta" aria-hidden="true"><Logo mode="mark" h={920} /></div>
+    <div class="grain" aria-hidden="true"></div>
+    <div class="cta-inner">
+      <h2 data-reveal="0">{t.ctaTitle}</h2>
+      <p class="cta-sub" data-reveal="80">{t.ctaSub}</p>
+      <a data-reveal="160" href={CALENDLY_URL} target="_blank" rel="noopener" class="btn-signal cta-btn">{t.ctaButton}</a>
+      <p class="cta-note" data-reveal="220">calendly.com/daan-dataflowr</p>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  import { initHomeFx } from '../../scripts/home-fx';
+  initHomeFx();
+</script>
+
+<style>
+  /* ---------- Hero ---------- */
+  .hero {
+    position: relative;
+    overflow: hidden;
+    background: var(--brand);
+    color: var(--bg);
+    margin-top: -72px;
+  }
+  .hero-nebula {
+    position: absolute;
+    right: -160px;
+    top: -260px;
+    filter: blur(130px) saturate(1.1);
+    opacity: 0.45;
+  }
+  .hero-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+  .hero-shade {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(97deg, color-mix(in srgb, var(--brand) 88%, transparent) 24%, color-mix(in srgb, var(--brand) 34%, transparent) 54%, transparent 76%);
+    pointer-events: none;
+  }
+  .hero-inner {
+    position: relative;
+    padding-top: 128px;
+    padding-bottom: 92px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .hero h1 {
+    margin: 0 0 28px;
+    max-width: 940px;
+    font-size: clamp(52px, 6vw, 82px);
+    line-height: 1.02;
+    font-weight: 700;
+    letter-spacing: -0.035em;
+    text-wrap: balance;
+  }
+  .hero .accent { color: var(--heroAccent, var(--hl)); }
+  .hero .eyebrow { margin-bottom: 26px; gap: 14px; }
+  .hero .eyebrow::before { background: color-mix(in srgb, var(--hl) 80%, var(--bg)); }
+  .hero-sub {
+    margin: 0 0 42px;
+    max-width: 560px;
+    font-size: 17.5px;
+    line-height: 1.7;
+    color: color-mix(in srgb, var(--bg) 78%, transparent);
+    text-wrap: pretty;
+  }
+  .hero-ctas { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; }
+  .hero-btn { font-size: 15px; padding: 16px 32px; }
+  .hero-btn2 {
+    border: 1px solid color-mix(in srgb, var(--bg) 30%, transparent);
+    color: var(--bg);
+    font-weight: 500;
+    font-size: 15px;
+    padding: 15px 30px;
+    border-radius: 99px;
+    transition: background 0.3s, border-color 0.3s;
+  }
+  .hero-btn2:hover {
+    background: color-mix(in srgb, var(--bg) 10%, transparent);
+    border-color: color-mix(in srgb, var(--bg) 55%, transparent);
+    color: var(--bg);
+  }
+  .hero-note { margin: 26px 0 0; font-size: 12.5px; color: color-mix(in srgb, var(--bg) 52%, transparent); }
+  .scroll-cue {
+    position: absolute;
+    left: 50%;
+    bottom: 26px;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    pointer-events: none;
+  }
+  .cue-label {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: color-mix(in srgb, var(--bg) 42%, transparent);
+  }
+  .cue-line {
+    width: 1px;
+    height: 44px;
+    background: linear-gradient(color-mix(in srgb, var(--bg) 70%, transparent), transparent);
+    animation: df-cue 2.6s ease-in-out infinite;
+  }
+
+  /* ---------- Ticker ---------- */
+  .ticker {
+    border-bottom: 1px solid color-mix(in srgb, var(--brand) 8%, transparent);
+    background: color-mix(in srgb, #ffffff 55%, transparent);
+    overflow: hidden;
+  }
+  .ticker-track { display: flex; width: max-content; animation: df-marq 32s linear infinite; padding: 19px 0; }
+  .ticker-group { display: flex; gap: 52px; align-items: center; padding-right: 52px; }
+  .ticker-item {
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+  .ticker-dot { width: 5px; height: 5px; border-radius: 50%; flex: none; }
+  .ticker-dot--hl { background: var(--hl); }
+  .ticker-dot--pos { background: var(--pos); }
+
+  /* ---------- Waarom / bento ---------- */
+  .why-inner { padding-top: 120px; padding-bottom: 110px; }
+  .why-head {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px 80px;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 56px;
+  }
+  .why-head-main { flex: 1 1 480px; min-width: 0; }
+  .why-eyebrow { color: color-mix(in srgb, var(--hl) 85%, var(--brand)); margin-bottom: 18px; gap: 14px; }
+  .why h2, .services h2, .approach h2 {
+    margin: 0;
+    max-width: 680px;
+    font-size: clamp(38px, 4vw, 54px);
+    line-height: 1.06;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    text-wrap: balance;
+  }
+  .why-intro { flex: 0 1 420px; margin: 0; font-size: 15.5px; line-height: 1.7; color: var(--muted); text-wrap: pretty; }
+  .bento { display: grid; grid-template-columns: repeat(12, 1fr); gap: 16px; }
+  .bento > div { min-width: 0; overflow-wrap: break-word; }
+  .span7 { grid-column: span 7; }
+  .span5 { grid-column: span 5; }
+  @media (max-width: 1020px) {
+    .bento { grid-template-columns: 1fr; }
+    .span7, .span5 { grid-column: auto; }
+  }
+  .tile {
+    border: 1px solid color-mix(in srgb, var(--brand) 9%, transparent);
+    border-radius: 20px;
+    padding: 36px;
+    background:
+      radial-gradient(320px circle at var(--mx, 75%) var(--my, 20%), color-mix(in srgb, var(--hl) 7%, transparent), transparent 70%),
+      #ffffff;
+    transition: transform 0.35s, box-shadow 0.35s;
+  }
+  .tile:hover:not(.tile--dark) {
+    transform: translateY(-3px);
+    box-shadow: 0 18px 50px color-mix(in srgb, var(--brand) 10%, transparent);
+  }
+  .tile-kicker {
+    margin: 0 0 14px;
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: color-mix(in srgb, var(--hl) 85%, var(--brand));
+  }
+  .tile h3 { margin: 0 0 22px; max-width: 420px; font-size: 24px; line-height: 1.25; font-weight: 700; letter-spacing: -0.015em; }
+  .tile ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; max-width: 480px; }
+  .tile li { display: flex; gap: 13px; align-items: flex-start; font-size: 14.5px; line-height: 1.55; color: var(--muted); }
+  .dot { flex: none; width: 6px; height: 6px; border-radius: 50%; margin-top: 7px; background: var(--pos); }
+  .tile--dark {
+    position: relative;
+    overflow: hidden;
+    background: var(--brand);
+    color: var(--bg);
+    border: none;
+    isolation: isolate;
+    contain: paint;
+    transform: translateZ(0);
+  }
+  .tile-nebula { position: absolute; right: -120px; top: -120px; filter: blur(70px) saturate(1.1); opacity: 0.5; }
+  .tile-dark-inner { position: relative; }
+  .tile--dark h3 { margin: 0 0 10px; font-size: 28px; line-height: 1.2; letter-spacing: -0.02em; max-width: none; }
+  .tile-dark-sub { margin: 0 0 26px; font-size: 15px; line-height: 1.6; color: color-mix(in srgb, var(--bg) 72%, transparent); }
+  .tile-dark-grid {
+    border-top: 1px solid color-mix(in srgb, var(--bg) 16%, transparent);
+    padding-top: 22px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px 28px;
+  }
+  .tile-dark-grid > div {
+    display: flex;
+    gap: 11px;
+    align-items: center;
+    font-size: 13.5px;
+    font-weight: 500;
+    color: color-mix(in srgb, var(--bg) 80%, transparent);
+  }
+  .tile-dark-grid .dot { margin-top: 0; }
+  @media (max-width: 640px) { .tile-dark-grid { grid-template-columns: 1fr; } }
+
+  /* ---------- Diensten ---------- */
+  .services {
+    background: color-mix(in srgb, #ffffff 62%, transparent);
+    border-top: 1px solid color-mix(in srgb, var(--brand) 7%, transparent);
+    border-bottom: 1px solid color-mix(in srgb, var(--brand) 7%, transparent);
+    scroll-margin-top: 80px;
+  }
+  .services-inner { padding-top: 120px; padding-bottom: 120px; }
+  .services h2 { margin-bottom: 22px; }
+  .services-sub { margin: 0 0 52px; max-width: 620px; font-size: 16px; line-height: 1.7; color: var(--muted); text-wrap: pretty; }
+  .service-list { border-top: 1px solid color-mix(in srgb, var(--brand) 12%, transparent); }
+  .service-row {
+    display: grid;
+    grid-template-columns: 110px 1fr 40px;
+    gap: 32px;
+    align-items: center;
+    padding: 34px 18px 34px 6px;
+    border-bottom: 1px solid color-mix(in srgb, var(--brand) 12%, transparent);
+    color: var(--brand);
+    transition: background 0.3s, padding-left 0.3s;
+  }
+  .service-row:hover { background: color-mix(in srgb, var(--hl) 4%, transparent); padding-left: 18px; color: var(--brand); }
+  .service-num { font-size: 44px; font-weight: 300; line-height: 1; color: var(--hl); }
+  .service-row h3 { margin: 0 0 6px; font-size: 21px; font-weight: 700; letter-spacing: -0.01em; }
+  .service-row p { margin: 0; max-width: 720px; font-size: 14.5px; line-height: 1.6; color: var(--muted); }
+  .service-arrow { font-size: 22px; color: var(--hl); }
+  @media (max-width: 720px) {
+    .service-row { grid-template-columns: 1fr; gap: 10px; }
+    .service-num { font-size: 30px; }
+    .service-arrow { display: none; }
+  }
+  .services-note { margin: 32px 0 0; font-size: 14.5px; color: var(--muted); }
+  .services-note-cta { font-weight: 700; }
+
+  /* ---------- Claire product ---------- */
+  .claire {
+    position: relative;
+    overflow: hidden;
+    background: var(--brand);
+    color: var(--bg);
+    scroll-margin-top: 80px;
+  }
+  .claire-nebula { position: absolute; right: -140px; top: -190px; filter: blur(120px) saturate(1.15); opacity: 0.4; --logoBase: transparent; }
+  .claire-inner {
+    position: relative;
+    padding-top: 110px;
+    padding-bottom: 110px;
+    display: grid;
+    grid-template-columns: 1.1fr 460px;
+    gap: 60px;
+    align-items: center;
+  }
+  @media (max-width: 1020px) { .claire-inner { grid-template-columns: 1fr; } }
+  .claire h2 {
+    margin: 0 0 20px;
+    max-width: 620px;
+    font-size: clamp(36px, 3.9vw, 52px);
+    line-height: 1.06;
+    font-weight: 700;
+    letter-spacing: -0.032em;
+    text-wrap: balance;
+  }
+  .claire .eyebrow { margin-bottom: 20px; gap: 14px; }
+  .claire-accent { color: var(--pos); }
+  .claire-p1 { margin: 0 0 16px; max-width: 540px; font-size: 17px; line-height: 1.7; color: color-mix(in srgb, var(--bg) 80%, transparent); text-wrap: pretty; }
+  .claire-p2 { margin: 0 0 34px; max-width: 540px; font-size: 15px; line-height: 1.7; color: color-mix(in srgb, var(--bg) 62%, transparent); }
+  .claire-ctas { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
+  .claire-btn {
+    background: var(--pos);
+    color: var(--brand);
+    font-weight: 700;
+    font-size: 15px;
+    padding: 16px 30px;
+    border-radius: 99px;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .claire-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 36px color-mix(in srgb, var(--pos) 45%, transparent);
+    color: var(--brand);
+  }
+  .claire-btn2 { font-size: 15px; padding: 15px 28px; }
+  .claire-card {
+    background: color-mix(in srgb, #ffffff 7%, transparent);
+    border: 1px solid color-mix(in srgb, var(--bg) 16%, transparent);
+    border-radius: 20px;
+    padding: 26px;
+    backdrop-filter: blur(10px);
+    display: grid;
+    gap: 14px;
+  }
+  .claire-card-head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid color-mix(in srgb, var(--bg) 14%, transparent);
+  }
+  .claire-card-badge {
+    position: relative;
+    flex: none;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: var(--pos);
+    color: var(--brand);
+    font-weight: 700;
+    font-size: 16px;
+    display: grid;
+    place-items: center;
+  }
+  .claire-card-id { display: grid; gap: 1px; }
+  .claire-card-id strong { font-size: 14px; }
+  .claire-card-id span:last-child { font-size: 11.5px; color: color-mix(in srgb, var(--bg) 60%, transparent); }
+  .claire-card-quote { margin: 0; font-size: 13.5px; line-height: 1.6; font-style: italic; color: color-mix(in srgb, var(--bg) 74%, transparent); }
+  .claire-card-items { display: grid; gap: 10px; }
+  .claire-card-items > span { display: flex; align-items: center; gap: 10px; font-size: 13px; }
+  .claire-card-items .dot { margin-top: 0; }
+
+  /* ---------- Aanpak ---------- */
+  .approach { scroll-margin-top: 80px; }
+  .approach-inner { padding-top: 120px; padding-bottom: 120px; }
+  .approach h2 { margin-bottom: 64px; max-width: 720px; }
+  .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 40px; }
+  .step { display: flex; flex-direction: column; gap: 12px; }
+  .step-rail { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+  .step-node {
+    flex: none;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: 2px solid var(--hl);
+    background: color-mix(in srgb, var(--hl) 20%, transparent);
+  }
+  .step-line { flex: 1; height: 1px; background: color-mix(in srgb, var(--brand) 14%, transparent); }
+  .step-line--last { background: transparent; }
+  .step-num { font-size: 46px; font-weight: 300; line-height: 1; color: var(--hl); }
+  .step h3 { margin: 4px 0 0; font-size: 19px; font-weight: 700; }
+  .step p { margin: 0; flex: 1; font-size: 14.5px; line-height: 1.65; color: var(--muted); }
+  .step-chip {
+    align-self: flex-start;
+    font-size: 11.5px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    padding: 6px 13px;
+    border-radius: 99px;
+    border: 1px solid color-mix(in srgb, var(--hl) 40%, transparent);
+    color: color-mix(in srgb, var(--hl) 85%, var(--brand));
+  }
+  .approach-note { margin: 40px 0 0; font-size: 14px; color: var(--muted); }
+
+  /* ---------- CTA ---------- */
+  .cta {
+    scroll-margin-top: 80px;
+    position: relative;
+    overflow: hidden;
+    background: var(--brand);
+    color: var(--bg);
+  }
+  .cta-nebula { position: absolute; left: 50%; top: -320px; margin-left: -460px; filter: blur(140px) saturate(1.1); opacity: 0.4; }
+  .cta-inner { position: relative; max-width: 880px; margin: 0 auto; padding: 130px 40px; text-align: center; }
+  .cta h2 {
+    margin: 0 0 18px;
+    font-size: clamp(36px, 4.4vw, 58px);
+    line-height: 1.06;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    text-wrap: balance;
+  }
+  .cta-sub { margin: 0 0 40px; font-size: 17px; line-height: 1.6; color: color-mix(in srgb, var(--bg) 74%, transparent); }
+  .cta-btn { font-size: 16px; padding: 17px 46px; }
+  .cta-note { margin: 24px 0 0; font-size: 12.5px; color: color-mix(in srgb, var(--bg) 50%, transparent); }
+</style>
