@@ -10,7 +10,10 @@ import FooterCompact from '../components/FooterCompact.astro';
 import {
   abs,
   SITE_NAME,
+  COMPANY,
   LINKEDIN_URL,
+  LINKEDIN_DAAN,
+  LINKEDIN_JANWILLEM,
   CALENDLY_URL,
   EMAIL_DAAN,
   EMAIL_JANWILLEM,
@@ -61,8 +64,17 @@ const organization = {
   '@type': 'Organization',
   '@id': abs('/#organization'),
   name: SITE_NAME,
+  legalName: COMPANY.legalName,
   url: abs('/'),
   logo: abs('/og/logo-mark.png'),
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: COMPANY.street,
+    postalCode: COMPANY.postalCode,
+    addressLocality: COMPANY.city,
+    addressCountry: COMPANY.country,
+  },
+  identifier: { '@type': 'PropertyValue', propertyID: 'KVK', value: COMPANY.kvk },
   description:
     lang === 'nl'
       ? 'Boutique Exact Online Premium integratiepartner en hyperautomation consultancy. Integraties, workflow-orkestratie, RPA, training en Claire, de AI-laag boven op Exact Online.'
@@ -71,8 +83,8 @@ const organization = {
   email: EMAIL_DAAN,
   areaServed: 'NL',
   founder: [
-    { '@type': 'Person', name: 'Daan Jansen', jobTitle: 'Co-founder · Financial Consultant', email: `mailto:${EMAIL_DAAN}` },
-    { '@type': 'Person', name: 'Jan-Willem Gmelig Meyling', jobTitle: 'Co-founder · Solution Architect', email: `mailto:${EMAIL_JANWILLEM}` },
+    { '@type': 'Person', name: 'Daan Jansen', jobTitle: 'Co-founder · Financial Consultant', email: `mailto:${EMAIL_DAAN}`, sameAs: [LINKEDIN_DAAN] },
+    { '@type': 'Person', name: 'Jan-Willem Gmelig Meyling', jobTitle: 'Co-founder · Solution Architect', email: `mailto:${EMAIL_JANWILLEM}`, sameAs: [LINKEDIN_JANWILLEM] },
   ],
   contactPoint: {
     '@type': 'ContactPoint',

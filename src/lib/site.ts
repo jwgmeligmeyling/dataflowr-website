@@ -1,9 +1,23 @@
 export const SITE_URL = 'https://dataflowr.nl';
 export const SITE_NAME = 'DataFlowr';
 export const CALENDLY_URL = 'https://calendly.com/daan-dataflowr';
+export const CALENDLY_MEETING_URL = `${CALENDLY_URL}/30min`;
 export const LINKEDIN_URL = 'https://linkedin.com/company/dataflowr';
+export const LINKEDIN_DAAN = 'https://www.linkedin.com/in/daan-jansen-329a541a1/';
+export const LINKEDIN_JANWILLEM = 'https://www.linkedin.com/in/jwgmeligmeyling/';
 export const EMAIL_DAAN = 'daan@dataflowr.nl';
 export const EMAIL_JANWILLEM = 'janwillem@dataflowr.nl';
+
+/** Registered company details (KVK). */
+export const COMPANY = {
+  legalName: 'DataFlowr B.V.',
+  kvk: '99021145',
+  vestigingsnummer: '000064143481',
+  street: 'Van Marsbergenstraat 71',
+  postalCode: '2134 LV',
+  city: 'Hoofddorp',
+  country: 'NL',
+} as const;
 
 export type Lang = 'nl' | 'en';
 

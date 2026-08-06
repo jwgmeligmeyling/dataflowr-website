@@ -1,4 +1,7 @@
+import type { ImageMetadata } from 'astro';
 import { EMAIL_DAAN, EMAIL_JANWILLEM, type ArticleKey, type Lang } from '../lib/site';
+import daanPhoto from '../assets/daan.jpeg';
+import janWillemPhoto from '../assets/jan-willem.jpeg';
 
 /**
  * Knowledge-base article content. One entry per article in routes.articles;
@@ -42,12 +45,13 @@ export interface Article {
 
 export const authors: Record<
   AuthorKey,
-  { name: string; jobTitle: string; email: string; role: Record<Lang, string> }
+  { name: string; jobTitle: string; email: string; photo: ImageMetadata; role: Record<Lang, string> }
 > = {
   daan: {
     name: 'Daan Jansen',
     jobTitle: 'Co-founder · Financial Consultant',
     email: EMAIL_DAAN,
+    photo: daanPhoto,
     role: {
       nl: 'Co-founder · Financial Consultant bij DataFlowr',
       en: 'Co-founder · Financial Consultant at DataFlowr',
@@ -57,6 +61,7 @@ export const authors: Record<
     name: 'Jan-Willem Gmelig Meyling',
     jobTitle: 'Co-founder · Solution Architect',
     email: EMAIL_JANWILLEM,
+    photo: janWillemPhoto,
     role: {
       nl: 'Co-founder · Solution Architect bij DataFlowr',
       en: 'Co-founder · Solution Architect at DataFlowr',
