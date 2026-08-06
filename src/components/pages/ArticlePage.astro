@@ -1,123 +1,40 @@
 ---
 /**
  * Knowledge-base article page — implementation of "Artikel.dc.html".
- * This is the standard content/blog template; the month-end close guide
- * is the first published article.
+ * Generic template: content comes from src/data/articles.ts, the TOC is
+ * derived from the h2 blocks and the "more" cards from the other articles.
  */
+import { Image } from 'astro:assets';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ClaireMark from '../ClaireMark.astro';
-import { abs, routes, ui, EMAIL_DAAN, type Lang } from '../../lib/site';
+import { abs, routes, ui, type ArticleKey, type Lang } from '../../lib/site';
+import { articles, articleUi, authors } from '../../data/articles';
 
 interface Props {
   lang: Lang;
+  articleKey: ArticleKey;
 }
-const { lang } = Astro.props;
+const { lang, articleKey } = Astro.props;
 const other: Lang = lang === 'nl' ? 'en' : 'nl';
 
-const nl = {
-  metaTitle: 'Waarom de maandafsluiting nog een week kost, en wat er écht helpt',
-  metaDescription:
-    'De maandafsluiting bestaat uit tientallen handmatige controles. Drie ingrepen die meetbaar helpen: deterministische controles, signaleren scheiden van beoordelen, en besluiten vastleggen. Praktijkgids van DataFlowr.',
-  crumbResources: 'Kennisbank',
-  crumbCurrent: 'Maandafsluiting',
-  tag: 'Praktijkgids',
-  date: '12 juli 2026',
-  dateIso: '2026-07-12',
-  readTime: '8 min leestijd',
-  title: 'Waarom de maandafsluiting nog een week kost, en wat er écht helpt',
-  lead:
-    'Dezelfde checklist, elke maand opnieuw: kloppen de openingsbalansen, zijn de tussenrekeningen leeg, sluiten de subadministraties aan? Belangrijk werk, maar grotendeels routine, en juist daar sluipt het erin.',
-  heroSlot: 'Hoofdafbeelding artikel (16:9)',
-  p1: 'Wat u niet ziet, of waar u niet aan toekomt, schuift door naar de volgende maand. Niet omdat uw team onzorgvuldig werkt, maar omdat de afsluiting bestaat uit tientallen kleine controles die allemaal met de hand langs dezelfde administratie gaan. Bij drukte valt de eerste controle weg. Bij vakantie de tweede.',
-  h2a: 'Het probleem is niet de hoeveelheid werk',
-  h2aId: 'probleem',
-  p2: 'Meer mensen aannemen lost dit zelden op: het werk is niet te veel, het werk is te handmatig. Elke vraag begint opnieuw met exports, draaitabellen en overtypwerk, en bij de volgende vraag begint hetzelfde proces van voren af aan. De cijfers bestaan al. Ze zijn alleen moeilijk bereikbaar.',
-  quote:
-    '"De afsluiting verschuift van zoekwerk naar beoordelingswerk. Uw team loopt niet meer elke tussenrekening na, maar beoordeelt een voorbereide lijst bevindingen."',
-  h2b: 'Drie dingen die meetbaar helpen',
-  h2bId: 'drie-dingen',
-  p3: 'Niet elke verbetering vraagt een implementatietraject. In de praktijk zien we drie ingrepen die het verschil maken, in deze volgorde:',
-  list: [
-    { strong: 'Maak de controles deterministisch.', rest: ' Dezelfde administratie moet dezelfde uitkomst geven. Zodra een controle afhangt van wie hem uitvoert, is het geen controle maar een inschatting.' },
-    { strong: 'Scheid signaleren van beoordelen.', rest: ' Laat een systeem opvallende posten naar boven halen, vraagposten, mogelijke dubbelen, afwijkende tegenrekeningen, en houd het oordeel bij uw controller.' },
-    { strong: 'Leg het besluit vast, niet alleen de correctie.', rest: ' Wat is er onderzocht, wat kwam eruit en wat heeft u besloten? Die drie samen maken volgende maand licht werk.' },
-  ],
-  h2c: 'Hoe dat er in de praktijk uitziet',
-  h2cId: 'praktijk',
-  p4: 'Een agent doorloopt op de eerste werkdag een vaste reeks afsluitcontroles, onderzoekt de afwijkingen die daaruit komen en levert een close-readiness rapport op: een helder overzicht van wat de afsluiting nog blokkeert, met bevindingen en concrete aanbevelingen. Uw controller begint niet met zoeken, maar met beoordelen, en niets wordt geboekt zonder akkoord.',
-  p5: 'Het rekenwerk gebeurt daarbij niet in het taalmodel, maar in een rekenlaag die deterministisch en herleidbaar is. Het taalmodel formuleert alleen het antwoord; de cijfers komen uit uw eigen administratie.',
-  authorName: 'Daan Jansen',
-  authorRole: 'Co-founder · Financial Consultant bij DataFlowr',
-  authorSlot: 'Foto',
-  authorCta: 'Neem contact op →',
-  tocTitle: 'Op deze pagina',
-  claireTitle: 'Laat Claire de afsluiting voorbereiden',
-  claireBody: 'Vaste controles, bevindingen met onderbouwing, correcties pas na uw akkoord.',
-  claireCta: 'Bekijk Claire',
-  moreTitle: 'Meer uit de kennisbank',
-  more: [
-    { cat: 'Integraties', title: 'PSP-reconciliatie: waarom de bank nooit precies aansluit', time: '6 min', slot: 'Afbeelding' },
-    { cat: 'Exact Online', title: 'Premium-features waar u voor betaalt maar niets mee doet', time: '5 min', slot: 'Afbeelding' },
-    { cat: 'AI', title: 'Wat MCP is, en waarom het voor finance uitmaakt', time: '7 min', slot: 'Afbeelding' },
-  ],
-};
+const article = articles[articleKey];
+const t = article[lang];
+const s = articleUi[lang];
+const author = authors[article.author];
 
-const en: typeof nl = {
-  metaTitle: 'Why the month-end close still takes a week, and what actually shortens it',
-  metaDescription:
-    'The month-end close consists of dozens of manual checks. Three interventions that measurably help: deterministic checks, separating flagging from judging, and recording decisions. A practical guide by DataFlowr.',
-  crumbResources: 'Resources',
-  crumbCurrent: 'Month-end close',
-  tag: 'Guide',
-  date: '12 July 2026',
-  dateIso: '2026-07-12',
-  readTime: '8 min read',
-  title: 'Why the month-end close still takes a week, and what actually shortens it',
-  lead:
-    "The same checklist every month: do the opening balances add up, are the suspense accounts empty, do the sub-ledgers reconcile? Important work, but largely routine, and exactly where things slip through.",
-  heroSlot: 'Article hero image (16:9)',
-  p1: "What you don't see, or don't get to, shifts to the next month. Not because your team works carelessly, but because the close consists of dozens of small checks that all walk through the same administration by hand. When it gets busy, the first check drops. During holidays, the second.",
-  h2a: "The problem isn't the amount of work",
-  h2aId: 'problem',
-  p2: "Hiring more people rarely fixes this: the work isn't too much, the work is too manual. Every question starts again with exports, pivot tables and re-typing, and with the next question the same process starts from scratch. The figures already exist. They're just hard to reach.",
-  quote:
-    '"The close shifts from searching to reviewing. Your team no longer walks through every suspense account, they review a prepared list of findings."',
-  h2b: 'Three things that measurably help',
-  h2bId: 'three-things',
-  p3: "Not every improvement requires an implementation project. In practice we see three interventions that make the difference, in this order:",
-  list: [
-    { strong: 'Make the checks deterministic.', rest: ' The same administration must give the same outcome. As soon as a check depends on who performs it, it is not a check but an estimate.' },
-    { strong: 'Separate flagging from judging.', rest: ' Let a system surface notable items, query items, possible duplicates, unusual contra accounts, and keep the judgement with your controller.' },
-    { strong: 'Record the decision, not just the correction.', rest: ' What was investigated, what came out and what did you decide? Those three together make next month light work.' },
-  ],
-  h2c: 'What this looks like in practice',
-  h2cId: 'in-practice',
-  p4: 'On the first working day an agent walks through a fixed set of close checks, investigates the deviations that come out and delivers a close-readiness report: a clear overview of what still blocks the close, with findings and concrete recommendations. Your controller starts not with searching but with reviewing, and nothing is posted without approval.',
-  p5: 'The number-crunching does not happen in the language model, but in a calculation layer that is deterministic and traceable. The language model only phrases the answer; the figures come from your own administration.',
-  authorName: 'Daan Jansen',
-  authorRole: 'Co-founder · Financial Consultant at DataFlowr',
-  authorSlot: 'Photo',
-  authorCta: 'Get in touch →',
-  tocTitle: 'On this page',
-  claireTitle: 'Let Claire prepare the close',
-  claireBody: 'Fixed checks, findings with substantiation, corrections only after your approval.',
-  claireCta: 'Discover Claire',
-  moreTitle: 'More from the knowledge base',
-  more: [
-    { cat: 'Integrations', title: 'PSP reconciliation: why the bank never quite matches', time: '6 min', slot: 'Image' },
-    { cat: 'Exact Online', title: "Premium features you're paying for but not using", time: '5 min', slot: 'Image' },
-    { cat: 'AI', title: 'What MCP is, and why it matters for finance', time: '7 min', slot: 'Image' },
-  ],
-};
+const path = routes.articles[articleKey][lang];
+const altPath = routes.articles[articleKey][other];
+const toc = t.blocks.filter((block) => block.type === 'h2');
 
-const t = lang === 'nl' ? nl : en;
-const path = routes.article[lang];
-const altPath = routes.article[other];
-const toc = [
-  { id: t.h2aId, label: t.h2a },
-  { id: t.h2bId, label: t.h2b },
-  { id: t.h2cId, label: t.h2c },
-];
+const more = (Object.keys(articles) as ArticleKey[])
+  .filter((key) => key !== articleKey)
+  .map((key) => ({
+    href: routes.articles[key][lang],
+    cat: articles[key][lang].cat,
+    title: articles[key][lang].title,
+    time: articles[key][lang].readTime,
+    hero: articles[key][lang].hero,
+  }));
 
 const schema = [
   {
@@ -125,17 +42,18 @@ const schema = [
     '@id': abs(`${path}#article`),
     headline: t.title,
     description: t.metaDescription,
-    datePublished: t.dateIso,
+    image: abs(t.hero.src),
+    datePublished: article.dateIso,
     inLanguage: lang === 'nl' ? 'nl-NL' : 'en',
     mainEntityOfPage: abs(path),
-    author: { '@type': 'Person', name: 'Daan Jansen', jobTitle: 'Co-founder · Financial Consultant', email: `mailto:${EMAIL_DAAN}` },
+    author: { '@type': 'Person', name: author.name, jobTitle: author.jobTitle, email: `mailto:${author.email}` },
     publisher: { '@id': abs('/#organization') },
   },
   {
     '@type': 'BreadcrumbList',
     itemListElement: [
       { '@type': 'ListItem', position: 1, name: ui[lang].home, item: abs(routes.home[lang]) },
-      { '@type': 'ListItem', position: 2, name: t.crumbResources },
+      { '@type': 'ListItem', position: 2, name: s.crumbResources },
       { '@type': 'ListItem', position: 3, name: t.crumbCurrent, item: abs(path) },
     ],
   },
@@ -148,74 +66,72 @@ const schema = [
   path={path}
   altPath={altPath}
   navVariant="solid"
-  ctaHref={`mailto:${EMAIL_DAAN}`}
+  ctaHref={`mailto:${author.email}`}
   footer="compact-white"
   ogType="article"
+  ogImage={{ src: t.hero.src, width: 2880, height: 1620 }}
   schema={schema}
 >
   <div class="page">
     <article class="wrap article">
       <nav aria-label={lang === 'nl' ? 'Kruimelpad' : 'Breadcrumb'} class="crumbs">
         <a href={routes.home[lang]}>{ui[lang].home}</a><span>/</span>
-        <a href={path}>{t.crumbResources}</a><span>/</span>
+        <a href={routes.article[lang]}>{s.crumbResources}</a><span>/</span>
         <span class="crumb-current">{t.crumbCurrent}</span>
       </nav>
       <div class="grid">
         <div class="body">
           <div class="meta">
             <span class="tag">{t.tag}</span>
-            <span class="date"><time datetime={t.dateIso}>{t.date}</time> · {t.readTime}</span>
+            <span class="date"><time datetime={article.dateIso}>{t.date}</time> · {t.readTime}</span>
           </div>
           <h1>{t.title}</h1>
           <p class="lead">{t.lead}</p>
 
           <div class="hero-media">
-            <div class="img-slot img-slot--rounded" role="img" aria-label={t.heroSlot}>{t.heroSlot}</div>
+            <img src={t.hero.src} alt={t.hero.alt} width="2880" height="1620" />
           </div>
 
-          <p>{t.p1}</p>
-
-          <h2 id={t.h2aId}>{t.h2a}</h2>
-          <p>{t.p2}</p>
-
-          <blockquote>
-            <p>{t.quote}</p>
-          </blockquote>
-
-          <h2 id={t.h2bId}>{t.h2b}</h2>
-          <p>{t.p3}</p>
-          <ol>
-            {t.list.map((item) => <li><strong>{item.strong}</strong>{item.rest}</li>)}
-          </ol>
-
-          <h2 id={t.h2cId}>{t.h2c}</h2>
-          <p>{t.p4}</p>
-          <p>{t.p5}</p>
+          {t.blocks.map((block) => {
+            if (block.type === 'p') return <p>{block.text}</p>;
+            if (block.type === 'h2') return <h2 id={block.id}>{block.text}</h2>;
+            if (block.type === 'quote')
+              return (
+                <blockquote>
+                  <p>{block.text}</p>
+                </blockquote>
+              );
+            return (
+              <ol>
+                {block.items.map((item) => <li><strong>{item.strong}</strong>{item.rest}</li>)}
+              </ol>
+            );
+          })}
 
           <div class="author">
             <div class="author-photo">
-              <div class="img-slot img-slot--circle" role="img" aria-label={`${t.authorSlot} ${t.authorName}`}>{t.authorSlot}</div>
+              <Image src={author.photo} alt={`${s.authorSlot} ${author.name}`} width={112} height={112} class="author-img" />
             </div>
             <div class="author-id">
-              <p class="author-name">{t.authorName}</p>
-              <p class="author-role">{t.authorRole}</p>
+              <p class="author-name">{author.name}</p>
+              <p class="author-role">{author.role[lang]}</p>
             </div>
-            <a href={`mailto:${EMAIL_DAAN}`} class="author-cta">{t.authorCta}</a>
+            <a href={`mailto:${author.email}`} class="author-cta">{s.authorCta}</a>
           </div>
         </div>
 
         <aside class="sidebar">
           <div class="toc">
-            <p class="toc-title">{t.tocTitle}</p>
+            <p class="toc-title">{s.tocTitle}</p>
             <nav>
-              {toc.map((item) => <a href={`#${item.id}`}>{item.label}</a>)}
+              {toc.map((item) => <a href={`#${item.id}`}>{item.text}</a>)}
             </nav>
           </div>
           <div class="claire-promo">
             <span class="claire-badge" aria-hidden="true"><ClaireMark size={38} /></span>
             <h3>{t.claireTitle}</h3>
             <p>{t.claireBody}</p>
-            <a href={routes.claire[lang]}>{t.claireCta}</a>
+            <a href={routes.claire[lang]}>{s.claireCta}</a>
           </div>
         </aside>
       </div>
@@ -223,11 +139,11 @@ const schema = [
 
     <section class="more">
       <div class="wrap more-inner">
-        <h2>{t.moreTitle}</h2>
+        <h2>{s.moreTitle}</h2>
         <div class="more-grid">
-          {t.more.map((post) => (
-            <a href={path} class="more-card">
-              <div class="more-media"><div class="img-slot" role="img" aria-label={post.slot}>{post.slot}</div></div>
+          {more.map((post) => (
+            <a href={post.href} class="more-card">
+              <div class="more-media"><img src={post.hero.src} alt="" loading="lazy" width="2880" height="1620" /></div>
               <div class="more-body">
                 <span class="more-cat">{post.cat}</span>
                 <h3>{post.title}</h3>
@@ -279,7 +195,8 @@ const schema = [
     text-wrap: balance;
   }
   .lead { margin: 0 0 34px; font-size: 19px; line-height: 1.65; font-weight: 400; color: var(--muted); text-wrap: pretty; }
-  .hero-media { margin: 0 0 40px; border-radius: 16px; overflow: hidden; aspect-ratio: 16 / 9; background: var(--bg); }
+  .hero-media { margin: 0 0 40px; border-radius: 16px; overflow: hidden; aspect-ratio: 16 / 9; background: var(--bg); border: 1px solid var(--line); }
+  .hero-media img, .more-media img { display: block; width: 100%; height: 100%; object-fit: cover; }
   .body > p { margin: 0 0 24px; font-size: 16.5px; line-height: 1.8; color: var(--brand); }
   .body h2 {
     margin: 44px 0 16px;
@@ -312,7 +229,7 @@ const schema = [
     flex-wrap: wrap;
   }
   .author-photo { flex: none; width: 56px; height: 56px; border-radius: 50%; overflow: hidden; background: var(--bg); }
-  .author-photo .img-slot { font-size: 9px; padding: 4px; }
+  .author-img { display: block; width: 100%; height: 100%; object-fit: cover; }
   .author-id { min-width: 0; }
   .author-name { margin: 0 0 2px; font-size: 14.5px; font-weight: 700; }
   .author-role { margin: 0; font-size: 13px; color: var(--muted); }

@@ -10,7 +10,10 @@ import FooterCompact from '../components/FooterCompact.astro';
 import {
   abs,
   SITE_NAME,
+  COMPANY,
   LINKEDIN_URL,
+  LINKEDIN_DAAN,
+  LINKEDIN_JANWILLEM,
   CALENDLY_URL,
   EMAIL_DAAN,
   EMAIL_JANWILLEM,
@@ -29,6 +32,8 @@ interface Props {
   ctaHref?: string;
   footer?: 'full' | 'compact-bg' | 'compact-white' | 'none';
   ogType?: 'website' | 'article';
+  /** Page-specific share image (site-absolute path); falls back to the default OG card. */
+  ogImage?: { src: string; width: number; height: number };
   /** Additional page-specific JSON-LD blocks. */
   schema?: Record<string, unknown>[];
 }
@@ -42,6 +47,7 @@ const {
   ctaHref,
   footer = 'full',
   ogType = 'website',
+  ogImage: ogImageProp,
   schema = [],
 } = Astro.props;
 
@@ -51,14 +57,24 @@ const alternate = abs(altPath);
 const nlUrl = lang === 'nl' ? canonical : alternate;
 const enUrl = lang === 'en' ? canonical : alternate;
 const fullTitle = title.includes(SITE_NAME) ? title : `${title} | ${SITE_NAME}`;
-const ogImage = abs('/og/og-default.png');
+const og = ogImageProp ?? { src: '/og/og-default.png', width: 1200, height: 630 };
+const ogImage = abs(og.src);
 
 const organization = {
   '@type': 'Organization',
   '@id': abs('/#organization'),
   name: SITE_NAME,
+  legalName: COMPANY.legalName,
   url: abs('/'),
   logo: abs('/og/logo-mark.png'),
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: COMPANY.street,
+    postalCode: COMPANY.postalCode,
+    addressLocality: COMPANY.city,
+    addressCountry: COMPANY.country,
+  },
+  identifier: { '@type': 'PropertyValue', propertyID: 'KVK', value: COMPANY.kvk },
   description:
     lang === 'nl'
       ? 'Boutique Exact Online Premium integratiepartner en hyperautomation consultancy. Integraties, workflow-orkestratie, RPA, training en Claire, de AI-laag boven op Exact Online.'
@@ -67,8 +83,8 @@ const organization = {
   email: EMAIL_DAAN,
   areaServed: 'NL',
   founder: [
-    { '@type': 'Person', name: 'Daan Jansen', jobTitle: 'Co-founder · Financial Consultant', email: `mailto:${EMAIL_DAAN}` },
-    { '@type': 'Person', name: 'Jan-Willem Gmelig Meyling', jobTitle: 'Co-founder · Solution Architect', email: `mailto:${EMAIL_JANWILLEM}` },
+    { '@type': 'Person', name: 'Daan Jansen', jobTitle: 'Co-founder · Financial Consultant', email: `mailto:${EMAIL_DAAN}`, sameAs: [LINKEDIN_DAAN] },
+    { '@type': 'Person', name: 'Jan-Willem Gmelig Meyling', jobTitle: 'Co-founder · Solution Architect', email: `mailto:${EMAIL_JANWILLEM}`, sameAs: [LINKEDIN_JANWILLEM] },
   ],
   contactPoint: {
     '@type': 'ContactPoint',
@@ -112,8 +128,8 @@ const jsonLd = { '@context': 'https://schema.org', '@graph': [organization, webs
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={ogImage} />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
+    <meta property="og:image:width" content={String(og.width)} />
+    <meta property="og:image:height" content={String(og.height)} />
     <meta property="og:locale" content={lang === 'nl' ? 'nl_NL' : 'en_US'} />
     <meta property="og:locale:alternate" content={lang === 'nl' ? 'en_US' : 'nl_NL'} />
     <meta name="twitter:card" content="summary_large_image" />

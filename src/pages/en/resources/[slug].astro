@@ -1,0 +1,13 @@
+---
+import ArticlePage from '../../../components/pages/ArticlePage.astro';
+import { routes, type ArticleKey } from '../../../lib/site';
+
+export function getStaticPaths() {
+  return (Object.keys(routes.articles) as ArticleKey[]).map((key) => ({
+    params: { slug: routes.articles[key].en.split('/').pop()! },
+    props: { articleKey: key },
+  }));
+}
+const { articleKey } = Astro.props;
+---
+<ArticlePage lang="en" articleKey={articleKey} />

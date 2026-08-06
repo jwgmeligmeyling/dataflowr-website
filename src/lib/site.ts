@@ -1,11 +1,45 @@
 export const SITE_URL = 'https://dataflowr.nl';
 export const SITE_NAME = 'DataFlowr';
 export const CALENDLY_URL = 'https://calendly.com/daan-dataflowr';
+export const CALENDLY_MEETING_URL = `${CALENDLY_URL}/30min`;
 export const LINKEDIN_URL = 'https://linkedin.com/company/dataflowr';
+export const LINKEDIN_DAAN = 'https://www.linkedin.com/in/daan-jansen-329a541a1/';
+export const LINKEDIN_JANWILLEM = 'https://www.linkedin.com/in/jwgmeligmeyling/';
 export const EMAIL_DAAN = 'daan@dataflowr.nl';
 export const EMAIL_JANWILLEM = 'janwillem@dataflowr.nl';
 
+/** Registered company details (KVK). */
+export const COMPANY = {
+  legalName: 'DataFlowr B.V.',
+  kvk: '99021145',
+  vestigingsnummer: '000064143481',
+  street: 'Van Marsbergenstraat 71',
+  postalCode: '2134 LV',
+  city: 'Hoofddorp',
+  country: 'NL',
+} as const;
+
 export type Lang = 'nl' | 'en';
+
+/** Knowledge-base article routes; NL under /kennisbank, EN under /en/resources. */
+const articleRoutes = {
+  maandafsluiting: {
+    nl: '/kennisbank/waarom-de-maandafsluiting-nog-een-week-kost',
+    en: '/en/resources/why-the-month-end-close-still-takes-a-week',
+  },
+  'psp-reconciliatie': {
+    nl: '/kennisbank/psp-reconciliatie-waarom-de-bank-nooit-precies-aansluit',
+    en: '/en/resources/psp-reconciliation-why-the-bank-never-quite-matches',
+  },
+  'premium-features': {
+    nl: '/kennisbank/premium-features-waar-u-voor-betaalt-maar-niets-mee-doet',
+    en: '/en/resources/premium-features-you-pay-for-but-are-not-using',
+  },
+  'mcp-voor-finance': {
+    nl: '/kennisbank/wat-mcp-is-en-waarom-het-voor-finance-uitmaakt',
+    en: '/en/resources/what-mcp-is-and-why-it-matters-for-finance',
+  },
+} as const;
 
 /**
  * Canonical route table. Every page exists in NL (default, no prefix) and
@@ -17,10 +51,9 @@ export const routes = {
   claire: { nl: '/claire', en: '/en/claire' },
   claireStart: { nl: '/claire#aan-de-slag', en: '/en/claire#get-started' },
   about: { nl: '/over-ons', en: '/en/about' },
-  article: {
-    nl: '/kennisbank/waarom-de-maandafsluiting-nog-een-week-kost',
-    en: '/en/resources/why-the-month-end-close-still-takes-a-week',
-  },
+  articles: articleRoutes,
+  /** Flagship article; also where the "Kennisbank" nav item points. */
+  article: articleRoutes.maandafsluiting,
   services: {
     'exact-online-premium': { nl: '/diensten/exact-online-premium', en: '/en/services/exact-online-premium' },
     integraties: { nl: '/diensten/integraties', en: '/en/services/integrations' },
@@ -32,6 +65,7 @@ export const routes = {
 } as const;
 
 export type ServiceKey = keyof typeof routes.services;
+export type ArticleKey = keyof typeof routes.articles;
 
 /** Shared UI strings (nav, footer, breadcrumbs). */
 export const ui = {
