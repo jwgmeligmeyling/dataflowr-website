@@ -148,7 +148,6 @@ const schema = [
   path={path}
   altPath={altPath}
   navVariant="solid"
-  ctaHref={`mailto:${EMAIL_DAAN}`}
   footer="compact-white"
   ogType="article"
   schema={schema}
@@ -200,7 +199,7 @@ const schema = [
               <p class="author-name">{t.authorName}</p>
               <p class="author-role">{t.authorRole}</p>
             </div>
-            <a href={`mailto:${EMAIL_DAAN}`} class="author-cta">{t.authorCta}</a>
+            <a href={routes.about[lang]} class="author-cta">{t.authorCta}</a>
           </div>
         </div>
 
