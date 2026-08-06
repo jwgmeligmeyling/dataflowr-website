@@ -7,7 +7,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Logo from '../Logo.astro';
 import ClaireMark from '../ClaireMark.astro';
-import { abs, routes, CALENDLY_URL, type Lang } from '../../lib/site';
+import { abs, routes, type Lang } from '../../lib/site';
 
 interface Props {
   lang: Lang;
@@ -76,6 +76,7 @@ const nl = {
   ctaTitle: 'Klaar om uw financiële processen te moderniseren?',
   ctaSub: 'Plan een vrijblijvend gesprek van 30 minuten.',
   ctaButton: 'Neem contact op',
+  ctaNote: 'Kies direct een moment in onze agenda',
 };
 
 const en: typeof nl = {
@@ -140,6 +141,7 @@ const en: typeof nl = {
   ctaTitle: 'Ready to modernise your financial processes?',
   ctaSub: 'Book a no-obligation 30-minute call.',
   ctaButton: 'Get in touch',
+  ctaNote: 'Pick a time in our calendar right away',
 };
 
 const t = lang === 'nl' ? nl : en;
@@ -181,7 +183,7 @@ const schema = [
       <h1 data-reveal="80">{t.heroTitlePre}<span class="accent">{t.heroTitleAccent}</span>{t.heroTitlePost}</h1>
       <p class="hero-sub" data-reveal="160">{t.heroSub}</p>
       <div class="hero-ctas" data-reveal="240">
-        <a href={CALENDLY_URL} target="_blank" rel="noopener" class="btn-signal hero-btn">{t.heroCta}</a>
+        <a href={routes.about[lang]} class="btn-signal hero-btn">{t.heroCta}</a>
         <a href="#aanpak" class="hero-btn2">{t.heroCta2}</a>
       </div>
       <p class="hero-note" data-reveal="320">{t.heroNote}</p>
@@ -318,8 +320,8 @@ const schema = [
     <div class="cta-inner">
       <h2 data-reveal="0">{t.ctaTitle}</h2>
       <p class="cta-sub" data-reveal="80">{t.ctaSub}</p>
-      <a data-reveal="160" href={CALENDLY_URL} target="_blank" rel="noopener" class="btn-signal cta-btn">{t.ctaButton}</a>
-      <p class="cta-note" data-reveal="220">calendly.com/daan-dataflowr</p>
+      <a data-reveal="160" href={routes.about[lang]} class="btn-signal cta-btn">{t.ctaButton}</a>
+      <p class="cta-note" data-reveal="220">{t.ctaNote}</p>
     </div>
   </section>
 </BaseLayout>

@@ -9,12 +9,12 @@ import FooterFull from '../components/FooterFull.astro';
 import FooterCompact from '../components/FooterCompact.astro';
 import {
   abs,
+  routes,
   SITE_NAME,
   COMPANY,
   LINKEDIN_URL,
   LINKEDIN_DAAN,
   LINKEDIN_JANWILLEM,
-  CALENDLY_URL,
   EMAIL_DAAN,
   EMAIL_JANWILLEM,
   ui,
@@ -90,7 +90,7 @@ const organization = {
     '@type': 'ContactPoint',
     contactType: 'sales',
     email: EMAIL_DAAN,
-    url: CALENDLY_URL,
+    url: abs(routes.about[lang]),
     availableLanguage: ['nl', 'en'],
   },
 };
