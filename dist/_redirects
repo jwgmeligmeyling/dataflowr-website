@@ -1,0 +1,9 @@
+# Legacy URLs from the previous dataflowr.nl site (Netlify format).
+# The MCP server product was rebranded as Claire.
+/services/premium        /diensten/exact-online-premium   301
+/services/integrations   /diensten/integraties            301
+/services/make           /diensten/make                   301
+/services/mcp            /claire                          301
+/services/camunda        /diensten/camunda                301
+/services/rpa            /diensten/rpa                    301
+/services/training       /diensten/training               301

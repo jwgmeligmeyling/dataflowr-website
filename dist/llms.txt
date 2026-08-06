@@ -1,0 +1,42 @@
+# DataFlowr
+
+> DataFlowr is a boutique Exact Online Premium integration partner and hyperautomation
+> consultancy based in the Randstad, the Netherlands. Founded in 2025 by Daan Jansen
+> (financial control & consultancy) and Jan-Willem Gmelig Meyling (solution architect &
+> software engineer). Primary language: Dutch; English pages under /en.
+
+DataFlowr combines three disciplines in one team: deep Exact Online ecosystem knowledge
+(early adopter of the Power BI Connector and Smart Closing), finance process expertise
+(closing, invoicing, reconciliation, controls and auditability) and software engineering
+(integrations, orchestration, custom portals).
+
+## Product
+
+- [Claire](https://dataflowr.nl/claire): the AI layer on top of Exact Online. Claire answers
+  questions about your figures in plain language, prepares the month-end close, watches
+  receivables and works autonomously on schedule. Built on MCP (Model Context Protocol),
+  so it works in Claude, ChatGPT, Microsoft Copilot or any MCP client. Reads freely,
+  writes only after explicit user approval; no shadow copy of your data. Live within a day.
+
+## Services
+
+- [Exact Online Premium](https://dataflowr.nl/diensten/exact-online-premium): implementation,
+  migration, Smart Closing, Power BI Connector, multi-entity alignment, governance & controls.
+- [Integraties](https://dataflowr.nl/diensten/integraties): API integrations for webshops,
+  PSPs (Mollie, Pay.nl, Adyen), CRM and portals, with PSP reconciliation and monitoring.
+- [Make & low-code](https://dataflowr.nl/diensten/make): automations in Make and n8n with
+  custom Exact Online connectors; teams can read and adapt the flows themselves.
+- [Camunda](https://dataflowr.nl/diensten/camunda): workflow orchestration with BPMN and DMN,
+  full audit trail per process instance.
+- [RPA](https://dataflowr.nl/diensten/rpa): robotic process automation for systems without an
+  API; every run identical and logged with screenshots, as a bridge to real integration.
+- [Training](https://dataflowr.nl/diensten/training): finance-team enablement on the client's
+  own administration: Exact Online Premium, Make and working with AI in the books.
+
+## Company
+
+- [Over ons](https://dataflowr.nl/over-ons): founders and background.
+- [Kennisbank](https://dataflowr.nl/kennisbank/waarom-de-maandafsluiting-nog-een-week-kost):
+  practical guides on finance automation.
+- Contact: daan@dataflowr.nl · janwillem@dataflowr.nl · https://calendly.com/daan-dataflowr
+- LinkedIn: https://linkedin.com/company/dataflowr
