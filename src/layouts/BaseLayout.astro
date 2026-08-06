@@ -145,7 +145,7 @@ const jsonLd = { '@context': 'https://schema.org', '@graph': [organization, webs
   </head>
   <body>
     <a href="#main" class="skip-link">{t.skip}</a>
-    <SiteNav lang={lang} variant={navVariant} ctaHref={ctaHref ?? `mailto:${EMAIL_DAAN}`} altHref={altPath} />
+    <SiteNav lang={lang} variant={navVariant} ctaHref={ctaHref ?? routes.about[lang]} altHref={altPath} />
     <main id="main">
       <slot />
     </main>

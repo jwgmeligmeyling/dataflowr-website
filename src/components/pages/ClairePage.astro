@@ -8,7 +8,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Logo from '../Logo.astro';
 import ClaireMark from '../ClaireMark.astro';
-import { abs, routes, ui, APP_URL, EMAIL_DAAN, type Lang } from '../../lib/site';
+import { abs, routes, ui, APP_URL, type Lang } from '../../lib/site';
 
 interface Props {
   lang: Lang;
@@ -514,7 +514,6 @@ const schema = [
   path={path}
   altPath={altPath}
   navVariant="solid"
-  ctaHref="#cta"
   footer="full"
   schema={schema}
 >
@@ -529,7 +528,7 @@ const schema = [
         <p class="hero-sub">{t.heroSub}</p>
         <div class="hero-ctas">
           <a href={`#${startId}`} class="btn-signal hero-btn">{t.heroCta}</a>
-          <a href="#cta" class="btn-ghost-dark hero-btn2">{t.heroCta2}</a>
+          <a href={routes.about[lang]} class="btn-ghost-dark hero-btn2">{t.heroCta2}</a>
         </div>
         <p class="hero-note">{t.heroNote1} · {t.heroNote2}</p>
       </div>
@@ -886,7 +885,7 @@ const schema = [
       <h2>{t.ctaTitle}</h2>
       <p class="cta-sub">{t.ctaSub}</p>
       <div class="cta-btns">
-        <a href={`mailto:${EMAIL_DAAN}`} class="btn-signal cta-btn">{t.ctaBtn}</a>
+        <a href={routes.about[lang]} class="btn-signal cta-btn">{t.ctaBtn}</a>
         <a href={`#${startId}`} class="btn-ghost-dark cta-btn2">{t.ctaBtn2}</a>
       </div>
     </div>
