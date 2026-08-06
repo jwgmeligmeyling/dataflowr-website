@@ -1,5 +1,6 @@
 export const SITE_URL = 'https://dataflowr.nl';
 export const SITE_NAME = 'DataFlowr';
+export const APP_URL = 'https://app.dataflowr.nl/';
 export const CALENDLY_URL = 'https://calendly.com/daan-dataflowr';
 export const LINKEDIN_URL = 'https://linkedin.com/company/dataflowr';
 export const EMAIL_DAAN = 'daan@dataflowr.nl';
