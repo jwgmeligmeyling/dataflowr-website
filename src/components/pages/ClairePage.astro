@@ -8,7 +8,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Logo from '../Logo.astro';
 import ClaireMark from '../ClaireMark.astro';
-import { abs, routes, ui, APP_URL, CALENDLY_URL, EMAIL_DAAN, type Lang } from '../../lib/site';
+import { abs, routes, ui, APP_URL, EMAIL_DAAN, type Lang } from '../../lib/site';
 
 interface Props {
   lang: Lang;
@@ -477,12 +477,12 @@ const en: typeof nl = {
 
 const t = lang === 'nl' ? nl : en;
 // Pricing-CTA's per plan, in dezelfde volgorde als t.pricing.plans: de drie
-// zelfbedieningsplannen gaan naar de app, Enterprise naar de agenda.
+// zelfbedieningsplannen gaan naar de app, Enterprise naar Over ons.
 const planLinks = [
   { href: APP_URL, external: false },
   { href: APP_URL, external: false },
   { href: APP_URL, external: false },
-  { href: CALENDLY_URL, external: true },
+  { href: routes.about[lang], external: false },
 ];
 const path = routes.claire[lang];
 const altPath = routes.claire[other];
