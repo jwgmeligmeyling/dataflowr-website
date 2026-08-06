@@ -56,6 +56,11 @@ const nl = {
   chatA2: 'Zal ik de drie oudste een vriendelijke herinnering sturen?',
   chatBtnYes: 'Ja, verstuur ze',
   chatBtnNo: 'Eerst bekijken',
+  chatReview:
+    'Prima. De drie concepten staan in uw werkruimte klaar om te beoordelen; er gaat niets de deur uit zonder uw akkoord.',
+  chatSent:
+    'Gedaan! De drie herinneringen zijn verstuurd en ik heb ze bij de facturen genoteerd. Ik houd de reacties in de gaten.',
+  chatWorkSent: 'Herinneringen verstuurd',
   bandLabel: 'Claire werkt in uw eigen AI-assistent',
   bandNote: 'of elke MCP-client · wisselen kan altijd',
   challengeEyebrow: 'De uitdaging',
@@ -172,6 +177,11 @@ const nl = {
   secProposalBody: 'Betalingsherinnering versturen, Van Dijk Techniek · VK-2026-167 · €18.200',
   secApprove: '✓ Goedkeuren',
   secNotNow: 'Nu niet',
+  secApprovedLabel: 'Uitgevoerd · met uw akkoord',
+  secApprovedResult: 'Herinnering verstuurd naar Van Dijk Techniek',
+  secPausedLabel: 'Geparkeerd · geen actie',
+  secPausedResult: 'Er is niets verstuurd. Het voorstel blijft klaarstaan.',
+  secReset: '↺ Opnieuw',
   secItems: [
     { title: 'Toegang per gebruiker', body: 'Iedereen koppelt met zijn eigen Exact Online-account en kan precies wat hij daar mag, niets meer. Elke actie wordt onder de eigen gebruiker gelogd.' },
     { title: 'Geen schaduwkopie', body: 'Uw data blijft in Exact Online. Claire haalt per vraag alleen op wat nodig is; er ontstaat geen kopie in een extern platform.' },
@@ -249,6 +259,11 @@ const en: typeof nl = {
   chatA2: 'Shall I send the three oldest a friendly reminder?',
   chatBtnYes: 'Yes, send them',
   chatBtnNo: 'Review first',
+  chatReview:
+    'Of course. The three drafts are ready for review in your workspace; nothing goes out without your approval.',
+  chatSent:
+    'Done! The three reminders have been sent and noted on the invoices. I will keep an eye on the replies.',
+  chatWorkSent: 'Reminders sent',
   bandLabel: 'Claire works in your own AI assistant',
   bandNote: 'or any MCP client · switching stays possible',
   challengeEyebrow: 'The challenge',
@@ -365,6 +380,11 @@ const en: typeof nl = {
   secProposalBody: 'Send payment reminder, Van Dijk Techniek · VK-2026-167 · €18,200',
   secApprove: '✓ Approve',
   secNotNow: 'Not now',
+  secApprovedLabel: 'Done · with your approval',
+  secApprovedResult: 'Reminder sent to Van Dijk Techniek',
+  secPausedLabel: 'Parked · no action',
+  secPausedResult: 'Nothing was sent. The proposal stays ready.',
+  secReset: '↺ Replay',
   secItems: [
     { title: 'Access per user', body: 'Everyone connects with their own Exact Online account and can do exactly what they may there, nothing more. Every action is logged under their name.' },
     { title: 'No shadow copy', body: 'Your data stays in Exact Online. Claire fetches only what a given answer needs; no copy of your books ends up in an external platform.' },
@@ -466,7 +486,7 @@ const schema = [
       </div>
 
       <!-- chat demo -->
-      <div class="chat" data-noselect aria-hidden="true">
+      <div class="chat" data-noselect data-chat>
         <div class="chat-head">
           <span class="chat-avatar"><ClaireMark size={40} /><span class="chat-status"></span></span>
           <span class="chat-id"><strong>Claire</strong><span>{t.chatRole}</span></span>
@@ -480,12 +500,21 @@ const schema = [
             {t.chatWork.map((item) => (
               <span class="chat-work-row"><span class="wdot"></span><strong>{item}</strong><span class="chat-check">✓</span></span>
             ))}
-            <span class="chat-work-row"><span class="wdot wdot--pulse"></span><strong>{t.chatWorkPending}</strong><span class="chat-pending">{t.chatWorkPendingState}</span></span>
+            <span class="chat-work-row" data-chat-pending-row>
+              <span class="wdot wdot--pulse" data-chat-pending-dot></span>
+              <strong data-chat-pending-text data-sent-text={t.chatWorkSent}>{t.chatWorkPending}</strong>
+              <span class="chat-pending" data-chat-pending-state>{t.chatWorkPendingState}</span>
+            </span>
           </div>
           <div class="msg msg--claire" style="animation-delay:3.1s">{t.chatA2}</div>
-          <div class="chat-actions" style="animation-delay:3.9s">
-            <span class="chat-btn-yes">{t.chatBtnYes}</span>
-            <span class="chat-btn-no">{t.chatBtnNo}</span>
+          <div class="chat-actions" style="animation-delay:3.9s" data-chat-actions>
+            <button type="button" class="chat-btn-yes" data-chat-send>{t.chatBtnYes}</button>
+            <button type="button" class="chat-btn-no" data-chat-review>{t.chatBtnNo}</button>
+          </div>
+          <div class="msg msg--claire" data-chat-reply="review" hidden>{t.chatReview}</div>
+          <div class="msg msg--claire" data-chat-reply="sent" hidden>{t.chatSent}</div>
+          <div class="msg msg--claire chat-typing" data-chat-typing hidden aria-hidden="true">
+            <span></span><span></span><span></span>
           </div>
         </div>
       </div>
@@ -612,12 +641,26 @@ const schema = [
         <div class="sec-card">
           <h3>{t.secCardTitle}</h3>
           <p>{t.secCardBody}</p>
-          <div class="sec-proposal" data-noselect>
-            <span class="sec-proposal-label">{t.secProposalLabel}</span>
+          <div
+            class="sec-proposal"
+            data-noselect
+            data-proposal
+            data-label-default={t.secProposalLabel}
+            data-label-approved={t.secApprovedLabel}
+            data-label-paused={t.secPausedLabel}
+            data-result-approved={t.secApprovedResult}
+            data-result-paused={t.secPausedResult}
+          >
+            <span class="sec-proposal-label" data-proposal-label>{t.secProposalLabel}</span>
             <p>{t.secProposalBody}</p>
-            <div class="sec-proposal-btns">
-              <span class="sec-approve">{t.secApprove}</span>
-              <span class="sec-notnow">{t.secNotNow}</span>
+            <div class="sec-proposal-btns" data-proposal-btns>
+              <button type="button" class="sec-approve" data-proposal-choice="approved">{t.secApprove}</button>
+              <button type="button" class="sec-notnow" data-proposal-choice="paused">{t.secNotNow}</button>
+            </div>
+            <div class="sec-proposal-result" data-proposal-result hidden>
+              <span class="sec-result-icon" data-proposal-result-icon aria-hidden="true">✓</span>
+              <span data-proposal-result-text></span>
+              <button type="button" class="sec-reset" data-proposal-reset>{t.secReset}</button>
             </div>
           </div>
         </div>
@@ -817,9 +860,85 @@ const schema = [
     });
     setStep(1);
   }
+
+  // Retrigger de entree-animatie van een verborgen element bij het tonen.
+  const reveal = (el: HTMLElement | null) => {
+    if (!el) return;
+    el.hidden = false;
+    el.style.animation = 'none';
+    void el.offsetWidth;
+    el.style.animation = '';
+  };
+
+  // Hero-chatdemo: de actieknoppen spelen een mock-vervolg af.
+  const chat = document.querySelector<HTMLElement>('[data-chat]');
+  if (chat) {
+    const typing = chat.querySelector<HTMLElement>('[data-chat-typing]');
+    const respond = (kind: 'review' | 'sent', done?: () => void) => {
+      reveal(typing);
+      window.setTimeout(() => {
+        if (typing) typing.hidden = true;
+        reveal(chat.querySelector<HTMLElement>(`[data-chat-reply="${kind}"]`));
+        done?.();
+      }, 1100);
+    };
+    const reviewBtn = chat.querySelector<HTMLButtonElement>('[data-chat-review]');
+    reviewBtn?.addEventListener('click', () => {
+      reviewBtn.disabled = true;
+      respond('review', () => {
+        reviewBtn.hidden = true;
+      });
+    });
+    chat.querySelector<HTMLButtonElement>('[data-chat-send]')?.addEventListener('click', () => {
+      chat.querySelectorAll<HTMLButtonElement>('[data-chat-actions] button').forEach((b) => (b.disabled = true));
+      respond('sent', () => {
+        const actions = chat.querySelector<HTMLElement>('[data-chat-actions]');
+        if (actions) actions.hidden = true;
+        chat.querySelector<HTMLElement>('[data-chat-pending-dot]')?.classList.remove('wdot--pulse');
+        const text = chat.querySelector<HTMLElement>('[data-chat-pending-text]');
+        if (text) text.textContent = text.dataset.sentText ?? '';
+        const state = chat.querySelector<HTMLElement>('[data-chat-pending-state]');
+        if (state) {
+          state.className = 'chat-check chat-check--pop';
+          state.textContent = '✓';
+        }
+      });
+    });
+  }
+
+  // Veiligheidskaart: het voorstel goedkeuren of parkeren, met reset.
+  const proposal = document.querySelector<HTMLElement>('[data-proposal]');
+  if (proposal) {
+    const label = proposal.querySelector<HTMLElement>('[data-proposal-label]');
+    const btns = proposal.querySelector<HTMLElement>('[data-proposal-btns]');
+    const result = proposal.querySelector<HTMLElement>('[data-proposal-result]');
+    const resultText = proposal.querySelector<HTMLElement>('[data-proposal-result-text]');
+    const resultIcon = proposal.querySelector<HTMLElement>('[data-proposal-result-icon]');
+    proposal.querySelectorAll<HTMLButtonElement>('[data-proposal-choice]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const approved = btn.dataset.proposalChoice === 'approved';
+        const d = proposal.dataset;
+        if (label) label.textContent = (approved ? d.labelApproved : d.labelPaused) ?? '';
+        if (resultText) resultText.textContent = (approved ? d.resultApproved : d.resultPaused) ?? '';
+        if (resultIcon) resultIcon.textContent = approved ? '✓' : '–';
+        proposal.classList.toggle('is-paused', !approved);
+        if (btns) btns.hidden = true;
+        reveal(result);
+      });
+    });
+    proposal.querySelector<HTMLElement>('[data-proposal-reset]')?.addEventListener('click', () => {
+      if (label) label.textContent = proposal.dataset.labelDefault ?? '';
+      proposal.classList.remove('is-paused');
+      if (result) result.hidden = true;
+      if (btns) btns.hidden = false;
+    });
+  }
 </script>
 
 <style>
+  /* Display-regels op klassen mogen het hidden-attribuut niet overrulen. */
+  [hidden] { display: none !important; }
+
   /* ---------- Hero ---------- */
   .hero {
     position: relative;
@@ -921,8 +1040,17 @@ const schema = [
   .chat-check { margin-left: auto; color: var(--ok); font-weight: 700; }
   .chat-pending { margin-left: auto; color: var(--hl); font-weight: 600; }
   .chat-actions { display: flex; gap: 10px; animation: claire-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) both; }
-  .chat-btn-yes { background: var(--hl); color: #fff; font-size: 12.5px; font-weight: 700; padding: 9px 18px; border-radius: 99px; }
+  .chat-actions button { font-family: inherit; cursor: pointer; transition: transform 0.2s, filter 0.2s, opacity 0.2s, border-color 0.2s, color 0.2s; }
+  .chat-actions button:disabled { opacity: 0.55; cursor: default; }
+  .chat-btn-yes { border: 0; background: var(--hl); color: #fff; font-size: 12.5px; font-weight: 700; padding: 9px 18px; border-radius: 99px; }
+  .chat-btn-yes:hover:not(:disabled) { filter: brightness(1.08); transform: translateY(-1px); }
   .chat-btn-no { border: 1.5px solid var(--line); background: #fff; color: var(--muted); font-size: 12.5px; font-weight: 500; padding: 8px 16px; border-radius: 99px; }
+  .chat-btn-no:hover:not(:disabled) { color: var(--brand); border-color: var(--muted); }
+  .chat-check--pop { animation: ob-pop 0.5s cubic-bezier(0.16, 1, 0.3, 1) both; }
+  .chat-typing { display: inline-flex; align-items: center; gap: 5px; padding: 15px 16px; }
+  .chat-typing span { width: 6px; height: 6px; border-radius: 50%; background: var(--muted); animation: claire-pulse 1.1s ease-in-out infinite; }
+  .chat-typing span:nth-child(2) { animation-delay: 0.18s; }
+  .chat-typing span:nth-child(3) { animation-delay: 0.36s; }
 
   /* ---------- Band ---------- */
   .band { background: #ffffff; border-bottom: 1px solid var(--line); }
@@ -1111,15 +1239,53 @@ const schema = [
   .sec-proposal-label { font-size: 10px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--pos); }
   .sec-proposal p { margin: 0; font-size: 13.5px; line-height: 1.55; }
   .sec-proposal-btns { display: flex; gap: 10px; flex-wrap: wrap; }
-  .sec-approve { background: var(--pos); color: var(--brand); font-size: 12.5px; font-weight: 700; padding: 9px 18px; border-radius: 99px; }
+  .sec-proposal-btns button { font-family: inherit; cursor: pointer; transition: transform 0.2s, filter 0.2s, color 0.2s, border-color 0.2s; }
+  .sec-approve { border: 0; background: var(--pos); color: var(--brand); font-size: 12.5px; font-weight: 700; padding: 9px 18px; border-radius: 99px; }
+  .sec-approve:hover { filter: brightness(1.08); transform: translateY(-1px); }
   .sec-notnow {
     border: 1px solid color-mix(in srgb, var(--bg) 30%, transparent);
+    background: transparent;
     font-size: 12.5px;
     font-weight: 600;
     padding: 8px 17px;
     border-radius: 99px;
     color: color-mix(in srgb, var(--bg) 80%, transparent);
   }
+  .sec-notnow:hover { color: var(--bg); border-color: color-mix(in srgb, var(--bg) 55%, transparent); }
+  .sec-proposal-result {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13.5px;
+    animation: claire-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+  .sec-result-icon {
+    flex: none;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-size: 12px;
+    font-weight: 700;
+    background: var(--pos);
+    color: var(--brand);
+    animation: ob-pop 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+  .sec-proposal.is-paused .sec-result-icon { background: color-mix(in srgb, var(--bg) 22%, transparent); color: var(--bg); }
+  .sec-reset {
+    margin-left: auto;
+    border: 0;
+    background: transparent;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 600;
+    color: color-mix(in srgb, var(--bg) 70%, transparent);
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 8px;
+  }
+  .sec-reset:hover { color: var(--bg); background: color-mix(in srgb, #ffffff 10%, transparent); }
   .sec-list { border: 1px solid var(--line); border-radius: 18px; padding: 10px 30px; display: grid; align-content: center; }
   .sec-item { display: grid; grid-template-columns: auto 1fr; gap: 18px; align-items: start; padding: 22px 0; }
   .sec-item--rule { border-bottom: 1px solid var(--line); }
