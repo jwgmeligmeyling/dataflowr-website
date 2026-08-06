@@ -130,7 +130,7 @@ export const articles: Record<ArticleKey, Article> = {
           items: [
             { strong: 'Maak de controles deterministisch.', rest: ' Dezelfde administratie moet dezelfde uitkomst geven. Zodra een controle afhangt van wie hem uitvoert, is het geen controle maar een inschatting.' },
             { strong: 'Scheid signaleren van beoordelen.', rest: ' Laat een systeem opvallende posten naar boven halen, vraagposten, mogelijke dubbelen, afwijkende tegenrekeningen, en houd het oordeel bij uw controller.' },
-            { strong: 'Leg het besluit vast, niet alleen de correctie.', rest: ' Wat is er onderzocht, wat kwam eruit en wat heeft u besloten? Die drie samen maken volgende maand licht werk.' },
+            { strong: 'Leg het besluit vast, niet alleen de correctie.', rest: ' Wat is er onderzocht, wat kwam eruit en wat heeft u besloten? Die drie samen verlichten komende maanden het werk.' },
           ],
         },
         { type: 'h2', id: 'praktijk', text: 'Hoe dat er in de praktijk uitziet' },
@@ -183,7 +183,7 @@ export const articles: Record<ArticleKey, Article> = {
           items: [
             { strong: 'Make the checks deterministic.', rest: ' The same administration must give the same outcome. As soon as a check depends on who performs it, it is not a check but an estimate.' },
             { strong: 'Separate flagging from judging.', rest: ' Let a system surface notable items, query items, possible duplicates, unusual contra accounts, and keep the judgement with your controller.' },
-            { strong: 'Record the decision, not just the correction.', rest: ' What was investigated, what came out and what did you decide? Those three together make next month light work.' },
+            { strong: 'Record the decision, not just the correction.', rest: ' What was investigated, what came out and what did you decide? Those three together lighten the work in the months ahead.' },
           ],
         },
         { type: 'h2', id: 'in-practice', text: 'What this looks like in practice' },
@@ -220,7 +220,7 @@ export const articles: Record<ArticleKey, Article> = {
       blocks: [
         {
           type: 'p',
-          text: 'Een PSP betaalt niet per transactie uit, maar in batches. Eén uitbetaling bundelt de transacties van een of meer dagen, netto na inhouding van de transactiekosten, en met refunds en chargebacks in dezelfde batch verrekend. Op de bank landt dus één bedrag dat de optelsom is van honderden transacties, minus kosten, minus terugbetalingen, plus correcties. Dat bedrag terugrekenen naar de omzet is precies het zoekwerk waar elke maand uren in verdwijnen.',
+          text: 'Een PSP betaalt niet per transactie uit, maar in batches. Eén uitbetaling bundelt de transacties van een of meer dagen, netto na inhouding van de transactiekosten, en met restituties en chargebacks in dezelfde batch verrekend. Op de bank landt dus één bedrag dat de optelsom is van honderden transacties, minus kosten, minus terugbetalingen, plus correcties. Dat bedrag terugrekenen naar de omzet is precies het zoekwerk waar elke maand uren in verdwijnen.',
         },
         { type: 'h2', id: 'kruispost', text: 'Waarom de kruispost volloopt' },
         {
@@ -229,7 +229,7 @@ export const articles: Record<ArticleKey, Article> = {
         },
         {
           type: 'quote',
-          text: '"Het verschil tussen webshop en bank is geen afrondingsverschil. Het is de optelsom van kosten, refunds en timing, en wie die drie apart boekt, heeft niets meer te zoeken."',
+          text: '"Het verschil tussen webshop en bank is geen afrondingsverschil. Het is de optelsom van transactiekosten, restituties en clearingtermijnen, en wie die drie apart boekt, heeft niets meer te zoeken."',
         },
         { type: 'h2', id: 'drie-stromen', text: 'Drie stromen, drie boekingen' },
         {
@@ -239,8 +239,8 @@ export const articles: Record<ArticleKey, Article> = {
         {
           type: 'ol',
           items: [
-            { strong: 'Reconcilieer op het settlement-rapport, niet op het bankafschrift.', rest: ' Elke PSP levert per uitbetaling een rapport dat exact specificeert welke transacties, kosten en refunds erin zitten. Dat rapport is de brug tussen omzet en bank; het bankafschrift toont alleen de uitkomst.' },
-            { strong: 'Boek kosten en refunds als aparte stromen.', rest: ' De transactiekosten naar de kostenrekening, refunds tegen de omzet. Wat overblijft sluit één-op-één aan op de uitbetaling, en verschillen krijgen een naam in plaats van een vergaarbak.' },
+            { strong: 'Reconcilieer op het settlement-rapport, niet op het bankafschrift.', rest: ' Elke PSP levert per uitbetaling een rapport dat exact specificeert welke transacties, transactiekosten en restituties erin zitten. Dat rapport is de brug tussen omzet en bank; het bankafschrift toont alleen de uitkomst.' },
+            { strong: 'Boek transactiekosten en restituties als aparte stromen.', rest: ' De transactiekosten naar de kostenrekening, restituties tegen de omzet. Wat overblijft sluit één-op-één aan op de uitbetaling, en verschillen krijgen een naam in plaats van een vergaarbak.' },
             { strong: 'Maak de tussenrekening een controle in plaats van een parkeerplaats.', rest: ' Een lege kruispost aan het einde van de periode is het bewijs dat de aansluiting klopt. Elke rest die blijft staan is een bevinding met een aanwijsbare oorzaak, geen post om volgend kwartaal weg te boeken.' },
           ],
         },
@@ -282,7 +282,7 @@ export const articles: Record<ArticleKey, Article> = {
         },
         {
           type: 'quote',
-          text: '"The gap between webshop and bank is not a rounding difference. It is the sum of fees, refunds and timing, and once you book those three separately, there is nothing left to search for."',
+          text: '"The gap between webshop and bank is not a rounding difference. It is the sum of transaction fees, refunds and clearing times, and once you book those three separately, there is nothing left to search for."',
         },
         { type: 'h2', id: 'three-flows', text: 'Three flows, three postings' },
         {
@@ -468,18 +468,22 @@ export const articles: Record<ArticleKey, Article> = {
           type: 'ol',
           items: [
             { strong: 'Antwoorden komen uit de administratie, niet uit het model.', rest: ' Het taalmodel formuleert; de cijfers worden per vraag via een tool opgehaald. Daarmee is herleidbaar welke opvraging aan een antwoord ten grondslag ligt, en dat is precies wat een controller wil kunnen nalopen.' },
-            { strong: 'Autorisatie blijft waar hij hoort.', rest: ' De toegang loopt via uw bestaande login en rechten. Geen aparte kopie, geen gedeelde exportmap, geen servicecount met te ruime rechten.' },
+            { strong: 'Autorisatie blijft waar hij hoort.', rest: ' De toegang loopt via uw bestaande login en rechten. Geen aparte kopie, geen gedeelde exportmap, geen service account met te ruime rechten.' },
             { strong: 'U bent niet gebonden aan één assistent.', rest: ' Omdat MCP een open standaard is, werkt dezelfde koppeling in Claude, in andere MCP-clients en in eigen agents. De investering zit in de koppeling met uw administratie, niet in de chatbot van één leverancier.' },
           ],
         },
         { type: 'h2', id: 'praktijk', text: 'Hoe dat er in de praktijk uitziet' },
         {
           type: 'p',
-          text: 'Wij bouwden een MCP-server voor Exact Online, met rapportagetools voor onder meer de proef- en saldibalans, de resultatenrekening en ouderdomsanalyses. Het rekenwerk gebeurt in een deterministische rekenlaag; het taalmodel formuleert alleen het antwoord. Dezelfde administratie geeft dus dezelfde uitkomst, wie er ook vraagt.',
+          text: 'Wij ontwikkelden een MCP-server voor Exact Online, met rapportagetools voor onder meer de proef- en saldibalans, de resultatenrekening en ouderdomsanalyses. Het rekenwerk gebeurt in een deterministische rekenlaag; het taalmodel formuleert alleen het antwoord. Dezelfde administratie geeft dus dezelfde uitkomst, wie er ook vraagt.',
         },
         {
           type: 'p',
-          text: 'Op die server draait Claire: vragen stellen in gewone taal, vaste afsluitcontroles, en boekingen alleen na uw uitdrukkelijke akkoord. MCP is daarbij geen marketingterm maar de fundering: het is de reden dat Claire in uw administratie kan werken zonder dat uw data het pand verlaat.',
+          text: 'Claire gebruikt die server: vragen stellen in gewone taal, vaste afsluitcontroles, en boekingen alleen na uw uitdrukkelijke akkoord. MCP is daarbij geen marketingterm maar de fundering: het is de reden dat Claire in uw eigen administratie kan werken in plaats van in een kopie ervan.',
+        },
+        {
+          type: 'p',
+          text: 'Claire zelf draait in een omgeving die wij bij DataFlowr hebben ontwikkeld, op infrastructuur van onze partners en met taalmodellen van onze leverancier. Wat dat controleerbaar maakt, zit in de inrichting: er wordt geen schaduwkopie van uw administratie opgeslagen, elke vraag wordt op dat moment rechtstreeks in Exact Online opgevraagd, wijzigingen vereisen altijd een handmatige bevestiging, en alles wordt gelogd.',
         },
       ],
       claireTitle: 'Claire spreekt MCP',
@@ -532,11 +536,15 @@ export const articles: Record<ArticleKey, Article> = {
         { type: 'h2', id: 'in-practice', text: 'What this looks like in practice' },
         {
           type: 'p',
-          text: 'We built an MCP server for Exact Online, with reporting tools for the trial balance, the profit and loss statement and ageing analyses, among others. The number-crunching happens in a deterministic calculation layer; the language model only phrases the answer. The same administration gives the same outcome, no matter who asks.',
+          text: 'We developed an MCP server for Exact Online, with reporting tools for the trial balance, the profit and loss statement and ageing analyses, among others. The number-crunching happens in a deterministic calculation layer; the language model only phrases the answer. The same administration gives the same outcome, no matter who asks.',
         },
         {
           type: 'p',
-          text: 'Claire runs on that server: questions in plain language, fixed close checks, and postings only after your explicit approval. MCP is not a marketing term here but the foundation: it is the reason Claire can work inside your administration without your data leaving the building.',
+          text: 'Claire uses that server: questions in plain language, fixed close checks, and postings only after your explicit approval. MCP is not a marketing term here but the foundation: it is the reason Claire can work inside your own administration rather than in a copy of it.',
+        },
+        {
+          type: 'p',
+          text: 'Claire itself runs in an environment we developed at DataFlowr, on our partners’ infrastructure and with language models from our supplier. What makes that controllable is how it is set up: no shadow copy of your administration is stored, every question is answered by querying Exact Online directly at that moment, changes always require manual confirmation, and everything is logged.',
         },
       ],
       claireTitle: 'Claire speaks MCP',
