@@ -440,7 +440,7 @@ export const articles: Record<ArticleKey, Article> = {
       title: 'Wat MCP is, en waarom het voor finance uitmaakt',
       lead:
         'Elke leverancier bouwt momenteel “AI in het product”. Handig, maar het levert tien losse chatbots op die elkaar niet kennen en elk hun eigen stukje van uw data zien. MCP draait het om: één open standaard waarmee uw AI-assistent veilig bij uw systemen kan.',
-      hero: { src: '/kennisbank/mcp-voor-finance-nl.png', alt: 'Toolbeheer van de MCP-server: rapportage- en afsluittools die de AI-assistent per verbinding mag gebruiken, elk gemarkeerd als lezen' },
+      hero: { src: '/kennisbank/mcp-voor-finance-nl.png', alt: 'Schema van Claire als MCP-koppeling: ChatGPT, Gemini, Claude en Copilot praten via Claire rechtstreeks met Exact Online' },
       blocks: [
         {
           type: 'p',
@@ -497,7 +497,7 @@ export const articles: Record<ArticleKey, Article> = {
       title: 'What MCP is, and why it matters for finance',
       lead:
         'Every vendor is currently building “AI into the product”. Convenient, but it produces ten separate chatbots that don’t know each other and each see their own slice of your data. MCP turns that around: one open standard through which your AI assistant can safely reach your systems.',
-      hero: { src: '/kennisbank/mcp-voor-finance-en.png', alt: 'Managing MCP server tools: reporting and closing tools the AI assistant may use per connection, each marked as read-only' },
+      hero: { src: '/kennisbank/mcp-voor-finance-en.png', alt: 'Diagram of Claire as MCP connector: ChatGPT, Gemini, Claude and Copilot talk directly to Exact Online through Claire' },
       blocks: [
         {
           type: 'p',
