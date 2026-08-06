@@ -44,6 +44,7 @@ const nl = {
   servicesEyebrow: 'Diensten',
   servicesTitle: 'Wat wij voor u bouwen.',
   servicesSub: 'Zes diensten, gebouwd op dezelfde drie disciplines. Per situatie combineren we ze, en vaak zit Claire, ons eigen product, er bovenop.',
+  servicesStub: 'Dienst',
   serviceRows: [
     { key: 'exact-online-premium', title: 'Exact Online Premium', body: 'Implementatie, migratie en de Premium-features daadwerkelijk in gebruik, Smart Closing, de Power BI Connector en de API’s eronder.' },
     { key: 'integraties', title: 'Integraties', body: 'Webshops, PSP’s, CRM en portalen gekoppeld aan Exact Online. Data één keer invoeren, overal kloppend, inclusief PSP-reconciliatie.' },
@@ -109,6 +110,7 @@ const en: typeof nl = {
   servicesEyebrow: 'Services',
   servicesTitle: 'What we build for you.',
   servicesSub: 'Six services, built on the same three disciplines. We combine them per case, and Claire, our own product, often sits on top.',
+  servicesStub: 'Service',
   serviceRows: [
     { key: 'exact-online-premium', title: 'Exact Online Premium', body: 'Implementation, migration and the Premium features actually in use, Smart Closing, the Power BI Connector and the APIs underneath.' },
     { key: 'integraties', title: 'Integrations', body: 'Webshops, PSPs, CRM and portals connected to Exact Online. Enter data once, correct everywhere, including PSP reconciliation.' },
@@ -244,26 +246,29 @@ const schema = [
   </section>
 
   <!-- ============ DIENSTEN ============ -->
-  <section id="diensten" class="services">
-    <div class="wrap services-inner">
-      <p class="eyebrow eyebrow--thin why-eyebrow" data-reveal="0">{t.servicesEyebrow}</p>
-      <h2 data-reveal="80">{t.servicesTitle}</h2>
-      <p class="services-sub" data-reveal="120">{t.servicesSub}</p>
-      <div class="service-grid">
+  <section id="diensten" class="diensten-tickets">
+    <div class="wrap">
+      <div class="dt-kicker"><span class="line"></span><span class="label">{t.servicesEyebrow}</span></div>
+      <div class="dt-header">
+        <h2>{t.servicesTitle}</h2>
+        <p>{t.servicesSub}</p>
+      </div>
+      <div class="dt-list">
         {t.serviceRows.map((row, i) => (
-          <a href={routes.services[row.key][lang]} class="service-card" data-reveal={String(i * 60)}>
-            <div class="service-card-top">
-              <span class="service-num">{String(i + 1).padStart(2, '0')}</span>
-              <span class="service-arrow" aria-hidden="true">→</span>
+          <a href={routes.services[row.key][lang]} class="ticket">
+            <div class="ticket-stub"><span class="num">{String(i + 1).padStart(2, '0')}</span><span class="lbl">{t.servicesStub}</span></div>
+            <div class="ticket-body">
+              <h3>{row.title}</h3>
+              <p>{row.body}</p>
             </div>
-            <h3>{row.title}</h3>
-            <p>{row.body}</p>
+            <span class="ticket-arrow" aria-hidden="true">→</span>
           </a>
         ))}
       </div>
-      <p class="services-note">{t.servicesNote} <a href="#contact" class="services-note-cta">{t.servicesNoteCta}</a></p>
+      <p class="dt-note">{t.servicesNote} <a href="#contact" class="dt-note-cta">{t.servicesNoteCta}</a></p>
     </div>
   </section>
+
 
   <!-- ============ CLAIRE (PRODUCT) ============ -->
   <section id="claire" class="claire">
@@ -530,74 +535,82 @@ const schema = [
   .tile-dark-grid .dot { margin-top: 0; }
   @media (max-width: 640px) { .tile-dark-grid { grid-template-columns: 1fr; } }
 
-  /* ---------- Diensten ---------- */
-  .services {
-    background: color-mix(in srgb, #ffffff 62%, transparent);
-    border-top: 1px solid color-mix(in srgb, var(--brand) 7%, transparent);
-    border-bottom: 1px solid color-mix(in srgb, var(--brand) 7%, transparent);
+  /* ---------- Diensten (ticket list) ---------- */
+  .diensten-tickets {
+    background: #f4f6f9;
+    padding: 88px 0;
     scroll-margin-top: 80px;
   }
-  .services-inner { padding-top: 120px; padding-bottom: 120px; }
-  .services h2 { margin-bottom: 22px; }
-  .services-sub { margin: 0 0 52px; max-width: 620px; font-size: 16px; line-height: 1.7; color: var(--muted); text-wrap: pretty; }
-  .service-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-  .service-card {
-    display: flex;
-    flex-direction: column;
-    padding: 26px 26px 28px;
-    border: 1px solid color-mix(in srgb, var(--brand) 9%, transparent);
-    border-radius: 20px;
-    background: #ffffff;
-    color: var(--brand);
-    transition: transform 0.35s, box-shadow 0.35s, border-color 0.35s;
+  .dt-kicker {
+    display: flex; align-items: center; gap: 12px;
   }
-  .service-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 18px 50px color-mix(in srgb, var(--brand) 10%, transparent);
-    border-color: color-mix(in srgb, var(--hl) 28%, transparent);
-    color: var(--brand);
+  .dt-kicker span.line { width: 28px; height: 2px; background: #2f5fd0; }
+  .dt-kicker span.label {
+    font-size: 13px; letter-spacing: 0.18em; font-weight: 600; color: #2f5fd0;
+    text-transform: uppercase;
   }
-  .service-card-top {
-    display: flex;
+  .dt-header {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    gap: 80px; margin: 18px 0 48px;
+  }
+  .dt-header h2 {
+    font-size: 46px; font-weight: 800; color: #1b2c4f;
+    margin: 0; letter-spacing: -0.01em;
+  }
+  .dt-header p {
+    font-size: 16px; line-height: 1.65; color: #5c6b84;
+    max-width: 400px; margin: 0;
+  }
+  .dt-list { display: flex; flex-direction: column; gap: 16px; }
+  .ticket {
+    position: relative;
+    background: #fff;
+    border: 1px solid #e5e9f0;
+    border-radius: 14px;
+    display: grid;
+    grid-template-columns: 150px 1fr 70px;
     align-items: center;
-    justify-content: space-between;
-    margin-bottom: 20px;
+    color: inherit;
+    transition: transform 0.25s;
   }
-  .service-num {
-    display: grid;
-    place-items: center;
-    width: 46px;
-    height: 46px;
-    border-radius: 13px;
-    background: linear-gradient(135deg,
-      color-mix(in srgb, var(--hl) 12%, #ffffff),
-      color-mix(in srgb, var(--pos) 16%, #ffffff));
-    font-size: 15px;
-    font-weight: 700;
-    font-variant-numeric: tabular-nums;
-    color: var(--hl);
-    transition: background 0.3s, color 0.3s;
+  .ticket:hover { transform: translateX(8px); }
+  .ticket-stub {
+    display: flex; flex-direction: column; align-items: center;
+    justify-content: center; gap: 2px; padding: 24px 0;
+    border-right: 1px dashed #c9d4e6;
   }
-  .service-card:hover .service-num { background: var(--hl); color: #ffffff; }
-  .service-card h3 { margin: 0 0 8px; font-size: 19px; font-weight: 700; letter-spacing: -0.01em; }
-  .service-card p { margin: 0; font-size: 14px; line-height: 1.6; color: var(--muted); }
-  .service-arrow {
-    display: grid;
-    place-items: center;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    border: 1.5px solid color-mix(in srgb, var(--hl) 32%, transparent);
-    font-size: 17px;
-    color: var(--hl);
-    transition: background 0.3s, border-color 0.3s, color 0.3s, transform 0.3s;
+  .ticket-stub .num { font-size: 30px; font-weight: 800; color: #2f5fd0; line-height: 1; }
+  .ticket-stub .lbl {
+    font-size: 10px; letter-spacing: 0.16em; font-weight: 700; color: #8b97ab;
+    text-transform: uppercase;
   }
-  .service-card:hover .service-arrow { background: var(--hl); border-color: var(--hl); color: #ffffff; transform: translateX(3px); }
-  @media (max-width: 1020px) { .service-grid { grid-template-columns: 1fr 1fr; } }
-  @media (max-width: 680px) { .service-grid { grid-template-columns: 1fr; } }
-  .services-note { margin: 32px 0 0; font-size: 14.5px; color: var(--muted); }
-  .services-note-cta { font-weight: 700; }
-
+  /* perforatie-inkepingen: kleur = achtergrond van de sectie */
+  .ticket::before, .ticket::after {
+    content: "";
+    position: absolute; left: 140px;
+    width: 20px; height: 20px; border-radius: 50%;
+    background: #f4f6f9;
+  }
+  .ticket::before { top: -11px; border-bottom: 1px solid #e5e9f0; }
+  .ticket::after  { bottom: -11px; border-top: 1px solid #e5e9f0; }
+  .ticket-body { padding: 22px 32px; }
+  .ticket-body h3 { font-size: 18px; font-weight: 700; color: #1b2c4f; margin: 0 0 6px; }
+  .ticket-body p { font-size: 14px; line-height: 1.55; color: #5c6b84; margin: 0; }
+  .ticket-arrow { color: #2f5fd0; font-size: 20px; text-align: center; }
+  .dt-note { margin: 32px 0 0; font-size: 14.5px; color: #5c6b84; }
+  .dt-note-cta { color: #2f5fd0; font-weight: 700; }
+  @media (max-width: 900px) {
+    .dt-header { flex-direction: column; align-items: flex-start; gap: 18px; }
+    .dt-header h2 { font-size: 36px; }
+    .dt-header p { max-width: 560px; }
+  }
+  @media (max-width: 640px) {
+    .diensten-tickets { padding: 64px 0; }
+    .ticket { grid-template-columns: 92px 1fr 48px; }
+    .ticket::before, .ticket::after { left: 82px; }
+    .ticket-stub .num { font-size: 22px; }
+    .ticket-body { padding: 18px 20px; }
+  }
   /* ---------- Claire product ---------- */
   .claire {
     position: relative;
