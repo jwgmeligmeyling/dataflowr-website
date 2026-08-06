@@ -32,6 +32,7 @@ const more = (Object.keys(articles) as ArticleKey[])
     cat: articles[key][lang].cat,
     title: articles[key][lang].title,
     time: articles[key][lang].readTime,
+    hero: articles[key][lang].hero,
   }));
 
 const schema = [
@@ -40,6 +41,7 @@ const schema = [
     '@id': abs(`${path}#article`),
     headline: t.title,
     description: t.metaDescription,
+    image: abs(t.hero.src),
     datePublished: article.dateIso,
     inLanguage: lang === 'nl' ? 'nl-NL' : 'en',
     mainEntityOfPage: abs(path),
@@ -66,6 +68,7 @@ const schema = [
   ctaHref={`mailto:${author.email}`}
   footer="compact-white"
   ogType="article"
+  ogImage={{ src: t.hero.src, width: 2880, height: 1620 }}
   schema={schema}
 >
   <div class="page">
@@ -85,7 +88,7 @@ const schema = [
           <p class="lead">{t.lead}</p>
 
           <div class="hero-media">
-            <div class="img-slot img-slot--rounded" role="img" aria-label={s.heroSlot}>{s.heroSlot}</div>
+            <img src={t.hero.src} alt={t.hero.alt} width="2880" height="1620" />
           </div>
 
           {t.blocks.map((block) => {
@@ -139,7 +142,7 @@ const schema = [
         <div class="more-grid">
           {more.map((post) => (
             <a href={post.href} class="more-card">
-              <div class="more-media"><div class="img-slot" role="img" aria-label={s.moreSlot}>{s.moreSlot}</div></div>
+              <div class="more-media"><img src={post.hero.src} alt="" loading="lazy" width="2880" height="1620" /></div>
               <div class="more-body">
                 <span class="more-cat">{post.cat}</span>
                 <h3>{post.title}</h3>
@@ -191,7 +194,8 @@ const schema = [
     text-wrap: balance;
   }
   .lead { margin: 0 0 34px; font-size: 19px; line-height: 1.65; font-weight: 400; color: var(--muted); text-wrap: pretty; }
-  .hero-media { margin: 0 0 40px; border-radius: 16px; overflow: hidden; aspect-ratio: 16 / 9; background: var(--bg); }
+  .hero-media { margin: 0 0 40px; border-radius: 16px; overflow: hidden; aspect-ratio: 16 / 9; background: var(--bg); border: 1px solid var(--line); }
+  .hero-media img, .more-media img { display: block; width: 100%; height: 100%; object-fit: cover; }
   .body > p { margin: 0 0 24px; font-size: 16.5px; line-height: 1.8; color: var(--brand); }
   .body h2 {
     margin: 44px 0 16px;

@@ -24,6 +24,8 @@ export interface ArticleContent {
   readTime: string;
   title: string;
   lead: string;
+  /** Hero screenshot (16:9, 2880×1620), captured from the Claire app. */
+  hero: { src: string; alt: string };
   blocks: ArticleBlock[];
   claireTitle: string;
   claireBody: string;
@@ -66,23 +68,19 @@ export const authors: Record<
 export const articleUi = {
   nl: {
     crumbResources: 'Kennisbank',
-    heroSlot: 'Hoofdafbeelding artikel (16:9)',
     authorSlot: 'Foto',
     authorCta: 'Neem contact op →',
     tocTitle: 'Op deze pagina',
     claireCta: 'Bekijk Claire',
     moreTitle: 'Meer uit de kennisbank',
-    moreSlot: 'Afbeelding',
   },
   en: {
     crumbResources: 'Resources',
-    heroSlot: 'Article hero image (16:9)',
     authorSlot: 'Photo',
     authorCta: 'Get in touch →',
     tocTitle: 'On this page',
     claireCta: 'Discover Claire',
     moreTitle: 'More from the knowledge base',
-    moreSlot: 'Image',
   },
 } as const;
 
@@ -102,6 +100,7 @@ export const articles: Record<ArticleKey, Article> = {
       title: 'Waarom de maandafsluiting nog een week kost, en wat er écht helpt',
       lead:
         'Dezelfde checklist, elke maand opnieuw: kloppen de openingsbalansen, zijn de tussenrekeningen leeg, sluiten de subadministraties aan? Belangrijk werk, maar grotendeels routine, en juist daar sluipt het erin.',
+      hero: { src: '/kennisbank/maandafsluiting-nl.png', alt: 'Claire’s agentwerkruimte met een close-readiness rapport: controleresultaten en aanbevolen acties voor de maandafsluiting van juli' },
       blocks: [
         {
           type: 'p',
@@ -154,6 +153,7 @@ export const articles: Record<ArticleKey, Article> = {
       title: 'Why the month-end close still takes a week, and what actually shortens it',
       lead:
         "The same checklist every month: do the opening balances add up, are the suspense accounts empty, do the sub-ledgers reconcile? Important work, but largely routine, and exactly where things slip through.",
+      hero: { src: '/kennisbank/maandafsluiting-en.png', alt: 'Claire’s agent workspace with a close-readiness report: check results and recommended actions for the July month-end close' },
       blocks: [
         {
           type: 'p',
@@ -211,6 +211,7 @@ export const articles: Record<ArticleKey, Article> = {
       title: 'PSP-reconciliatie: waarom de bank nooit precies aansluit',
       lead:
         'Wie via een payment service provider ontvangt, kent het patroon: de omzet staat in de webshop of het kassasysteem, de uitbetaling staat op de bank, en daartussen zit een bedrag dat nooit precies klopt. Dat is geen slordigheid. Het zit in het model ingebakken.',
+      hero: { src: '/kennisbank/psp-reconciliatie-nl.png', alt: 'Chatgesprek waarin Claire het verschil tussen de PSP-uitbetaling en de omzet verklaart met een aansluittabel van kosten, refunds en chargebacks' },
       blocks: [
         {
           type: 'p',
@@ -263,6 +264,7 @@ export const articles: Record<ArticleKey, Article> = {
       title: 'PSP reconciliation: why the bank never quite matches',
       lead:
         'Anyone who collects payments through a payment service provider knows the pattern: revenue sits in the webshop or POS system, the payout sits on the bank statement, and in between is an amount that never quite adds up. That is not sloppiness. It is built into the model.',
+      hero: { src: '/kennisbank/psp-reconciliatie-en.png', alt: 'Chat conversation in which Claire explains the gap between the PSP payout and revenue with a reconciliation table of fees, refunds and chargebacks' },
       blocks: [
         {
           type: 'p',
@@ -320,6 +322,7 @@ export const articles: Record<ArticleKey, Article> = {
       title: 'Premium-features waar u voor betaalt maar niets mee doet',
       lead:
         'De overstap naar Exact Online Premium wordt meestal gemaakt voor één reden: meer administraties, meer gebruikers of een rapportagewens. De rest van het pakket komt daarna zelden nog ter sprake. Zonde, want juist daar zit de winst.',
+      hero: { src: '/kennisbank/premium-features-nl.png', alt: 'DataFlowr-dashboard met een verbonden Exact Online-administratie, recente agentactiviteit en een ingeplande maandafsluiting' },
       blocks: [
         {
           type: 'p',
@@ -373,6 +376,7 @@ export const articles: Record<ArticleKey, Article> = {
       title: "Premium features you're paying for but not using",
       lead:
         'The move to Exact Online Premium is usually made for one reason: more administrations, more users or a reporting need. The rest of the package rarely comes up afterwards. A shame, because that is exactly where the gains are.',
+      hero: { src: '/kennisbank/premium-features-en.png', alt: 'DataFlowr dashboard with a connected Exact Online administration, recent agent activity and a scheduled month-end close' },
       blocks: [
         {
           type: 'p',
@@ -431,6 +435,7 @@ export const articles: Record<ArticleKey, Article> = {
       title: 'Wat MCP is, en waarom het voor finance uitmaakt',
       lead:
         'Elke leverancier bouwt momenteel “AI in het product”. Handig, maar het levert tien losse chatbots op die elkaar niet kennen en elk hun eigen stukje van uw data zien. MCP draait het om: één open standaard waarmee uw AI-assistent veilig bij uw systemen kan.',
+      hero: { src: '/kennisbank/mcp-voor-finance-nl.png', alt: 'Toolbeheer van de MCP-server: rapportage- en afsluittools die de AI-assistent per verbinding mag gebruiken, elk gemarkeerd als lezen' },
       blocks: [
         {
           type: 'p',
@@ -487,6 +492,7 @@ export const articles: Record<ArticleKey, Article> = {
       title: 'What MCP is, and why it matters for finance',
       lead:
         'Every vendor is currently building “AI into the product”. Convenient, but it produces ten separate chatbots that don’t know each other and each see their own slice of your data. MCP turns that around: one open standard through which your AI assistant can safely reach your systems.',
+      hero: { src: '/kennisbank/mcp-voor-finance-en.png', alt: 'Managing MCP server tools: reporting and closing tools the AI assistant may use per connection, each marked as read-only' },
       blocks: [
         {
           type: 'p',
