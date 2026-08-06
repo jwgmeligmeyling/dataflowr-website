@@ -51,6 +51,10 @@ equivalent of the current page.
 - `llms.txt` for generative-engine discovery
 - 301 redirects for the legacy `/services/*` URLs (`public/_redirects` for
   Netlify, `vercel.json` for Vercel — keep the one your host uses)
+- The build uses `build.format: 'file'`, so pages land on disk as
+  `diensten/make.html` and are linked as `/diensten/make`. Vercel only serves
+  those extensionless paths with `"cleanUrls": true` in `vercel.json` — without
+  it every page except the homepage returns a 404.
 - OG image + favicon generated from the exact brand vectors (`public/og/`)
 
 ## Before launch

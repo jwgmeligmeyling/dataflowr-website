@@ -1,4 +1,7 @@
 {
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "cleanUrls": true,
+  "trailingSlash": false,
   "redirects": [
     { "source": "/services/premium", "destination": "/diensten/exact-online-premium", "permanent": true },
     { "source": "/services/integrations", "destination": "/diensten/integraties", "permanent": true },

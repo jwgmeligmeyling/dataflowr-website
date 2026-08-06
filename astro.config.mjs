@@ -7,6 +7,9 @@ const SITE = 'https://dataflowr.nl';
 export default defineConfig({
   site: SITE,
   trailingSlash: 'never',
+  // `file` emits `diensten/make.html` rather than `diensten/make/index.html`.
+  // Hosts must strip the extension themselves: Netlify does it by default,
+  // Vercel needs `cleanUrls: true` (see vercel.json) or every page but `/` 404s.
   build: { format: 'file' },
   integrations: [
     sitemap({
