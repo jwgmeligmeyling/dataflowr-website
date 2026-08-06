@@ -101,9 +101,9 @@ export const ui = {
     footerContact: 'Contact',
     footerMeet: 'Ontmoet ons',
     footerMeetItems: ['Exact Online Live', 'CFO User Groups', 'Partnerevents'],
-    footerCopyright: '© 2026 DataFlowr',
+    footerCopyright: '© 2026 DataFlowr B.V.',
     footerMotto: 'Premium partner van',
-    footerCompact: '© 2026 DataFlowr · Gespecialiseerde Exact Online integratiepartner',
+    footerCompact: '© 2026 DataFlowr B.V. · Gespecialiseerde Exact Online integratiepartner',
     serviceNavDescriptions: {
       'exact-online-premium': 'Implementatie & partner',
       integraties: 'Systemen & data koppelen',
@@ -140,9 +140,9 @@ export const ui = {
     footerContact: 'Contact',
     footerMeet: 'Meet us',
     footerMeetItems: ['Exact Online Live', 'CFO User Groups', 'Partner events'],
-    footerCopyright: '© 2026 DataFlowr',
+    footerCopyright: '© 2026 DataFlowr B.V.',
     footerMotto: 'Premium partner of',
-    footerCompact: '© 2026 DataFlowr · Specialised Exact Online integration partner',
+    footerCompact: '© 2026 DataFlowr B.V. · Specialised Exact Online integration partner',
     serviceNavDescriptions: {
       'exact-online-premium': 'Implementation & partner',
       integraties: 'Connect systems & data',
