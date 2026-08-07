@@ -13,7 +13,9 @@ export type ArticleBlock =
   | { type: 'p'; text: string }
   | { type: 'h2'; id: string; text: string }
   | { type: 'quote'; text: string }
-  | { type: 'ol'; items: { strong: string; rest: string }[] };
+  | { type: 'ol'; items: { strong: string; rest: string }[] }
+  /** Inline screenshot (16:9, 2880×1620), captured from the Claire app. */
+  | { type: 'figure'; src: string; alt: string; caption: string };
 
 export interface ArticleContent {
   metaTitle: string;
@@ -549,6 +551,281 @@ export const articles: Record<ArticleKey, Article> = {
       ],
       claireTitle: 'Claire speaks MCP',
       claireBody: 'Your administration through your own login, answers with substantiation, postings only after approval.',
+    },
+  },
+
+  'mcp-release': {
+    author: 'janwillem',
+    dateIso: '2026-08-07',
+    nl: {
+      metaTitle: 'Wat er nieuw is in de nieuwe release van onze MCP-server',
+      metaDescription:
+        'Eén adres voor elke AI-client, inloggen in plaats van een token plakken, uitklapbare rapportweergaven, twee vaste agents en een auditlog dat de client benoemt. Wat er verandert in de nieuwe release van de DataFlowr MCP-server voor Exact Online.',
+      crumbCurrent: 'MCP-release',
+      cat: 'AI',
+      tag: 'Release',
+      date: '7 augustus 2026',
+      readTime: '9 min leestijd',
+      title: 'Wat er nieuw is in de nieuwe release van onze MCP-server',
+      lead:
+        'De MCP-server die uw AI-assistent met Exact Online verbindt, heeft een grote release gekregen. De koppeling leggen is nu een kwestie van inloggen, antwoorden komen terug als uitklapbare rapporten, en van elke aanroep is zichtbaar welke assistent hem deed.',
+      hero: {
+        src: '/kennisbank/mcp-release-nl.png',
+        alt: 'Het MCP-eindpunt in de DataFlowr-app: één adres, met daaronder de setup-gids per client voor Claude, ChatGPT, Copilot, Make en Zapier',
+      },
+      blocks: [
+        {
+          type: 'p',
+          text: 'In een eerder artikel legden we uit wat MCP is: de open standaard waarmee een AI-assistent afgebakende tools van een systeem mag gebruiken, in plaats van een kopie van uw data te krijgen. Die fundering is niet veranderd. Wat wel veranderd is, is bijna alles eromheen: hoe u de koppeling legt, wat u terugkrijgt, en wat u erover kunt zien.',
+        },
+        { type: 'h2', id: 'een-adres', text: 'Eén adres voor elke AI-client' },
+        {
+          type: 'p',
+          text: 'Tot deze release had elke verbinding zijn eigen adres, met het nummer van die verbinding erin. Dat werkt prima zolang u het adres met de hand kopieert, maar het valt om zodra een koppeling verpakt moet worden: een plugin in een store of een app-pakket voor Microsoft 365 bevat voor iedereen dezelfde bytes, en daar past geen persoonlijk adres in.',
+        },
+        {
+          type: 'p',
+          text: 'Er is daarom nu één adres voor iedereen. Welke administratie erachter zit, wordt bepaald tijdens het inloggen: heeft u één actieve verbinding, dan wordt die gekozen; heeft u er meer, dan krijgt u de vraag welke het moet worden. Die keuze zit vast aan de toegang die de client krijgt, dus hij wordt niet per vraag opnieuw geraden. Wilt u een client later op een andere administratie zetten, dan kan dat vanuit de app.',
+        },
+        { type: 'h2', id: 'inloggen', text: 'Inloggen in plaats van een token plakken' },
+        {
+          type: 'p',
+          text: 'De oude route was: adres kopiëren, token genereren, allebei in de instellingen van uw assistent plakken. Dat werkte, maar het betekende ook dat er een sleutel rondging die niet verliep en die niemand nog kon terugvinden zodra hij eenmaal geplakt was.',
+        },
+        {
+          type: 'p',
+          text: 'Nu logt u in met uw eigen DataFlowr-account. De toegang wordt uitgegeven door een aparte autorisatieserver, verloopt vanzelf, wordt automatisch ververst, en gaat pas naar een administratie nadat u daar uitdrukkelijk toestemming voor heeft gegeven. De adressen waar een client naartoe mag terugkeren staan vast geregistreerd, en de ontdekkingsstappen die een client zet om te vinden waar hij moet inloggen, volgen de standaard — precies wat een marktplaats vereist voordat hij een koppeling in zijn lijst opneemt.',
+        },
+        {
+          type: 'p',
+          text: 'Vaste tokens blijven bestaan voor de plekken waar geen inlogscherm is: automatiseringsplatformen zoals Make en Zapier. Zo’n token wijst precies één administratie aan, en opnieuw genereren maakt de oude direct ongeldig.',
+        },
+        {
+          type: 'quote',
+          text: '"De AI-assistent heeft geen sleutel meer die u zelf moet bewaren. Hij heeft een aanmelding die verloopt, ververst en die u met één klik kunt beëindigen."',
+        },
+        { type: 'h2', id: 'clients', text: 'Per client een uitgewerkte route naar binnen' },
+        {
+          type: 'p',
+          text: 'De verbindingspagina heeft nu een setup-gids per client: Claude, ChatGPT en Codex, Microsoft 365 Copilot, Make en Zapier. Elke kaart beschrijft de route die voor die client daadwerkelijk werkt — dat verschilt namelijk. Voor Claude en ChatGPT plakt u het adres en logt u in. Microsoft 365 Copilot kan een server helemaal niet op adres toevoegen, dus daar hoort een downloadbaar app-pakket bij. Make en Zapier krijgen het adres met een token.',
+        },
+        {
+          type: 'p',
+          text: 'Voor de drie assistenten zijn koppelingen ingediend bij de marktplaatsen van hun leveranciers. Zodra zo’n vermelding wordt goedgekeurd, verandert de kaart in één knop naar die vermelding; tot die tijd staat er de handmatige route die het nu al doet. U hoeft dus niet te wachten, en u hoeft ook niets over te zetten als het zover is.',
+        },
+        { type: 'h2', id: 'weergaven', text: 'Antwoorden die u kunt uitklappen' },
+        {
+          type: 'p',
+          text: 'Nieuw in deze release zijn interactieve weergaven: acht rapportvensters die uw assistent naast het antwoord toont. Een resultatenrekening of balans in een uitklapbare boomstructuur, een grootboekoverzicht, ouderdomsanalyses, KPI-kaarten, een periodegrafiek, een prognosegrafiek, entiteitskaarten en het afsluitrapport. U klapt een regel open om de onderliggende posten te zien, of zoomt door naar de grootboekrekeningen zonder de vraag opnieuw te stellen.',
+        },
+        {
+          type: 'figure',
+          src: '/kennisbank/mcp-release-app-view-nl.png',
+          alt: 'Een uitklapbare resultatenrekening in de agentwerkruimte van Claire, met de kolommen jan–jul 2026, jan–jul 2025 en het verschil per regel',
+          caption:
+            'Dezelfde weergave die een externe MCP-client toont: de resultatenrekening met vergelijking op vorig jaar, per regel uitklapbaar naar de onderliggende posten.',
+        },
+        {
+          type: 'p',
+          text: 'Die vensters zijn bewust saai gebouwd. Ze bevatten geen externe verwijzingen, halen niets van buiten op, en de gegevens komen er uitsluitend als tekst in — geen ruimte dus voor iets dat meelift met een rapport. Assistenten die deze uitbreiding niet ondersteunen, merken er niets van: die krijgen exact hetzelfde tekstuele antwoord als voorheen.',
+        },
+        { type: 'h2', id: 'agents', text: 'Twee vaste agents in de gereedschapskist' },
+        {
+          type: 'p',
+          text: 'De afsluitagent en de prognoseagent zitten nu in de toolset die uw assistent aangeboden krijgt. U start een afsluitronde vanuit uw eigen assistent, volgt de voortgang, vraagt het afsluitrapport op en legt per bevinding uw beslissing vast. Voor de cashflowprognose geldt hetzelfde: starten en de status volgen.',
+        },
+        {
+          type: 'p',
+          text: 'Zo’n ronde loopt in de achtergrond door, dus uw gesprek blijft ondertussen bruikbaar. Tussentijdse bevindingen verschijnen terwijl de controles lopen, en zodra de ronde klaar is, verschijnt het afsluitrapport als weergave in plaats van als lap tekst. Wat níet verandert: er wordt niets geboekt zonder uw uitdrukkelijke akkoord.',
+        },
+        { type: 'h2', id: 'rapportage', text: 'Rapportage: budget, voortschrijdend jaar en forecast' },
+        {
+          type: 'p',
+          text: 'De rapportagetools zijn uitgebreid met de vergelijkingen waar in de praktijk om gevraagd wordt. U kunt de realisatie afzetten tegen het budget van dit jaar in plaats van alleen tegen vorig jaar. U kunt een voortschrijdend jaar opvragen: de twaalf perioden tot en met de gekozen periode, de rollende omzetreeks waar een directieverslag om vraagt. En u kunt een rolling forecast opvragen, waarbij de afgesloten perioden actuals zijn en de rest van het boekjaar met het budget wordt opgevuld, zodat u een volledig jaarbeeld heeft.',
+        },
+        {
+          type: 'p',
+          text: 'Daarnaast staan periode en cumulatief nu naast elkaar in één rapport — de management-indeling met actueel, vergelijking en verschil, voor zowel de maand als het jaar tot dan toe. Het doorzoomen op een regel volgt de kolommen van het rapport waar u vandaan komt, en er is een aparte tool om de RGS-taxonomie op te zoeken, zodat een rubrieknaam niet geraden hoeft te worden. Het rekenwerk zit onveranderd in een deterministische rekenlaag: dezelfde administratie, dezelfde uitkomst.',
+        },
+        { type: 'h2', id: 'zicht', text: 'Zicht op wat er gebeurt, en grenzen eromheen' },
+        {
+          type: 'p',
+          text: 'Elke aanroep in het auditlog vermeldt nu welke client hem deed. Niet “er is een rapport opgehaald”, maar “Claude heeft om 07:41 een financieel rapport opgehaald voor Voorbeeld B.V.”. Die vermelding wordt vastgelegd op het moment van de aanroep, dus hij blijft leesbaar ook nadat de toegang van die client is ingetrokken. Het log is te filteren op type, module en tool, en te exporteren naar CSV.',
+        },
+        {
+          type: 'figure',
+          src: '/kennisbank/mcp-release-audit-nl.png',
+          alt: 'Het auditlog van een verbinding, met per regel het tijdstip, de tool, de administratie, de bron (Claude, ChatGPT, Microsoft 365 Copilot), het type actie en de status',
+          caption:
+            'Het auditlog met bronvermelding: per aanroep de tool, de administratie en de assistent die hem deed.',
+        },
+        {
+          type: 'p',
+          text: 'Daarnaast is er een sessieoverzicht: welke AI-assistenten op deze verbinding zijn ingelogd, wanneer voor het laatst, en een knop om er één af te sluiten. Die moet dan opnieuw inloggen voordat hij weer bij de administratie kan.',
+        },
+        {
+          type: 'figure',
+          src: '/kennisbank/mcp-release-sessions-nl.png',
+          alt: 'Het sessieoverzicht van een verbinding met Claude, ChatGPT en Microsoft 365 Copilot, elk met een knop om de sessie te beëindigen',
+          caption:
+            'Ingelogde assistenten per verbinding, elk met één knop om de sessie te beëindigen.',
+        },
+        {
+          type: 'p',
+          text: 'Verder gelden er nu snelheidslimieten op de MCP-endpoints, zodat een op hol geslagen client uw administratie niet plat kan vragen. En de tools die u niet nodig heeft, zet u per verbinding uit — dan bestaan ze voor die assistent simpelweg niet.',
+        },
+        { type: 'h2', id: 'standaard', text: 'Meebewegen met de standaard' },
+        {
+          type: 'p',
+          text: 'Onder de motorkap draait de koppeling nu op de officiële MCP-bibliotheek en bedient hij de nieuwste protocolversie naast de oudere, zodat clients die nog niet zijn meegegroeid gewoon blijven werken. Praktisch levert dat een aantal dingen op die u merkt: elke tool heeft een leesbare naam en een beschreven uitvoer, de administratie wordt aangevuld terwijl u typt, lange lijsten komen in stukken terug, en een vraag die u afbreekt wordt ook daadwerkelijk afgebroken in plaats van stilletjes afgemaakt. Ook geeft de server nu aan hoe lang zijn toollijst houdbaar is, zodat een client niet met een verouderd beeld werkt nadat u iets aan- of uitzet.',
+        },
+        { type: 'h2', id: 'overstappen', text: 'Wat dit betekent voor uw bestaande koppeling' },
+        {
+          type: 'p',
+          text: 'Niets breekt. De bestaande adressen per verbinding blijven werken, en de tokens die u eerder heeft aangemaakt ook. Wat u wint door over te stappen op het ene adres met inloggen, is dat u geen sleutel meer beheert, dat u per assistent ziet wie er binnen is, en dat u een client met één klik buiten kunt zetten.',
+        },
+        {
+          type: 'p',
+          text: 'Liever niet zelf uitzoeken welke route bij uw assistent hoort? Wij richten de koppeling in op uw eigen administratie, zetten de tools klaar die bij uw team passen en lopen het auditlog met u door, zodat u weet wat u ziet en waar u het terugvindt.',
+        },
+      ],
+      claireTitle: 'Claire draait op deze release',
+      claireBody: 'Eén adres, inloggen met uw eigen account, uitklapbare rapporten en een log dat de assistent benoemt.',
+    },
+    en: {
+      metaTitle: 'What’s new in the latest release of our MCP server',
+      metaDescription:
+        'One address for every AI client, signing in instead of pasting a token, expandable report views, two built-in agents and an audit log that names the client. What changes in the new release of the DataFlowr MCP server for Exact Online.',
+      crumbCurrent: 'MCP release',
+      cat: 'AI',
+      tag: 'Release',
+      date: '7 August 2026',
+      readTime: '9 min read',
+      title: 'What’s new in the latest release of our MCP server',
+      lead:
+        'The MCP server that connects your AI assistant to Exact Online has had a major release. Setting up the connection is now a matter of signing in, answers come back as expandable reports, and every call shows which assistant made it.',
+      hero: {
+        src: '/kennisbank/mcp-release-en.png',
+        alt: 'The MCP endpoint in the DataFlowr app: one address, with the per-client setup guide below it for Claude, ChatGPT, Copilot, Make and Zapier',
+      },
+      blocks: [
+        {
+          type: 'p',
+          text: 'An earlier article explained what MCP is: the open standard that lets an AI assistant use a system’s well-defined tools instead of receiving a copy of your data. That foundation has not changed. Almost everything around it has: how you set the connection up, what you get back, and what you can see about it.',
+        },
+        { type: 'h2', id: 'one-address', text: 'One address for every AI client' },
+        {
+          type: 'p',
+          text: 'Until this release every connection had its own address, with that connection’s id in it. That is fine as long as you copy the address by hand, but it falls over the moment a connection has to be packaged: a plugin in a store or an app package for Microsoft 365 ships the same bytes to everyone, and a personal address does not fit in there.',
+        },
+        {
+          type: 'p',
+          text: 'So there is now one address for everyone. Which administration sits behind it is decided while you sign in: with one active connection that one is used; with several you are asked which it should be. That choice is attached to the access the client is granted, so it is not guessed again per question. Want to point a client at a different administration later? You can change it from the app.',
+        },
+        { type: 'h2', id: 'signing-in', text: 'Signing in instead of pasting a token' },
+        {
+          type: 'p',
+          text: 'The old route was: copy the address, generate a token, paste both into your assistant’s settings. It worked, but it also meant a key was going around that never expired and that nobody could trace once it had been pasted.',
+        },
+        {
+          type: 'p',
+          text: 'Now you sign in with your own DataFlowr account. Access is issued by a dedicated authorisation server, expires on its own, is refreshed automatically, and only reaches an administration after you have explicitly consented. The addresses a client is allowed to return to are registered up front, and the discovery steps a client takes to find where to sign in follow the standard — exactly what a marketplace requires before it lists a connector.',
+        },
+        {
+          type: 'p',
+          text: 'Static tokens remain for the places that have no sign-in screen: automation platforms such as Make and Zapier. Such a token names exactly one administration, and regenerating it invalidates the old one immediately.',
+        },
+        {
+          type: 'quote',
+          text: '"The AI assistant no longer holds a key you have to look after. It holds a sign-in that expires, refreshes, and that you can end with one click."',
+        },
+        { type: 'h2', id: 'clients', text: 'A worked-out route in, per client' },
+        {
+          type: 'p',
+          text: 'The connection page now carries a setup guide per client: Claude, ChatGPT and Codex, Microsoft 365 Copilot, Make and Zapier. Each card describes the route that actually works for that client — because they differ. For Claude and ChatGPT you paste the address and sign in. Microsoft 365 Copilot cannot add a server by address at all, so it comes with a downloadable app package. Make and Zapier get the address plus a token.',
+        },
+        {
+          type: 'p',
+          text: 'For the three assistants, listings have been submitted to their vendors’ marketplaces. As soon as one is approved the card turns into a single button to that listing; until then it shows the manual route that already works today. So there is nothing to wait for, and nothing to move over once it lands.',
+        },
+        { type: 'h2', id: 'views', text: 'Answers you can expand' },
+        {
+          type: 'p',
+          text: 'New in this release are interactive views: eight report panels your assistant shows next to the answer. A profit and loss statement or balance sheet as an expandable tree, a general ledger overview, ageing analyses, KPI cards, a period chart, a forecast chart, entity cards and the close report. You expand a line to see what sits underneath it, or drill through to the GL accounts without asking the question again.',
+        },
+        {
+          type: 'figure',
+          src: '/kennisbank/mcp-release-app-view-en.png',
+          alt: 'An expandable profit and loss statement in Claire’s agent workspace, with columns for Jan–Jul 2026, Jan–Jul 2025 and the variance per line',
+          caption:
+            'The same view an external MCP client renders: the P&L compared with last year, each line expandable to what sits underneath it.',
+        },
+        {
+          type: 'p',
+          text: 'Those panels are deliberately built to be boring. They contain no external references, fetch nothing from outside, and data only ever enters them as text — so there is no room for anything to hitch a ride on a report. Assistants that do not support this extension notice nothing: they get exactly the same textual answer as before.',
+        },
+        { type: 'h2', id: 'agents', text: 'Two built-in agents in the toolbox' },
+        {
+          type: 'p',
+          text: 'The closing agent and the forecasting agent are now part of the toolset your assistant is offered. You start a close run from your own assistant, follow its progress, request the close report and record your decision per finding. The same goes for the cashflow forecast: start it, follow the status.',
+        },
+        {
+          type: 'p',
+          text: 'Such a run continues in the background, so your conversation stays usable meanwhile. Intermediate findings appear while the checks run, and once the run finishes the close report appears as a view rather than a wall of text. What does not change: nothing is posted without your explicit approval.',
+        },
+        { type: 'h2', id: 'reporting', text: 'Reporting: budget, rolling year and forecast' },
+        {
+          type: 'p',
+          text: 'The reporting tools have gained the comparisons people actually ask for. You can set actuals against this year’s budget instead of only against last year. You can request a rolling year: the twelve periods through the period you name, the rolling revenue series a management report wants. And you can request a rolling forecast, where the closed periods are actuals and the rest of the financial year is filled from the budget, so you have a full-year picture.',
+        },
+        {
+          type: 'p',
+          text: 'On top of that, period and year-to-date now sit side by side in one report — the management layout with actual, comparison and variance, for both the month and the year so far. Drilling into a line follows the columns of the report you came from, and there is a separate tool for looking up the standard chart of accounts, so a rubric name never has to be guessed. The arithmetic still happens in a deterministic calculation layer: same administration, same outcome.',
+        },
+        { type: 'h2', id: 'visibility', text: 'Visibility into what happens, and limits around it' },
+        {
+          type: 'p',
+          text: 'Every call in the audit log now names the client that made it. Not “a report was fetched”, but “Claude fetched a financial report for Example Ltd at 07:41”. That attribution is recorded at the moment of the call, so it stays readable even after that client’s access has been revoked. The log filters by type, module and tool, and exports to CSV.',
+        },
+        {
+          type: 'figure',
+          src: '/kennisbank/mcp-release-audit-en.png',
+          alt: 'A connection’s audit log, with the time, tool, administration, source (Claude, ChatGPT, Microsoft 365 Copilot), action type and status per row',
+          caption:
+            'The audit log with caller attribution: per call the tool, the administration and the assistant that made it.',
+        },
+        {
+          type: 'p',
+          text: 'There is also a sessions overview: which AI assistants are signed in to this connection, when they last were, and a button to end one. That assistant then has to sign in again before it can reach the administration.',
+        },
+        {
+          type: 'figure',
+          src: '/kennisbank/mcp-release-sessions-en.png',
+          alt: 'A connection’s sessions overview with Claude, ChatGPT and Microsoft 365 Copilot, each with a button to end the session',
+          caption:
+            'Signed-in assistants per connection, each with one button to end the session.',
+        },
+        {
+          type: 'p',
+          text: 'Beyond that, the MCP endpoints now carry rate limits, so a runaway client cannot hammer your administration. And the tools you do not need are switched off per connection — for that assistant they then simply do not exist.',
+        },
+        { type: 'h2', id: 'standard', text: 'Keeping pace with the standard' },
+        {
+          type: 'p',
+          text: 'Under the bonnet the connector now runs on the official MCP library and serves the newest protocol revision alongside the older one, so clients that have not caught up keep working. In practice that gives you a few things you notice: every tool has a readable name and a described output, the administration is completed as you type, long lists come back in pages, and a question you cancel is actually cancelled rather than quietly finished. The server also states how long its tool list stays fresh, so a client does not work from a stale picture after you switch something on or off.',
+        },
+        { type: 'h2', id: 'migrating', text: 'What this means for your existing connection' },
+        {
+          type: 'p',
+          text: 'Nothing breaks. The existing per-connection addresses keep working, and so do the tokens you created earlier. What you gain by moving to the single address with sign-in is that you no longer manage a key, that you can see per assistant who is inside, and that you can put a client out with one click.',
+        },
+        {
+          type: 'p',
+          text: 'Rather not work out which route fits your assistant? We set the connection up on your own administration, prepare the tools that suit your team, and walk through the audit log with you, so you know what you are looking at and where to find it again.',
+        },
+      ],
+      claireTitle: 'Claire runs on this release',
+      claireBody: 'One address, sign in with your own account, expandable reports and a log that names the assistant.',
     },
   },
 };
