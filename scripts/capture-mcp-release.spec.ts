@@ -116,6 +116,55 @@ function mockConnectionShell(api: MockApi, lang: Lang): void {
     schedules: [],
     emailConfigured: true,
   });
+  api.json("GET", `/api/connections/${demoConnection.id}/closing-config`, closingConfig());
+}
+
+/**
+ * The closing-rule catalog behind the "Closing signals" panel. Ids are the real
+ * built-in rule ids, so the Dutch panel resolves its own localized titles and
+ * the screenshot reads the way a user's would.
+ */
+function closingConfig() {
+  const checks: Array<[string, string, "high" | "medium" | "low", boolean]> = [
+    ["opening-balance-check", "Opening balance ties to last year's closing balance", "high", true],
+    ["suspense-account-balance", "Suspense account balances are zero", "high", true],
+    ["prior-year-result-processed", "Prior-year result appropriated to equity", "high", true],
+    ["receivables-subledger-match", "Receivables sub-ledger ties to the general ledger", "high", true],
+    ["payables-subledger-match", "Payables sub-ledger ties to the general ledger", "high", true],
+    ["bank-reconciliation", "Bank balances match the ledger", "high", true],
+    ["vat-calculation-check", "VAT amounts match the calculated rate", "medium", true],
+    ["vat-on-all-transactions", "Every transaction carries a VAT code", "medium", true],
+    ["depreciation-tangible-check", "Depreciation posted on tangible fixed assets", "medium", true],
+    ["duplicate-invoices", "No duplicate purchase invoices", "medium", true],
+    ["negative-cash-balance", "No negative cash balances", "medium", true],
+    ["aged-sales-invoices", "No long-overdue sales invoices", "low", true],
+    ["cash-transaction-limits", "Cash transactions within the statutory limit", "low", false],
+  ];
+  return {
+    catalog: {
+      checks: checks.map(([id, title, severity, enabled]) => ({
+        id,
+        title,
+        tier: "core",
+        severity,
+        description: "",
+        enabled,
+        defaultDisabled: !enabled,
+      })),
+      patterns: [],
+      templates: [],
+    },
+    connectionConfig: null,
+    divisionConfig: null,
+    divisions: [123],
+    effective: {
+      rules: {},
+      customRules: [],
+      tolerances: {},
+      excludedJournals: [],
+      scanFocus: [],
+    },
+  };
 }
 
 function toolModules(lang: Lang) {
@@ -286,6 +335,15 @@ for (const lang of langs) {
     await page.screenshot({ path: `${OUT}/mcp-release-${lang}.png` });
   });
 
+  /** Which close checks apply to this administration. */
+  test(`closing signals (${lang})`, async ({ api, page }) => {
+    mockConnectionShell(api, lang);
+    await page.goto(appPath(lang, `/connections/${demoConnection.id}/signals`));
+    await page.getByTestId("tab-rules").waitFor();
+    await page.waitForTimeout(1500);
+    await page.screenshot({ path: `${OUT}/mcp-release-signals-${lang}.png` });
+  });
+
   /** The AI clients signed in, and the one control over them. */
   test(`connection sessions (${lang})`, async ({ api, page }) => {
     mockConnectionShell(api, lang);
@@ -309,7 +367,12 @@ for (const lang of langs) {
 /* MCP Apps view — the same self-contained HTML an external host renders */
 /* ------------------------------------------------------------------ */
 
+const VIEWS: Record<string, string> = {
+  "ui://dataflowr/exact-online/report-viewer.html": "report-viewer",
+  "ui://dataflowr/exact-online/closing-report.html": "closing-report",
+};
 const REPORT_VIEW = "ui://dataflowr/exact-online/report-viewer.html";
+const CLOSE_VIEW = "ui://dataflowr/exact-online/closing-report.html";
 
 function sse(events: Array<Record<string, unknown>>): string {
   return events.map((event) => `data: ${JSON.stringify(event)}\n\n`).join("");
@@ -337,8 +400,11 @@ function mockChatShell(api: MockApi): void {
   // The view HTML the host loads into its sandboxed iframe — dumped straight
   // from the connector package by capture-mcp-release-view.ts, so the
   // screenshot shows the real view rather than a stand-in.
-  api.json("GET", "/api/chat/app-view", {
-    html: readFileSync("e2e/fixtures/views/report-viewer.html", "utf8"),
+  api.on("GET", "/api/chat/app-view", (request) => {
+    const uri = new URL(request.url()).searchParams.get("uri") ?? "";
+    const name = VIEWS[uri];
+    if (!name) return { status: 404, body: { message: `unknown view ${uri}` } };
+    return { body: { html: readFileSync(`e2e/fixtures/views/${name}.html`, "utf8") } };
   });
 }
 
@@ -479,5 +545,179 @@ for (const lang of langs) {
     });
     await page.waitForTimeout(400);
     await page.screenshot({ path: `${OUT}/mcp-release-app-view-${lang}.png` });
+  });
+}
+
+/** A finished close run: no blockers, a handful of items to review. */
+function closeStructuredContent(lang: Lang) {
+  const nl = lang === "nl";
+  const item = (detail: string, findingKey: string, decision?: string) => ({
+    detail,
+    findingKey,
+    ...(decision ? { decision } : {}),
+  });
+  return {
+    conversation: "close-2026-07",
+    status: "completed",
+    division: 123,
+    division_name: "Voorbeeld B.V.",
+    division_hid: "1001",
+    year: 2026,
+    period: 7,
+    observation_scan: "complete",
+    observations: {
+      check: [
+        {
+          check: "suspense-account-balance",
+          title: "Suspense account balances are zero",
+          severity: "medium",
+          status: "fail",
+          items: [
+            item(
+              nl
+                ? "Kruisposten (1300) staat op € 4.812,66 per 31 juli — de PSP-uitbetaling van 31 juli is nog niet afgeletterd."
+                : "Clearing account (1300) stands at €4,812.66 as at 31 July — the PSP payout of 31 July is not yet matched.",
+              "suspense-1300",
+            ),
+          ],
+        },
+        {
+          check: "receivables-subledger-match",
+          title: "Receivables sub-ledger ties to the general ledger",
+          severity: "medium",
+          status: "fail",
+          items: [
+            item(
+              nl
+                ? "Verschil van € 1.240,00 tussen de debiteurensubadministratie en grootboekrekening 1300 — één vraagpost op een creditnota."
+                : "€1,240.00 difference between the receivables sub-ledger and GL account 1300 — one query item on a credit note.",
+              "recv-1300",
+            ),
+          ],
+        },
+        {
+          check: "vat-on-all-transactions",
+          title: "Every transaction carries a VAT code",
+          severity: "medium",
+          status: "fail",
+          items: [
+            item(
+              nl
+                ? "3 inkoopboekingen in periode 7 zonder btw-code, samen € 862,40."
+                : "3 purchase entries in period 7 without a VAT code, €862.40 in total.",
+              "vat-p7",
+            ),
+          ],
+        },
+        {
+          check: "aged-sales-invoices",
+          title: "No long-overdue sales invoices",
+          severity: "low",
+          status: "fail",
+          items: [
+            item(
+              nl
+                ? "2 verkoopfacturen ouder dan 120 dagen, samen € 3.410,00."
+                : "2 sales invoices older than 120 days, €3,410.00 in total.",
+              "aged-120",
+            ),
+          ],
+        },
+        {
+          check: "duplicate-invoices",
+          title: "No duplicate purchase invoices",
+          severity: "low",
+          status: "fail",
+          items: [
+            item(
+              nl
+                ? "Mogelijk dubbele inkoopfactuur van dezelfde leverancier op 14 juli, € 218,50."
+                : "Possible duplicate purchase invoice from the same supplier on 14 July, €218.50.",
+              "dup-0714",
+              "dismissed",
+            ),
+          ],
+        },
+      ],
+      scan: [],
+      agent: [],
+    },
+  };
+}
+
+for (const lang of langs) {
+  test(`chat: close report (${lang})`, async ({ api, page }) => {
+    mockChatShell(api);
+    const nl = lang === "nl";
+    api.on("POST", `/api/chat/${demoConnection.id}`, () => ({
+      contentType: "text/event-stream",
+      rawBody: sse([
+        {
+          type: "tool_call",
+          id: "tool-close",
+          name: "closing_agent",
+          arguments: { division: 123, year: 2026, period: 7 },
+          requiresConfirmation: false,
+        },
+        {
+          type: "tool_result",
+          id: "tool-close",
+          name: "closing_agent",
+          result: { success: true, conversation: "close-2026-07", status: "completed" },
+        },
+        {
+          type: "tool_call",
+          id: "tool-close-report",
+          name: "closing_agent_report",
+          arguments: { conversation: "close-2026-07" },
+          requiresConfirmation: false,
+        },
+        {
+          type: "tool_result",
+          id: "tool-close-report",
+          name: "closing_agent_report",
+          uiResource: CLOSE_VIEW,
+          result: { success: true, structuredContent: closeStructuredContent(lang) },
+        },
+        {
+          type: "content",
+          content: nl
+            ? [
+                "De afsluitcontroles over juli zijn klaar. Er zijn **geen blokkers**: vijf bevindingen vragen om uw beoordeling, waarvan er één al is afgehandeld.",
+                "",
+                "De grootste post is de restant op de kruisposten — dat is de PSP-uitbetaling van 31 juli, die in augustus wordt afgeletterd.",
+              ].join("\n")
+            : [
+                "The close checks for July are done. There are **no blockers**: five findings need your review, one of which is already handled.",
+                "",
+                "The largest item is the balance left on the clearing account — that is the PSP payout of 31 July, which is matched in August.",
+              ].join("\n"),
+        },
+        { type: "done" },
+      ]),
+    }));
+
+    await page.goto(appPath(lang, "/"));
+    await page.getByTestId("button-open-chat").click();
+    await page.getByTestId("button-fullscreen-chat").click();
+    const sidebar = page.getByTestId("sidebar-conversations");
+    if (await sidebar.isVisible()) {
+      await page.getByTestId("button-toggle-sidebar").click();
+    }
+
+    await page
+      .getByTestId("input-chat-message")
+      .fill(nl ? "Sluit de maand juli af" : "Close the July books");
+    await page.getByTestId("button-send-message").click();
+    await page.getByTestId("iframe-app-view").waitFor();
+    await page.waitForTimeout(2500);
+    await page.getByTestId("mcp-app-view").evaluate((el) =>
+      el.scrollIntoView({ block: "start", behavior: "instant" }),
+    );
+    await page.addStyleTag({
+      content: '[data-testid="button-jump-to-latest"] { display: none !important; }',
+    });
+    await page.waitForTimeout(400);
+    await page.screenshot({ path: `${OUT}/mcp-release-close-${lang}.png` });
   });
 }
