@@ -192,17 +192,17 @@ const nl = {
   obSub:
     'Geen implementatietraject. Uw koppelintentie reist mee door het inloggen heen, dus u komt precies terug waar u was. Klik de flow hieronder door.',
   obSteps: ['Koppeling', 'Inloggen', 'Toestemming', 'Klaar'],
-  obUrls: ['dataflowr.nl/claire', 'dataflowr.nl/login?returnTo=%2Fclaire%2Fstart', 'dataflowr.nl/claire/start', 'dataflowr.nl/claire/chat'],
+  obUrls: ['dataflowr.nl/claire', 'app.dataflowr.nl/login?returnTo=%2Fclaire%2Fstart', 'app.dataflowr.nl/claire/start', 'app.dataflowr.nl/claire/chat'],
   ob1Title: 'Koppel Exact Online aan Claire',
   ob1Body: 'Eén knop, geen omwegen. De koppeling start direct; registreren gebeurt onderweg, in dezelfde stap.',
   ob1Btn: 'Koppel Exact Online →',
-  ob1Checks: ['Gratis starten', 'Klaar in 2 minuten', 'Claire boekt niets zonder uw akkoord'],
+  ob1Checks: ['Vanaf €99 per maand', 'Klaar in 2 minuten', 'Claire boekt niets zonder uw akkoord'],
   ob2Title: 'Nog één stap: log in om Exact Online te koppelen',
   ob2Body: 'Uw account bewaart de koppeling en uw gesprekken. Registreren gaat in dezelfde stap; u komt hierna direct terug bij deze koppeling.',
   ob2ContinuePre: 'U gaat verder met: ',
   ob2ContinueStrong: 'Exact Online koppelen aan Claire',
   ob2Btn: 'Inloggen of registreren →',
-  ob2Checks: ['Geen creditcard', 'Claire leest alleen mee'],
+  ob2Checks: ['Inloggen met Google, Microsoft of e-mail', 'Claire leest alleen mee'],
   ob3Title: 'Welkom terug. We gaan verder waar u was.',
   ob3Body: 'U wordt doorgestuurd naar Exact Online om de koppeling goed te keuren. Daarna staat Claire voor u klaar.',
   ob3NothingPre: 'Gebeurt er niets? ',
@@ -216,6 +216,7 @@ const nl = {
   ob4Sug2Title: 'Welke facturen staan open?',
   ob4Sug2Sub: 'Openstaande debiteuren, gesorteerd op ouderdom',
   ob4Input: 'Stel uw vraag aan Claire...',
+  ob4Cta: 'Start met Claire →',
   ob4Restart: '↺ Opnieuw bekijken',
   obFoot1: 'Beveiligde OAuth · geen schaduwkopie · maandelijks opzegbaar',
   obFoot2: 'Liever samen doorlopen? Plan een kennismaking van 30 minuten en we zetten het samen op.',
@@ -395,17 +396,17 @@ const en: typeof nl = {
   obSub:
     'No implementation project. Your intent travels with you through sign-in, so you land right back where you were. Click through the flow below.',
   obSteps: ['Connect', 'Sign in', 'Consent', 'Done'],
-  obUrls: ['dataflowr.nl/claire', 'dataflowr.nl/login?returnTo=%2Fclaire%2Fstart', 'dataflowr.nl/claire/start', 'dataflowr.nl/claire/chat'],
+  obUrls: ['dataflowr.nl/claire', 'app.dataflowr.nl/login?returnTo=%2Fclaire%2Fstart', 'app.dataflowr.nl/claire/start', 'app.dataflowr.nl/claire/chat'],
   ob1Title: 'Connect Exact Online to Claire',
   ob1Body: 'One button, no detours. The connection starts right away; registration happens along the way, in the same step.',
   ob1Btn: 'Connect Exact Online →',
-  ob1Checks: ['Free to start', 'Ready in 2 minutes', 'Claire posts nothing without your approval'],
+  ob1Checks: ['From €99 per month', 'Ready in 2 minutes', 'Claire posts nothing without your approval'],
   ob2Title: 'One more step: sign in to connect Exact Online',
   ob2Body: 'Your account keeps the connection and your conversations. Registration happens in the same step; afterwards you return straight to this connection.',
   ob2ContinuePre: 'You are continuing with: ',
   ob2ContinueStrong: 'connecting Exact Online to Claire',
   ob2Btn: 'Sign in or register →',
-  ob2Checks: ['No credit card', 'Claire only reads along'],
+  ob2Checks: ['Sign in with Google, Microsoft or email', 'Claire only reads along'],
   ob3Title: 'Welcome back. Continuing where you were.',
   ob3Body: 'You are being forwarded to Exact Online to approve the connection. After that, Claire is ready for you.',
   ob3NothingPre: 'Nothing happening? ',
@@ -419,6 +420,7 @@ const en: typeof nl = {
   ob4Sug2Title: 'Which invoices are outstanding?',
   ob4Sug2Sub: 'Open receivables, sorted by age',
   ob4Input: 'Ask Claire your question...',
+  ob4Cta: 'Start with Claire →',
   ob4Restart: '↺ Watch again',
   obFoot1: 'Secure OAuth · no shadow copy · cancel monthly',
   obFoot2: "Prefer we walk you through it? Book a 30-minute intro and we'll set it up together.",
@@ -774,6 +776,7 @@ const schema = [
                   <span class="ob-input-hint">{t.ob4Input}</span>
                   <span class="ob-input-send" aria-hidden="true">→</span>
                 </div>
+                <a href={routes.claireStart[lang]} class="ob-primary">{t.ob4Cta}</a>
                 <button data-ob-goto="1" class="ob-restart">{t.ob4Restart}</button>
               </div>
             </div>
@@ -822,9 +825,9 @@ const schema = [
     const urlEl = frame.querySelector<HTMLElement>('[data-ob-url]');
     const urlList = [
       'dataflowr.nl/claire',
-      'dataflowr.nl/login?returnTo=%2Fclaire%2Fstart',
-      'dataflowr.nl/claire/start',
-      'dataflowr.nl/claire/chat',
+      'app.dataflowr.nl/login?returnTo=%2Fclaire%2Fstart',
+      'app.dataflowr.nl/claire/start',
+      'app.dataflowr.nl/claire/chat',
     ];
     const setStep = (n: number) => {
       frame.querySelectorAll<HTMLElement>('[data-ob-panel]').forEach((p) => {
@@ -1430,6 +1433,10 @@ const schema = [
     transition: transform 0.25s, box-shadow 0.25s;
   }
   .ob-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(27, 95, 179, 0.4); }
+  /* Anchor variant (the real handoff in step 4): global a/a:hover set link
+     colors, so pin the button text white in both states. */
+  a.ob-primary { display: inline-block; }
+  a.ob-primary, a.ob-primary:hover { color: #ffffff; }
   .ob-checks { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; }
   .ob-checks--left { justify-content: flex-start; }
   .ob-checks span { display: inline-flex; align-items: center; gap: 7px; font-size: 12.5px; color: var(--muted); }
