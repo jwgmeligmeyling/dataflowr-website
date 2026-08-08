@@ -478,10 +478,13 @@ const en: typeof nl = {
 const t = lang === 'nl' ? nl : en;
 // Pricing-CTA's per plan, in dezelfde volgorde als t.pricing.plans: de drie
 // zelfbedieningsplannen gaan de app in via de stabiele /claire/start-ingang
-// (achter de inlogmuur, intentie reist mee via returnTo), met het gekozen
-// plan als ?plan=<tier> voorgeselecteerd in de plankiezer; Enterprise naar
-// Over ons. De tier-slugs zijn die van de plancatalogus van de app.
-const appStart = (tier: string) => `${APP_URL}${lang === 'en' ? 'en/' : ''}claire/start?plan=${tier}`;
+// (achter de inlogmuur, intentie reist mee via returnTo). Deze kaarten
+// noemen de prijs, dus ze sturen ?plan=<tier>&checkout=1: na het inloggen
+// slaat de app de plankiezer over en start direct de checkout voor die
+// tier; kan dat niet (teamlid, al geabonneerd), dan valt het terug op de
+// plankiezer met de kaart voorgeselecteerd. Enterprise naar Over ons.
+// De tier-slugs zijn die van de plancatalogus van de app.
+const appStart = (tier: string) => `${APP_URL}${lang === 'en' ? 'en/' : ''}claire/start?plan=${tier}&checkout=1`;
 const planLinks = [
   { href: appStart('individual'), external: false },
   { href: appStart('business'), external: false },
