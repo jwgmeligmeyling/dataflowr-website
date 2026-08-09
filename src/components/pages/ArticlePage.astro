@@ -101,6 +101,13 @@ const schema = [
                   <p>{block.text}</p>
                 </blockquote>
               );
+            if (block.type === 'figure')
+              return (
+                <figure class="shot">
+                  <img src={block.src} alt={block.alt} loading="lazy" width="2880" height="1620" />
+                  <figcaption>{block.caption}</figcaption>
+                </figure>
+              );
             return (
               <ol>
                 {block.items.map((item) => <li><strong>{item.strong}</strong>{item.rest}</li>)}
@@ -198,6 +205,22 @@ const schema = [
   .hero-media { margin: 0 0 40px; border-radius: 16px; overflow: hidden; aspect-ratio: 16 / 9; background: var(--bg); border: 1px solid var(--line); }
   .hero-media img, .more-media img { display: block; width: 100%; height: 100%; object-fit: cover; }
   .body > p { margin: 0 0 24px; font-size: 16.5px; line-height: 1.8; color: var(--brand); }
+  .shot { margin: 34px 0; }
+  .shot img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 16px;
+    border: 1px solid var(--line);
+    background: var(--bg);
+  }
+  .shot figcaption {
+    margin: 12px 2px 0;
+    font-size: 13.5px;
+    line-height: 1.6;
+    color: var(--muted);
+    text-wrap: pretty;
+  }
   .body h2 {
     margin: 44px 0 16px;
     font-size: clamp(24px, 2.6vw, 30px);

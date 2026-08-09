@@ -39,6 +39,10 @@ const articleRoutes = {
     nl: '/kennisbank/wat-mcp-is-en-waarom-het-voor-finance-uitmaakt',
     en: '/en/resources/what-mcp-is-and-why-it-matters-for-finance',
   },
+  'mcp-release': {
+    nl: '/kennisbank/wat-er-nieuw-is-in-de-mcp-release',
+    en: '/en/resources/what-is-new-in-the-mcp-release',
+  },
 } as const;
 
 /**

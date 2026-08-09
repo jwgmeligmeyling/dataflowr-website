@@ -13,7 +13,9 @@ export type ArticleBlock =
   | { type: 'p'; text: string }
   | { type: 'h2'; id: string; text: string }
   | { type: 'quote'; text: string }
-  | { type: 'ol'; items: { strong: string; rest: string }[] };
+  | { type: 'ol'; items: { strong: string; rest: string }[] }
+  /** Inline screenshot (16:9, 2880×1620), captured from the Claire app. */
+  | { type: 'figure'; src: string; alt: string; caption: string };
 
 export interface ArticleContent {
   metaTitle: string;
@@ -549,6 +551,312 @@ export const articles: Record<ArticleKey, Article> = {
       ],
       claireTitle: 'Claire speaks MCP',
       claireBody: 'Your administration through your own login, answers with substantiation, postings only after approval.',
+    },
+  },
+
+
+  'mcp-release': {
+    author: 'janwillem',
+    dateIso: '2026-08-07',
+    nl: {
+      metaTitle: 'Wat er nieuw is in de nieuwe release van onze MCP-koppeling',
+      metaDescription:
+        'Dezelfde koppeling met Exact Online, een stuk slimmer: een agent die de maandafsluiting draait, een onderbouwde cashflowprognose, een vernieuwde chat met interactieve overzichten, en per administratie instellen welke controles gelden.',
+      crumbCurrent: 'MCP-release',
+      cat: 'AI',
+      tag: 'Release',
+      date: '7 augustus 2026',
+      readTime: '8 min leestijd',
+      title: 'Wat er nieuw is in de nieuwe release van onze MCP-koppeling',
+      lead:
+        'We rollen een flink vernieuwde versie uit van de koppeling die uw AI-assistent met Exact Online verbindt. Het is dezelfde koppeling, maar een stuk slimmer: u kunt nu vragen om de maand af te sluiten, en er komt een rapport terug dat u regel voor regel afvinkt.',
+      hero: {
+        src: '/kennisbank/mcp-release-close-nl.png',
+        alt: 'Het afsluitrapport in de agentwerkruimte van Claire: afsluitgereedheid “Sluit met voorbehoud”, nul blokkades, drie aandachtspunten en per bevinding een knop om te accepteren of af te wijzen',
+      },
+      blocks: [
+        {
+          type: 'p',
+          text: 'Wat hetzelfde blijft, is de basis: u werkt in uw eigen administratie, via uw eigen toegang, en er wordt niets geboekt zonder uw akkoord. Wat verandert, is wat de koppeling zelf al voor u doet voordat u zelf begint te kijken.',
+        },
+        { type: 'h2', id: 'afsluiting', text: 'De maandafsluiting als opdracht' },
+        {
+          type: 'p',
+          text: 'De grootste toevoeging is een afsluitagent. U vraagt uw assistent om de maand af te sluiten, en er draait automatisch een reeks controles: sluit de beginbalans aan op het vorige jaar, staan de tussenrekeningen op nul, sluiten de subadministraties van debiteuren en crediteuren aan op het grootboek, kloppen de bank- en kassaldi, dragen alle boekingen een btw-code, en zijn de afschrijvingen verwerkt.',
+        },
+        {
+          type: 'p',
+          text: 'Het resultaat is geen lap tekst maar een rapport, zoals u hierboven ziet. Bovenaan staat het oordeel: gereed, met voorbehoud, of nog niet gereed — en waarom. Daaronder staan de bevindingen op ernst gesorteerd, elk met de concrete post erbij: welk bedrag, op welke rekening, per wanneer. Per bevinding accepteert u hem of wijst u hem af, en wat u heeft afgehandeld verdwijnt uit de openstaande lijst.',
+        },
+        {
+          type: 'quote',
+          text: '"Het verschil met een checklist is dat de controles al gedraaid hebben tegen de tijd dat u kijkt. U beoordeelt de uitzonderingen in plaats van ze eerst te zoeken."',
+        },
+        { type: 'h2', id: 'prognose', text: 'Een onderbouwde cashflowprognose' },
+        {
+          type: 'p',
+          text: 'Daarnaast is er een prognoseagent voor de liquiditeit. Die bouwt de prognose op uit wat er in de administratie staat: de openstaande debiteuren en crediteuren met hun vervaldatums, het feitelijke betaalgedrag uit de historie, en uw budget in Exact voor de perioden die nog moeten komen.',
+        },
+        {
+          type: 'p',
+          text: 'De uitkomst is niet één lijn maar een bandbreedte, gemeten aan hoe goed dezelfde methode het in het verleden op uw eigen cijfers deed. Zo ziet u niet alleen wat de verwachting is, maar ook hoe hard die verwachting is. De berekening loopt in de achtergrond door, dus u kunt ondertussen gewoon verder werken.',
+        },
+        { type: 'h2', id: 'chat', text: 'Een vernieuwde chat' },
+        {
+          type: 'p',
+          text: 'Antwoorden komen nu live binnen, met de overzichten erbij in plaats van eronder. Een financieel rapport verschijnt als uitklapbare tabel, een ouderdomsanalyse als staafjes per bucket, KPI’s als kaarten, en het afsluitrapport als het overzicht hierboven. U klapt een regel open om de onderliggende posten te zien of zoomt door naar de grootboekrekeningen, zonder de vraag opnieuw te stellen.',
+        },
+        {
+          type: 'figure',
+          src: '/kennisbank/mcp-release-app-view-nl.png',
+          alt: 'Een uitklapbare resultatenrekening in de chat, met de kolommen jan–jul 2026, jan–jul 2025 en het verschil per regel',
+          caption:
+            'De resultatenrekening als uitklapbaar overzicht, met vergelijking op vorig jaar en het verschil per regel.',
+        },
+        {
+          type: 'ol',
+          items: [
+            { strong: 'Spraak in en uit.', rest: ' Uw vraag inspreken en het antwoord laten voorlezen, handig als u met iets anders bezig bent.' },
+            { strong: 'Bestanden erbij slepen.', rest: ' Een bankafschrift of een spreadsheet in het gesprek zetten en er meteen vragen over stellen.' },
+            { strong: 'Grip op het gesprek.', rest: ' Een lopend antwoord stoppen, uw vraag aanpassen en opnieuw sturen, of hetzelfde antwoord opnieuw laten opstellen.' },
+            { strong: 'Doorzoekbare geschiedenis.', rest: ' Gesprekken krijgen automatisch een titel en zijn gegroepeerd op datum, dus u vindt terug wat u vorige maand vroeg.' },
+          ],
+        },
+        { type: 'h2', id: 'rapportage', text: 'Rapportages die de vergelijking maken die u nodig heeft' },
+        {
+          type: 'p',
+          text: 'De rapportages zijn uitgebreid met de vergelijkingen waar in de praktijk om gevraagd wordt. U kunt de realisatie afzetten tegen het budget van dit jaar in plaats van alleen tegen vorig jaar. U kunt een voortschrijdend jaar opvragen — de twaalf perioden tot en met de gekozen periode — voor de rollende reeks die een directieverslag wil.',
+        },
+        {
+          type: 'p',
+          text: 'En u kunt een rolling forecast opvragen: de afgesloten perioden zijn realisatie, de rest van het boekjaar wordt met het budget opgevuld, zodat u een volledig jaarbeeld heeft. Periode en cumulatief staan daarbij naast elkaar in één rapport, met actueel, vergelijking en verschil voor zowel de maand als het jaar tot dan toe.',
+        },
+        { type: 'h2', id: 'controle', text: 'Meer te bepalen per verbinding' },
+        {
+          type: 'p',
+          text: 'U stelt nu per verbinding in welke tools aanstaan. Werkt uw team alleen met rapportage en de afsluiting, dan zet u de rest uit — voor uw assistent bestaan die dan simpelweg niet, en de keuze wordt korter en scherper.',
+        },
+        {
+          type: 'p',
+          text: 'Hetzelfde geldt voor de afsluitcontroles zelf. Onder “Afsluitsignalen” staat de volledige lijst controles met hun uitleg, en zet u per administratie aan welke gelden en hoe zwaar ze wegen: blokkerend, ter beoordeling of louter informatief. Wat bij de ene BV een blokkade is, is bij de andere een aandachtspunt.',
+        },
+        {
+          type: 'figure',
+          src: '/kennisbank/mcp-release-signals-nl.png',
+          alt: 'De pagina Afsluitsignalen met de lijst afsluitcontroles, elk met uitleg, een ernstniveau en een schakelaar om hem aan of uit te zetten',
+          caption:
+            'Afsluitsignalen: per administratie instellen welke controles meedoen en hoe zwaar ze wegen.',
+        },
+        { type: 'h2', id: 'clients', text: 'Uw assistent naar keuze, via één adres' },
+        {
+          type: 'p',
+          text: 'De koppeling heeft nu één adres, ongeacht welke assistent u gebruikt en hoeveel administraties u heeft. Welke administratie erachter zit, wordt bij het koppelen bepaald: heeft u er één, dan is er niets te kiezen; heeft u er meer, dan krijgt u de vraag welke het moet worden. En u kunt een assistent later op een andere administratie zetten.',
+        },
+        {
+          type: 'p',
+          text: 'Op de verbindingspagina staat per client een uitgewerkte route: Claude, ChatGPT en Codex, Microsoft 365 Copilot, en voor automatiseringen Make en Zapier. Die routes verschillen echt van elkaar — Microsoft 365 Copilot kan bijvoorbeeld geen koppeling op adres toevoegen en krijgt daarom een kant-en-klaar pakket. Voor de drie assistenten zijn vermeldingen ingediend bij de marktplaatsen van hun leveranciers; zodra er één wordt goedgekeurd, verandert de kaart in één knop daarheen.',
+        },
+        {
+          type: 'figure',
+          src: '/kennisbank/mcp-release-nl.png',
+          alt: 'De verbindingspagina met het adres van de koppeling en daaronder de setup-gids per client voor Claude, ChatGPT, Microsoft 365 Copilot, Make en Zapier',
+          caption:
+            'Eén adres, met daaronder per assistent de route die voor die assistent daadwerkelijk werkt.',
+        },
+        { type: 'h2', id: 'zicht', text: 'Zicht op wat er gebeurt' },
+        {
+          type: 'p',
+          text: 'Het auditlog vermeldt nu welke assistent elke aanroep deed. Niet “er is een rapport opgehaald”, maar “Claude heeft om 07:41 een financieel rapport opgehaald voor Voorbeeld B.V.”. Het log is te filteren op type, module en tool, en te exporteren naar CSV — handig als uw accountant wil zien wat er is opgevraagd.',
+        },
+        {
+          type: 'figure',
+          src: '/kennisbank/mcp-release-audit-nl.png',
+          alt: 'Het auditlog van een verbinding met per regel het tijdstip, de tool, de administratie, de assistent die de aanroep deed, het type actie en de status',
+          caption:
+            'Per aanroep de tool, de administratie en de assistent die hem deed.',
+        },
+        {
+          type: 'p',
+          text: 'Er is ook een sessieoverzicht: welke assistenten op deze verbinding zijn ingelogd en wanneer voor het laatst, met per assistent een knop om de sessie te beëindigen. Iemand die de organisatie verlaat of een assistent die u niet meer gebruikt, zet u er zo weer af.',
+        },
+        {
+          type: 'figure',
+          src: '/kennisbank/mcp-release-sessions-nl.png',
+          alt: 'Het sessieoverzicht van een verbinding met Claude, ChatGPT en Microsoft 365 Copilot, elk met een knop om de sessie te beëindigen',
+          caption:
+            'Welke assistenten zijn ingelogd, en één knop om er één af te sluiten.',
+        },
+        { type: 'h2', id: 'eromheen', text: 'Nieuw eromheen' },
+        {
+          type: 'p',
+          text: 'Buiten de koppeling zelf zijn er twee dingen bijgekomen. Er is een iOS-app, zodat u onderweg een vraag kunt stellen of een afsluitronde kunt volgen. En de webomgeving heeft een vernieuwde interface: elke verbinding heeft nu een eigen pagina met overzicht, sessies, auditlog, tools, afsluitsignalen en planningen, in plaats van alles op één lijst.',
+        },
+        { type: 'h2', id: 'actie', text: 'Eén actie: opnieuw een account aanmaken' },
+        {
+          type: 'p',
+          text: 'Er is één ding dat u zelf moet doen. We zijn overgestapt op een nieuw inlogsysteem, zodat we een eigen inlogscherm kunnen bouwen in plaats van dat van een ander te lenen. Daardoor moet u eenmalig opnieuw een account aanmaken.',
+        },
+        {
+          type: 'p',
+          text: 'Gebruik daarbij hetzelfde e-mailadres als voorheen. Dan staat alles er weer zoals u het achterliet — uw verbindingen, uw instellingen en uw gespreksgeschiedenis — en kunt u meteen verder. Duurt een minuut.',
+        },
+        {
+          type: 'p',
+          text: 'Vragen over wat er is veranderd, of wilt u dat we de afsluitcontroles samen met u op uw eigen administratie inrichten? Neem gerust contact op; we lopen het graag met u door.',
+        },
+      ],
+      claireTitle: 'Claire draait op deze release',
+      claireBody: 'De maandafsluiting als opdracht, een onderbouwde cashflowprognose en antwoorden met de overzichten erbij.',
+    },
+    en: {
+      metaTitle: 'What’s new in the latest release of our MCP connector',
+      metaDescription:
+        'The same connection to Exact Online, considerably smarter: an agent that runs the month-end close, a substantiated cashflow forecast, a renewed chat with interactive overviews, and per-administration control over which checks apply.',
+      crumbCurrent: 'MCP release',
+      cat: 'AI',
+      tag: 'Release',
+      date: '7 August 2026',
+      readTime: '8 min read',
+      title: 'What’s new in the latest release of our MCP connector',
+      lead:
+        'We are rolling out a substantially renewed version of the connection between your AI assistant and Exact Online. It is the same connection, considerably smarter: you can now ask it to close the month, and a report comes back that you tick off line by line.',
+      hero: {
+        src: '/kennisbank/mcp-release-close-en.png',
+        alt: 'The close report in Claire’s agent workspace: readiness “Close with caution”, zero blockers, three items to review, and an accept or dismiss button per finding',
+      },
+      blocks: [
+        {
+          type: 'p',
+          text: 'What stays the same is the foundation: you work in your own administration, through your own access, and nothing is posted without your approval. What changes is how much the connection already does for you before you start looking yourself.',
+        },
+        { type: 'h2', id: 'close', text: 'The month-end close as an instruction' },
+        {
+          type: 'p',
+          text: 'The biggest addition is a closing agent. You ask your assistant to close the month, and a series of checks runs automatically: does the opening balance tie to last year, are the suspense accounts at zero, do the receivables and payables sub-ledgers tie to the general ledger, do the bank and cash balances match, does every entry carry a VAT code, and has depreciation been posted.',
+        },
+        {
+          type: 'p',
+          text: 'The result is not a wall of text but a report, as shown above. At the top sits the verdict: ready, ready with caution, or not yet ready — and why. Below it the findings are sorted by severity, each with the concrete item attached: which amount, on which account, as at when. Per finding you accept it or dismiss it, and what you have handled drops out of the open list.',
+        },
+        {
+          type: 'quote',
+          text: '"The difference with a checklist is that the checks have already run by the time you look. You assess the exceptions instead of first having to find them."',
+        },
+        { type: 'h2', id: 'forecast', text: 'A substantiated cashflow forecast' },
+        {
+          type: 'p',
+          text: 'There is also a forecasting agent for liquidity. It builds the forecast from what is in the administration: open receivables and payables with their due dates, actual payment behaviour from history, and your budget in Exact for the periods still to come.',
+        },
+        {
+          type: 'p',
+          text: 'The outcome is not a single line but a band, measured against how well the same method did on your own figures in the past. So you see not only what the expectation is, but how firm that expectation is. The calculation runs in the background, so you can carry on working meanwhile.',
+        },
+        { type: 'h2', id: 'chat', text: 'A renewed chat' },
+        {
+          type: 'p',
+          text: 'Answers now arrive live, with the overviews alongside them rather than underneath. A financial report appears as an expandable table, an ageing analysis as bars per bucket, KPIs as cards, and the close report as the overview above. You expand a line to see what sits underneath it, or drill through to the GL accounts, without asking the question again.',
+        },
+        {
+          type: 'figure',
+          src: '/kennisbank/mcp-release-app-view-en.png',
+          alt: 'An expandable profit and loss statement in the chat, with columns for Jan–Jul 2026, Jan–Jul 2025 and the variance per line',
+          caption:
+            'The P&L as an expandable overview, compared with last year and with the variance per line.',
+        },
+        {
+          type: 'ol',
+          items: [
+            { strong: 'Voice in and out.', rest: ' Dictate your question and have the answer read back, handy when your hands are busy elsewhere.' },
+            { strong: 'Drag files in.', rest: ' Drop a bank statement or a spreadsheet into the conversation and ask about it straight away.' },
+            { strong: 'Control over the conversation.', rest: ' Stop an answer in progress, edit your question and resend it, or have the same answer regenerated.' },
+            { strong: 'Searchable history.', rest: ' Conversations get a title automatically and are grouped by date, so you can find what you asked last month.' },
+          ],
+        },
+        { type: 'h2', id: 'reporting', text: 'Reporting that makes the comparison you need' },
+        {
+          type: 'p',
+          text: 'Reporting has gained the comparisons people actually ask for. You can set actuals against this year’s budget instead of only against last year. You can request a rolling year — the twelve periods through the period you name — for the rolling series a management report wants.',
+        },
+        {
+          type: 'p',
+          text: 'And you can request a rolling forecast: the closed periods are actuals, the rest of the financial year is filled from the budget, so you have a full-year picture. Period and year-to-date sit side by side in one report, with actual, comparison and variance for both the month and the year so far.',
+        },
+        { type: 'h2', id: 'control', text: 'More to decide per connection' },
+        {
+          type: 'p',
+          text: 'You now set per connection which tools are switched on. If your team only works with reporting and the close, you switch the rest off — for your assistant they then simply do not exist, and the choice gets shorter and sharper.',
+        },
+        {
+          type: 'p',
+          text: 'The same goes for the close checks themselves. Under “Closing signals” you find the full list of checks with their explanations, and you set per administration which ones apply and how heavily they weigh: blocking, for review, or purely informative. What is a blocker at one entity is a point of attention at another.',
+        },
+        {
+          type: 'figure',
+          src: '/kennisbank/mcp-release-signals-en.png',
+          alt: 'The Closing signals page with the list of close checks, each with an explanation, a severity level and a switch to turn it on or off',
+          caption:
+            'Closing signals: set per administration which checks take part and how heavily they weigh.',
+        },
+        { type: 'h2', id: 'clients', text: 'The assistant of your choice, through one address' },
+        {
+          type: 'p',
+          text: 'The connection now has one address, whichever assistant you use and however many administrations you have. Which administration sits behind it is decided when you connect: with one there is nothing to choose; with several you are asked which it should be. And you can point an assistant at a different administration later.',
+        },
+        {
+          type: 'p',
+          text: 'The connection page carries a worked-out route per client: Claude, ChatGPT and Codex, Microsoft 365 Copilot, and for automation Make and Zapier. Those routes genuinely differ — Microsoft 365 Copilot, for instance, cannot add a connection by address at all and therefore gets a ready-made package. Listings have been submitted to the three assistants’ vendor marketplaces; as soon as one is approved, that card turns into a single button to it.',
+        },
+        {
+          type: 'figure',
+          src: '/kennisbank/mcp-release-en.png',
+          alt: 'The connection page with the connector’s address and, below it, the setup guide per client for Claude, ChatGPT, Microsoft 365 Copilot, Make and Zapier',
+          caption:
+            'One address, with the route that actually works for each assistant below it.',
+        },
+        { type: 'h2', id: 'visibility', text: 'Visibility into what happens' },
+        {
+          type: 'p',
+          text: 'The audit log now names the assistant behind every call. Not “a report was fetched”, but “Claude fetched a financial report for Example Ltd at 07:41”. The log filters by type, module and tool, and exports to CSV — useful when your accountant wants to see what was queried.',
+        },
+        {
+          type: 'figure',
+          src: '/kennisbank/mcp-release-audit-en.png',
+          alt: 'A connection’s audit log with the time, tool, administration, the assistant that made the call, the action type and the status per row',
+          caption:
+            'Per call the tool, the administration and the assistant that made it.',
+        },
+        {
+          type: 'p',
+          text: 'There is also a sessions overview: which assistants are signed in to this connection and when they last were, with a button per assistant to end the session. Someone leaving the organisation, or an assistant you no longer use, is taken off there.',
+        },
+        {
+          type: 'figure',
+          src: '/kennisbank/mcp-release-sessions-en.png',
+          alt: 'A connection’s sessions overview with Claude, ChatGPT and Microsoft 365 Copilot, each with a button to end the session',
+          caption:
+            'Which assistants are signed in, and one button to end any of them.',
+        },
+        { type: 'h2', id: 'around-it', text: 'New around it' },
+        {
+          type: 'p',
+          text: 'Two things have appeared outside the connection itself. There is an iOS app, so you can ask a question or follow a close run while out of the office. And the web environment has a renewed interface: every connection now has its own page with overview, sessions, audit log, tools, closing signals and schedules, instead of everything on one list.',
+        },
+        { type: 'h2', id: 'action', text: 'One action: create your account again' },
+        {
+          type: 'p',
+          text: 'There is one thing you need to do yourself. We have moved to a new sign-in system, so that we can build our own sign-in screen rather than borrowing someone else’s. Because of that, you need to create your account once more.',
+        },
+        {
+          type: 'p',
+          text: 'Use the same email address as before. Everything will then be there exactly as you left it — your connections, your settings and your conversation history — and you can carry straight on. It takes a minute.',
+        },
+        {
+          type: 'p',
+          text: 'Questions about what has changed, or would you like us to set the close checks up with you on your own administration? Do get in touch; we are happy to walk through it with you.',
+        },
+      ],
+      claireTitle: 'Claire runs on this release',
+      claireBody: 'The month-end close as an instruction, a substantiated cashflow forecast, and answers with the overviews alongside them.',
     },
   },
 };
