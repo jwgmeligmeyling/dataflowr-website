@@ -1,5 +1,5 @@
 /**
- * Home page effects — ported from the "DataFlowr Landing v4" prototype logic:
+ * Home page effects, ported from the "DataFlowr Landing v4" prototype logic:
  *  - hero neural-network ("brain") canvas with firing pulses + mouse parallax
  *  - blurred logo nebula parallax (hero + CTA)
  *  - scroll reveals on [data-reveal]

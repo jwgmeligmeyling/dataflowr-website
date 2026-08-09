@@ -586,7 +586,7 @@ export const articles: Record<ArticleKey, Article> = {
         },
         {
           type: 'p',
-          text: 'Het resultaat is geen lap tekst maar een rapport, zoals u hierboven ziet. Bovenaan staat het oordeel: gereed, met voorbehoud, of nog niet gereed — en waarom. Daaronder staan de bevindingen op ernst gesorteerd, elk met de concrete post erbij: welk bedrag, op welke rekening, per wanneer. Per bevinding accepteert u hem of wijst u hem af, en wat u heeft afgehandeld verdwijnt uit de openstaande lijst.',
+          text: 'Het resultaat is geen lap tekst maar een rapport, zoals u hierboven ziet. Bovenaan staat het oordeel: gereed, met voorbehoud, of nog niet gereed, en waarom. Daaronder staan de bevindingen op ernst gesorteerd, elk met de concrete post erbij: welk bedrag, op welke rekening, per wanneer. Per bevinding accepteert u hem of wijst u hem af, en wat u heeft afgehandeld verdwijnt uit de openstaande lijst.',
         },
         {
           type: 'quote',
@@ -625,7 +625,7 @@ export const articles: Record<ArticleKey, Article> = {
         { type: 'h2', id: 'rapportage', text: 'Rapportages die de vergelijking maken die u nodig heeft' },
         {
           type: 'p',
-          text: 'De rapportages zijn uitgebreid met de vergelijkingen waar in de praktijk om gevraagd wordt. U kunt de realisatie afzetten tegen het budget van dit jaar in plaats van alleen tegen vorig jaar. U kunt een voortschrijdend jaar opvragen — de twaalf perioden tot en met de gekozen periode — voor de rollende reeks die een directieverslag wil.',
+          text: 'De rapportages zijn uitgebreid met de vergelijkingen waar in de praktijk om gevraagd wordt. U kunt de realisatie afzetten tegen het budget van dit jaar in plaats van alleen tegen vorig jaar. U kunt een voortschrijdend jaar opvragen, de twaalf perioden tot en met de gekozen periode. Dat is de rollende reeks die een directieverslag wil.',
         },
         {
           type: 'p',
@@ -634,7 +634,7 @@ export const articles: Record<ArticleKey, Article> = {
         { type: 'h2', id: 'controle', text: 'Meer te bepalen per verbinding' },
         {
           type: 'p',
-          text: 'U stelt nu per verbinding in welke tools aanstaan. Werkt uw team alleen met rapportage en de afsluiting, dan zet u de rest uit — voor uw assistent bestaan die dan simpelweg niet, en de keuze wordt korter en scherper.',
+          text: 'U stelt nu per verbinding in welke tools aanstaan. Werkt uw team alleen met rapportage en de afsluiting, dan zet u de rest uit. Voor uw assistent bestaan die dan simpelweg niet, en de keuze wordt korter en scherper.',
         },
         {
           type: 'p',
@@ -654,7 +654,7 @@ export const articles: Record<ArticleKey, Article> = {
         },
         {
           type: 'p',
-          text: 'Op de verbindingspagina staat per client een uitgewerkte route: Claude, ChatGPT en Codex, Microsoft 365 Copilot, en voor automatiseringen Make en Zapier. Die routes verschillen echt van elkaar — Microsoft 365 Copilot kan bijvoorbeeld geen koppeling op adres toevoegen en krijgt daarom een kant-en-klaar pakket. Voor de drie assistenten zijn vermeldingen ingediend bij de marktplaatsen van hun leveranciers; zodra er één wordt goedgekeurd, verandert de kaart in één knop daarheen.',
+          text: 'Op de verbindingspagina staat per client een uitgewerkte route: Claude, ChatGPT en Codex, Microsoft 365 Copilot, en voor automatiseringen Make en Zapier. Die routes verschillen echt van elkaar: Microsoft 365 Copilot kan bijvoorbeeld geen koppeling op adres toevoegen en krijgt daarom een kant-en-klaar pakket. Voor de drie assistenten zijn vermeldingen ingediend bij de marktplaatsen van hun leveranciers; zodra er één wordt goedgekeurd, verandert de kaart in één knop daarheen.',
         },
         {
           type: 'figure',
@@ -666,7 +666,7 @@ export const articles: Record<ArticleKey, Article> = {
         { type: 'h2', id: 'zicht', text: 'Zicht op wat er gebeurt' },
         {
           type: 'p',
-          text: 'Het auditlog vermeldt nu welke assistent elke aanroep deed. Niet “er is een rapport opgehaald”, maar “Claude heeft om 07:41 een financieel rapport opgehaald voor Voorbeeld B.V.”. Het log is te filteren op type, module en tool, en te exporteren naar CSV — handig als uw accountant wil zien wat er is opgevraagd.',
+          text: 'Het auditlog vermeldt nu welke assistent elke aanroep deed. Niet “er is een rapport opgehaald”, maar “Claude heeft om 07:41 een financieel rapport opgehaald voor Voorbeeld B.V.”. Het log is te filteren op type, module en tool, en te exporteren naar CSV, handig als uw accountant wil zien wat er is opgevraagd.',
         },
         {
           type: 'figure',
@@ -698,7 +698,7 @@ export const articles: Record<ArticleKey, Article> = {
         },
         {
           type: 'p',
-          text: 'Gebruik daarbij hetzelfde e-mailadres als voorheen. Dan staat alles er weer zoals u het achterliet — uw verbindingen, uw instellingen en uw gespreksgeschiedenis — en kunt u meteen verder. Duurt een minuut.',
+          text: 'Gebruik daarbij hetzelfde e-mailadres als voorheen. Dan staat alles er weer zoals u het achterliet: uw verbindingen, uw instellingen en uw gespreksgeschiedenis. U kunt meteen verder. Duurt een minuut.',
         },
         {
           type: 'p',
@@ -736,7 +736,7 @@ export const articles: Record<ArticleKey, Article> = {
         },
         {
           type: 'p',
-          text: 'The result is not a wall of text but a report, as shown above. At the top sits the verdict: ready, ready with caution, or not yet ready — and why. Below it the findings are sorted by severity, each with the concrete item attached: which amount, on which account, as at when. Per finding you accept it or dismiss it, and what you have handled drops out of the open list.',
+          text: 'The result is not a wall of text but a report, as shown above. At the top sits the verdict: ready, ready with caution, or not yet ready, and why. Below it the findings are sorted by severity, each with the concrete item attached: which amount, on which account, as at when. Per finding you accept it or dismiss it, and what you have handled drops out of the open list.',
         },
         {
           type: 'quote',
@@ -775,7 +775,7 @@ export const articles: Record<ArticleKey, Article> = {
         { type: 'h2', id: 'reporting', text: 'Reporting that makes the comparison you need' },
         {
           type: 'p',
-          text: 'Reporting has gained the comparisons people actually ask for. You can set actuals against this year’s budget instead of only against last year. You can request a rolling year — the twelve periods through the period you name — for the rolling series a management report wants.',
+          text: 'Reporting has gained the comparisons people actually ask for. You can set actuals against this year’s budget instead of only against last year. You can request a rolling year, the twelve periods through the period you name. That is the rolling series a management report wants.',
         },
         {
           type: 'p',
@@ -784,7 +784,7 @@ export const articles: Record<ArticleKey, Article> = {
         { type: 'h2', id: 'control', text: 'More to decide per connection' },
         {
           type: 'p',
-          text: 'You now set per connection which tools are switched on. If your team only works with reporting and the close, you switch the rest off — for your assistant they then simply do not exist, and the choice gets shorter and sharper.',
+          text: 'You now set per connection which tools are switched on. If your team only works with reporting and the close, you switch the rest off. For your assistant they then simply do not exist, and the choice gets shorter and sharper.',
         },
         {
           type: 'p',
@@ -804,7 +804,7 @@ export const articles: Record<ArticleKey, Article> = {
         },
         {
           type: 'p',
-          text: 'The connection page carries a worked-out route per client: Claude, ChatGPT and Codex, Microsoft 365 Copilot, and for automation Make and Zapier. Those routes genuinely differ — Microsoft 365 Copilot, for instance, cannot add a connection by address at all and therefore gets a ready-made package. Listings have been submitted to the three assistants’ vendor marketplaces; as soon as one is approved, that card turns into a single button to it.',
+          text: 'The connection page carries a worked-out route per client: Claude, ChatGPT and Codex, Microsoft 365 Copilot, and for automation Make and Zapier. Those routes genuinely differ: Microsoft 365 Copilot, for instance, cannot add a connection by address at all and therefore gets a ready-made package. Listings have been submitted to the three assistants’ vendor marketplaces; as soon as one is approved, that card turns into a single button to it.',
         },
         {
           type: 'figure',
@@ -816,7 +816,7 @@ export const articles: Record<ArticleKey, Article> = {
         { type: 'h2', id: 'visibility', text: 'Visibility into what happens' },
         {
           type: 'p',
-          text: 'The audit log now names the assistant behind every call. Not “a report was fetched”, but “Claude fetched a financial report for Example Ltd at 07:41”. The log filters by type, module and tool, and exports to CSV — useful when your accountant wants to see what was queried.',
+          text: 'The audit log now names the assistant behind every call. Not “a report was fetched”, but “Claude fetched a financial report for Example Ltd at 07:41”. The log filters by type, module and tool, and exports to CSV, useful when your accountant wants to see what was queried.',
         },
         {
           type: 'figure',
@@ -848,7 +848,7 @@ export const articles: Record<ArticleKey, Article> = {
         },
         {
           type: 'p',
-          text: 'Use the same email address as before. Everything will then be there exactly as you left it — your connections, your settings and your conversation history — and you can carry straight on. It takes a minute.',
+          text: 'Use the same email address as before. Everything will then be there exactly as you left it: your connections, your settings and your conversation history. You can carry straight on. It takes a minute.',
         },
         {
           type: 'p',
