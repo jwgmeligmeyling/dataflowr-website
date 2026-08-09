@@ -8,7 +8,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Logo from '../Logo.astro';
 import ClaireMark from '../ClaireMark.astro';
-import { abs, routes, ui, EMAIL_DAAN, type Lang } from '../../lib/site';
+import { abs, routes, ui, APP_URL, type Lang } from '../../lib/site';
 
 interface Props {
   lang: Lang;
@@ -26,6 +26,15 @@ interface QaCard {
   cols: { label: string; align: 'left' | 'right' }[];
   rows: Cell[][];
   note?: string;
+}
+interface Plan {
+  name: string;
+  price: string;
+  period: string;
+  cta: string;
+  features: string[];
+  badge?: boolean;
+  dashed?: boolean;
 }
 
 const nl = {
@@ -148,6 +157,22 @@ const nl = {
       note: 'Besteladvies klaargezet voor de twee snelst lopende artikelen.',
     },
   ] as QaCard[],
+  pricing: {
+    eyebrow: 'Pricing',
+    title: 'Vandaag starten, elk moment groeien.',
+    sub: 'Alle plannen werken op uw eigen Exact Online. Maandelijks opzegbaar.',
+    badge: 'Meest gekozen',
+    plans: [
+      { name: 'Individueel', price: '€99', period: 'per maand, excl. btw', cta: 'Kies Individueel',
+        features: ['Ruim genoeg voor dagelijkse vragen van één gebruiker', '3 administraties', 'Standaard support'] },
+      { name: 'Bedrijf', price: '€299', period: 'per maand, excl. btw', cta: 'Kies Bedrijf', badge: true,
+        features: ['Voor teams die er elke dag mee werken (5× Individueel)', '5 administraties', 'Onboarding met begeleiding'] },
+      { name: 'Kantoor', price: '€749', period: 'per maand, excl. btw', cta: 'Kies Kantoor',
+        features: ['Voor intensief gebruik op kantoorschaal (20× Individueel)', 'Onbeperkt administraties', 'Priority support + training'] },
+      { name: 'Enterprise', price: 'Op offerte', period: 'maatwerk', cta: 'Plan een gesprek', dashed: true,
+        features: ['Zonder limieten, in overleg', 'Onbeperkt administraties', 'Maatwerk oplossingen'] },
+    ] as Plan[],
+  },
   capsEyebrow: 'Kernmogelijkheden',
   capsTitle: 'Eén gesprek, de hele administratie.',
   capsSub:
@@ -352,6 +377,22 @@ const en: typeof nl = {
       note: 'Reorder advice prepared for the two fastest-moving items.',
     },
   ],
+  pricing: {
+    eyebrow: 'Pricing',
+    title: 'Start today, scale whenever you need to.',
+    sub: 'Every plan runs on your own Exact Online. Cancel monthly.',
+    badge: 'Most chosen',
+    plans: [
+      { name: 'Individual', price: '€99', period: 'per month, excl. VAT', cta: 'Choose Individual',
+        features: ['Ample room for one user’s day-to-day questions', '3 administrations', 'Standard support'] },
+      { name: 'Business', price: '€299', period: 'per month, excl. VAT', cta: 'Choose Business', badge: true,
+        features: ['For teams working in it every day (5× Individual)', '5 administrations', 'Guided onboarding'] },
+      { name: 'Firm', price: '€749', period: 'per month, excl. VAT', cta: 'Choose Firm',
+        features: ['For intensive use at firm scale (20× Individual)', 'Unlimited administrations', 'Priority support + training'] },
+      { name: 'Enterprise', price: 'On request', period: 'tailored', cta: 'Book a call', dashed: true,
+        features: ['No limits, by arrangement', 'Unlimited administrations', 'Custom solutions'] },
+    ] as Plan[],
+  },
   capsEyebrow: 'Core capabilities',
   capsTitle: 'One conversation, the whole administration.',
   capsSub:
@@ -437,6 +478,21 @@ const en: typeof nl = {
 };
 
 const t = lang === 'nl' ? nl : en;
+// Pricing-CTA's per plan, in dezelfde volgorde als t.pricing.plans: de drie
+// zelfbedieningsplannen gaan de app in via de stabiele /claire/start-ingang
+// (achter de inlogmuur, intentie reist mee via returnTo). Deze kaarten
+// noemen de prijs, dus ze sturen ?plan=<tier>&checkout=1: na het inloggen
+// slaat de app de plankiezer over en start direct de checkout voor die
+// tier; kan dat niet (teamlid, al geabonneerd), dan valt het terug op de
+// plankiezer met de kaart voorgeselecteerd. Enterprise naar Over ons.
+// De tier-slugs zijn die van de plancatalogus van de app.
+const appStart = (tier: string) => `${APP_URL}${lang === 'en' ? 'en/' : ''}claire/start?plan=${tier}&checkout=1`;
+const planLinks = [
+  { href: appStart('individual'), external: false },
+  { href: appStart('business'), external: false },
+  { href: appStart('firm'), external: false },
+  { href: routes.about[lang], external: false },
+];
 const path = routes.claire[lang];
 const altPath = routes.claire[other];
 
@@ -467,7 +523,6 @@ const schema = [
   path={path}
   altPath={altPath}
   navVariant="solid"
-  ctaHref="#cta"
   footer="full"
   schema={schema}
 >
@@ -482,7 +537,7 @@ const schema = [
         <p class="hero-sub">{t.heroSub}</p>
         <div class="hero-ctas">
           <a href={`#${startId}`} class="btn-signal hero-btn">{t.heroCta}</a>
-          <a href="#cta" class="btn-ghost-dark hero-btn2">{t.heroCta2}</a>
+          <a href={routes.about[lang]} class="btn-ghost-dark hero-btn2">{t.heroCta2}</a>
         </div>
         <p class="hero-note">{t.heroNote1} · {t.heroNote2}</p>
       </div>
@@ -596,6 +651,25 @@ const schema = [
     </div>
   </section>
 
+  <!-- ============ MAANDAFSLUITING ============ -->
+  <section class="close">
+    <div class="nebula close-nebula" aria-hidden="true"><Logo mode="mark" h={620} /></div>
+    <div class="wrap close-inner">
+      <p class="eyebrow eyebrow--teal">{t.closeEyebrow}</p>
+      <h2>{t.closeTitle}</h2>
+      <p class="close-sub">{t.closeSub}</p>
+      <div class="close-grid">
+        {t.closeSteps.map((step) => (
+          <div class="close-card">
+            <p class="close-kicker">{step.kicker}</p>
+            <h3>{step.title}</h3>
+            <p>{step.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
   <!-- ============ KERNMOGELIJKHEDEN ============ -->
   <section id="mogelijkheden" class="caps">
     <div class="wrap caps-inner">
@@ -615,19 +689,29 @@ const schema = [
     </div>
   </section>
 
-  <!-- ============ MAANDAFSLUITING ============ -->
-  <section class="close">
-    <div class="nebula close-nebula" aria-hidden="true"><Logo mode="mark" h={620} /></div>
-    <div class="wrap close-inner">
-      <p class="eyebrow eyebrow--teal">{t.closeEyebrow}</p>
-      <h2>{t.closeTitle}</h2>
-      <p class="close-sub">{t.closeSub}</p>
-      <div class="close-grid">
-        {t.closeSteps.map((step) => (
-          <div class="close-card">
-            <p class="close-kicker">{step.kicker}</p>
-            <h3>{step.title}</h3>
-            <p>{step.body}</p>
+  <!-- ============ PRICING ============ -->
+  <section id="pricing" class="pricing">
+    <div class="nebula pricing-nebula" aria-hidden="true"><Logo mode="mark" h={620} /></div>
+    <div class="wrap pricing-inner">
+      <p class="eyebrow eyebrow--teal">{t.pricing.eyebrow}</p>
+      <h2>{t.pricing.title}</h2>
+      <p class="pricing-sub">{t.pricing.sub}</p>
+      <div class="pricing-grid">
+        {t.pricing.plans.map((plan, i) => (
+          <div class:list={['plan', plan.badge && 'plan--hl', plan.dashed && 'plan--dashed']}>
+            {plan.badge && <span class="plan-badge">{t.pricing.badge}</span>}
+            <span class="plan-name">{plan.name}</span>
+            <span class="plan-price">{plan.price}</span>
+            <span class="plan-period">{plan.period}</span>
+            <ul class="plan-features">
+              {plan.features.map((f) => <li>{f}</li>)}
+            </ul>
+            <a
+              href={planLinks[i].href}
+              target={planLinks[i].external ? '_blank' : undefined}
+              rel={planLinks[i].external ? 'noopener' : undefined}
+              class:list={['plan-cta', plan.badge ? 'plan-cta--solid' : 'plan-cta--ghost']}
+            >{plan.cta}</a>
           </div>
         ))}
       </div>
@@ -811,7 +895,7 @@ const schema = [
       <h2>{t.ctaTitle}</h2>
       <p class="cta-sub">{t.ctaSub}</p>
       <div class="cta-btns">
-        <a href={`mailto:${EMAIL_DAAN}`} class="btn-signal cta-btn">{t.ctaBtn}</a>
+        <a href={routes.about[lang]} class="btn-signal cta-btn">{t.ctaBtn}</a>
         <a href={`#${startId}`} class="btn-ghost-dark cta-btn2">{t.ctaBtn2}</a>
       </div>
     </div>
@@ -1260,6 +1344,41 @@ const schema = [
   .chip--warn { color: #B3210F; background: #FDE8E5; }
   .qa-note { margin: 12px 0 0; font-size: 11.5px; line-height: 1.5; color: var(--muted); }
   .qa-disclaimer { margin: 26px 0 0; font-size: 12.5px; color: var(--muted); }
+
+  /* ---------- Pricing ---------- */
+  .pricing { position: relative; overflow: hidden; background: var(--brand); color: var(--bg); scroll-margin-top: 80px; }
+  .pricing-nebula {
+    right: -140px;
+    bottom: -200px;
+    filter: blur(120px) saturate(1.1);
+    opacity: 0.34;
+    --logoBase: transparent;
+    --logoBovenA: #FF301D; --logoBovenB: #FF301D;
+    --logoOnderA: #1B5FB3; --logoOnderB: #1B5FB3;
+    --logoRechtsA: #4DCBC9; --logoRechtsB: #4DCBC9;
+  }
+  .pricing-inner { position: relative; padding-top: 80px; padding-bottom: 90px; }
+  .pricing h2 { margin: 0 0 16px; font-size: clamp(38px, 4.2vw, 54px); line-height: 1.05; font-weight: 700; letter-spacing: -0.035em; }
+  .pricing-sub { margin: 0 0 56px; font-size: 17px; line-height: 1.7; color: color-mix(in srgb, var(--bg) 72%, transparent); max-width: 560px; }
+  .pricing-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; align-items: stretch; }
+  @media (max-width: 1080px) { .pricing-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 640px) { .pricing-grid { grid-template-columns: 1fr; } }
+  .plan { position: relative; display: flex; flex-direction: column; border: 1.5px solid color-mix(in srgb, var(--bg) 16%, transparent); border-radius: 18px; padding: 34px 30px 30px; }
+  .plan--hl { border-color: var(--teal); background: color-mix(in srgb, var(--teal) 7%, transparent); }
+  .plan--dashed { border-style: dashed; border-color: color-mix(in srgb, var(--bg) 28%, transparent); }
+  .plan-badge { position: absolute; top: -15px; left: 50%; transform: translateX(-50%); background: var(--teal); color: var(--brand); font-weight: 700; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; padding: 7px 18px; border-radius: 99px; white-space: nowrap; }
+  .plan-name { letter-spacing: 0.2em; font-size: 12px; font-weight: 600; text-transform: uppercase; margin-bottom: 22px; }
+  .plan--hl .plan-name { color: var(--teal); }
+  .plan-price { font-size: 44px; font-weight: 700; letter-spacing: -0.02em; line-height: 1; }
+  .plan-period { color: color-mix(in srgb, var(--bg) 52%, transparent); font-size: 14px; margin: 10px 0 28px; }
+  .plan-features { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 15px; flex: 1; }
+  .plan-features li { position: relative; padding-left: 19px; font-size: 15px; line-height: 1.5; color: color-mix(in srgb, var(--bg) 84%, transparent); }
+  .plan-features li::before { content: ''; position: absolute; left: 0; top: 7px; width: 7px; height: 7px; border-radius: 50%; background: var(--teal); }
+  .plan-cta { display: block; margin-top: 34px; text-align: center; font-size: 15px; padding: 14px 0; border-radius: 99px; }
+  .plan-cta--solid { background: var(--teal); color: var(--brand); font-weight: 700; padding: 15px 0; transition: box-shadow 0.3s; }
+  .plan-cta--solid:hover { color: var(--brand); box-shadow: 0 10px 44px color-mix(in srgb, var(--teal) 50%, transparent); }
+  .plan-cta--ghost { border: 1.5px solid color-mix(in srgb, var(--bg) 30%, transparent); color: var(--bg); font-weight: 600; }
+  .plan-cta--ghost:hover { border-color: var(--bg); color: var(--bg); }
 
   /* ---------- Kernmogelijkheden ---------- */
   .caps { background: #ffffff; border-top: 1px solid var(--line); scroll-margin-top: 80px; }
