@@ -176,6 +176,15 @@ function drawBrain(
 }
 
 function setupReveals(reduced: boolean) {
+  // Below 1020px the grids collapse to one column (see HomePage.astro), so
+  // reveal targets enter the viewport one at a time instead of row by row.
+  // The desktop treatment (26px travel, 800ms, staggers up to ~300ms) then
+  // reads as restless — every scroll tick has something flying up mid-screen.
+  // Stacked layouts get a calmer variant: less travel, shorter, near-zero
+  // stagger, and an earlier trigger so motion stays close to the screen edge.
+  const stacked = matchMedia('(max-width: 1020px)').matches;
+  const dist = stacked ? 12 : 26;
+  const dur = stacked ? 500 : 800;
   const io = new IntersectionObserver(
     (ents) => {
       for (const en of ents) {
@@ -187,13 +196,20 @@ function setupReveals(reduced: boolean) {
         if (!reduced) {
           const d = parseFloat(el.getAttribute('data-reveal') || '0') || 0;
           el.animate(
-            [{ opacity: 0, transform: 'translateY(26px)' }, { opacity: 1, transform: 'none' }],
-            { duration: 800, delay: d, easing: 'cubic-bezier(0.16,1,0.3,1)', fill: 'backwards' },
+            [{ opacity: 0, transform: `translateY(${dist}px)` }, { opacity: 1, transform: 'none' }],
+            {
+              duration: dur,
+              delay: stacked ? Math.min(d * 0.4, 120) : d,
+              easing: 'cubic-bezier(0.16,1,0.3,1)',
+              fill: 'backwards',
+            },
           );
         }
       }
     },
-    { threshold: 0.2, rootMargin: '0px 0px -6% 0px' },
+    stacked
+      ? { threshold: 0.06, rootMargin: '0px 0px -2% 0px' }
+      : { threshold: 0.2, rootMargin: '0px 0px -6% 0px' },
   );
   document.querySelectorAll<HTMLElement>('[data-reveal]').forEach((el) => {
     if (!el.dataset.dfDone) io.observe(el);
