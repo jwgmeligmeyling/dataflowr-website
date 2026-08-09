@@ -6,7 +6,7 @@
  */
 import Logo from './Logo.astro';
 import ClaireMark from './ClaireMark.astro';
-import { routes, ui, type Lang, type ServiceKey } from '../lib/site';
+import { routes, ui, APP_URL, type Lang, type ServiceKey } from '../lib/site';
 
 interface Props {
   lang: Lang;
@@ -55,7 +55,7 @@ const serviceKeys = Object.keys(routes.services) as ServiceKey[];
       </details>
       <a href={routes.article[lang]} class="nav-link">{t.resources}</a>
       <a href={routes.about[lang]} class="nav-link">{t.about}</a>
-      <a href={routes.claireStart[lang]} class="nav-link">{t.signIn}</a>
+      <a href={APP_URL} class="nav-link">{t.signIn}</a>
       <a href={ctaHref} class="nav-cta">{t.cta}</a>
       <a href={altHref} class="lang-switch" aria-label={t.langSwitchLabel} rel="alternate" hreflang={lang === 'nl' ? 'en' : 'nl'}>🌐 {t.langSwitch}</a>
     </nav>

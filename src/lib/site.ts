@@ -1,5 +1,6 @@
 export const SITE_URL = 'https://dataflowr.nl';
 export const SITE_NAME = 'DataFlowr';
+export const APP_URL = 'https://app.dataflowr.nl/';
 export const CALENDLY_URL = 'https://calendly.com/daan-dataflowr';
 export const CALENDLY_MEETING_URL = `${CALENDLY_URL}/30min`;
 export const LINKEDIN_URL = 'https://linkedin.com/company/dataflowr';
@@ -53,7 +54,14 @@ const articleRoutes = {
 export const routes = {
   home: { nl: '/', en: '/en' },
   claire: { nl: '/claire', en: '/en/claire' },
-  claireStart: { nl: '/claire#aan-de-slag', en: '/en/claire#get-started' },
+  /**
+   * Handoff into the app. `/claire/start` is the stable, brand-shaped entry
+   * the app keeps for this site (it redirects to the connector page behind
+   * its auth wall; sign-in preserves the intent via `returnTo`). The demo
+   * section on the Claire page is anchored with plain `#aan-de-slag` /
+   * `#get-started` — deliberately not routed through this table.
+   */
+  claireStart: { nl: `${APP_URL}claire/start`, en: `${APP_URL}en/claire/start` },
   about: { nl: '/over-ons', en: '/en/about' },
   articles: articleRoutes,
   /** Flagship article; also where the "Kennisbank" nav item points. */
