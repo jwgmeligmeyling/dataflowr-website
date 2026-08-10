@@ -205,7 +205,9 @@ function setupReveals(reduced: boolean) {
     },
     // Fire as soon as the element edges into view: it is invisible until then, so
     // triggering late would leave a visible gap rather than hide the entrance.
-    { threshold: 0, rootMargin: '0px 0px -8% 0px' },
+    // Stacked layouts trigger closer to the edge still, keeping the (calmer, see
+    // global.css) motion near the bottom of the screen rather than mid-page.
+    { threshold: 0, rootMargin: matchMedia('(max-width: 1020px)').matches ? '0px 0px -2% 0px' : '0px 0px -8% 0px' },
   );
   els.forEach((el) => io.observe(el));
 }
