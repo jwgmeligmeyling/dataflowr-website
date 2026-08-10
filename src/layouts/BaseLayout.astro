@@ -142,6 +142,20 @@ const jsonLd = { '@context': 'https://schema.org', '@graph': [organization, webs
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600;700;800&display=swap" />
 
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
+    {/* Marks the document as JS-capable before the first paint, which is what lets
+        global.css hide [data-reveal] up front instead of blanking it mid-scroll.
+        The timeout is a safety net: if the reveal script never runs, drop the flag
+        so the content shows anyway. */}
+    <script is:inline>
+      (function () {
+        var root = document.documentElement;
+        root.classList.add('df-js');
+        setTimeout(function () {
+          if (!root.hasAttribute('data-df-reveals')) root.classList.remove('df-js');
+        }, 3000);
+      })();
+    </script>
   </head>
   <body>
     <a href="#main" class="skip-link">{t.skip}</a>
