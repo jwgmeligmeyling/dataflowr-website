@@ -28,11 +28,11 @@ npm run preview   # preview the build
 
 ## Pages
 
-- `/` + `/en` — landing (DataFlowr Landing v4)
-- `/claire` + `/en/claire` — Claire product page, interactive onboarding flow
-- `/diensten/*` + `/en/services/*` — six service pages from one template
-- `/over-ons` + `/en/about` — about page
-- `/kennisbank/...` + `/en/resources/...` — article / content template
+- `/` + `/en`: landing (DataFlowr Landing v4)
+- `/claire` + `/en/claire`: Claire product page, interactive onboarding flow
+- `/diensten/*` + `/en/services/*`: six service pages from one template
+- `/over-ons` + `/en/about`: about page
+- `/kennisbank/...` + `/en/resources/...`: article / content template
 
 ## i18n
 
@@ -50,17 +50,17 @@ equivalent of the current page.
 - `sitemap-index.xml` via @astrojs/sitemap (with NL/EN alternates), `robots.txt`
 - `llms.txt` for generative-engine discovery
 - 301 redirects for the legacy `/services/*` URLs (`public/_redirects` for
-  Netlify, `vercel.json` for Vercel — keep the one your host uses)
+  Netlify, `vercel.json` for Vercel; keep the one your host uses)
 - The build uses `build.format: 'file'`, so pages land on disk as
   `diensten/make.html` and are linked as `/diensten/make`. Vercel only serves
-  those extensionless paths with `"cleanUrls": true` in `vercel.json` — without
+  those extensionless paths with `"cleanUrls": true` in `vercel.json`. Without
   it every page except the homepage returns a 404.
 - OG image + favicon generated from the exact brand vectors (`public/og/`)
 
 ## Before launch
 
 - **Photos**: image slots (article hero, author, founder portraits, related
-  posts) are dashed placeholders — drop in licensed photos and replace the
+  posts) are dashed placeholders. Drop in licensed photos and replace the
   `.img-slot` divs with `<img>` elements including alt text.
 - **Domain**: `src/lib/site.ts` and `astro.config.mjs` assume
   `https://dataflowr.nl`.

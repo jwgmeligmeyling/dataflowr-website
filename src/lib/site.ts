@@ -59,7 +59,7 @@ export const routes = {
    * the app keeps for this site (it redirects to the connector page behind
    * its auth wall; sign-in preserves the intent via `returnTo`). The demo
    * section on the Claire page is anchored with plain `#aan-de-slag` /
-   * `#get-started` — deliberately not routed through this table.
+   * `#get-started`: deliberately not routed through this table.
    */
   claireStart: { nl: `${APP_URL}claire/start`, en: `${APP_URL}en/claire/start` },
   about: { nl: '/over-ons', en: '/en/about' },

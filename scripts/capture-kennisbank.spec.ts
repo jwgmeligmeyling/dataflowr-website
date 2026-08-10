@@ -144,7 +144,7 @@ const chatShots: ChatShot[] = [
                 "",
                 "**Aanbevolen acties**",
                 "",
-                "1. Beoordeel de restpost op de kruisposten — dit is de PSP-uitbetaling van 31 juli.",
+                "1. Beoordeel de restpost op de kruisposten: dit is de PSP-uitbetaling van 31 juli.",
                 "2. Keur de voorgestelde correctie voor de vraagpost goed; er wordt niets geboekt zonder uw akkoord.",
               ].join("\n")
             : [
@@ -161,7 +161,7 @@ const chatShots: ChatShot[] = [
                 "",
                 "**Recommended actions**",
                 "",
-                "1. Review the remaining item on the clearing account — this is the PSP payout of 31 July.",
+                "1. Review the remaining item on the clearing account: this is the PSP payout of 31 July.",
                 "2. Approve the proposed correction for the query item; nothing is posted without your approval.",
               ].join("\n"),
       },
