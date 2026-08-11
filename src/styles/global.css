@@ -5,6 +5,34 @@
    ============================================================ */
 
 :root {
+  /* ---- Type scale ---------------------------------------------------
+     Every text size on the site is a multiple of --text-unit, so this is
+     the only place a size is decided. A size written as
+     calc(14.5 * var(--text-unit)) renders at 14.5px by default: the
+     number is still the size the design was drawn at.
+
+       --text-base   what one design pixel measures against. 1rem is the
+                     reader's own browser setting, 16px unless they raised
+                     it. Pin this to 16px to ignore that setting and go
+                     back to fixed pixels.
+       --text-scale  the knob for experiments. 1.05 makes every text on
+                     the site 5% larger, headings included, and leaves the
+                     proportions between them exactly as they are.
+
+     Room to move: up to 1.1 every page holds at 1440, 981 and 390 pixels
+     wide, with the desktop menu keeping 79px to spare at 981px, just above
+     the width where it folds into the hamburger. At 1.2 that menu runs out
+     of room and the page starts to scroll sideways. The same arithmetic
+     applies to a reader who has raised their own browser font size, since
+     --text-base follows it.
+
+     The one exception is the "=exact" tile in the Claire onboarding mock:
+     that label sits in a square of fixed pixels and is brand chrome, not
+     text to read, so it stays in px. */
+  --text-base: 1rem;
+  --text-scale: 1;
+  --text-unit: calc(var(--text-base) * var(--text-scale) / 16);
+
   --brand: #0D1B27;
   --hl: #1B5FB3;
   --pos: #4DCBC9;
@@ -50,13 +78,16 @@ body {
   background: var(--bg);
   color: var(--brand);
   font-family: 'Hanken Grotesk', 'Poppins', system-ui, sans-serif;
+  /* The default every element inherits when it sets no size of its own, so
+     that text too follows the scale instead of the browser's own 16px. */
+  font-size: calc(16 * var(--text-unit));
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
 
 a { color: var(--hl); text-decoration: none; }
 a:hover { color: var(--teal); }
-button { font-family: inherit; }
+button { font-family: inherit; font-size: inherit; }
 summary { list-style: none; cursor: pointer; }
 summary::-webkit-details-marker { display: none; }
 ::selection { background: color-mix(in srgb, var(--signal) 26%, transparent); }
@@ -71,7 +102,7 @@ summary::-webkit-details-marker { display: none; }
   padding: 10px 18px;
   border-radius: 0 0 10px 0;
   font-weight: 700;
-  font-size: 15px;
+  font-size: calc(15 * var(--text-unit));
 }
 .skip-link:focus { left: 0; color: #fff; }
 
@@ -85,7 +116,7 @@ summary::-webkit-details-marker { display: none; }
   display: flex;
   align-items: center;
   gap: 12px;
-  font-size: 13px;
+  font-size: calc(13 * var(--text-unit));
   font-weight: 500;
   letter-spacing: 0.22em;
   text-transform: uppercase;
@@ -149,7 +180,7 @@ summary::-webkit-details-marker { display: none; }
     var(--bg);
   border: 1px dashed color-mix(in srgb, var(--brand) 18%, transparent);
   color: var(--muted);
-  font-size: 13px;
+  font-size: calc(13 * var(--text-unit));
   font-weight: 500;
   letter-spacing: 0.06em;
   text-align: center;

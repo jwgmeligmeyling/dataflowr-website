@@ -161,13 +161,13 @@ const schema = [
   .about-eyebrow { color: color-mix(in srgb, var(--hl) 85%, var(--brand)); margin-bottom: 18px; gap: 14px; }
   h1 {
     margin: 0 0 22px;
-    font-size: clamp(40px, 4.5vw, 58px);
+    font-size: clamp(calc(40 * var(--text-unit)), calc(4.5vw * var(--text-scale)), calc(58 * var(--text-unit)));
     line-height: 1.06;
     font-weight: 700;
     letter-spacing: -0.03em;
     text-wrap: balance;
   }
-  .intro { margin: 0 0 56px; max-width: 720px; font-size: 18px; line-height: 1.7; color: var(--muted); text-wrap: pretty; }
+  .intro { margin: 0 0 56px; max-width: 720px; font-size: calc(18 * var(--text-unit)); line-height: 1.7; color: var(--muted); text-wrap: pretty; }
   .founders { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(400px, 100%), 1fr)); gap: 20px; }
   .founder {
     background: #ffffff;
@@ -189,28 +189,28 @@ const schema = [
     border-radius: 14px;
   }
   .founder-body { min-width: 0; }
-  .founder h2 { margin: 0 0 4px; font-size: 20px; font-weight: 700; }
+  .founder h2 { margin: 0 0 4px; font-size: calc(20 * var(--text-unit)); font-weight: 700; }
   .founder-role {
     margin: 0 0 12px;
-    font-size: 12.5px;
+    font-size: calc(12.5 * var(--text-unit));
     font-weight: 500;
     letter-spacing: 0.14em;
     text-transform: uppercase;
     color: color-mix(in srgb, var(--hl) 85%, var(--brand));
   }
-  .founder-bio { margin: 0 0 14px; font-size: 16px; line-height: 1.65; color: var(--muted); }
+  .founder-bio { margin: 0 0 14px; font-size: calc(16 * var(--text-unit)); line-height: 1.65; color: var(--muted); }
   /* The address is one unbreakable word next to a 118px portrait, so on a
      narrow phone it has to be allowed to break or the page scrolls sideways. */
-  .founder-mail { font-size: 14.5px; font-weight: 700; overflow-wrap: anywhere; }
-  .founder-linkedin { margin-left: 16px; font-size: 14.5px; font-weight: 700; }
+  .founder-mail { font-size: calc(14.5 * var(--text-unit)); font-weight: 700; overflow-wrap: anywhere; }
+  .founder-linkedin { margin-left: 16px; font-size: calc(14.5 * var(--text-unit)); font-weight: 700; }
   .calendly {
     margin-top: 64px;
     padding-top: 44px;
     border-top: 1px solid color-mix(in srgb, var(--brand) 9%, transparent);
     scroll-margin-top: 96px;
   }
-  .calendly h2, .company-details h2 { margin: 0 0 10px; font-size: 24px; font-weight: 700; letter-spacing: -0.02em; }
-  .calendly > p { margin: 0; max-width: 620px; font-size: 16.5px; line-height: 1.65; color: var(--muted); text-wrap: pretty; }
+  .calendly h2, .company-details h2 { margin: 0 0 10px; font-size: calc(24 * var(--text-unit)); font-weight: 700; letter-spacing: -0.02em; }
+  .calendly > p { margin: 0; max-width: 620px; font-size: calc(16.5 * var(--text-unit)); line-height: 1.65; color: var(--muted); text-wrap: pretty; }
   .calendly-inline-widget { margin-top: 8px; }
   .company-details {
     margin-top: 64px;
@@ -220,11 +220,11 @@ const schema = [
   .company-details dl { margin: 0; display: flex; flex-wrap: wrap; gap: 28px 64px; }
   .company-details dt {
     margin: 0 0 6px;
-    font-size: 12.5px;
+    font-size: calc(12.5 * var(--text-unit));
     font-weight: 500;
     letter-spacing: 0.14em;
     text-transform: uppercase;
     color: color-mix(in srgb, var(--hl) 85%, var(--brand));
   }
-  .company-details dd { margin: 0; font-size: 16px; line-height: 1.65; color: var(--muted); }
+  .company-details dd { margin: 0; font-size: calc(16 * var(--text-unit)); line-height: 1.65; color: var(--muted); }
 </style>
