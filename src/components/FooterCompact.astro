@@ -1,7 +1,7 @@
 ---
 /** Compact footer (article + about pages). */
 import Logo from './Logo.astro';
-import { ui, type Lang } from '../lib/site';
+import { routes, ui, type Lang } from '../lib/site';
 
 interface Props {
   lang: Lang;
@@ -15,6 +15,10 @@ const t = ui[lang];
   <div class="wrap inner">
     <span class="lockup"><Logo mode="mark" h={20} /><span class="name">DataFlowr</span></span>
     <p class="legal">{t.footerCompact}</p>
+    <nav class="legal-links" aria-label={t.footerLegalLabel}>
+      <a href={routes.legal.privacy[lang]}>{t.footerPrivacy}</a>
+      <a href={routes.legal.terms[lang]}>{t.footerTerms}</a>
+    </nav>
   </div>
 </footer>
 
@@ -35,4 +39,5 @@ const t = ui[lang];
   .lockup { display: flex; align-items: center; gap: 9px; }
   .name { font-weight: 600; color: var(--brand); }
   .legal { margin: 0; }
+  .legal-links { display: flex; flex-wrap: wrap; gap: 20px; }
 </style>

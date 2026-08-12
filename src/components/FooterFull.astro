@@ -44,6 +44,10 @@ const t = ui[lang];
     </div>
     <div class="legal">
       <span>{t.footerCopyright}</span>
+      <nav class="legal-links" aria-label={t.footerLegalLabel}>
+        <a href={routes.legal.privacy[lang]}>{t.footerPrivacy}</a>
+        <a href={routes.legal.terms[lang]}>{t.footerTerms}</a>
+      </nav>
       <span class="motto">{t.footerMotto}</span>
     </div>
   </div>
@@ -85,5 +89,6 @@ const t = ui[lang];
     font-size: 0.84375rem;
     color: var(--muted);
   }
+  .legal-links { display: flex; flex-wrap: wrap; gap: 20px; }
   .motto { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; }
 </style>

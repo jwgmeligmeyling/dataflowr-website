@@ -40,3 +40,16 @@ DataFlowr combines three disciplines in one team: deep Exact Online ecosystem kn
   practical guides on finance automation.
 - Contact: daan@dataflowr.nl · janwillem@dataflowr.nl · book a call at https://dataflowr.nl/over-ons
 - LinkedIn: https://linkedin.com/company/dataflowr
+
+## Legal
+
+- [Privacyverklaring](https://dataflowr.nl/privacyverklaring): what data DataFlowr processes,
+  which processors are involved (Auth0, Stripe, OpenRouter, hosting), retention periods, and
+  what happens to an Exact Online administration when Claire is used. English at
+  https://dataflowr.nl/en/privacy; the published short link https://dataflowr.nl/privacy
+  redirects here.
+- [Algemene voorwaarden](https://dataflowr.nl/algemene-voorwaarden): terms for consultancy
+  engagements and for the Claire subscription, including the customer's own responsibility for
+  their books and filings. English at https://dataflowr.nl/en/terms; the published short link
+  https://dataflowr.nl/terms redirects here.
+- Privacy contact: privacy@dataflowr.nl
