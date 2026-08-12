@@ -26,6 +26,7 @@ component; put it in the data file and render it from there.
 | `src/components/pages/*.astro` | Page-specific copy, parameterised by `lang` |
 | `public/llms.txt` | Machine-readable summary for generative engines |
 | `scripts/*.spec.ts` | Demo copy that gets rendered into the article screenshots |
+| `scripts/generate-og.ts` | The headline and kicker rendered into the share cards |
 
 Every string exists twice, `nl` and `en`. A copy change that lands in one
 language and not the other is an unfinished change.
@@ -120,3 +121,24 @@ and run with Playwright there.
 The demo copy staged in those specs is published copy: it is rendered into the
 images on the live site. The copy rules apply to it in full, and changing it
 means re-capturing the images, or the screenshots and the source drift apart.
+
+## Share images
+
+`public/og/` is generated, never edited:
+
+```bash
+npm i --no-save playwright && npx tsx scripts/generate-og.ts
+```
+
+It writes the two default cards (`og-default-nl.png`, `og-default-en.png`) and
+the Organization logo used in the JSON-LD (`logo-mark.png`). The card reads its
+palette from the `:root` block in `global.css` and its logo paths from
+`Logo.astro`, so a design change lands here by re-running the script. Do not put
+a hex value or a traced path in the generator, and do not retouch the PNGs: the
+next run overwrites them.
+
+The headline on the card is published copy in both languages. Change it in
+`CARDS` at the top of the script, re-run, and commit the PNGs with the copy.
+
+`scripts/generate-icons.ts` writes the favicons from `favicon.svg`. Both
+generators share the PNG codec and the resampler in `scripts/lib/raster.ts`.

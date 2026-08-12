@@ -95,6 +95,8 @@ export const ui = {
     home: 'Home',
     menu: 'Menu',
     skip: 'Naar hoofdinhoud',
+    /** Describes /og/og-default-nl.png for readers who get the alt text instead of the card. */
+    ogImageAlt: 'Deelkaart van DataFlowr: het logo op donkerblauw, met de regel “Financiële processen die stromen” en de kicker “Exact Online Premium · Integratiepartner”.',
     footerTagline: 'Gespecialiseerde integratiepartner',
     footerBody: 'Procesoptimalisatie en integraties binnen het Exact Online ecosysteem, met de precisie van een specialist.',
     footerContact: 'Contact',
@@ -135,6 +137,8 @@ export const ui = {
     home: 'Home',
     menu: 'Menu',
     skip: 'Skip to main content',
+    /** Describes /og/og-default-en.png for readers who get the alt text instead of the card. */
+    ogImageAlt: 'DataFlowr share card: the logo on dark blue, with the line “Financial processes that flow” and the kicker “Exact Online Premium · Integration partner”.',
     footerTagline: 'Specialised integration partner',
     footerBody: 'Process optimisation and integrations within the Exact Online ecosystem, with the precision of a specialist.',
     footerContact: 'Contact',
