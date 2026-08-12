@@ -13,12 +13,16 @@ const t = ui[lang];
 ---
 <footer class={`compact compact--${tone}`}>
   <div class="wrap inner">
-    <span class="lockup"><Logo mode="mark" h={20} /><span class="name">DataFlowr</span></span>
-    <p class="legal">{t.footerCompact}</p>
-    <nav class="legal-links" aria-label={t.footerLegalLabel}>
+    {/* Two poles: mark and copyright left, the legal pages as fine print right. */}
+    <div class="ident">
+      <span class="lockup"><Logo mode="mark" h={20} /><span class="name">DataFlowr</span></span>
+      <p class="legal">{t.footerCompact}</p>
+    </div>
+    <div class="legal-run">
       <a href={routes.legal.privacy[lang]}>{t.footerPrivacy}</a>
+      <span class="dot" aria-hidden="true">·</span>
       <a href={routes.legal.terms[lang]}>{t.footerTerms}</a>
-    </nav>
+    </div>
   </div>
 </footer>
 
@@ -38,6 +42,10 @@ const t = ui[lang];
   }
   .lockup { display: flex; align-items: center; gap: 9px; }
   .name { font-weight: 600; color: var(--brand); }
+  .ident { display: flex; flex-wrap: wrap; gap: 16px 22px; align-items: center; }
   .legal { margin: 0; }
-  .legal-links { display: flex; flex-wrap: wrap; gap: 20px; }
+  .legal-run { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+  .legal-run a { color: inherit; }
+  .legal-run a:hover { color: var(--hl); }
+  .dot { color: color-mix(in srgb, var(--brand) 28%, transparent); }
 </style>

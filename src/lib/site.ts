@@ -123,7 +123,6 @@ export const ui = {
     footerCompact: '© 2026 DataFlowr · Gespecialiseerde Exact Online integratiepartner',
     footerPrivacy: 'Privacyverklaring',
     footerTerms: 'Algemene voorwaarden',
-    footerLegalLabel: 'Juridisch',
     serviceNavDescriptions: {
       'exact-online-premium': 'Implementatie & partner',
       integraties: 'Systemen & data koppelen',
@@ -168,7 +167,6 @@ export const ui = {
     footerCompact: '© 2026 DataFlowr · Specialised Exact Online integration partner',
     footerPrivacy: 'Privacy Policy',
     footerTerms: 'Terms of Service',
-    footerLegalLabel: 'Legal',
     serviceNavDescriptions: {
       'exact-online-premium': 'Implementation & partner',
       integraties: 'Connect systems & data',
