@@ -33,7 +33,9 @@ import { decodePng, encodePng, resize, type Image } from "./lib/raster.ts";
 const publicDir = resolve(dirname(fileURLToPath(import.meta.url)), "..", "public");
 const MASTER = 768;
 const ICO_SIZES = [16, 32, 48];
-const PNG_SIZE = 192; // Google wants a square of at least 48px and prefers multiples of 48.
+// Google wants a square of at least 48px and prefers multiples of 48; 64 is the
+// standalone size other consumers ask for by name.
+const PNG_SIZES = [64, 192];
 
 // -------------------------------------------------------------------- .ico
 
@@ -91,7 +93,10 @@ await page.setContent(
 const master = decodePng(await page.screenshot({ omitBackground: true }));
 await browser.close();
 
-const png = resize(master, PNG_SIZE, PNG_SIZE);
-writeFileSync(resolve(publicDir, `favicon-${PNG_SIZE}.png`), encodePng(png));
+for (const size of PNG_SIZES) {
+  writeFileSync(resolve(publicDir, `favicon-${size}.png`), encodePng(resize(master, size, size)));
+}
 writeFileSync(resolve(publicDir, "favicon.ico"), ico(ICO_SIZES.map((s) => resize(master, s, s))));
-console.log(`favicon-${PNG_SIZE}.png and favicon.ico (${ICO_SIZES.join("/")}) written to public/`);
+console.log(
+  `${PNG_SIZES.map((s) => `favicon-${s}.png`).join(", ")} and favicon.ico (${ICO_SIZES.join("/")}) written to public/`,
+);
