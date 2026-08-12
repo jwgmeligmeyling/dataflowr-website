@@ -136,7 +136,7 @@ const schema = [
     gap: 8px;
     align-items: center;
     margin-bottom: 26px;
-    font-size: 12.5px;
+    font-size: 0.84375rem;
     color: var(--muted);
   }
   .crumbs span { color: color-mix(in srgb, var(--brand) 35%, transparent); }
@@ -144,16 +144,16 @@ const schema = [
   .legal-eyebrow { color: color-mix(in srgb, var(--hl) 85%, var(--brand)); margin-bottom: 18px; gap: 14px; }
   h1 {
     margin: 0 0 22px;
-    font-size: clamp(36px, 4vw, 52px);
+    font-size: clamp(2.25rem, 4vw, 3.25rem);
     line-height: 1.06;
     font-weight: 700;
     letter-spacing: -0.03em;
     text-wrap: balance;
   }
-  .intro { margin: 0 0 14px; max-width: 720px; font-size: 16.5px; line-height: 1.7; color: var(--muted); text-wrap: pretty; }
+  .intro { margin: 0 0 14px; max-width: 720px; font-size: 1.125rem; line-height: 1.7; color: var(--muted); text-wrap: pretty; }
   .updated {
     margin: 0;
-    font-size: 11.5px;
+    font-size: 0.78125rem;
     font-weight: 500;
     letter-spacing: 0.14em;
     text-transform: uppercase;
@@ -168,7 +168,7 @@ const schema = [
   }
   .toc-title {
     margin: 0 0 14px;
-    font-size: 10.5px;
+    font-size: 0.71875rem;
     font-weight: 500;
     letter-spacing: 0.18em;
     text-transform: uppercase;
@@ -181,7 +181,7 @@ const schema = [
     columns: 2;
     column-gap: 40px;
   }
-  .toc li { margin: 0 0 9px; font-size: 14px; break-inside: avoid; }
+  .toc li { margin: 0 0 9px; font-size: 0.9375rem; break-inside: avoid; }
   .doc { margin-top: 56px; }
   .doc section { scroll-margin-top: 96px; }
   .doc section + section {
@@ -189,15 +189,15 @@ const schema = [
     padding-top: 40px;
     border-top: 1px solid color-mix(in srgb, var(--brand) 9%, transparent);
   }
-  .doc h2 { margin: 0 0 16px; font-size: 22px; font-weight: 700; letter-spacing: -0.02em; }
-  .doc p { margin: 0 0 14px; font-size: 15.5px; line-height: 1.75; color: var(--muted); text-wrap: pretty; }
+  .doc h2 { margin: 0 0 16px; font-size: 1.375rem; font-weight: 700; letter-spacing: -0.02em; }
+  .doc p { margin: 0 0 14px; font-size: 1.0625rem; line-height: 1.75; color: var(--muted); text-wrap: pretty; }
   .doc p:last-child { margin-bottom: 0; }
   .doc ul { margin: 0 0 14px; padding: 0; list-style: none; display: grid; gap: 12px; }
   .doc ul:last-child { margin-bottom: 0; }
   .doc li {
     padding-left: 18px;
     position: relative;
-    font-size: 15.5px;
+    font-size: 1.0625rem;
     line-height: 1.75;
     color: var(--muted);
     text-wrap: pretty;
@@ -206,7 +206,7 @@ const schema = [
     content: '';
     position: absolute;
     left: 0;
-    top: 11px;
+    top: 0.7em;
     width: 6px;
     height: 6px;
     border-radius: 50%;
@@ -218,17 +218,17 @@ const schema = [
     padding-top: 44px;
     border-top: 1px solid color-mix(in srgb, var(--brand) 9%, transparent);
   }
-  .company-details h2 { margin: 0 0 20px; font-size: 22px; font-weight: 700; letter-spacing: -0.02em; }
+  .company-details h2 { margin: 0 0 20px; font-size: 1.375rem; font-weight: 700; letter-spacing: -0.02em; }
   .company-details dl { margin: 0; display: flex; flex-wrap: wrap; gap: 28px 64px; }
   .company-details dt {
     margin: 0 0 6px;
-    font-size: 11.5px;
+    font-size: 0.78125rem;
     font-weight: 500;
     letter-spacing: 0.14em;
     text-transform: uppercase;
     color: color-mix(in srgb, var(--hl) 85%, var(--brand));
   }
-  .company-details dd { margin: 0; font-size: 14.5px; line-height: 1.65; color: var(--muted); }
+  .company-details dd { margin: 0; font-size: 1rem; line-height: 1.65; color: var(--muted); }
   @media (max-width: 640px) {
     .toc ol { columns: 1; }
   }
