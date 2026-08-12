@@ -7,3 +7,8 @@
 /services/camunda        /diensten/camunda                301
 /services/rpa            /diensten/rpa                    301
 /services/training       /diensten/training               301
+
+# The legal pages moved to Dutch slugs. The bare paths stay published in the
+# Codex plugin manifest, the Copilot package and the marketplace submissions.
+/privacy                 /privacyverklaring               301
+/terms                   /algemene-voorwaarden            301

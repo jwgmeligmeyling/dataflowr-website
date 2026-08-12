@@ -23,6 +23,7 @@ component; put it in the data file and render it from there.
 | `src/lib/site.ts` | Nav, footer, breadcrumbs, shared UI strings, route table |
 | `src/data/services.ts` | The six service pages, NL + EN |
 | `src/data/articles.ts` | Knowledge-base articles, NL + EN |
+| `src/data/legal.ts` | Privacy statement and terms of service, NL + EN |
 | `src/components/pages/*.astro` | Page-specific copy, parameterised by `lang` |
 | `public/llms.txt` | Machine-readable summary for generative engines |
 | `scripts/*.spec.ts` | Demo copy that gets rendered into the article screenshots |

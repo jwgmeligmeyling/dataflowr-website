@@ -8,6 +8,9 @@ export const LINKEDIN_DAAN = 'https://www.linkedin.com/in/daan-jansen-329a541a1/
 export const LINKEDIN_JANWILLEM = 'https://www.linkedin.com/in/jwgmeligmeyling/';
 export const EMAIL_DAAN = 'daan@dataflowr.nl';
 export const EMAIL_JANWILLEM = 'janwillem@dataflowr.nl';
+/** Mailboxes named on the legal pages, carried over from the previous site. */
+export const EMAIL_PRIVACY = 'privacy@dataflowr.nl';
+export const EMAIL_INFO = 'info@dataflowr.nl';
 
 /** Registered company details (KVK). */
 export const COMPANY = {
@@ -66,6 +69,17 @@ export const routes = {
   articles: articleRoutes,
   /** Flagship article; also where the "Kennisbank" nav item points. */
   article: articleRoutes.maandafsluiting,
+  /**
+   * Legal pages. The English slugs are the ones the previous site served, and
+   * shipped artefacts still point at the bare `/privacy` and `/terms`: the
+   * Codex plugin manifest, the Copilot package and the marketplace
+   * submissions. Those two paths redirect to the Dutch pages below
+   * (vercel.json, public/_redirects), so the published URLs keep resolving.
+   */
+  legal: {
+    privacy: { nl: '/privacyverklaring', en: '/en/privacy' },
+    terms: { nl: '/algemene-voorwaarden', en: '/en/terms' },
+  },
   services: {
     'exact-online-premium': { nl: '/diensten/exact-online-premium', en: '/en/services/exact-online-premium' },
     integraties: { nl: '/diensten/integraties', en: '/en/services/integrations' },
@@ -78,6 +92,7 @@ export const routes = {
 
 export type ServiceKey = keyof typeof routes.services;
 export type ArticleKey = keyof typeof routes.articles;
+export type LegalKey = keyof typeof routes.legal;
 
 /** Shared UI strings (nav, footer, breadcrumbs). */
 export const ui = {
@@ -106,6 +121,8 @@ export const ui = {
     footerCopyright: '© 2026 DataFlowr',
     footerMotto: 'All You Need is a Premium Partner',
     footerCompact: '© 2026 DataFlowr · Gespecialiseerde Exact Online integratiepartner',
+    footerPrivacy: 'Privacyverklaring',
+    footerTerms: 'Algemene voorwaarden',
     serviceNavDescriptions: {
       'exact-online-premium': 'Implementatie & partner',
       integraties: 'Systemen & data koppelen',
@@ -148,6 +165,8 @@ export const ui = {
     footerCopyright: '© 2026 DataFlowr',
     footerMotto: 'All You Need is a Premium Partner',
     footerCompact: '© 2026 DataFlowr · Specialised Exact Online integration partner',
+    footerPrivacy: 'Privacy Policy',
+    footerTerms: 'Terms of Service',
     serviceNavDescriptions: {
       'exact-online-premium': 'Implementation & partner',
       integraties: 'Connect systems & data',

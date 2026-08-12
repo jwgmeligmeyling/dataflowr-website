@@ -43,7 +43,15 @@ const t = ui[lang];
       </div>
     </div>
     <div class="legal">
-      <span>{t.footerCopyright}</span>
+      {/* Copyright and the two legal pages read as one run of fine print, so the
+          bar keeps the two poles the design review settled on. */}
+      <div class="legal-run">
+        <span>{t.footerCopyright}</span>
+        <span class="dot" aria-hidden="true">·</span>
+        <a href={routes.legal.privacy[lang]}>{t.footerPrivacy}</a>
+        <span class="dot" aria-hidden="true">·</span>
+        <a href={routes.legal.terms[lang]}>{t.footerTerms}</a>
+      </div>
       <span class="motto">{t.footerMotto}</span>
     </div>
   </div>
@@ -85,5 +93,9 @@ const t = ui[lang];
     font-size: 0.84375rem;
     color: var(--muted);
   }
+  .legal-run { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+  .legal-run a { color: inherit; }
+  .legal-run a:hover { color: var(--hl); }
+  .dot { color: color-mix(in srgb, var(--brand) 28%, transparent); }
   .motto { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; }
 </style>
