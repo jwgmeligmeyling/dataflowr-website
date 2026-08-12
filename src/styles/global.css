@@ -170,7 +170,7 @@ summary::-webkit-details-marker { display: none; }
 /* Scroll reveals (see /src/scripts/home-fx.ts).
    [data-reveal] elements are hidden from the very first paint, so the entrance
    only ever fades content in. Without this they paint opaque and the animation
-   blanks them again once they cross the observer threshold — the scroll flicker.
+   blanks them again once they cross the observer threshold: the scroll flicker.
    The .df-js gate (set by an inline script in BaseLayout) keeps content visible
    whenever JS is unavailable and can therefore never reveal it. */
 .df-js [data-reveal] { opacity: 0; }

@@ -178,7 +178,7 @@ function drawBrain(
 /**
  * Scroll reveals on [data-reveal]. The elements are already hidden by CSS
  * (`.df-js [data-reveal]`, see global.css) from the first paint on, so revealing
- * only ever fades content in — it never blanks content that is on screen, which
+ * only ever fades content in. It never blanks content that is on screen, which
  * is what made scrolling flicker. Claiming the flag below tells the inline head
  * script that reveals are live and its fallback is not needed.
  */

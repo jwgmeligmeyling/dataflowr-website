@@ -55,7 +55,11 @@ equivalent of the current page.
   `diensten/make.html` and are linked as `/diensten/make`. Vercel only serves
   those extensionless paths with `"cleanUrls": true` in `vercel.json`. Without
   it every page except the homepage returns a 404.
-- OG image + favicon generated from the exact brand vectors (`public/og/`)
+- Share cards per language: `/og/og-default-nl.png` and `/og/og-default-en.png`,
+  1200×630, with `og:image:alt`. Articles override the card with their own hero.
+  Regenerate with `npx tsx scripts/generate-og.ts`; the script composes the card
+  from the locked palette and the logo vectors, so nothing is redrawn by hand.
+- Favicons come from the same brand vectors (`npx tsx scripts/generate-icons.ts`)
 
 ## Before launch
 
