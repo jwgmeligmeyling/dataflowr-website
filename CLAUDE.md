@@ -98,11 +98,11 @@ typography rule holds. The register rules above still need a read.
   brand PDF. Do not redraw or tidy the paths.
 - Hanken Grotesk (Google Fonts), with the local Poppins in `public/fonts` as
   the fallback.
-- Text sizes come from the scale at the top of `src/styles/global.css`, never
-  from a pixel value in a component. Write `calc(14.5 * var(--text-unit))`: the
-  number stays the size the design was drawn at, and `--text-scale` there
-  resizes the whole site at once. Sizes hold up to `1.1`; past that the desktop
-  nav runs out of room just above the width where it collapses.
+- Text sizes are written in `rem`, never in pixels, so they all measure against
+  the root font size in `src/styles/global.css`. 1rem is the 16px the design was
+  drawn at, so a 14.5px size is `0.90625rem`. `--text-scale` there resizes the
+  whole site at once; it holds up to `1.1`, past which the desktop nav runs out
+  of room just above the width where it collapses.
 - The colour-variant switcher from the prototypes was deliberately not shipped.
 
 ## i18n and routing

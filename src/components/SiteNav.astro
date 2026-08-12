@@ -89,13 +89,13 @@ const serviceKeys = Object.keys(routes.services) as ServiceKey[];
     gap: 11px;
     --logoBase: transparent;
   }
-  .brand-name { font-size: calc(21 * var(--text-unit)); font-weight: 700; letter-spacing: -0.02em; color: var(--bg); }
+  .brand-name { font-size: 1.3125rem; font-weight: 700; letter-spacing: -0.02em; color: var(--bg); }
 
   .menu {
     display: flex;
     align-items: center;
     gap: clamp(12px, 1.6vw, 24px);
-    font-size: calc(14.5 * var(--text-unit));
+    font-size: 0.90625rem;
     font-weight: 500;
     min-width: 0;
   }
@@ -103,7 +103,7 @@ const serviceKeys = Object.keys(routes.services) as ServiceKey[];
   .nav-link:hover { color: var(--bg); }
   .dd { position: relative; }
   .dd summary { display: flex; align-items: center; gap: 6px; }
-  .caret { font-size: calc(10 * var(--text-unit)); opacity: 0.7; }
+  .caret { font-size: 0.625rem; opacity: 0.7; }
   .panel {
     position: absolute;
     top: calc(100% + 16px);
@@ -120,7 +120,7 @@ const serviceKeys = Object.keys(routes.services) as ServiceKey[];
   }
   .panel-heading {
     padding: 8px 14px 4px;
-    font-size: calc(11 * var(--text-unit));
+    font-size: 0.6875rem;
     font-weight: 700;
     letter-spacing: 0.16em;
     text-transform: uppercase;
@@ -148,19 +148,19 @@ const serviceKeys = Object.keys(routes.services) as ServiceKey[];
     place-items: center;
   }
   .claire-text { display: grid; gap: 1px; min-width: 0; }
-  .claire-name { font-size: calc(15 * var(--text-unit)); font-weight: 700; color: var(--brand); }
-  .claire-sub { font-size: calc(13 * var(--text-unit)); color: var(--muted); }
+  .claire-name { font-size: 0.9375rem; font-weight: 700; color: var(--brand); }
+  .claire-sub { font-size: 0.8125rem; color: var(--muted); }
   .svc-item { display: grid; gap: 2px; padding: 10px 14px; border-radius: 10px; color: var(--brand); }
   .svc-item:hover { background: color-mix(in srgb, var(--brand) 5%, transparent); color: var(--brand); }
-  .svc-name { font-size: calc(15 * var(--text-unit)); font-weight: 600; }
-  .svc-sub { font-size: calc(13 * var(--text-unit)); color: var(--muted); }
+  .svc-name { font-size: 0.9375rem; font-weight: 600; }
+  .svc-sub { font-size: 0.8125rem; color: var(--muted); }
 
   .nav-cta {
     white-space: nowrap;
     background: var(--signal);
     color: var(--signalText);
     font-weight: 700;
-    font-size: calc(14 * var(--text-unit));
+    font-size: 0.875rem;
     padding: 10px 18px;
     border-radius: 99px;
     transition: box-shadow 0.3s, transform 0.3s;
@@ -177,7 +177,7 @@ const serviceKeys = Object.keys(routes.services) as ServiceKey[];
     border: 1px solid color-mix(in srgb, var(--bg) 26%, transparent);
     border-radius: 99px;
     padding: 7px 12px;
-    font-size: calc(13 * var(--text-unit));
+    font-size: 0.8125rem;
     font-weight: 600;
     color: color-mix(in srgb, var(--bg) 80%, transparent);
     white-space: nowrap;
@@ -193,7 +193,7 @@ const serviceKeys = Object.keys(routes.services) as ServiceKey[];
     border-radius: 99px;
     padding: 8px 14px;
     color: color-mix(in srgb, var(--bg) 80%, transparent);
-    font-size: calc(13 * var(--text-unit));
+    font-size: 0.8125rem;
     font-weight: 600;
     cursor: pointer;
   }
@@ -219,9 +219,9 @@ const serviceKeys = Object.keys(routes.services) as ServiceKey[];
       box-shadow: 0 30px 60px rgba(13, 27, 39, 0.35);
     }
     .menu.is-open { display: flex; }
-    .nav-link, .dd summary { padding: 10px 2px; font-size: calc(16.5 * var(--text-unit)); }
+    .nav-link, .dd summary { padding: 10px 2px; font-size: 1.03125rem; }
     .dd .panel { position: static; width: auto; margin: 4px 0 8px; }
-    .nav-cta { text-align: center; margin-top: 8px; padding: 13px 18px; font-size: calc(15 * var(--text-unit)); }
+    .nav-cta { text-align: center; margin-top: 8px; padding: 13px 18px; font-size: 0.9375rem; }
     .lang-switch { justify-content: center; }
   }
 </style>

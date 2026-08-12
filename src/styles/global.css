@@ -5,33 +5,15 @@
    ============================================================ */
 
 :root {
-  /* ---- Type scale ---------------------------------------------------
-     Every text size on the site is a multiple of --text-unit, so this is
-     the only place a size is decided. A size written as
-     calc(14.5 * var(--text-unit)) renders at 14.5px by default: the
-     number is still the size the design was drawn at.
+  /* Type scale. Sizes across the site are written in rem, so they all
+     measure against the root font size set on html below. 1rem is 16px,
+     the size the design was drawn at, so 14.5px in the design is
+     0.90625rem here.
 
-       --text-base   what one design pixel measures against. 1rem is the
-                     reader's own browser setting, 16px unless they raised
-                     it. Pin this to 16px to ignore that setting and go
-                     back to fixed pixels.
-       --text-scale  the knob for experiments. 1.05 makes every text on
-                     the site 5% larger, headings included, and leaves the
-                     proportions between them exactly as they are.
-
-     Room to move: up to 1.1 every page holds at 1440, 981 and 390 pixels
-     wide, with the desktop menu keeping 79px to spare at 981px, just above
-     the width where it folds into the hamburger. At 1.2 that menu runs out
-     of room and the page starts to scroll sideways. The same arithmetic
-     applies to a reader who has raised their own browser font size, since
-     --text-base follows it.
-
-     The one exception is the "=exact" tile in the Claire onboarding mock:
-     that label sits in a square of fixed pixels and is brand chrome, not
-     text to read, so it stays in px. */
-  --text-base: 1rem;
+     One exception: the "=exact" tile in the Claire onboarding mock sits in
+     a square of fixed pixels and is brand chrome rather than text to read,
+     so it keeps its px sizes. */
   --text-scale: 1;
-  --text-unit: calc(var(--text-base) * var(--text-scale) / 16);
 
   --brand: #0D1B27;
   --hl: #1B5FB3;
@@ -69,7 +51,23 @@
 @font-face { font-family: 'Poppins'; src: url('/fonts/Poppins-Medium.ttf') format('truetype'); font-weight: 500; font-display: swap; }
 @font-face { font-family: 'Poppins'; src: url('/fonts/Poppins-Bold.ttf') format('truetype'); font-weight: 700; font-display: swap; }
 
-html { scroll-behavior: smooth; }
+html {
+  /* The base every rem on the site measures against, and the one knob for
+     resizing the lot: 100% is the reader's own browser setting, 16px unless
+     they raised it, and --text-scale multiplies it. At 1.05 all text grows
+     5% with the proportions untouched.
+
+     Room to move: up to 1.1 every page holds at 1440, 981 and 390 pixels
+     wide, with the desktop menu keeping 79px to spare at 981px, just above
+     the width where it folds into the hamburger. At 1.2 that menu runs out
+     of room and pages start to scroll sideways. A reader who has raised
+     their own browser font size lands in the same arithmetic.
+
+     Fluid headings are clamp(rem, vw, rem): the scale moves their floor and
+     ceiling, the middle of the range follows the viewport. */
+  font-size: calc(100% * var(--text-scale));
+  scroll-behavior: smooth;
+}
 
 * { box-sizing: border-box; }
 
@@ -78,15 +76,13 @@ body {
   background: var(--bg);
   color: var(--brand);
   font-family: 'Hanken Grotesk', 'Poppins', system-ui, sans-serif;
-  /* The default every element inherits when it sets no size of its own, so
-     that text too follows the scale instead of the browser's own 16px. */
-  font-size: calc(16 * var(--text-unit));
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
 
 a { color: var(--hl); text-decoration: none; }
 a:hover { color: var(--teal); }
+/* Buttons default to the user agent's own 13.33px, outside the scale. */
 button { font-family: inherit; font-size: inherit; }
 summary { list-style: none; cursor: pointer; }
 summary::-webkit-details-marker { display: none; }
@@ -102,7 +98,7 @@ summary::-webkit-details-marker { display: none; }
   padding: 10px 18px;
   border-radius: 0 0 10px 0;
   font-weight: 700;
-  font-size: calc(15 * var(--text-unit));
+  font-size: 0.9375rem;
 }
 .skip-link:focus { left: 0; color: #fff; }
 
@@ -116,7 +112,7 @@ summary::-webkit-details-marker { display: none; }
   display: flex;
   align-items: center;
   gap: 12px;
-  font-size: calc(13 * var(--text-unit));
+  font-size: 0.8125rem;
   font-weight: 500;
   letter-spacing: 0.22em;
   text-transform: uppercase;
@@ -180,7 +176,7 @@ summary::-webkit-details-marker { display: none; }
     var(--bg);
   border: 1px dashed color-mix(in srgb, var(--brand) 18%, transparent);
   color: var(--muted);
-  font-size: calc(13 * var(--text-unit));
+  font-size: 0.8125rem;
   font-weight: 500;
   letter-spacing: 0.06em;
   text-align: center;
