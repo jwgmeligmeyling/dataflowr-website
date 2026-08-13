@@ -8,6 +8,8 @@ export const LINKEDIN_DAAN = 'https://www.linkedin.com/in/daan-jansen-329a541a1/
 export const LINKEDIN_JANWILLEM = 'https://www.linkedin.com/in/jwgmeligmeyling/';
 export const EMAIL_DAAN = 'daan@dataflowr.nl';
 export const EMAIL_JANWILLEM = 'janwillem@dataflowr.nl';
+/** Mailboxes named on the legal pages, carried over from the previous site. */
+export const EMAIL_PRIVACY = 'privacy@dataflowr.nl';
 export const EMAIL_INFO = 'info@dataflowr.nl';
 
 /** Registered company details (KVK). */
@@ -60,13 +62,24 @@ export const routes = {
    * the app keeps for this site (it redirects to the connector page behind
    * its auth wall; sign-in preserves the intent via `returnTo`). The demo
    * section on the Claire page is anchored with plain `#aan-de-slag` /
-   * `#get-started` — deliberately not routed through this table.
+   * `#get-started`: deliberately not routed through this table.
    */
   claireStart: { nl: `${APP_URL}claire/start`, en: `${APP_URL}en/claire/start` },
   about: { nl: '/over-ons', en: '/en/about' },
   articles: articleRoutes,
   /** Flagship article; also where the "Kennisbank" nav item points. */
   article: articleRoutes.maandafsluiting,
+  /**
+   * Legal pages. The English slugs are the ones the previous site served, and
+   * shipped artefacts still point at the bare `/privacy` and `/terms`: the
+   * Codex plugin manifest, the Copilot package and the marketplace
+   * submissions. Those two paths redirect to the Dutch pages below
+   * (vercel.json, public/_redirects), so the published URLs keep resolving.
+   */
+  legal: {
+    privacy: { nl: '/privacyverklaring', en: '/en/privacy' },
+    terms: { nl: '/algemene-voorwaarden', en: '/en/terms' },
+  },
   services: {
     'exact-online-premium': { nl: '/diensten/exact-online-premium', en: '/en/services/exact-online-premium' },
     integraties: { nl: '/diensten/integraties', en: '/en/services/integrations' },
@@ -79,6 +92,7 @@ export const routes = {
 
 export type ServiceKey = keyof typeof routes.services;
 export type ArticleKey = keyof typeof routes.articles;
+export type LegalKey = keyof typeof routes.legal;
 
 /** Shared UI strings (nav, footer, breadcrumbs). */
 export const ui = {
@@ -96,6 +110,8 @@ export const ui = {
     home: 'Home',
     menu: 'Menu',
     skip: 'Naar hoofdinhoud',
+    /** Describes /og/og-default-nl.png for readers who get the alt text instead of the card. */
+    ogImageAlt: 'Deelkaart van DataFlowr: het logo op donkerblauw, met de regel “Financiële processen die stromen” en de kicker “Exact Online Premium · Integratiepartner”.',
     footerTagline: 'Gespecialiseerde integratiepartner',
     footerBody: 'Procesoptimalisatie en integraties binnen het Exact Online ecosysteem, met de precisie van een specialist.',
     footerContact: 'Contact',
@@ -104,6 +120,8 @@ export const ui = {
     footerCopyright: '© 2026 DataFlowr B.V.',
     footerMotto: 'Premium partner van',
     footerCompact: '© 2026 DataFlowr B.V. · Gespecialiseerde Exact Online integratiepartner',
+    footerPrivacy: 'Privacyverklaring',
+    footerTerms: 'Algemene voorwaarden',
     serviceNavDescriptions: {
       'exact-online-premium': 'Implementatie & partner',
       integraties: 'Systemen & data koppelen',
@@ -135,6 +153,8 @@ export const ui = {
     home: 'Home',
     menu: 'Menu',
     skip: 'Skip to main content',
+    /** Describes /og/og-default-en.png for readers who get the alt text instead of the card. */
+    ogImageAlt: 'DataFlowr share card: the logo on dark blue, with the line “Financial processes that flow” and the kicker “Exact Online Premium · Integration partner”.',
     footerTagline: 'Specialised integration partner',
     footerBody: 'Process optimisation and integrations within the Exact Online ecosystem, with the precision of a specialist.',
     footerContact: 'Contact',
@@ -143,6 +163,8 @@ export const ui = {
     footerCopyright: '© 2026 DataFlowr B.V.',
     footerMotto: 'Premium partner of',
     footerCompact: '© 2026 DataFlowr B.V. · Specialised Exact Online integration partner',
+    footerPrivacy: 'Privacy Policy',
+    footerTerms: 'Terms of Service',
     serviceNavDescriptions: {
       'exact-online-premium': 'Implementation & partner',
       integraties: 'Connect systems & data',

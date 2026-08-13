@@ -33,7 +33,7 @@ interface Props {
   footer?: 'full' | 'compact-bg' | 'compact-white' | 'none';
   ogType?: 'website' | 'article';
   /** Page-specific share image (site-absolute path); falls back to the default OG card. */
-  ogImage?: { src: string; width: number; height: number };
+  ogImage?: { src: string; width: number; height: number; alt?: string };
   /** Additional page-specific JSON-LD blocks. */
   schema?: Record<string, unknown>[];
 }
@@ -57,8 +57,11 @@ const alternate = abs(altPath);
 const nlUrl = lang === 'nl' ? canonical : alternate;
 const enUrl = lang === 'en' ? canonical : alternate;
 const fullTitle = title.includes(SITE_NAME) ? title : `${title} | ${SITE_NAME}`;
-const og = ogImageProp ?? { src: '/og/og-default.png', width: 1200, height: 630 };
+/* The default card exists per language (scripts/generate-og.ts): an English
+   page used to share a Dutch tagline. */
+const og = ogImageProp ?? { src: `/og/og-default-${lang}.png`, width: 1200, height: 630 };
 const ogImage = abs(og.src);
+const ogImageAlt = og.alt ?? t.ogImageAlt;
 
 const organization = {
   '@type': 'Organization',
@@ -118,7 +121,14 @@ const jsonLd = { '@context': 'https://schema.org', '@graph': [organization, webs
     <link rel="alternate" hreflang="en" href={enUrl} />
     <link rel="alternate" hreflang="x-default" href={nlUrl} />
     <link rel="sitemap" href="/sitemap-index.xml" />
+    {/* The SVG is what browsers pick. The rasters are for Google Search,
+        which reads the favicon off the home page, wants a square of at least
+        48x48 and prefers ICO/PNG over SVG. They also serve the favicon services
+        other products resolve a site's icon through. /favicon.ico is probed by
+        convention, without this document being read at all. */}
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon-192.png" type="image/png" sizes="192x192" />
+    <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48" />
     <meta name="theme-color" content="#0D1B27" />
     <meta name="generator" content={Astro.generator} />
 
@@ -130,18 +140,34 @@ const jsonLd = { '@context': 'https://schema.org', '@graph': [organization, webs
     <meta property="og:image" content={ogImage} />
     <meta property="og:image:width" content={String(og.width)} />
     <meta property="og:image:height" content={String(og.height)} />
+    <meta property="og:image:alt" content={ogImageAlt} />
     <meta property="og:locale" content={lang === 'nl' ? 'nl_NL' : 'en_US'} />
     <meta property="og:locale:alternate" content={lang === 'nl' ? 'en_US' : 'nl_NL'} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={fullTitle} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image:alt" content={ogImageAlt} />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600;700;800&display=swap" />
 
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
+    {/* Marks the document as JS-capable before the first paint, which is what lets
+        global.css hide [data-reveal] up front instead of blanking it mid-scroll.
+        The timeout is a safety net: if the reveal script never runs, drop the flag
+        so the content shows anyway. */}
+    <script is:inline>
+      (function () {
+        var root = document.documentElement;
+        root.classList.add('df-js');
+        setTimeout(function () {
+          if (!root.hasAttribute('data-df-reveals')) root.classList.remove('df-js');
+        }, 3000);
+      })();
+    </script>
   </head>
   <body>
     <a href="#main" class="skip-link">{t.skip}</a>

@@ -1,7 +1,7 @@
 ---
 /** Full footer (home, Claire, service pages). Compact logo top-left per design review. */
 import Logo from './Logo.astro';
-import { ui, EMAIL_DAAN, EMAIL_INFO, type Lang } from '../lib/site';
+import { routes, ui, EMAIL_DAAN, EMAIL_INFO, type Lang } from '../lib/site';
 
 interface Props {
   lang: Lang;
@@ -35,7 +35,13 @@ const t = ui[lang];
       </div>
     </div>
     <div class="legal">
-      <span>{t.footerCopyright}</span>
+      <div class="legal-run">
+        <span>{t.footerCopyright}</span>
+        <span class="dot" aria-hidden="true">·</span>
+        <a href={routes.legal.privacy[lang]}>{t.footerPrivacy}</a>
+        <span class="dot" aria-hidden="true">·</span>
+        <a href={routes.legal.terms[lang]}>{t.footerTerms}</a>
+      </div>
       <span class="motto">{t.footerMotto} <span class="exact-logo" role="img" aria-label="Exact"><span class="exact-eq" aria-hidden="true"></span>exact</span></span>
     </div>
   </div>
@@ -53,18 +59,18 @@ const t = ui[lang];
   .col { flex: 0 1 auto; }
   .col--brand { flex: 1 1 300px; min-width: 0; }
   .lockup { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
-  .name { font-size: 19px; font-weight: 700; letter-spacing: -0.02em; color: var(--brand); }
+  .name { font-size: 1.28125rem; font-weight: 700; letter-spacing: -0.02em; color: var(--brand); }
   .tagline, .heading {
     margin: 0 0 12px;
-    font-size: 10.5px;
+    font-size: 0.71875rem;
     font-weight: 500;
     letter-spacing: 0.18em;
     text-transform: uppercase;
     color: var(--muted);
   }
   .heading { margin-bottom: 14px; }
-  .body { margin: 0; max-width: 340px; font-size: 13.5px; line-height: 1.65; color: var(--muted); }
-  .links { display: grid; gap: 9px; font-size: 14px; }
+  .body { margin: 0; max-width: 340px; font-size: 0.90625rem; line-height: 1.65; color: var(--muted); }
+  .links { display: grid; gap: 9px; font-size: 0.9375rem; }
   .links--plain { color: var(--muted); }
   .legal {
     border-top: 1px solid color-mix(in srgb, var(--brand) 9%, transparent);
@@ -74,9 +80,13 @@ const t = ui[lang];
     gap: 12px;
     justify-content: space-between;
     align-items: center;
-    font-size: 12.5px;
+    font-size: 0.84375rem;
     color: var(--muted);
   }
+  .legal-run { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+  .legal-run a { color: inherit; }
+  .legal-run a:hover { color: var(--hl); }
+  .dot { color: color-mix(in srgb, var(--brand) 28%, transparent); }
   .motto {
     display: inline-flex;
     align-items: center;

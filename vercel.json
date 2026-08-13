@@ -9,6 +9,8 @@
     { "source": "/services/mcp", "destination": "/claire", "permanent": true },
     { "source": "/services/camunda", "destination": "/diensten/camunda", "permanent": true },
     { "source": "/services/rpa", "destination": "/diensten/rpa", "permanent": true },
-    { "source": "/services/training", "destination": "/diensten/training", "permanent": true }
+    { "source": "/services/training", "destination": "/diensten/training", "permanent": true },
+    { "source": "/privacy", "destination": "/privacyverklaring", "permanent": true },
+    { "source": "/terms", "destination": "/algemene-voorwaarden", "permanent": true }
   ]
 }
