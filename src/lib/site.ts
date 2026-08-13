@@ -11,6 +11,8 @@ export const EMAIL_JANWILLEM = 'janwillem@dataflowr.nl';
 /** Mailboxes named on the legal pages, carried over from the previous site. */
 export const EMAIL_PRIVACY = 'privacy@dataflowr.nl';
 export const EMAIL_INFO = 'info@dataflowr.nl';
+export const PHONE_DISPLAY = '023-2052813';
+export const PHONE_TEL = '+31232052813';
 
 /** Registered company details (KVK). */
 export const COMPANY = {
