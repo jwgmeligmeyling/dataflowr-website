@@ -125,7 +125,14 @@ const jsonLd = { '@context': 'https://schema.org', '@graph': [organization, webs
         which reads the favicon off the home page, wants a square of at least
         48x48 and prefers ICO/PNG over SVG. They also serve the favicon services
         other products resolve a site's icon through. /favicon.ico is probed by
-        convention, without this document being read at all. */}
+        convention, without this document being read at all.
+
+        Google's own endpoint (www.google.com/s2/favicons, which redirects to
+        gstatic faviconV2) reads Google's crawl cache; it does not fetch on
+        request. While the domain is absent from the Google index it answers 404
+        with the grey globe no matter what we serve here, so a 404 there is not
+        evidence that these three files are wrong. Crawlers that do fetch on
+        request, such as icons.duckduckgo.com, return favicon.ico today. */}
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="icon" href="/favicon-192.png" type="image/png" sizes="192x192" />
     <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48" />
