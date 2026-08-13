@@ -1,7 +1,7 @@
 ---
 /** Full footer (home, Claire, service pages). Compact logo top-left per design review. */
 import Logo from './Logo.astro';
-import { routes, ui, LINKEDIN_URL, EMAIL_DAAN, EMAIL_JANWILLEM, type Lang } from '../lib/site';
+import { routes, ui, LINKEDIN_URL, EMAIL_DAAN, EMAIL_JANWILLEM, PHONE_DISPLAY, PHONE_TEL, type Lang } from '../lib/site';
 
 interface Props {
   lang: Lang;
@@ -25,6 +25,7 @@ const t = ui[lang];
         <div class="links">
           <a href={`mailto:${EMAIL_DAAN}`}>{EMAIL_DAAN}</a>
           <a href={`mailto:${EMAIL_JANWILLEM}`}>{EMAIL_JANWILLEM}</a>
+          <a href={`tel:${PHONE_TEL}`}>{PHONE_DISPLAY[lang]}</a>
           <a href={routes.about[lang]}>{t.cta}</a>
         </div>
       </div>

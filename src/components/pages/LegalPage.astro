@@ -11,6 +11,8 @@ import {
   COMPANY,
   EMAIL_PRIVACY,
   EMAIL_INFO,
+  PHONE_DISPLAY,
+  PHONE_TEL,
   type Lang,
   type LegalKey,
 } from '../../lib/site';
@@ -114,6 +116,10 @@ const schema = [
         <div>
           <dt>{s.detailsAddress}</dt>
           <dd>{COMPANY.legalName}<br />{COMPANY.street}<br />{COMPANY.postalCode} {COMPANY.city}</dd>
+        </div>
+        <div>
+          <dt>{s.detailsPhone}</dt>
+          <dd><a href={`tel:${PHONE_TEL}`}>{PHONE_DISPLAY[lang]}</a></dd>
         </div>
         <div>
           <dt>{s.detailsKvk}</dt>

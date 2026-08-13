@@ -17,6 +17,7 @@ import {
   LINKEDIN_JANWILLEM,
   EMAIL_DAAN,
   EMAIL_JANWILLEM,
+  PHONE_TEL,
   ui,
   type Lang,
 } from '../lib/site';
@@ -84,6 +85,7 @@ const organization = {
       : 'Specialised Exact Online Premium integration partner and hyperautomation consultancy. Integrations, workflow orchestration, RPA, training and Claire, the AI layer on top of Exact Online.',
   sameAs: [LINKEDIN_URL],
   email: EMAIL_DAAN,
+  telephone: PHONE_TEL,
   areaServed: 'NL',
   founder: [
     { '@type': 'Person', name: 'Daan Jansen', jobTitle: 'Co-founder · Financial Consultant', email: `mailto:${EMAIL_DAAN}`, sameAs: [LINKEDIN_DAAN] },
@@ -93,6 +95,7 @@ const organization = {
     '@type': 'ContactPoint',
     contactType: 'sales',
     email: EMAIL_DAAN,
+    telephone: PHONE_TEL,
     url: abs(routes.about[lang]),
     availableLanguage: ['nl', 'en'],
   },
