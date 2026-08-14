@@ -66,10 +66,10 @@ export const legalUi = {
 const privacyNl: LegalContent = {
   metaTitle: 'Privacyverklaring',
   metaDescription:
-    'Welke gegevens DataFlowr verwerkt, waarvoor, met wie wij ze delen en hoe lang wij ze bewaren. Inclusief wat er met uw Exact Online-administratie gebeurt wanneer u Claire gebruikt.',
+    'Welke gegevens DataFlowr verwerkt, waarvoor, met wie wij ze delen en hoe lang wij ze bewaren. Inclusief wat er met je Exact Online-administratie gebeurt wanneer je Claire gebruikt.',
   eyebrow: 'Juridisch',
   title: 'Privacyverklaring',
-  lead: 'Deze verklaring beschrijft welke persoonsgegevens wij verwerken, waarvoor wij dat doen en welke rechten u heeft. Waar het om uw Exact Online-administratie gaat, staat er ook bij wat wij niet doen.',
+  lead: 'Deze verklaring beschrijft welke persoonsgegevens wij verwerken, waarvoor wij dat doen en welke rechten je hebt. Waar het om je Exact Online-administratie gaat, staat er ook bij wat wij niet doen.',
   lastUpdated: 'Laatst bijgewerkt: augustus 2026',
   sections: [
     {
@@ -80,32 +80,32 @@ const privacyNl: LegalContent = {
           type: 'p',
           text: 'DataFlowr B.V. is verwerkingsverantwoordelijke voor de persoonsgegevens die in deze verklaring worden beschreven. Wij leveren consultancy binnen het Exact Online ecosysteem en Claire, de AI-laag boven op Exact Online. Onze bedrijfsgegevens staan onderaan deze pagina.',
         },
-        { type: 'mail', text: 'Vragen over uw gegevens of over deze verklaring stuurt u naar', address: 'privacy' },
+        { type: 'mail', text: 'Vragen over je gegevens of over deze verklaring stuur je naar', address: 'privacy' },
       ],
     },
     {
       id: 'welke-gegevens',
       title: '2. Welke gegevens wij verwerken',
       blocks: [
-        { type: 'p', text: 'Wij verzamelen niet meer dan de dienst nodig heeft. Welke gegevens dat zijn, hangt af van hoe u ons gebruikt.' },
+        { type: 'p', text: 'Wij verzamelen niet meer dan de dienst nodig heeft. Welke gegevens dat zijn, hangt af van hoe je ons gebruikt.' },
         {
           type: 'list',
           items: [
             {
               strong: 'Contactgegevens.',
-              rest: 'Uw naam, e-mailadres, telefoonnummer, bedrijfsnaam en de inhoud van uw bericht, wanneer u ons mailt of een kennismaking inplant.',
+              rest: 'Je naam, e-mailadres, telefoonnummer, bedrijfsnaam en de inhoud van je bericht, wanneer je ons mailt of een kennismaking inplant.',
             },
             {
               strong: 'Accountgegevens.',
-              rest: 'Uw naam, e-mailadres en het inlogaccount waarmee u zich aanmeldt bij app.dataflowr.nl. Het inloggen zelf loopt via onze identiteitsleverancier. Wij bewaren geen wachtwoorden.',
+              rest: 'Je naam, e-mailadres en het inlogaccount waarmee je je aanmeldt bij app.dataflowr.nl. Het inloggen zelf loopt via onze identiteitsleverancier. Wij bewaren geen wachtwoorden.',
             },
             {
               strong: 'Koppelingsgegevens.',
-              rest: 'De toegangstokens waarmee Claire namens u met Exact Online praat, en welke administraties u heeft gekoppeld.',
+              rest: 'De toegangstokens waarmee Claire namens jou met Exact Online praat, en welke administraties je hebt gekoppeld.',
             },
             {
               strong: 'Administratiegegevens.',
-              rest: 'Wat Claire per vraag uit uw Exact Online-administratie ophaalt, en de gesprekken die u met haar voert. Die staan in uw account, zodat u ze kunt teruglezen.',
+              rest: 'Wat Claire per vraag uit je Exact Online-administratie ophaalt, en de gesprekken die je met haar voert. Die staan in je account, zodat je ze kunt teruglezen.',
             },
             {
               strong: 'Gebruiks- en beveiligingslogs.',
@@ -123,53 +123,53 @@ const privacyNl: LegalContent = {
       id: 'waarvoor',
       title: '3. Waarvoor wij ze gebruiken',
       blocks: [
-        { type: 'p', text: 'Wij gebruiken uw gegevens voor zes dingen.' },
+        { type: 'p', text: 'Wij gebruiken je gegevens voor zes dingen.' },
         {
           type: 'list',
           items: [
-            { strong: 'De dienst leveren.', rest: 'Uw account, de koppeling met Exact Online en de antwoorden die Claire geeft.' },
-            { strong: 'U ondersteunen.', rest: 'Vragen beantwoorden, storingen onderzoeken en meekijken wanneer u daarom vraagt.' },
+            { strong: 'De dienst leveren.', rest: 'Je account, de koppeling met Exact Online en de antwoorden die Claire geeft.' },
+            { strong: 'Je ondersteunen.', rest: 'Vragen beantwoorden, storingen onderzoeken en meekijken wanneer je daarom vraagt.' },
             { strong: 'Factureren.', rest: 'Abonnementen en opdrachten in rekening brengen en onze eigen boekhouding voeren.' },
             { strong: 'Beveiligen.', rest: 'Misbruik en ongeautoriseerde toegang signaleren, en achteraf kunnen nagaan wat er is gebeurd.' },
             { strong: 'De dienst verbeteren.', rest: 'Zien waar Claire vastloopt of het mis heeft, zodat wij dat kunnen verhelpen.' },
-            { strong: 'Contact houden.', rest: 'U op de hoogte brengen van wijzigingen die u raken. Afmelden voor niet-noodzakelijke berichten kan altijd.' },
+            { strong: 'Contact houden.', rest: 'Je op de hoogte brengen van wijzigingen die je raken. Afmelden voor niet-noodzakelijke berichten kan altijd.' },
           ],
         },
         {
           type: 'p',
-          text: 'Wij doen dat om onze overeenkomst met u uit te voeren, om te voldoen aan een wettelijke plicht zoals de fiscale bewaarplicht, of op grond van een gerechtvaardigd belang zoals de beveiliging van het platform. Waar wij toestemming nodig hebben, vragen wij die vooraf en kunt u die weer intrekken.',
+          text: 'Wij doen dat om onze overeenkomst met jou uit te voeren, om te voldoen aan een wettelijke plicht zoals de fiscale bewaarplicht, of op grond van een gerechtvaardigd belang zoals de beveiliging van het platform. Waar wij toestemming nodig hebben, vragen wij die vooraf en kun je die weer intrekken.',
         },
       ],
     },
     {
       id: 'exact-online',
-      title: '4. Uw administratie in Exact Online',
+      title: '4. Je administratie in Exact Online',
       blocks: [
-        { type: 'p', text: 'Claire werkt op uw eigen Exact Online-administratie. Daarvoor gelden vier regels die wij niet oprekken.' },
+        { type: 'p', text: 'Claire werkt op je eigen Exact Online-administratie. Daarvoor gelden vier regels die wij niet oprekken.' },
         {
           type: 'list',
           items: [
             {
               strong: 'Toegang per gebruiker.',
-              rest: 'U koppelt met uw eigen Exact Online-account. Claire kan precies wat u daar mag, niets meer, en elke actie wordt onder uw eigen gebruiker gelogd.',
+              rest: 'Je koppelt met je eigen Exact Online-account. Claire kan precies wat je daar mag, niets meer, en elke actie wordt onder je eigen gebruiker gelogd.',
             },
             {
               strong: 'Ophalen per vraag.',
-              rest: 'Claire haalt op wat een antwoord nodig heeft, op het moment dat u het vraagt. Er ontstaat geen kopie van uw administratie in een extern platform.',
+              rest: 'Claire haalt op wat een antwoord nodig heeft, op het moment dat je het vraagt. Er ontstaat geen kopie van je administratie in een extern platform.',
             },
             {
               strong: 'Lezen vrij, schrijven na akkoord.',
-              rest: 'Claire leest en rekent zelfstandig. Een wijziging in uw administratie komt eerst als voorstel bij u te staan en wordt pas uitgevoerd nadat u akkoord geeft.',
+              rest: 'Claire leest en rekent zelfstandig. Een wijziging in je administratie komt eerst als voorstel bij je te staan en wordt pas uitgevoerd nadat je akkoord geeft.',
             },
             {
               strong: 'Intrekken werkt meteen.',
-              rest: 'U trekt de koppeling in vanuit uw account of vanuit Exact Online. Daarna haalt Claire niets meer op.',
+              rest: 'Je trekt de koppeling in vanuit je account of vanuit Exact Online. Daarna haalt Claire niets meer op.',
             },
           ],
         },
         {
           type: 'p',
-          text: 'Gebruikt u Claire vanuit uw eigen AI-client, bijvoorbeeld Claude, ChatGPT of Microsoft Copilot, dan lopen uw vragen en de antwoorden ook door dat programma heen. Wat die aanbieder daarmee doet, valt onder uw overeenkomst met die aanbieder en niet onder deze verklaring.',
+          text: 'Gebruik je Claire vanuit je eigen AI-client, bijvoorbeeld Claude, ChatGPT of Microsoft Copilot, dan lopen je vragen en de antwoorden ook door dat programma heen. Wat die aanbieder daarmee doet, valt onder je overeenkomst met die aanbieder en niet onder deze verklaring.',
         },
       ],
     },
@@ -179,15 +179,15 @@ const privacyNl: LegalContent = {
       blocks: [
         {
           type: 'p',
-          text: 'Wij verkopen uw gegevens niet en gebruiken ze niet voor advertenties. Voor het draaien van de dienst schakelen wij een beperkt aantal verwerkers in, met elk een verwerkersovereenkomst.',
+          text: 'Wij verkopen je gegevens niet en gebruiken ze niet voor advertenties. Voor het draaien van de dienst schakelen wij een beperkt aantal verwerkers in, met elk een verwerkersovereenkomst.',
         },
         {
           type: 'list',
           items: [
             { strong: 'Inloggen en accountbeheer.', rest: 'Auth0 (Okta) verzorgt de aanmelding en het beheer van accounts.' },
             { strong: 'Betalingen.', rest: 'Stripe verwerkt de abonnementsbetalingen en bewaart de betaalgegevens.' },
-            { strong: 'AI-modellen.', rest: 'OpenRouter routeert uw vraag naar het taalmodel dat het antwoord opstelt.' },
-            { strong: 'Hosting en database.', rest: 'Onze hostingpartij draait de applicatie en de database waarin uw account staat.' },
+            { strong: 'AI-modellen.', rest: 'OpenRouter routeert je vraag naar het taalmodel dat het antwoord opstelt.' },
+            { strong: 'Hosting en database.', rest: 'Onze hostingpartij draait de applicatie en de database waarin je account staat.' },
           ],
         },
         { type: 'p', text: 'Daarnaast verstrekken wij gegevens wanneer de wet ons daartoe verplicht.' },
@@ -204,8 +204,8 @@ const privacyNl: LegalContent = {
             // CONFIRM: 24 maanden, 90 dagen en 12 maanden zijn beleidskeuzes, geen
             // feiten uit de code. Vaststellen voordat dit live gaat.
             { strong: 'Contactgegevens.', rest: 'Tot 24 maanden na het laatste contact, tenzij er een opdracht uit voortkomt.' },
-            { strong: 'Account en gesprekken.', rest: 'Zolang uw abonnement loopt. Na opzegging verwijderen wij het account en de bewaarde gesprekken binnen 90 dagen.' },
-            { strong: 'Koppelingsgegevens.', rest: 'Tot u de koppeling intrekt of uw account opzegt. Daarna vervallen de tokens en verwijderen wij ze.' },
+            { strong: 'Account en gesprekken.', rest: 'Zolang je abonnement loopt. Na opzegging verwijderen wij het account en de bewaarde gesprekken binnen 90 dagen.' },
+            { strong: 'Koppelingsgegevens.', rest: 'Tot je de koppeling intrekt of je account opzegt. Daarna vervallen de tokens en verwijderen wij ze.' },
             { strong: 'Logs.', rest: 'Twaalf maanden, zodat wij een incident achteraf kunnen onderzoeken.' },
             { strong: 'Facturen en boekhouding.', rest: 'Zeven jaar, omdat de fiscale bewaarplicht ons daartoe verplicht.' },
           ],
@@ -218,23 +218,23 @@ const privacyNl: LegalContent = {
       blocks: [
         {
           type: 'p',
-          text: 'Al het verkeer met onze applicatie en met Exact Online loopt over een versleutelde verbinding. De koppeling verloopt via OAuth, zodat u ons nooit uw Exact Online-wachtwoord geeft. Toegang tot productiesystemen is beperkt tot de medewerkers die hem nodig hebben, en elke handeling in Claire wordt gelogd onder de gebruiker die hem uitvoerde.',
+          text: 'Al het verkeer met onze applicatie en met Exact Online loopt over een versleutelde verbinding. De koppeling verloopt via OAuth, zodat je ons nooit je Exact Online-wachtwoord geeft. Toegang tot productiesystemen is beperkt tot de medewerkers die hem nodig hebben, en elke handeling in Claire wordt gelogd onder de gebruiker die hem uitvoerde.',
         },
-        { type: 'mail', text: 'Vermoedt u een kwetsbaarheid of een datalek, meld dat dan zo snel mogelijk op', address: 'privacy' },
+        { type: 'mail', text: 'Vermoed je een kwetsbaarheid of een datalek, meld dat dan zo snel mogelijk op', address: 'privacy' },
       ],
     },
     {
       id: 'rechten',
-      title: '8. Uw rechten',
+      title: '8. Je rechten',
       blocks: [
         {
           type: 'p',
-          text: 'U heeft het recht om uw gegevens in te zien, te laten corrigeren of te laten verwijderen. Ook kunt u de verwerking laten beperken, bezwaar maken tegen een verwerking en uw gegevens in een gangbaar bestandsformaat opvragen.',
+          text: 'Je hebt het recht om je gegevens in te zien, te laten corrigeren of te laten verwijderen. Ook kun je de verwerking laten beperken, bezwaar maken tegen een verwerking en je gegevens in een gangbaar bestandsformaat opvragen.',
         },
-        { type: 'mail', text: 'Een verzoek stuurt u naar', address: 'privacy' },
+        { type: 'mail', text: 'Een verzoek stuur je naar', address: 'privacy' },
         {
           type: 'p',
-          text: 'Wij reageren binnen een maand. Bent u het niet eens met de afhandeling, dan kunt u een klacht indienen bij de Autoriteit Persoonsgegevens.',
+          text: 'Wij reageren binnen een maand. Ben je het niet eens met de afhandeling, dan kun je een klacht indienen bij de Autoriteit Persoonsgegevens.',
         },
       ],
     },
@@ -244,11 +244,11 @@ const privacyNl: LegalContent = {
       blocks: [
         {
           type: 'p',
-          text: 'Deze website plaatst geen trackingcookies en gebruikt geen analytics. Twee onderdelen halen wel gegevens bij derden op: het lettertype komt van Google Fonts, en op de pagina Over ons staat een agenda van Calendly waarmee u een afspraak inplant. Beide zien daarbij uw IP-adres.',
+          text: 'Deze website plaatst geen trackingcookies en gebruikt geen analytics. Twee onderdelen halen wel gegevens bij derden op: het lettertype komt van Google Fonts, en op de pagina Over ons staat een agenda van Calendly waarmee je een afspraak inplant. Beide zien daarbij je IP-adres.',
         },
         {
           type: 'p',
-          text: 'De applicatie op app.dataflowr.nl gebruikt een functionele cookie om uw sessie vast te houden. Die is nodig om ingelogd te blijven en volgt u niet.',
+          text: 'De applicatie op app.dataflowr.nl gebruikt een functionele cookie om je sessie vast te houden. Die is nodig om ingelogd te blijven en volgt je niet.',
         },
       ],
     },
@@ -258,7 +258,7 @@ const privacyNl: LegalContent = {
       blocks: [
         {
           type: 'p',
-          text: 'Verandert de dienst, dan passen wij deze verklaring aan. De datum bovenaan de pagina laat zien wanneer dat voor het laatst gebeurde. Raakt een wijziging u wezenlijk, dan melden wij die voordat zij ingaat.',
+          text: 'Verandert de dienst, dan passen wij deze verklaring aan. De datum bovenaan de pagina laat zien wanneer dat voor het laatst gebeurde. Raakt een wijziging je wezenlijk, dan melden wij die voordat zij ingaat.',
         },
         { type: 'doclink', text: 'De voorwaarden waaronder wij leveren staan in onze', label: 'algemene voorwaarden', to: 'terms' },
       ],
@@ -470,7 +470,7 @@ const privacyEn: LegalContent = {
 const termsNl: LegalContent = {
   metaTitle: 'Algemene voorwaarden',
   metaDescription:
-    'De voorwaarden waaronder DataFlowr consultancy levert en Claire als abonnement aanbiedt: wat u krijgt, wat u zelf blijft doen, en hoe opzeggen en aansprakelijkheid geregeld zijn.',
+    'De voorwaarden waaronder DataFlowr consultancy levert en Claire als abonnement aanbiedt: wat je krijgt, wat je zelf blijft doen, en hoe opzeggen en aansprakelijkheid geregeld zijn.',
   eyebrow: 'Juridisch',
   title: 'Algemene voorwaarden',
   lead: 'Deze voorwaarden gelden voor onze consultancy-opdrachten en voor het gebruik van Claire. Spreekt een offerte of opdrachtbevestiging iets anders af, dan gaat die afspraak voor.',
@@ -484,7 +484,7 @@ const termsNl: LegalContent = {
           type: 'p',
           text: 'Deze voorwaarden gelden voor elk aanbod en elke overeenkomst van DataFlowr B.V., en voor het gebruik van onze website en van Claire. Wijkt een ondertekende offerte of opdrachtbevestiging hiervan af, dan geldt wat daarin staat.',
         },
-        { type: 'p', text: 'Uw eigen inkoopvoorwaarden zijn niet van toepassing, tenzij wij die schriftelijk hebben aanvaard.' },
+        { type: 'p', text: 'Je eigen inkoopvoorwaarden zijn niet van toepassing, tenzij wij die schriftelijk hebben aanvaard.' },
       ],
     },
     {
@@ -501,50 +501,50 @@ const termsNl: LegalContent = {
             },
             {
               strong: 'Claire.',
-              rest: 'Een abonnement op de AI-laag boven op uw eigen Exact Online-administratie, te gebruiken via app.dataflowr.nl en via MCP-clients zoals Claude, ChatGPT en Microsoft Copilot.',
+              rest: 'Een abonnement op de AI-laag boven op je eigen Exact Online-administratie, te gebruiken via app.dataflowr.nl en via MCP-clients zoals Claude, ChatGPT en Microsoft Copilot.',
             },
           ],
         },
         {
           type: 'p',
-          text: 'Een consultancy-opdracht voeren wij uit als inspanningsverplichting, met de zorg die u van een specialist mag verwachten. Een afgesproken resultaat garanderen wij alleen wanneer dat met zoveel woorden in de opdrachtbevestiging staat.',
+          text: 'Een consultancy-opdracht voeren wij uit als inspanningsverplichting, met de zorg die je van een specialist mag verwachten. Een afgesproken resultaat garanderen wij alleen wanneer dat met zoveel woorden in de opdrachtbevestiging staat.',
         },
       ],
     },
     {
       id: 'account',
-      title: '3. Uw account',
+      title: '3. Je account',
       blocks: [
         {
           type: 'p',
-          text: 'Voor Claire heeft u een account nodig en koppelt u uw eigen Exact Online-administratie. U bent verantwoordelijk voor wat er onder uw account gebeurt en houdt uw inloggegevens voor uzelf. Deelt u een account met collega’s, dan kunnen wij een handeling niet meer aan één persoon toerekenen.',
+          text: 'Voor Claire heb je een account nodig en koppel je je eigen Exact Online-administratie. Je bent verantwoordelijk voor wat er onder je account gebeurt en houdt je inloggegevens voor jezelf. Deel je een account met collega’s, dan kunnen wij een handeling niet meer aan één persoon toerekenen.',
         },
-        { type: 'p', text: 'Vermoedt u dat iemand anders bij uw account kan, meld dat dan meteen, dan blokkeren wij de toegang.' },
+        { type: 'p', text: 'Vermoed je dat iemand anders bij je account kan, meld dat dan meteen, dan blokkeren wij de toegang.' },
       ],
     },
     {
       id: 'gebruik',
-      title: '4. Gebruik van Claire, en wat u zelf blijft doen',
+      title: '4. Gebruik van Claire, en wat je zelf blijft doen',
       blocks: [
         { type: 'p', text: 'Claire stelt haar antwoorden op met een taalmodel. Een taalmodel kan zich vergissen, ook wanneer het antwoord stellig klinkt. Daarom geldt het volgende.' },
         {
           type: 'list',
           items: [
             {
-              strong: 'Uw administratie blijft van u.',
-              rest: 'Uw boekingen, uw aangiften en uw jaarrekening blijven uw verantwoordelijkheid. Claire is een hulpmiddel, geen accountant en geen belastingadviseur.',
+              strong: 'Je administratie blijft van jou.',
+              rest: 'Je boekingen, je aangiften en je jaarrekening blijven je verantwoordelijkheid. Claire is een hulpmiddel, geen accountant en geen belastingadviseur.',
             },
             {
-              strong: 'Beoordeel voordat u akkoord geeft.',
-              rest: 'Claire schrijft niets naar Exact Online zonder uw akkoord. Dat akkoord is het moment waarop u het voorstel controleert.',
+              strong: 'Beoordeel voordat je akkoord geeft.',
+              rest: 'Claire schrijft niets naar Exact Online zonder je akkoord. Dat akkoord is het moment waarop je het voorstel controleert.',
             },
             {
               strong: 'Gebruik binnen de wet.',
-              rest: 'U zet de dienst niet in voor onrechtmatige doeleinden en niet op een manier die onze systemen of die van Exact Online overbelast.',
+              rest: 'Je zet de dienst niet in voor onrechtmatige doeleinden en niet op een manier die onze systemen of die van Exact Online overbelast.',
             },
             {
               strong: 'Geen doorverkoop.',
-              rest: 'U verkoopt de toegang niet door en geeft hem niet aan derden buiten uw organisatie, tenzij uw abonnement daar ruimte voor biedt of wij het anders afspreken.',
+              rest: 'Je verkoopt de toegang niet door en geeft hem niet aan derden buiten je organisatie, tenzij je abonnement daar ruimte voor biedt of wij het anders afspreken.',
             },
           ],
         },
@@ -559,15 +559,15 @@ const termsNl: LegalContent = {
         // voordat dit live gaat.
         {
           type: 'p',
-          text: 'De abonnementsprijzen staan op de Claire-pagina en zijn exclusief btw. Een abonnement loopt per maand en is maandelijks opzegbaar. Opzeggen doet u in uw account; de opzegging gaat in aan het einde van de lopende periode. Over een periode die al is gefactureerd, betalen wij niet terug.',
+          text: 'De abonnementsprijzen staan op de Claire-pagina en zijn exclusief btw. Een abonnement loopt per maand en is maandelijks opzegbaar. Opzeggen doe je in je account; de opzegging gaat in aan het einde van de lopende periode. Over een periode die al is gefactureerd, betalen wij niet terug.',
         },
         {
           type: 'p',
-          text: 'Abonnementen worden geïncasseerd via onze betaaldienstverlener. Consultancy factureren wij volgens de offerte, met een betaaltermijn van 14 dagen. Betaalt u niet op tijd, dan mogen wij de wettelijke handelsrente en incassokosten in rekening brengen.',
+          text: 'Abonnementen worden geïncasseerd via onze betaaldienstverlener. Consultancy factureren wij volgens de offerte, met een betaaltermijn van 14 dagen. Betaal je niet op tijd, dan mogen wij de wettelijke handelsrente en incassokosten in rekening brengen.',
         },
         {
           type: 'p',
-          text: 'Wij mogen onze prijzen aanpassen. Een verhoging kondigen wij minimaal een maand van tevoren aan, zodat u kunt opzeggen tegen de datum waarop zij ingaat.',
+          text: 'Wij mogen onze prijzen aanpassen. Een verhoging kondigen wij minimaal een maand van tevoren aan, zodat je kunt opzeggen tegen de datum waarop zij ingaat.',
         },
       ],
     },
@@ -579,7 +579,7 @@ const termsNl: LegalContent = {
           type: 'p',
           text: 'Wij houden Claire zo goed mogelijk bereikbaar, maar beloven geen ononderbroken beschikbaarheid. Onderhoud kondigen wij aan waar dat kan. Claire draait bovendien op de API van Exact Online: valt die weg of verandert die, dan raakt dat de dienst. Wij verhelpen dat zo snel als het ons lukt.',
         },
-        { type: 'p', text: 'Wij mogen functionaliteit wijzigen of uitfaseren. Verdwijnt iets waar u op leunt, dan melden wij dat vooraf.' },
+        { type: 'p', text: 'Wij mogen functionaliteit wijzigen of uitfaseren. Verdwijnt iets waar je op leunt, dan melden wij dat vooraf.' },
       ],
     },
     {
@@ -588,11 +588,11 @@ const termsNl: LegalContent = {
       blocks: [
         {
           type: 'p',
-          text: 'Alle rechten op de website, op Claire, op onze connectoren en op het materiaal dat wij daarbij leveren, blijven bij DataFlowr. U krijgt een gebruiksrecht dat loopt zolang uw abonnement of opdracht loopt en dat u niet aan een ander mag overdragen.',
+          text: 'Alle rechten op de website, op Claire, op onze connectoren en op het materiaal dat wij daarbij leveren, blijven bij DataFlowr. Je krijgt een gebruiksrecht dat loopt zolang je abonnement of opdracht loopt en dat je niet aan een ander mag overdragen.',
         },
         {
           type: 'p',
-          text: 'Uw gegevens blijven van u. Wat in uw Exact Online-administratie staat en wat u aan Claire vraagt, wordt geen eigendom van ons.',
+          text: 'Je gegevens blijven van jou. Wat in je Exact Online-administratie staat en wat je aan Claire vraagt, wordt geen eigendom van ons.',
         },
       ],
     },
@@ -600,7 +600,7 @@ const termsNl: LegalContent = {
       id: 'vertrouwelijkheid',
       title: '8. Vertrouwelijkheid',
       blocks: [
-        { type: 'p', text: 'Wat wij tijdens een opdracht over uw organisatie te weten komen, houden wij vertrouwelijk, ook nadat de opdracht is afgerond.' },
+        { type: 'p', text: 'Wat wij tijdens een opdracht over je organisatie te weten komen, houden wij vertrouwelijk, ook nadat de opdracht is afgerond.' },
         { type: 'doclink', text: 'Hoe wij persoonsgegevens verwerken, staat in onze', label: 'privacyverklaring', to: 'privacy' },
       ],
     },
@@ -616,11 +616,11 @@ const termsNl: LegalContent = {
         },
         {
           type: 'p',
-          text: 'Onze aansprakelijkheid is per gebeurtenis en per kalenderjaar beperkt tot het bedrag dat u in de twaalf maanden vóór de schade aan ons heeft betaald voor de dienst waaruit de schade voortkomt. Die beperking vervalt bij opzet of bewuste roekeloosheid van onze kant.',
+          text: 'Onze aansprakelijkheid is per gebeurtenis en per kalenderjaar beperkt tot het bedrag dat je in de twaalf maanden vóór de schade aan ons hebt betaald voor de dienst waaruit de schade voortkomt. Die beperking vervalt bij opzet of bewuste roekeloosheid van onze kant.',
         },
         {
           type: 'p',
-          text: 'Wij zijn niet aansprakelijk voor de gevolgen van een boeking die u heeft goedgekeurd, of van een beslissing die u op een antwoord van Claire heeft gebaseerd. Zie het artikel hierboven over wat u zelf blijft doen.',
+          text: 'Wij zijn niet aansprakelijk voor de gevolgen van een boeking die je hebt goedgekeurd, of van een beslissing die je op een antwoord van Claire hebt gebaseerd. Zie het artikel hierboven over wat je zelf blijft doen.',
         },
       ],
     },
@@ -630,11 +630,11 @@ const termsNl: LegalContent = {
       blocks: [
         {
           type: 'p',
-          text: 'U zegt een abonnement op in uw account, tegen het einde van de lopende maand. Wij mogen een account opschorten of beëindigen wanneer u deze voorwaarden schendt of wanneer een factuur na aanmaning open blijft staan.',
+          text: 'Je zegt een abonnement op in je account, tegen het einde van de lopende maand. Wij mogen een account opschorten of beëindigen wanneer je deze voorwaarden schendt of wanneer een factuur na aanmaning open blijft staan.',
         },
         {
           type: 'p',
-          text: 'Na beëindiging trekt u de koppeling met Exact Online in, of doen wij dat. Uw gegevens verwijderen wij volgens de termijnen in de privacyverklaring. Vraagt u vooraf om een export van uw gesprekken, dan leveren wij die.',
+          text: 'Na beëindiging trek je de koppeling met Exact Online in, of doen wij dat. Je gegevens verwijderen wij volgens de termijnen in de privacyverklaring. Vraag je vooraf om een export van je gesprekken, dan leveren wij die.',
         },
       ],
     },
@@ -644,7 +644,7 @@ const termsNl: LegalContent = {
       blocks: [
         {
           type: 'p',
-          text: 'Wij mogen deze voorwaarden aanpassen. De nieuwe versie publiceren wij op deze pagina, met de datum van wijziging bovenaan. Raakt een wijziging u wezenlijk, dan melden wij die minimaal een maand van tevoren en kunt u opzeggen tegen de datum waarop zij ingaat.',
+          text: 'Wij mogen deze voorwaarden aanpassen. De nieuwe versie publiceren wij op deze pagina, met de datum van wijziging bovenaan. Raakt een wijziging je wezenlijk, dan melden wij die minimaal een maand van tevoren en kun je opzeggen tegen de datum waarop zij ingaat.',
         },
       ],
     },
@@ -658,7 +658,7 @@ const termsNl: LegalContent = {
           type: 'p',
           text: 'Op deze voorwaarden en op onze overeenkomsten is Nederlands recht van toepassing. Geschillen leggen wij voor aan de bevoegde rechter in Noord-Holland, tenzij de wet een andere rechter aanwijst.',
         },
-        { type: 'mail', text: 'Vragen over deze voorwaarden stuurt u naar', address: 'info' },
+        { type: 'mail', text: 'Vragen over deze voorwaarden stuur je naar', address: 'info' },
       ],
     },
   ],
