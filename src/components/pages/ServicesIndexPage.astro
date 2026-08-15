@@ -148,7 +148,7 @@ const schema = [
       <div class="wrap cta-inner">
         <h2>{t.ctaTitle}</h2>
         <p>{t.ctaSub}</p>
-        <a href={routes.about[lang]} class="btn-signal">{t.ctaBtn}</a>
+        <a href={routes.about[lang]} class="btn-signal cta-btn">{t.ctaBtn}</a>
       </div>
     </section>
   </div>
@@ -228,5 +228,5 @@ const schema = [
   .cta-inner { padding-top: 72px; padding-bottom: 72px; display: grid; gap: 14px; justify-items: start; }
   .cta h2 { margin: 0; font-size: clamp(1.5rem, 2.6vw, 2rem); line-height: 1.15; font-weight: 700; letter-spacing: -0.025em; }
   .cta p { margin: 0; max-width: 60ch; font-size: 1rem; line-height: 1.65; color: var(--muted); }
-  .cta .btn-signal { margin-top: 8px; }
+  .cta-btn { margin-top: 8px; font-size: 1.09375rem; padding: 17px 40px; }
 </style>
