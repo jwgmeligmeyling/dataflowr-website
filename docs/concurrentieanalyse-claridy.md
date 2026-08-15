@@ -91,7 +91,7 @@ One correction to earlier drafts of this analysis: **we do not have an SEO hygie
 4. **Self-serve at €99 against their €499 floor**, with checkout already wired (`ClairePage.astro:489`, `?plan=<tier>&checkout=1`). They have no trial, no signup and no self-serve path of any kind.
 5. **The two segments they disqualify in writing are ours.** Under ~100 invoices a month, and companies working through an accountancy firm. Our €749 Kantoor tier with unlimited administraties is already an accountancy-firm product. We have never addressed that buyer in a single sentence.
 6. **Two named, differently-skilled, accountable founders** with photos, roles, personal mailboxes and LinkedIn profiles, and a byline split that proves the disciplines: Daan on the close and Premium features, Jan-Willem on PSP, MCP and the release. Twenty Claridy articles carry one byline and they never claim founder-led delivery as positioning.
-7. **Formal "u" against their "je" on every page including pricing.** With both tabs open in front of a CFO, one reads as a professional firm and the other as a subscription.
+7. **Withdrawn: the register difference.** Earlier drafts counted formal "u" against Claridy's "je" as an advantage. That is obsolete: `main` converted the whole Dutch site to "je" on 15 August, and `CLAUDE.md` now reads "Dutch is informal: `je`, never `u`". The two sites now address the reader the same way, so this is no longer a point of separation in either direction. The house rule that survives is the one under it: direct without being chummy, no slang and no exclamation marks.
 8. **A data-driven template layer.** One field added to `ServiceContent` lands on 12 live pages; one block type added to `ArticlePage` lands on 10. Their 20 articles are hand-authored, which is why one comparison page shipped half-translated with a duplicate meta description.
 9. **Typography discipline enforced in CI.** `npm run check:copy` passes and fails the build on U+2014. Their two oldest and most important pages carry 5 and 12 em dashes in prose, and their Klippa and Basecone pages carry the character in `og:description`, which renders in every LinkedIn share.
 
@@ -127,7 +127,7 @@ A constraint that applies to all nine measurement notes: `src/data/legal.ts:247`
 
 *Why for us.* Claire is sold inside Claude, ChatGPT and Copilot. Being invisible to the schema those systems read is the single most self-defeating gap on the site, and it is a typed change in two files. The questions we can answer are ones Claridy structurally cannot: "Wat doet Smart Closing wel en niet?", "Waarom sluit een PSP-uitbetaling nooit aan op de omzet?", "Wat gebeurt er als het taalmodel verandert?". Keep the union small: no table block, no callout block, nothing else.
 
-*First three steps.* (1) Extend the union and render the block. (2) Push a `FAQPage` node into the existing `schema` array in `ArticlePage.astro`, matching the rendered text word for word. (3) Write the questions as literal Dutch search queries, answers two to four sentences, self-contained, formal "u".
+*First three steps.* (1) Extend the union and render the block. (2) Push a `FAQPage` node into the existing `schema` array in `ArticlePage.astro`, matching the rendered text word for word. (3) Write the questions as literal Dutch search queries, answers two to four sentences, self-contained, informal "je" per the current house rule.
 
 *Files.* `src/data/articles.ts`, `src/components/pages/ArticlePage.astro`, `src/components/pages/ClairePage.astro`.
 
@@ -307,7 +307,7 @@ Do not attempt an events programme, a competitor comparison page, an ROI calcula
 
 **Batch publishing.** Sixteen articles in ten days, nine on one day, every check date landing in the same month. Two pieces a month, dated honestly, will look fresher than their library within a quarter.
 
-**Informal "je".** It is the first thing a reader notices with both tabs open. Theirs reads as a subscription addressing a user; ours reads as a firm addressing a client. That fork is worth defending, not closing.
+**Withdrawn: the argument for keeping formal "u".** Overtaken by events. The Dutch site moved to "je" on 15 August, which was a deliberate house decision and closes this as a difference. Noted here only so the earlier reasoning is not read as current advice.
 
 **And one thing we should stop believing about them.** Their sitemap is complete, all 42 pages. We do not have an SEO hygiene advantage, and any argument built on one should be discarded before it reaches copy.
 ---

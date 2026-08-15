@@ -39,7 +39,7 @@ const articleRoutes = {
     en: '/en/resources/psp-reconciliation-why-the-bank-never-quite-matches',
   },
   'premium-features': {
-    nl: '/kennisbank/premium-features-waar-u-voor-betaalt-maar-niets-mee-doet',
+    nl: '/kennisbank/premium-features-waar-je-voor-betaalt-maar-niets-mee-doet',
     en: '/en/resources/premium-features-you-pay-for-but-are-not-using',
   },
   'mcp-voor-finance': {
@@ -109,7 +109,7 @@ export const ui = {
     solutions: 'Oplossingen',
     product: 'Product',
     services: 'Diensten',
-    claireTag: 'AI in uw Exact Online',
+    claireTag: 'AI in je Exact Online',
     resources: 'Kennisbank',
     servicesIndex: 'Alle diensten',
     about: 'Over ons',
@@ -138,7 +138,7 @@ export const ui = {
       make: 'Automatiseren zonder code',
       camunda: 'Workflow-orkestratie',
       rpa: 'Repetitief werk robotiseren',
-      training: 'Uw team meenemen',
+      training: 'Je team meenemen',
     } as Record<ServiceKey, string>,
     serviceNavTitles: {
       'exact-online-premium': 'Exact Online Premium',
