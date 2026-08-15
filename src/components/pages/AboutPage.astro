@@ -141,10 +141,14 @@ const schema = [
     <div class="calendly" id="plan-afspraak">
       <h2>{t.calendlyTitle}</h2>
       <p>{t.calendlyIntro}</p>
-      <div class="calendly-inline-widget" data-url={calendlyEmbedUrl} style="min-width:320px;height:700px;">
-        {/* Rendered until the Calendly script replaces it, and left standing if
-            that script is blocked: the booking link, the phone number and both
-            founder mailboxes are the whole conversion path on this site. */}
+      {/* widget.js appends its spinner and iframe to this container without
+          clearing it, and it stamps data-processed on the way in. That attribute
+          is the hook the styles below use: with it the container takes the
+          Calendly height and the fallback is hidden, without it the container
+          stays auto-height and the fallback is what the reader sees. A blocked
+          script therefore leaves working contact details rather than an empty
+          700px box. */}
+      <div class="calendly-inline-widget" data-url={calendlyEmbedUrl}>
         <div class="calendly-fallback">
           <p>{t.calendlyFallback}</p>
           <p class="calendly-fallback-links">
@@ -236,7 +240,9 @@ const schema = [
   }
   .calendly h2, .company-details h2 { margin: 0 0 10px; font-size: 1.5rem; font-weight: 700; letter-spacing: -0.02em; }
   .calendly > p { margin: 0; max-width: 620px; font-size: 1.03125rem; line-height: 1.65; color: var(--muted); text-wrap: pretty; }
-  .calendly-inline-widget { margin-top: 8px; }
+  .calendly-inline-widget { margin-top: 8px; min-width: 320px; }
+  .calendly-inline-widget[data-processed] { height: 700px; }
+  .calendly-inline-widget[data-processed] .calendly-fallback { display: none; }
   .calendly-fallback {
     display: grid;
     gap: 10px;
