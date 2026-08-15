@@ -683,7 +683,7 @@ for (const lang of langs) {
           type: "content",
           content: nl
             ? [
-                "De afsluitcontroles over juli zijn klaar. Er zijn **geen blokkers**: vijf bevindingen vragen om uw beoordeling, waarvan er één al is afgehandeld.",
+                "De afsluitcontroles over juli zijn klaar. Er zijn **geen blokkers**: vijf bevindingen vragen om je beoordeling, waarvan er één al is afgehandeld.",
                 "",
                 "De grootste post is de restant op de kruisposten: dat is de PSP-uitbetaling van 31 juli, die in augustus wordt afgeletterd.",
               ].join("\n")
