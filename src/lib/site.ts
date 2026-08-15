@@ -151,7 +151,7 @@ export const ui = {
     resources: 'Resources',
     about: 'About',
     signIn: 'Sign in',
-    cta: 'Get in touch',
+    cta: 'Book an intro call',
     langSwitch: 'NL',
     langSwitchLabel: 'Wissel naar Nederlands',
     home: 'Home',
