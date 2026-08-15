@@ -41,17 +41,6 @@ const nl = {
   jwBio:
     'Solution architect en software engineer. Bouwt integraties, workflows en AI-oplossingen, met ervaring in het opschalen van development teams en tech-gedreven transformaties.',
   jwSlot: 'Portret van Jan-Willem Gmelig Meyling',
-  partnersTitle: 'Partnerstatus',
-  partners: [
-    {
-      name: 'Exact Online Premium Partner',
-      body: 'Formeel partner van Exact. Wij implementeren en beheren Exact Online Premium en werken met de Premium-API’s, Smart Closing en de Power BI Connector.',
-    },
-    {
-      name: 'Microsoft AI Cloud Partner',
-      body: 'Formeel partner van Microsoft. Relevant voor Claire, die naast Claude en ChatGPT ook in Microsoft 365 Copilot werkt.',
-    },
-  ],
   calendlyTitle: 'Plan direct een kennismaking',
   calendlyIntro:
     'Benieuwd wat we voor uw organisatie kunnen betekenen? Kies een moment dat u schikt, dan zorgen wij voor de rest. Een kennismaking duurt 30 minuten en is geheel vrijblijvend.',
@@ -80,17 +69,6 @@ const en: typeof nl = {
   jwBio:
     'Solution architect and software engineer. Builds integrations, workflows and AI solutions, with experience scaling development teams and tech-driven transformations.',
   jwSlot: 'Portrait of Jan-Willem Gmelig Meyling',
-  partnersTitle: 'Partner status',
-  partners: [
-    {
-      name: 'Exact Online Premium Partner',
-      body: 'A formal Exact partner. We implement and manage Exact Online Premium and work with the Premium APIs, Smart Closing and the Power BI Connector.',
-    },
-    {
-      name: 'Microsoft AI Cloud Partner',
-      body: 'A formal Microsoft partner. Relevant to Claire, which works in Microsoft 365 Copilot alongside Claude and ChatGPT.',
-    },
-  ],
   calendlyTitle: 'Book an intro call directly',
   calendlyIntro:
     'Curious what we could mean for your organisation? Pick a time that suits you and we will take care of the rest. An intro call takes 30 minutes and is entirely without obligation.',
@@ -159,17 +137,6 @@ const schema = [
           <a href={LINKEDIN_JANWILLEM} class="founder-linkedin" target="_blank" rel="noopener">LinkedIn</a>
         </div>
       </div>
-    </div>
-    <div class="partners">
-      <h2>{t.partnersTitle}</h2>
-      <ul>
-        {t.partners.map((partner) => (
-          <li>
-            <span class="partner-name">{partner.name}</span>
-            <span class="partner-body">{partner.body}</span>
-          </li>
-        ))}
-      </ul>
     </div>
     <div class="calendly" id="plan-afspraak">
       <h2>{t.calendlyTitle}</h2>
@@ -265,20 +232,6 @@ const schema = [
      narrow phone it has to be allowed to break or the page scrolls sideways. */
   .founder-mail { font-size: 0.90625rem; font-weight: 700; overflow-wrap: anywhere; }
   .founder-linkedin { margin-left: 16px; font-size: 0.90625rem; font-weight: 700; }
-  .partners { display: grid; gap: 16px; }
-  .partners h2 { margin: 0; font-size: 1.5rem; font-weight: 700; letter-spacing: -0.02em; }
-  .partners ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr)); }
-  .partners li {
-    display: grid;
-    gap: 6px;
-    padding: 22px 24px;
-    background: #ffffff;
-    border: 1px solid var(--line);
-    border-radius: 16px;
-  }
-  .partner-name { font-size: 1.0625rem; font-weight: 700; letter-spacing: -0.015em; }
-  .partner-body { font-size: 0.96875rem; line-height: 1.6; color: var(--muted); }
-
   .calendly {
     margin-top: 64px;
     padding-top: 44px;

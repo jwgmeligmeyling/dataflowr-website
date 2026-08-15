@@ -38,10 +38,7 @@ https://dataflowr.nl/en/services).
 
 ## Company
 
-- [Over ons](https://dataflowr.nl/over-ons): founders, background and partner status.
-- Partner status: Exact Online Premium Partner (Exact) and Microsoft AI Cloud Partner
-  (Microsoft). Both are formal partnerships; DataFlowr holds no SOC 2 report and no
-  ISO 27001 certification.
+- [Over ons](https://dataflowr.nl/over-ons): founders and background.
 - [Kennisbank](https://dataflowr.nl/kennisbank): practical guides on finance automation,
   written by the founders from real Exact Online administrations. English at
   https://dataflowr.nl/en/resources. The five articles:
