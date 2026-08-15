@@ -1,6 +1,14 @@
 # DataFlowr vs Claridy: competitive assessment and action plan
 
-Prepared 15 August 2026. Repo facts verified against `/home/user/dataflowr-website`. Competitor facts verified against a live fetch of claridy.ai on the same date. Where a claim could not be confirmed, it is marked **not verified** and no recommendation depends on it.
+Prepared 15 August 2026, revised the same day after founder review.
+
+Two claims in the first draft were corrected. The knowledge-base gap was over-ranked:
+the articles were never orphaned, only the index page was missing. And the trust
+assessment was skewed: named founders with photographs, roles, direct mailboxes and a
+full KVK block are trust, and the honest gap is narrower, being proof a stranger can
+check without meeting us. The ICP and pricing items are recorded as differences from
+Claridy rather than defects, because not narrowing the audience and not publishing unit
+prices are both deliberate choices. Repo facts verified against `/home/user/dataflowr-website`. Competitor facts verified against a live fetch of claridy.ai on the same date. Where a claim could not be confirmed, it is marked **not verified** and no recommendation depends on it.
 
 ---
 
@@ -61,14 +69,14 @@ Claire runs in Claude, ChatGPT and Microsoft Copilot over MCP, an open standard,
 
 ## 4. Where we are genuinely behind, ranked
 
-1. **No ICP and no disqualification.** They tell a buyer whether to call before the call. We offer an unqualified 30-minute founder call to everyone, which is the most expensive thing a two-person firm sells.
-2. **No hub pages, so five good articles cannot compound.** `/kennisbank`, `/diensten`, `/en/resources`, `/en/services` all 404. `routes.article` in `src/lib/site.ts:74` is aliased to one article, and both `SiteNav.astro:56` and `ArticlePage.astro:78` point at it. Nothing can rank for a category term and a reader who finishes an article has no next step.
-3. **No consultancy price signal of any kind.** They publish every meter and a worked bill, and teach the market that implementation is included at no separate fee. That reframes our Quick Scan and Blueprint as cost rather than value, and we have nothing on the page to answer with.
-4. **No trust surface for a CFO or an accountant.** Their `/beveiliging` is a nav item. Our equivalent facts are buried in a privacy statement and a product-page section.
-5. **No FAQPage schema anywhere.** They mirror 4 to 11 self-contained answers per page into schema. `ArticleBlock` in `src/data/articles.ts` is `p | h2 | quote | ol | figure`, so an FAQ cannot even be authored. For a product distributed through Claude, ChatGPT and Copilot, absence from the schema those systems read is the wrong absence.
-6. **Zero external proof, including one credential we actually hold.** The Exact Online Premium Partner status is real and announced on LinkedIn. It appears nowhere on the site. The only near hit is the footer motto "All You Need is a Premium Partner", which is a slogan, not a claim.
-7. **Content volume: 5 articles to their 20**, and only two of our six services have any supporting content.
-8. **Small credibility leaks that this audience checks.** Read times do not track length: `maandafsluiting` is 345 Dutch words labelled "8 min leestijd", `mcp-release` is 1,105 words labelled "8 min". Nine of fifteen service result stats are words in a numeric slot ("Uren", "Identiek", "Gelogd", "Zelf", "Blijvend"). `footerMeetItems` in `src/lib/site.ts:123` and `:167` claims presence at three event types as unlinked, undated text with nothing behind it. `public/llms.txt` and `src/data/legal.ts` name Auth0 while the release article says the sign-in system was replaced.
+1. **No hard boundary stated anywhere.** Distinct from narrowing the audience, which is a deliberate choice already made and not in question here. The gap is that the site never states a fact that is simply true: we work inside Exact Online, so a company on AFAS, NetSuite or Dynamics is not ours. Claridy disqualifies three segments in writing on their pricing page. Naming a boundary does not shrink the addressable market, it stops calls we cannot serve, and for a two-person firm the founder call is the most expensive thing we sell.
+2. **No third-party-verifiable proof, including one credential we hold.** Our trust surface is real and founder-led: named founders, photographs, roles, direct mailboxes, a phone number and a full KVK block. That is stronger than six anonymous logos and it should not be described as an absence. What is genuinely missing is proof a stranger can check without meeting us: the Exact Online Premium Partner status is real, announced on LinkedIn, and appears nowhere in `src/` or `public/`. The only near hit is the footer motto "All You Need is a Premium Partner", which is a slogan rather than a claim.
+3. **No trust page for a CFO or an accountant.** Their `/beveiliging` is a nav item. Our equivalent facts sit in section 7 of the privacy statement and in a Claire page section, neither reachable from navigation.
+4. **No FAQPage schema anywhere.** `ArticleBlock` in `src/data/articles.ts` is `p | h2 | quote | ol | figure`, so an FAQ cannot even be authored. For a product distributed through Claude, ChatGPT and Copilot, absence from the schema those systems read is the wrong absence.
+5. **Content volume: 5 articles to their 20**, and only two of our six services have any supporting content.
+6. **Small credibility leaks that this audience checks.** Read times do not track length: `maandafsluiting` is roughly 400 Dutch words labelled "8 min leestijd", an implied 51 words per minute, while `mcp-release` is 1,334 words at the same label. Nine of fifteen service result stats are words in a numeric slot ("Uren", "Identiek", "Gelogd", "Zelf", "Blijvend"). `footerMeetItems` in `src/lib/site.ts:123` and `:167` claims presence at three event types as unlinked, undated text with nothing behind it. `public/llms.txt` and `src/data/legal.ts` name Auth0 while the release article says the sign-in system was replaced.
+7. **No index page at the two hub paths.** `/kennisbank`, `/diensten`, `/en/resources` and `/en/services` return 404, verified live on 15 August 2026. This is smaller than it first looks and was over-ranked in the first draft of this document: every article page renders the "Meer uit de kennisbank" grid with the other four articles, and the Diensten nav is a dropdown linking all six service pages directly, so nothing is orphaned and the pieces already cross-link. What is missing is a URL that can rank for a category term, a canonical page to link from LinkedIn, email and `llms.txt`, and a page for anyone who truncates a URL by hand.
+8. **No published price for the consultancy.** Recorded here as a difference from Claridy, not as a defect to fix by matching them. Hourly and per-unit pricing is deliberately not published, and section 6 argues against publishing a day rate for the same reasons. The open question is narrower: whether a single productised first step carries a public fixed fee. If the answer is no, the only part worth keeping is giving Claire's four existing tiers a linkable URL.
 9. **A brand collision in search.** "dataflowr" is held by the INRIA and ENS deep learning course (dataflowr.github.io, github.com/dataflowr). A branded query does not reliably reach us.
 
 One correction to earlier drafts of this analysis: **we do not have an SEO hygiene advantage over Claridy.** Their sitemap is complete (42 of 42 URLs, including every comparison page and the ROI calculator). Ours is complete (32 of 32). Any recommendation resting on their sitemap being broken should be discarded.

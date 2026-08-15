@@ -20,6 +20,9 @@ DataFlowr combines three disciplines in one team: deep Exact Online ecosystem kn
 
 ## Services
 
+All six services are listed at https://dataflowr.nl/diensten (English:
+https://dataflowr.nl/en/services).
+
 - [Exact Online Premium](https://dataflowr.nl/diensten/exact-online-premium): implementation,
   migration, Smart Closing, Power BI Connector, multi-entity alignment, governance & controls.
 - [Integraties](https://dataflowr.nl/diensten/integraties): API integrations for webshops,
@@ -36,8 +39,24 @@ DataFlowr combines three disciplines in one team: deep Exact Online ecosystem kn
 ## Company
 
 - [Over ons](https://dataflowr.nl/over-ons): founders and background.
-- [Kennisbank](https://dataflowr.nl/kennisbank/waarom-de-maandafsluiting-nog-een-week-kost):
-  practical guides on finance automation.
+- [Kennisbank](https://dataflowr.nl/kennisbank): practical guides on finance automation,
+  written by the founders from real Exact Online administrations. English at
+  https://dataflowr.nl/en/resources. The five articles:
+  - Waarom de maandafsluiting nog een week kost, en wat er écht helpt:
+    https://dataflowr.nl/kennisbank/waarom-de-maandafsluiting-nog-een-week-kost
+    (EN: https://dataflowr.nl/en/resources/why-the-month-end-close-still-takes-a-week)
+  - PSP-reconciliatie: waarom de bank nooit precies aansluit:
+    https://dataflowr.nl/kennisbank/psp-reconciliatie-waarom-de-bank-nooit-precies-aansluit
+    (EN: https://dataflowr.nl/en/resources/psp-reconciliation-why-the-bank-never-quite-matches)
+  - Premium-features waar u voor betaalt maar niets mee doet:
+    https://dataflowr.nl/kennisbank/premium-features-waar-u-voor-betaalt-maar-niets-mee-doet
+    (EN: https://dataflowr.nl/en/resources/premium-features-you-pay-for-but-are-not-using)
+  - Wat MCP is, en waarom het voor finance uitmaakt:
+    https://dataflowr.nl/kennisbank/wat-mcp-is-en-waarom-het-voor-finance-uitmaakt
+    (EN: https://dataflowr.nl/en/resources/what-mcp-is-and-why-it-matters-for-finance)
+  - Wat er nieuw is in de nieuwe release van onze MCP-koppeling:
+    https://dataflowr.nl/kennisbank/wat-er-nieuw-is-in-de-mcp-release
+    (EN: https://dataflowr.nl/en/resources/what-is-new-in-the-mcp-release)
 - Contact: daan@dataflowr.nl · janwillem@dataflowr.nl · +31 23 2052813 · book a call at https://dataflowr.nl/over-ons
 - LinkedIn: https://linkedin.com/company/dataflowr
 

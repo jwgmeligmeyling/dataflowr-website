@@ -1,0 +1,232 @@
+---
+/**
+ * Services overview. The six service pages plus Claire, described with the
+ * same one-liners the related-services cards use at the foot of each service
+ * page, so the wording stays in one place (src/data/services.ts).
+ */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ClaireMark from '../ClaireMark.astro';
+import { abs, routes, ui, type Lang, type ServiceKey } from '../../lib/site';
+import { services, relatedCards } from '../../data/services';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const other: Lang = lang === 'nl' ? 'en' : 'nl';
+
+const nl = {
+  metaTitle: 'Diensten | Integraties, automatisering en Exact Online Premium',
+  metaDescription:
+    'Zes diensten binnen het Exact Online ecosysteem: Premium-implementatie, integraties, Make en low-code, Camunda, RPA en training. Per situatie gecombineerd, met Claire er vaak bovenop.',
+  eyebrow: 'Diensten',
+  title: 'Zes diensten, gebouwd op dezelfde drie disciplines.',
+  intro:
+    'Exact Online-kennis, financeproceskennis en software-engineering in één team. Welke dienst u nodig heeft volgt uit uw situatie, niet uit een pakket. Vaak zijn het er twee of drie tegelijk.',
+  productEyebrow: 'Ons product',
+  servicesEyebrow: 'Onze diensten',
+  view: 'Bekijk dienst →',
+  viewClaire: 'Bekijk Claire →',
+  note: 'Iets anders nodig? Geen standaardpakket, maar een gereedschapskist voor maatwerk dat native integreert.',
+  ctaTitle: 'Weet u nog niet welke dienst past?',
+  ctaSub: 'Plan een kennismaking van 30 minuten, vrijblijvend, en u spreekt direct een founder. Wij zeggen het ook als er niets te automatiseren valt.',
+  ctaBtn: 'Plan een kennismaking',
+};
+
+const en: typeof nl = {
+  metaTitle: 'Services | Integrations, automation and Exact Online Premium',
+  metaDescription:
+    'Six services within the Exact Online ecosystem: Premium implementation, integrations, Make and low-code, Camunda, RPA and training. Combined per case, with Claire often on top.',
+  eyebrow: 'Services',
+  title: 'Six services, built on the same three disciplines.',
+  intro:
+    'Exact Online knowledge, finance process knowledge and software engineering in one team. Which service you need follows from your situation, not from a package. Often it is two or three at once.',
+  productEyebrow: 'Our product',
+  servicesEyebrow: 'Our services',
+  view: 'View service →',
+  viewClaire: 'See Claire →',
+  note: 'Need something else? No standard package, but a toolkit for custom work that integrates natively.',
+  ctaTitle: 'Not sure which service fits?',
+  ctaSub: 'Book a no-obligation 30-minute call and you speak to a founder directly. We will also say so when there is nothing worth automating.',
+  ctaBtn: 'Get in touch',
+};
+
+const t = lang === 'nl' ? nl : en;
+const s = ui[lang];
+const path = routes.servicesIndex[lang];
+
+const rel = relatedCards[lang];
+const serviceKeys = Object.keys(routes.services) as ServiceKey[];
+const items = serviceKeys.map((key) => ({
+  key,
+  href: routes.services[key][lang],
+  title: services[lang][key].nav,
+  body: rel[key].body,
+  facts: services[lang][key].facts.slice(0, 2),
+}));
+
+const schema = [
+  {
+    '@type': 'CollectionPage',
+    '@id': abs(`${path}#collection`),
+    name: t.eyebrow,
+    description: t.metaDescription,
+    url: abs(path),
+    inLanguage: lang === 'nl' ? 'nl-NL' : 'en',
+    isPartOf: { '@id': abs('/#organization') },
+    mainEntity: {
+      '@type': 'ItemList',
+      numberOfItems: items.length,
+      itemListElement: items.map((item, i) => ({
+        '@type': 'ListItem',
+        position: i + 1,
+        url: abs(item.href),
+        name: item.title,
+      })),
+    },
+  },
+  {
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: s.home, item: abs(routes.home[lang]) },
+      { '@type': 'ListItem', position: 2, name: t.eyebrow, item: abs(path) },
+    ],
+  },
+];
+---
+<BaseLayout
+  lang={lang}
+  title={t.metaTitle}
+  description={t.metaDescription}
+  path={path}
+  altPath={routes.servicesIndex[other]}
+  navVariant="solid"
+  footer="full"
+  schema={schema}
+>
+  <div class="page">
+    <section class="wrap head">
+      <nav aria-label={lang === 'nl' ? 'Kruimelpad' : 'Breadcrumb'} class="crumbs">
+        <a href={routes.home[lang]}>{s.home}</a><span>/</span>
+        <span class="crumb-current">{t.eyebrow}</span>
+      </nav>
+      <p class="eyebrow">{t.eyebrow}</p>
+      <h1>{t.title}</h1>
+      <p class="intro">{t.intro}</p>
+    </section>
+
+    <section class="wrap block">
+      <p class="section-label">{t.productEyebrow}</p>
+      <a href={routes.claire[lang]} class="claire-card">
+        <span class="claire-badge" aria-hidden="true"><ClaireMark size={44} /></span>
+        <span class="claire-body">
+          <span class="claire-name">Claire</span>
+          <span class="claire-text">{rel.claire.body}</span>
+          <span class="link">{t.viewClaire}</span>
+        </span>
+      </a>
+    </section>
+
+    <section class="wrap block">
+      <p class="section-label">{t.servicesEyebrow}</p>
+      <div class="grid">
+        {items.map((item) => (
+          <a href={item.href} class="card">
+            <h2>{item.title}</h2>
+            <p>{item.body}</p>
+            <ul>
+              {item.facts.map((fact) => <li>{fact}</li>)}
+            </ul>
+            <span class="link">{t.view}</span>
+          </a>
+        ))}
+      </div>
+      <p class="note">{t.note}</p>
+    </section>
+
+    <section class="cta">
+      <div class="wrap cta-inner">
+        <h2>{t.ctaTitle}</h2>
+        <p>{t.ctaSub}</p>
+        <a href={routes.about[lang]} class="btn-signal">{t.ctaBtn}</a>
+      </div>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  .page { background: #ffffff; }
+  .head { padding-top: 56px; padding-bottom: 44px; }
+  .crumbs { display: flex; align-items: center; gap: 10px; margin-bottom: 34px; font-size: 0.84375rem; color: var(--muted); }
+  .crumb-current { color: var(--brand); font-weight: 600; }
+  .eyebrow {
+    margin: 0 0 20px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--hl);
+  }
+  h1 {
+    margin: 0 0 22px;
+    max-width: 20ch;
+    font-size: clamp(2.125rem, 4.2vw, 3.25rem);
+    line-height: 1.08;
+    font-weight: 700;
+    letter-spacing: -0.035em;
+    text-wrap: balance;
+  }
+  .intro { margin: 0; max-width: 62ch; font-size: 1.09375rem; line-height: 1.7; color: var(--muted); }
+
+  .block { padding-bottom: 56px; }
+  .section-label {
+    margin: 0 0 18px;
+    font-size: 0.71875rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .claire-card,
+  .card {
+    display: block;
+    color: var(--brand);
+    text-decoration: none;
+    background: #ffffff;
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+  }
+  .claire-card:hover,
+  .card:hover { transform: translateY(-3px); box-shadow: 0 16px 44px rgba(13, 27, 39, 0.10); border-color: color-mix(in srgb, var(--hl) 30%, var(--line)); color: var(--brand); }
+
+  .claire-card { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 20px; align-items: center; padding: 26px 28px; }
+  .claire-badge { display: grid; place-items: center; }
+  .claire-body { display: grid; gap: 6px; }
+  .claire-name { font-size: 1.3125rem; font-weight: 700; letter-spacing: -0.02em; }
+  .claire-text { font-size: 1rem; line-height: 1.6; color: var(--muted); max-width: 68ch; }
+
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr)); gap: 18px; }
+  .card { padding: 26px 28px; display: grid; gap: 10px; align-content: start; }
+  .card h2 { margin: 0; font-size: 1.25rem; line-height: 1.25; font-weight: 700; letter-spacing: -0.02em; }
+  .card p { margin: 0; font-size: 0.96875rem; line-height: 1.6; color: var(--muted); }
+  .card ul { margin: 4px 0 0; padding: 0; list-style: none; display: grid; gap: 6px; }
+  .card li {
+    position: relative;
+    padding-left: 18px;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--muted);
+  }
+  .card li::before { content: ''; position: absolute; left: 0; top: 0.55em; width: 6px; height: 6px; border-radius: 99px; background: var(--pos); }
+
+  .link { font-size: 0.9375rem; font-weight: 600; color: var(--hl); }
+  .note { margin: 26px 0 0; max-width: 62ch; font-size: 0.96875rem; line-height: 1.65; color: var(--muted); }
+
+  .cta { background: var(--bg); border-top: 1px solid var(--line); }
+  .cta-inner { padding-top: 72px; padding-bottom: 72px; display: grid; gap: 14px; justify-items: start; }
+  .cta h2 { margin: 0; font-size: clamp(1.5rem, 2.6vw, 2rem); line-height: 1.15; font-weight: 700; letter-spacing: -0.025em; }
+  .cta p { margin: 0; max-width: 60ch; font-size: 1rem; line-height: 1.65; color: var(--muted); }
+  .cta .btn-signal { margin-top: 8px; }
+</style>

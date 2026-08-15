@@ -59,6 +59,9 @@ const articleRoutes = {
  */
 export const routes = {
   home: { nl: '/', en: '/en' },
+  /** Overview pages. Every article and service page breadcrumbs back to one of these. */
+  resources: { nl: '/kennisbank', en: '/en/resources' },
+  servicesIndex: { nl: '/diensten', en: '/en/services' },
   claire: { nl: '/claire', en: '/en/claire' },
   /**
    * Handoff into the app. `/claire/start` is the stable, brand-shaped entry
@@ -70,7 +73,10 @@ export const routes = {
   claireStart: { nl: `${APP_URL}claire/start`, en: `${APP_URL}en/claire/start` },
   about: { nl: '/over-ons', en: '/en/about' },
   articles: articleRoutes,
-  /** Flagship article; also where the "Kennisbank" nav item points. */
+  /**
+   * Flagship article. The "Kennisbank" nav item points at `resources` above;
+   * this alias stays for links that deliberately open the lead piece.
+   */
   article: articleRoutes.maandafsluiting,
   /**
    * Legal pages. The English slugs are the ones the previous site served, and
@@ -105,6 +111,7 @@ export const ui = {
     services: 'Diensten',
     claireTag: 'AI in uw Exact Online',
     resources: 'Kennisbank',
+    servicesIndex: 'Alle diensten',
     about: 'Over ons',
     signIn: 'Inloggen',
     cta: 'Plan een kennismaking',
@@ -119,8 +126,7 @@ export const ui = {
     footerBody: 'Procesoptimalisatie en integraties binnen het Exact Online ecosysteem, met de precisie van een specialist.',
     footerContact: 'Contact',
     footerOnline: 'Online',
-    footerMeet: 'Ontmoet ons',
-    footerMeetItems: ['Exact Online Live', 'CFO User Groups', 'Partnerevents'],
+    footerExplore: 'Op deze site',
     footerCopyright: '© 2026 DataFlowr',
     footerMotto: 'All You Need is a Premium Partner',
     footerCompact: '© 2026 DataFlowr · Gespecialiseerde Exact Online integratiepartner',
@@ -149,6 +155,7 @@ export const ui = {
     services: 'Services',
     claireTag: 'AI in your Exact Online',
     resources: 'Resources',
+    servicesIndex: 'All services',
     about: 'About',
     signIn: 'Sign in',
     cta: 'Get in touch',
@@ -163,8 +170,7 @@ export const ui = {
     footerBody: 'Process optimisation and integrations within the Exact Online ecosystem, with the precision of a specialist.',
     footerContact: 'Contact',
     footerOnline: 'Online',
-    footerMeet: 'Meet us',
-    footerMeetItems: ['Exact Online Live', 'CFO User Groups', 'Partner events'],
+    footerExplore: 'On this site',
     footerCopyright: '© 2026 DataFlowr',
     footerMotto: 'All You Need is a Premium Partner',
     footerCompact: '© 2026 DataFlowr · Specialised Exact Online integration partner',

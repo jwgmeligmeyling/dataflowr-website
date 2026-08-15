@@ -37,9 +37,11 @@ const t = ui[lang];
         </div>
       </div>
       <div class="col">
-        <p class="heading">{t.footerMeet}</p>
-        <div class="links links--plain">
-          {t.footerMeetItems.map((item) => <span>{item}</span>)}
+        <p class="heading">{t.footerExplore}</p>
+        <div class="links">
+          <a href={routes.servicesIndex[lang]}>{t.servicesIndex}</a>
+          <a href={routes.claire[lang]}>Claire</a>
+          <a href={routes.resources[lang]}>{t.resources}</a>
         </div>
       </div>
     </div>
@@ -82,7 +84,6 @@ const t = ui[lang];
   .heading { margin-bottom: 14px; }
   .body { margin: 0; max-width: 340px; font-size: 0.90625rem; line-height: 1.65; color: var(--muted); }
   .links { display: grid; gap: 9px; font-size: 0.9375rem; }
-  .links--plain { color: var(--muted); }
   .legal {
     border-top: 1px solid color-mix(in srgb, var(--brand) 9%, transparent);
     padding-top: 20px;
