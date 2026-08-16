@@ -12,6 +12,8 @@ import {
   EMAIL_JANWILLEM,
   LINKEDIN_DAAN,
   LINKEDIN_JANWILLEM,
+  PHONE_DISPLAY,
+  PHONE_TEL,
   type Lang,
 } from '../../lib/site';
 import daanPhoto from '../../assets/daan.jpeg';
@@ -41,9 +43,12 @@ const nl = {
   jwSlot: 'Portret van Jan-Willem Gmelig Meyling',
   calendlyTitle: 'Plan direct een kennismaking',
   calendlyIntro:
-    'Benieuwd wat we voor uw organisatie kunnen betekenen? Kies een moment dat u schikt, dan zorgen wij voor de rest. Een kennismaking duurt 30 minuten en is geheel vrijblijvend.',
+    'Benieuwd wat we voor je organisatie kunnen betekenen? Kies een moment dat jou schikt, dan zorgen wij voor de rest. Een kennismaking duurt 30 minuten en is geheel vrijblijvend.',
+  calendlyFallback: 'Laadt de agenda niet? Open hem in een nieuw tabblad, bel ons, of mail een van ons rechtstreeks.',
+  calendlyFallbackCta: 'Open de agenda',
   detailsTitle: 'Bedrijfsgegevens',
   detailsAddress: 'Vestigingsadres',
+  detailsPhone: 'Telefoon',
   detailsKvk: 'KVK-nummer',
   detailsBranch: 'Vestigingsnummer',
 };
@@ -67,8 +72,11 @@ const en: typeof nl = {
   calendlyTitle: 'Book an intro call directly',
   calendlyIntro:
     'Curious what we could mean for your organisation? Pick a time that suits you and we will take care of the rest. An intro call takes 30 minutes and is entirely without obligation.',
+  calendlyFallback: 'Calendar not loading? Open it in a new tab, call us, or email one of us directly.',
+  calendlyFallbackCta: 'Open the calendar',
   detailsTitle: 'Company details',
   detailsAddress: 'Registered address',
+  detailsPhone: 'Phone',
   detailsKvk: 'Chamber of Commerce (KVK)',
   detailsBranch: 'Branch number',
 };
@@ -133,7 +141,24 @@ const schema = [
     <div class="calendly" id="plan-afspraak">
       <h2>{t.calendlyTitle}</h2>
       <p>{t.calendlyIntro}</p>
-      <div class="calendly-inline-widget" data-url={calendlyEmbedUrl} style="min-width:320px;height:700px;"></div>
+      {/* widget.js appends its spinner and iframe to this container without
+          clearing it, and it stamps data-processed on the way in. That attribute
+          is the hook the styles below use: with it the container takes the
+          Calendly height and the fallback is hidden, without it the container
+          stays auto-height and the fallback is what the reader sees. A blocked
+          script therefore leaves working contact details rather than an empty
+          700px box. */}
+      <div class="calendly-inline-widget" data-url={calendlyEmbedUrl}>
+        <div class="calendly-fallback">
+          <p>{t.calendlyFallback}</p>
+          <p class="calendly-fallback-links">
+            <a href={CALENDLY_MEETING_URL} target="_blank" rel="noopener">{t.calendlyFallbackCta}</a>
+            <a href={`tel:${PHONE_TEL}`}>{PHONE_DISPLAY[lang]}</a>
+            <a href={`mailto:${EMAIL_DAAN}`}>{EMAIL_DAAN}</a>
+            <a href={`mailto:${EMAIL_JANWILLEM}`}>{EMAIL_JANWILLEM}</a>
+          </p>
+        </div>
+      </div>
       <script is:inline type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
     </div>
     <div class="company-details">
@@ -142,6 +167,10 @@ const schema = [
         <div>
           <dt>{t.detailsAddress}</dt>
           <dd>{COMPANY.legalName}<br />{COMPANY.street}<br />{COMPANY.postalCode} {COMPANY.city}</dd>
+        </div>
+        <div>
+          <dt>{t.detailsPhone}</dt>
+          <dd><a href={`tel:${PHONE_TEL}`}>{PHONE_DISPLAY[lang]}</a></dd>
         </div>
         <div>
           <dt>{t.detailsKvk}</dt>
@@ -211,7 +240,20 @@ const schema = [
   }
   .calendly h2, .company-details h2 { margin: 0 0 10px; font-size: 1.5rem; font-weight: 700; letter-spacing: -0.02em; }
   .calendly > p { margin: 0; max-width: 620px; font-size: 1.03125rem; line-height: 1.65; color: var(--muted); text-wrap: pretty; }
-  .calendly-inline-widget { margin-top: 8px; }
+  .calendly-inline-widget { margin-top: 8px; min-width: 320px; }
+  .calendly-inline-widget[data-processed] { height: 700px; }
+  .calendly-inline-widget[data-processed] .calendly-fallback { display: none; }
+  .calendly-fallback {
+    display: grid;
+    gap: 10px;
+    padding: 26px;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    background: #ffffff;
+  }
+  .calendly-fallback p { margin: 0; font-size: 0.96875rem; line-height: 1.6; color: var(--muted); }
+  .calendly-fallback-links { display: flex; flex-wrap: wrap; gap: 8px 18px; }
+  .calendly-fallback-links a { color: var(--hl); font-weight: 600; }
   .company-details {
     margin-top: 64px;
     padding-top: 44px;

@@ -26,7 +26,6 @@ export interface ArticleContent {
   /** Chip above the title. */
   tag: string;
   date: string;
-  readTime: string;
   title: string;
   lead: string;
   /** Hero screenshot (16:9, 2880×1620), captured from the Claire app. */
@@ -103,7 +102,6 @@ export const articles: Record<ArticleKey, Article> = {
       cat: 'Finance',
       tag: 'Praktijkgids',
       date: '12 juli 2026',
-      readTime: '8 min leestijd',
       title: 'Waarom de maandafsluiting nog een week kost, en wat er écht helpt',
       lead:
         'Dezelfde checklist, elke maand opnieuw: kloppen de openingsbalansen, zijn de tussenrekeningen leeg, sluiten de subadministraties aan? Belangrijk werk, maar grotendeels routine, en juist daar sluipt het erin.',
@@ -111,7 +109,7 @@ export const articles: Record<ArticleKey, Article> = {
       blocks: [
         {
           type: 'p',
-          text: 'Wat u niet ziet, of waar u niet aan toekomt, schuift door naar de volgende maand. Niet omdat uw team onzorgvuldig werkt, maar omdat de afsluiting bestaat uit tientallen kleine controles die allemaal met de hand langs dezelfde administratie gaan. Bij drukte valt de eerste controle weg. Bij vakantie de tweede.',
+          text: 'Wat je niet ziet, of waar je niet aan toekomt, schuift door naar de volgende maand. Niet omdat je team onzorgvuldig werkt, maar omdat de afsluiting bestaat uit tientallen kleine controles die allemaal met de hand langs dezelfde administratie gaan. Bij drukte valt de eerste controle weg. Bij vakantie de tweede.',
         },
         { type: 'h2', id: 'probleem', text: 'Het probleem is niet de hoeveelheid werk' },
         {
@@ -120,7 +118,7 @@ export const articles: Record<ArticleKey, Article> = {
         },
         {
           type: 'quote',
-          text: '"De afsluiting verschuift van zoekwerk naar beoordelingswerk. Uw team loopt niet meer elke tussenrekening na, maar beoordeelt een voorbereide lijst bevindingen."',
+          text: '"De afsluiting verschuift van zoekwerk naar beoordelingswerk. Je team loopt niet meer elke tussenrekening na, maar beoordeelt een voorbereide lijst bevindingen."',
         },
         { type: 'h2', id: 'drie-dingen', text: 'Drie dingen die meetbaar helpen' },
         {
@@ -131,22 +129,22 @@ export const articles: Record<ArticleKey, Article> = {
           type: 'ol',
           items: [
             { strong: 'Maak de controles deterministisch.', rest: ' Dezelfde administratie moet dezelfde uitkomst geven. Zodra een controle afhangt van wie hem uitvoert, is het geen controle maar een inschatting.' },
-            { strong: 'Scheid signaleren van beoordelen.', rest: ' Laat een systeem opvallende posten naar boven halen, vraagposten, mogelijke dubbelen, afwijkende tegenrekeningen, en houd het oordeel bij uw controller.' },
-            { strong: 'Leg het besluit vast, niet alleen de correctie.', rest: ' Wat is er onderzocht, wat kwam eruit en wat heeft u besloten? Die drie samen verlichten komende maanden het werk.' },
+            { strong: 'Scheid signaleren van beoordelen.', rest: ' Laat een systeem opvallende posten naar boven halen, vraagposten, mogelijke dubbelen, afwijkende tegenrekeningen, en houd het oordeel bij je controller.' },
+            { strong: 'Leg het besluit vast, niet alleen de correctie.', rest: ' Wat is er onderzocht, wat kwam eruit en wat heb je besloten? Die drie samen verlichten komende maanden het werk.' },
           ],
         },
         { type: 'h2', id: 'praktijk', text: 'Hoe dat er in de praktijk uitziet' },
         {
           type: 'p',
-          text: 'Een agent doorloopt op de eerste werkdag een vaste reeks afsluitcontroles, onderzoekt de afwijkingen die daaruit komen en levert een close-readiness rapport op: een helder overzicht van wat de afsluiting nog blokkeert, met bevindingen en concrete aanbevelingen. Uw controller begint niet met zoeken, maar met beoordelen, en niets wordt geboekt zonder akkoord.',
+          text: 'Een agent doorloopt op de eerste werkdag een vaste reeks afsluitcontroles, onderzoekt de afwijkingen die daaruit komen en levert een close-readiness rapport op: een helder overzicht van wat de afsluiting nog blokkeert, met bevindingen en concrete aanbevelingen. Je controller begint niet met zoeken, maar met beoordelen, en niets wordt geboekt zonder akkoord.',
         },
         {
           type: 'p',
-          text: 'Het rekenwerk gebeurt daarbij niet in het taalmodel, maar in een rekenlaag die deterministisch en herleidbaar is. Het taalmodel formuleert alleen het antwoord; de cijfers komen uit uw eigen administratie.',
+          text: 'Het rekenwerk gebeurt daarbij niet in het taalmodel, maar in een rekenlaag die deterministisch en herleidbaar is. Het taalmodel formuleert alleen het antwoord; de cijfers komen uit je eigen administratie.',
         },
       ],
       claireTitle: 'Laat Claire de afsluiting voorbereiden',
-      claireBody: 'Vaste controles, bevindingen met onderbouwing, correcties pas na uw akkoord.',
+      claireBody: 'Vaste controles, bevindingen met onderbouwing, correcties pas na je akkoord.',
     },
     en: {
       metaTitle: 'Why the month-end close still takes a week, and what actually shortens it',
@@ -156,7 +154,6 @@ export const articles: Record<ArticleKey, Article> = {
       cat: 'Finance',
       tag: 'Guide',
       date: '12 July 2026',
-      readTime: '8 min read',
       title: 'Why the month-end close still takes a week, and what actually shortens it',
       lead:
         "The same checklist every month: do the opening balances add up, are the suspense accounts empty, do the sub-ledgers reconcile? Important work, but largely routine, and exactly where things slip through.",
@@ -209,12 +206,11 @@ export const articles: Record<ArticleKey, Article> = {
     nl: {
       metaTitle: 'PSP-reconciliatie: waarom de bank nooit precies aansluit',
       metaDescription:
-        'Uitbetalingen van een payment service provider sluiten zelden één-op-één aan op de omzet. Waarom dat in het model zit, en hoe u met settlement-rapporten en aparte stromen de aansluiting deterministisch maakt.',
+        'Uitbetalingen van een payment service provider sluiten zelden één-op-één aan op de omzet. Waarom dat in het model zit, en hoe je met settlement-rapporten en aparte stromen de aansluiting deterministisch maakt.',
       crumbCurrent: 'PSP-reconciliatie',
       cat: 'Integraties',
       tag: 'Praktijkgids',
       date: '26 juli 2026',
-      readTime: '6 min leestijd',
       title: 'PSP-reconciliatie: waarom de bank nooit precies aansluit',
       lead:
         'Wie via een payment service provider ontvangt, kent het patroon: de omzet staat in de webshop of het kassasysteem, de uitbetaling staat op de bank, en daartussen zit een bedrag dat nooit precies klopt. Dat is geen slordigheid. Het zit in het model ingebakken.',
@@ -236,7 +232,7 @@ export const articles: Record<ArticleKey, Article> = {
         { type: 'h2', id: 'drie-stromen', text: 'Drie stromen, drie boekingen' },
         {
           type: 'p',
-          text: 'De aansluiting wordt pas deterministisch als u haar opbouwt vanuit de bron die alles specificeert, en de stromen die nu op één hoop liggen uit elkaar haalt:',
+          text: 'De aansluiting wordt pas deterministisch als je haar opbouwt vanuit de bron die alles specificeert, en de stromen die nu op één hoop liggen uit elkaar haalt:',
         },
         {
           type: 'ol',
@@ -253,7 +249,7 @@ export const articles: Record<ArticleKey, Article> = {
         },
         {
           type: 'p',
-          text: 'Tijdens de maandafsluiting hoort daar een vaste controle bij: zijn de tussenrekeningen leeg, en zo niet, wat staat erop en waarom? Een agent die dat elke maand op dezelfde manier controleert en de restposten onderzoekt, maakt van de kruispost een controlepunt in plaats van een risico, en niets wordt geboekt zonder uw akkoord.',
+          text: 'Tijdens de maandafsluiting hoort daar een vaste controle bij: zijn de tussenrekeningen leeg, en zo niet, wat staat erop en waarom? Een agent die dat elke maand op dezelfde manier controleert en de restposten onderzoekt, maakt van de kruispost een controlepunt in plaats van een risico, en niets wordt geboekt zonder je akkoord.',
         },
       ],
       claireTitle: 'Laat Claire de tussenrekeningen bewaken',
@@ -267,7 +263,6 @@ export const articles: Record<ArticleKey, Article> = {
       cat: 'Integrations',
       tag: 'Guide',
       date: '26 July 2026',
-      readTime: '6 min read',
       title: 'PSP reconciliation: why the bank never quite matches',
       lead:
         'Anyone who collects payments through a payment service provider knows the pattern: revenue sits in the webshop or POS system, the payout sits on the bank statement, and in between is an amount that never quite adds up. That is not sloppiness. It is built into the model.',
@@ -318,15 +313,14 @@ export const articles: Record<ArticleKey, Article> = {
     author: 'daan',
     dateIso: '2026-06-14',
     nl: {
-      metaTitle: 'Premium-features waar u voor betaalt maar niets mee doet',
+      metaTitle: 'Premium-features waar je voor betaalt maar niets mee doet',
       metaDescription:
-        'Smart Closing, de Power BI Connector en de Premium-API’s zitten in uw Exact Online Premium-abonnement, maar blijven bij veel bedrijven ongebruikt. Wat ze doen en waar u begint.',
+        'Smart Closing, de Power BI Connector en de Premium-API’s zitten in je Exact Online Premium-abonnement, maar blijven bij veel bedrijven ongebruikt. Wat ze doen en waar je begint.',
       crumbCurrent: 'Premium-features',
       cat: 'Exact Online',
       tag: 'Praktijkgids',
       date: '14 juni 2026',
-      readTime: '5 min leestijd',
-      title: 'Premium-features waar u voor betaalt maar niets mee doet',
+      title: 'Premium-features waar je voor betaalt maar niets mee doet',
       lead:
         'De overstap naar Exact Online Premium wordt meestal gemaakt voor één reden: meer administraties, meer gebruikers of een rapportagewens. De rest van het pakket komt daarna zelden nog ter sprake. Zonde, want juist daar zit de winst.',
       hero: { src: '/kennisbank/premium-features-nl.png', alt: 'DataFlowr-dashboard met een verbonden Exact Online-administratie, recente agentactiviteit en een ingeplande maandafsluiting' },
@@ -338,7 +332,7 @@ export const articles: Record<ArticleKey, Article> = {
         { type: 'h2', id: 'smart-closing', text: 'Smart Closing' },
         {
           type: 'p',
-          text: 'Smart Closing geeft per periode inzicht in de status van uw afsluiting: welke stappen zijn afgerond, welke staan open en waar zit een blokkade. Het vervangt de checklist die nu in Excel of in iemands hoofd zit, maar het werkt pas als de indicatoren zijn ingericht en periodes consequent worden afgesloten. Juist die inrichting blijft in de praktijk liggen.',
+          text: 'Smart Closing geeft per periode inzicht in de status van je afsluiting: welke stappen zijn afgerond, welke staan open en waar zit een blokkade. Het vervangt de checklist die nu in Excel of in iemands hoofd zit, maar het werkt pas als de indicatoren zijn ingericht en periodes consequent worden afgesloten. Juist die inrichting blijft in de praktijk liggen.',
         },
         { type: 'h2', id: 'power-bi', text: 'De Power BI Connector' },
         {
@@ -348,28 +342,28 @@ export const articles: Record<ArticleKey, Article> = {
         { type: 'h2', id: 'apis', text: 'De Premium-API’s' },
         {
           type: 'p',
-          text: 'Het minst zichtbaar, maar het meest bepalend: de ruimere API-limieten en endpoints van Premium zijn de basis onder elke serieuze koppeling. Integraties met uw PSP of webshop, workflow-automatisering, een AI-assistent op de administratie: het loopt allemaal via deze API’s, en op een standaardabonnement loopt het er ook op stuk.',
+          text: 'Het minst zichtbaar, maar het meest bepalend: de ruimere API-limieten en endpoints van Premium zijn de basis onder elke serieuze koppeling. Integraties met je PSP of webshop, workflow-automatisering, een AI-assistent op de administratie: het loopt allemaal via deze API’s, en op een standaardabonnement loopt het er ook op stuk.',
         },
         {
           type: 'quote',
-          text: '"U betaalt al voor het gereedschap. De vraag is niet of u het nodig heeft, maar waarom het nog in de kast ligt."',
+          text: '"Je betaalt al voor het gereedschap. De vraag is niet of je het nodig hebt, maar waarom het nog in de kast ligt."',
         },
-        { type: 'h2', id: 'begin', text: 'Waar u begint' },
+        { type: 'h2', id: 'begin', text: 'Waar je begint' },
         {
           type: 'ol',
           items: [
-            { strong: 'Zet Smart Closing aan voor één administratie.', rest: ' Richt de indicatoren in voor de stappen die u nu op een checklist bijhoudt, en sluit er één maand mee af. Daarna weet u wat het oplevert.' },
+            { strong: 'Zet Smart Closing aan voor één administratie.', rest: ' Richt de indicatoren in voor de stappen die je nu op een checklist bijhoudt, en sluit er één maand mee af. Daarna weet je wat het oplevert.' },
             { strong: 'Vervang één rapport door de Power BI Connector.', rest: ' Het rapport dat nu maandelijks uit exports wordt opgebouwd is de beste kandidaat: bekende cijfers, bekende ontvangers, direct meetbare tijdwinst.' },
             { strong: 'Inventariseer wat er op de API’s kan.', rest: ' Overal waar cijfers worden overgetypt tussen twee systemen zit een koppeling die er al had kunnen zijn. Begin bij de plek waar het vaakst iets misgaat.' },
           ],
         },
         {
           type: 'p',
-          text: 'Wilt u dit niet zelf uitzoeken? Wij richten de features in op uw eigen administratie en nemen uw team erin mee, zodat de kennis intern blijft en het gebruik niet stopt zodra wij de deur uit zijn.',
+          text: 'Wil je dit niet zelf uitzoeken? Wij richten de features in op je eigen administratie en nemen je team erin mee, zodat de kennis intern blijft en het gebruik niet stopt zodra wij de deur uit zijn.',
         },
       ],
-      claireTitle: 'AI in uw Exact Online',
-      claireBody: 'Claire werkt op dezelfde Premium-API’s: vragen in gewone taal, antwoorden uit uw eigen administratie.',
+      claireTitle: 'AI in je Exact Online',
+      claireBody: 'Claire werkt op dezelfde Premium-API’s: vragen in gewone taal, antwoorden uit je eigen administratie.',
     },
     en: {
       metaTitle: "Premium features you're paying for but not using",
@@ -379,7 +373,6 @@ export const articles: Record<ArticleKey, Article> = {
       cat: 'Exact Online',
       tag: 'Guide',
       date: '14 June 2026',
-      readTime: '5 min read',
       title: "Premium features you're paying for but not using",
       lead:
         'The move to Exact Online Premium is usually made for one reason: more administrations, more users or a reporting need. The rest of the package rarely comes up afterwards. A shame, because that is exactly where the gains are.',
@@ -438,10 +431,9 @@ export const articles: Record<ArticleKey, Article> = {
       cat: 'AI',
       tag: 'Uitleg',
       date: '2 augustus 2026',
-      readTime: '7 min leestijd',
       title: 'Wat MCP is, en waarom het voor finance uitmaakt',
       lead:
-        'Elke leverancier bouwt momenteel “AI in het product”. Handig, maar het levert tien losse chatbots op die elkaar niet kennen en elk hun eigen stukje van uw data zien. MCP draait het om: één open standaard waarmee uw AI-assistent veilig bij uw systemen kan.',
+        'Elke leverancier bouwt momenteel “AI in het product”. Handig, maar het levert tien losse chatbots op die elkaar niet kennen en elk hun eigen stukje van je data zien. MCP draait het om: één open standaard waarmee je AI-assistent veilig bij je systemen kan.',
       hero: { src: '/kennisbank/mcp-voor-finance-nl.png', alt: 'Schema van Claire als MCP-koppeling: ChatGPT, Gemini, Claude en Copilot praten via Claire rechtstreeks met Exact Online' },
       blocks: [
         {
@@ -451,15 +443,15 @@ export const articles: Record<ArticleKey, Article> = {
         { type: 'h2', id: 'hoe-het-werkt', text: 'Hoe het werkt' },
         {
           type: 'p',
-          text: 'Een systeem, bijvoorbeeld uw boekhoudpakket, biedt een MCP-server aan: een lijst van afgebakende tools zoals “haal de proef- en saldibalans op” of “toon de openstaande posten van deze klant”. De assistent kiest per vraag welke tool nodig is, roept die aan en formuleert het antwoord op basis van wat er terugkomt. U logt in met uw bestaande account, dus de assistent ziet precies wat u zelf mag zien, niets meer.',
+          text: 'Een systeem, bijvoorbeeld je boekhoudpakket, biedt een MCP-server aan: een lijst van afgebakende tools zoals “haal de proef- en saldibalans op” of “toon de openstaande posten van deze klant”. De assistent kiest per vraag welke tool nodig is, roept die aan en formuleert het antwoord op basis van wat er terugkomt. Je logt in met je bestaande account, dus de assistent ziet precies wat je zelf mag zien, niets meer.',
         },
         {
           type: 'p',
-          text: 'Belangrijk daarbij: het model krijgt geen kopie van uw database. Elke vraag leidt tot een gerichte opvraging in de administratie zelf, op het moment dat u de vraag stelt. Er is geen datadump die ergens anders een eigen leven gaat leiden.',
+          text: 'Belangrijk daarbij: het model krijgt geen kopie van je database. Elke vraag leidt tot een gerichte opvraging in de administratie zelf, op het moment dat je de vraag stelt. Er is geen datadump die ergens anders een eigen leven gaat leiden.',
         },
         {
           type: 'quote',
-          text: '"De AI-assistent krijgt geen export van uw administratie, hij krijgt een deurbel. Elke vraag gaat langs uw autorisatie, en de cijfers blijven waar ze staan."',
+          text: '"De AI-assistent krijgt geen export van je administratie, hij krijgt een deurbel. Elke vraag gaat langs je autorisatie, en de cijfers blijven waar ze staan."',
         },
         { type: 'h2', id: 'finance', text: 'Waarom dit voor finance uitmaakt' },
         {
@@ -470,8 +462,8 @@ export const articles: Record<ArticleKey, Article> = {
           type: 'ol',
           items: [
             { strong: 'Antwoorden komen uit de administratie, niet uit het model.', rest: ' Het taalmodel formuleert; de cijfers worden per vraag via een tool opgehaald. Daarmee is herleidbaar welke opvraging aan een antwoord ten grondslag ligt, en dat is precies wat een controller wil kunnen nalopen.' },
-            { strong: 'Autorisatie blijft waar hij hoort.', rest: ' De toegang loopt via uw bestaande login en rechten. Geen aparte kopie, geen gedeelde exportmap, geen service account met te ruime rechten.' },
-            { strong: 'U bent niet gebonden aan één assistent.', rest: ' Omdat MCP een open standaard is, werkt dezelfde koppeling in Claude, in andere MCP-clients en in eigen agents. De investering zit in de koppeling met uw administratie, niet in de chatbot van één leverancier.' },
+            { strong: 'Autorisatie blijft waar hij hoort.', rest: ' De toegang loopt via je bestaande login en rechten. Geen aparte kopie, geen gedeelde exportmap, geen service account met te ruime rechten.' },
+            { strong: 'Je bent niet gebonden aan één assistent.', rest: ' Omdat MCP een open standaard is, werkt dezelfde koppeling in Claude, in andere MCP-clients en in eigen agents. De investering zit in de koppeling met je administratie, niet in de chatbot van één leverancier.' },
           ],
         },
         { type: 'h2', id: 'praktijk', text: 'Hoe dat er in de praktijk uitziet' },
@@ -481,15 +473,15 @@ export const articles: Record<ArticleKey, Article> = {
         },
         {
           type: 'p',
-          text: 'Claire gebruikt die server: vragen stellen in gewone taal, vaste afsluitcontroles, en boekingen alleen na uw uitdrukkelijke akkoord. MCP is daarbij geen marketingterm maar de fundering: het is de reden dat Claire in uw eigen administratie kan werken in plaats van in een kopie ervan.',
+          text: 'Claire gebruikt die server: vragen stellen in gewone taal, vaste afsluitcontroles, en boekingen alleen na je uitdrukkelijke akkoord. MCP is daarbij geen marketingterm maar de fundering: het is de reden dat Claire in je eigen administratie kan werken in plaats van in een kopie ervan.',
         },
         {
           type: 'p',
-          text: 'Claire zelf draait in een omgeving die wij bij DataFlowr hebben ontwikkeld, op infrastructuur van onze partners en met taalmodellen van onze leverancier. Wat dat controleerbaar maakt, zit in de inrichting: er wordt geen schaduwkopie van uw administratie opgeslagen, elke vraag wordt op dat moment rechtstreeks in Exact Online opgevraagd, wijzigingen vereisen altijd een handmatige bevestiging, en alles wordt gelogd.',
+          text: 'Claire zelf draait in een omgeving die wij bij DataFlowr hebben ontwikkeld, op infrastructuur van onze partners en met taalmodellen van onze leverancier. Wat dat controleerbaar maakt, zit in de inrichting: er wordt geen schaduwkopie van je administratie opgeslagen, elke vraag wordt op dat moment rechtstreeks in Exact Online opgevraagd, wijzigingen vereisen altijd een handmatige bevestiging, en alles wordt gelogd.',
         },
       ],
       claireTitle: 'Claire spreekt MCP',
-      claireBody: 'Uw administratie via uw eigen login, antwoorden met onderbouwing, boekingen alleen na akkoord.',
+      claireBody: 'Je administratie via je eigen login, antwoorden met onderbouwing, boekingen alleen na akkoord.',
     },
     en: {
       metaTitle: 'What MCP is, and why it matters for finance',
@@ -499,7 +491,6 @@ export const articles: Record<ArticleKey, Article> = {
       cat: 'AI',
       tag: 'Explainer',
       date: '2 August 2026',
-      readTime: '7 min read',
       title: 'What MCP is, and why it matters for finance',
       lead:
         'Every vendor is currently building “AI into the product”. Convenient, but it produces ten separate chatbots that don’t know each other and each see their own slice of your data. MCP turns that around: one open standard through which your AI assistant can safely reach your systems.',
@@ -566,10 +557,9 @@ export const articles: Record<ArticleKey, Article> = {
       cat: 'AI',
       tag: 'Release',
       date: '7 augustus 2026',
-      readTime: '8 min leestijd',
       title: 'Wat er nieuw is in de nieuwe release van onze MCP-koppeling',
       lead:
-        'We rollen een flink vernieuwde versie uit van de koppeling die uw AI-assistent met Exact Online verbindt. Het is dezelfde koppeling, maar een stuk slimmer: u kunt nu vragen om de maand af te sluiten, en er komt een rapport terug dat u regel voor regel afvinkt.',
+        'We rollen een flink vernieuwde versie uit van de koppeling die je AI-assistent met Exact Online verbindt. Het is dezelfde koppeling, maar een stuk slimmer: je kunt nu vragen om de maand af te sluiten, en er komt een rapport terug dat je regel voor regel afvinkt.',
       hero: {
         src: '/kennisbank/mcp-release-close-nl.png',
         alt: 'Het afsluitrapport in de agentwerkruimte van Claire: afsluitgereedheid “Sluit met voorbehoud”, nul blokkades, drie aandachtspunten en per bevinding een knop om te accepteren of af te wijzen',
@@ -577,34 +567,34 @@ export const articles: Record<ArticleKey, Article> = {
       blocks: [
         {
           type: 'p',
-          text: 'Wat hetzelfde blijft, is de basis: u werkt in uw eigen administratie, via uw eigen toegang, en er wordt niets geboekt zonder uw akkoord. Wat verandert, is wat de koppeling zelf al voor u doet voordat u zelf begint te kijken.',
+          text: 'Wat hetzelfde blijft, is de basis: je werkt in je eigen administratie, via je eigen toegang, en er wordt niets geboekt zonder je akkoord. Wat verandert, is wat de koppeling zelf al voor je doet voordat je zelf begint te kijken.',
         },
         { type: 'h2', id: 'afsluiting', text: 'De maandafsluiting als opdracht' },
         {
           type: 'p',
-          text: 'De grootste toevoeging is een afsluitagent. U vraagt uw assistent om de maand af te sluiten, en er draait automatisch een reeks controles: sluit de beginbalans aan op het vorige jaar, staan de tussenrekeningen op nul, sluiten de subadministraties van debiteuren en crediteuren aan op het grootboek, kloppen de bank- en kassaldi, dragen alle boekingen een btw-code, en zijn de afschrijvingen verwerkt.',
+          text: 'De grootste toevoeging is een afsluitagent. Je vraagt je assistent om de maand af te sluiten, en er draait automatisch een reeks controles: sluit de beginbalans aan op het vorige jaar, staan de tussenrekeningen op nul, sluiten de subadministraties van debiteuren en crediteuren aan op het grootboek, kloppen de bank- en kassaldi, dragen alle boekingen een btw-code, en zijn de afschrijvingen verwerkt.',
         },
         {
           type: 'p',
-          text: 'Het resultaat is geen lap tekst maar een rapport, zoals u hierboven ziet. Bovenaan staat het oordeel: gereed, met voorbehoud, of nog niet gereed, en waarom. Daaronder staan de bevindingen op ernst gesorteerd, elk met de concrete post erbij: welk bedrag, op welke rekening, per wanneer. Per bevinding accepteert u hem of wijst u hem af, en wat u heeft afgehandeld verdwijnt uit de openstaande lijst.',
+          text: 'Het resultaat is geen lap tekst maar een rapport, zoals je hierboven ziet. Bovenaan staat het oordeel: gereed, met voorbehoud, of nog niet gereed, en waarom. Daaronder staan de bevindingen op ernst gesorteerd, elk met de concrete post erbij: welk bedrag, op welke rekening, per wanneer. Per bevinding accepteer je hem of wijs je hem af, en wat je hebt afgehandeld verdwijnt uit de openstaande lijst.',
         },
         {
           type: 'quote',
-          text: '"Het verschil met een checklist is dat de controles al gedraaid hebben tegen de tijd dat u kijkt. U beoordeelt de uitzonderingen in plaats van ze eerst te zoeken."',
+          text: '"Het verschil met een checklist is dat de controles al gedraaid hebben tegen de tijd dat je kijkt. Je beoordeelt de uitzonderingen in plaats van ze eerst te zoeken."',
         },
         { type: 'h2', id: 'prognose', text: 'Een onderbouwde cashflowprognose' },
         {
           type: 'p',
-          text: 'Daarnaast is er een prognoseagent voor de liquiditeit. Die bouwt de prognose op uit wat er in de administratie staat: de openstaande debiteuren en crediteuren met hun vervaldatums, het feitelijke betaalgedrag uit de historie, en uw budget in Exact voor de perioden die nog moeten komen.',
+          text: 'Daarnaast is er een prognoseagent voor de liquiditeit. Die bouwt de prognose op uit wat er in de administratie staat: de openstaande debiteuren en crediteuren met hun vervaldatums, het feitelijke betaalgedrag uit de historie, en je budget in Exact voor de perioden die nog moeten komen.',
         },
         {
           type: 'p',
-          text: 'De uitkomst is niet één lijn maar een bandbreedte, gemeten aan hoe goed dezelfde methode het in het verleden op uw eigen cijfers deed. Zo ziet u niet alleen wat de verwachting is, maar ook hoe hard die verwachting is. De berekening loopt in de achtergrond door, dus u kunt ondertussen gewoon verder werken.',
+          text: 'De uitkomst is niet één lijn maar een bandbreedte, gemeten aan hoe goed dezelfde methode het in het verleden op je eigen cijfers deed. Zo zie je niet alleen wat de verwachting is, maar ook hoe hard die verwachting is. De berekening loopt in de achtergrond door, dus je kunt ondertussen gewoon verder werken.',
         },
         { type: 'h2', id: 'chat', text: 'Een vernieuwde chat' },
         {
           type: 'p',
-          text: 'Antwoorden komen nu live binnen, met de overzichten erbij in plaats van eronder. Een financieel rapport verschijnt als uitklapbare tabel, een ouderdomsanalyse als staafjes per bucket, KPI’s als kaarten, en het afsluitrapport als het overzicht hierboven. U klapt een regel open om de onderliggende posten te zien of zoomt door naar de grootboekrekeningen, zonder de vraag opnieuw te stellen.',
+          text: 'Antwoorden komen nu live binnen, met de overzichten erbij in plaats van eronder. Een financieel rapport verschijnt als uitklapbare tabel, een ouderdomsanalyse als staafjes per bucket, KPI’s als kaarten, en het afsluitrapport als het overzicht hierboven. Je klapt een regel open om de onderliggende posten te zien of zoomt door naar de grootboekrekeningen, zonder de vraag opnieuw te stellen.',
         },
         {
           type: 'figure',
@@ -616,29 +606,29 @@ export const articles: Record<ArticleKey, Article> = {
         {
           type: 'ol',
           items: [
-            { strong: 'Spraak in en uit.', rest: ' Uw vraag inspreken en het antwoord laten voorlezen, handig als u met iets anders bezig bent.' },
+            { strong: 'Spraak in en uit.', rest: ' Je vraag inspreken en het antwoord laten voorlezen, handig als je met iets anders bezig bent.' },
             { strong: 'Bestanden erbij slepen.', rest: ' Een bankafschrift of een spreadsheet in het gesprek zetten en er meteen vragen over stellen.' },
-            { strong: 'Grip op het gesprek.', rest: ' Een lopend antwoord stoppen, uw vraag aanpassen en opnieuw sturen, of hetzelfde antwoord opnieuw laten opstellen.' },
-            { strong: 'Doorzoekbare geschiedenis.', rest: ' Gesprekken krijgen automatisch een titel en zijn gegroepeerd op datum, dus u vindt terug wat u vorige maand vroeg.' },
+            { strong: 'Grip op het gesprek.', rest: ' Een lopend antwoord stoppen, je vraag aanpassen en opnieuw sturen, of hetzelfde antwoord opnieuw laten opstellen.' },
+            { strong: 'Doorzoekbare geschiedenis.', rest: ' Gesprekken krijgen automatisch een titel en zijn gegroepeerd op datum, dus je vindt terug wat je vorige maand vroeg.' },
           ],
         },
-        { type: 'h2', id: 'rapportage', text: 'Rapportages die de vergelijking maken die u nodig heeft' },
+        { type: 'h2', id: 'rapportage', text: 'Rapportages die de vergelijking maken die je nodig hebt' },
         {
           type: 'p',
-          text: 'De rapportages zijn uitgebreid met de vergelijkingen waar in de praktijk om gevraagd wordt. U kunt de realisatie afzetten tegen het budget van dit jaar in plaats van alleen tegen vorig jaar. U kunt een voortschrijdend jaar opvragen, de twaalf perioden tot en met de gekozen periode. Dat is de rollende reeks die een directieverslag wil.',
+          text: 'De rapportages zijn uitgebreid met de vergelijkingen waar in de praktijk om gevraagd wordt. Je kunt de realisatie afzetten tegen het budget van dit jaar in plaats van alleen tegen vorig jaar. Je kunt een voortschrijdend jaar opvragen, de twaalf perioden tot en met de gekozen periode. Dat is de rollende reeks die een directieverslag wil.',
         },
         {
           type: 'p',
-          text: 'En u kunt een rolling forecast opvragen: de afgesloten perioden zijn realisatie, de rest van het boekjaar wordt met het budget opgevuld, zodat u een volledig jaarbeeld heeft. Periode en cumulatief staan daarbij naast elkaar in één rapport, met actueel, vergelijking en verschil voor zowel de maand als het jaar tot dan toe.',
+          text: 'En je kunt een rolling forecast opvragen: de afgesloten perioden zijn realisatie, de rest van het boekjaar wordt met het budget opgevuld, zodat je een volledig jaarbeeld hebt. Periode en cumulatief staan daarbij naast elkaar in één rapport, met actueel, vergelijking en verschil voor zowel de maand als het jaar tot dan toe.',
         },
         { type: 'h2', id: 'controle', text: 'Meer te bepalen per verbinding' },
         {
           type: 'p',
-          text: 'U stelt nu per verbinding in welke tools aanstaan. Werkt uw team alleen met rapportage en de afsluiting, dan zet u de rest uit. Voor uw assistent bestaan die dan simpelweg niet, en de keuze wordt korter en scherper.',
+          text: 'Je stelt nu per verbinding in welke tools aanstaan. Werkt je team alleen met rapportage en de afsluiting, dan zet je de rest uit. Voor je assistent bestaan die dan simpelweg niet, en de keuze wordt korter en scherper.',
         },
         {
           type: 'p',
-          text: 'Hetzelfde geldt voor de afsluitcontroles zelf. Onder “Afsluitsignalen” staat de volledige lijst controles met hun uitleg, en zet u per administratie aan welke gelden en hoe zwaar ze wegen: blokkerend, ter beoordeling of louter informatief. Wat bij de ene BV een blokkade is, is bij de andere een aandachtspunt.',
+          text: 'Hetzelfde geldt voor de afsluitcontroles zelf. Onder “Afsluitsignalen” staat de volledige lijst controles met hun uitleg, en zet je per administratie aan welke gelden en hoe zwaar ze wegen: blokkerend, ter beoordeling of louter informatief. Wat bij de ene BV een blokkade is, is bij de andere een aandachtspunt.',
         },
         {
           type: 'figure',
@@ -647,10 +637,10 @@ export const articles: Record<ArticleKey, Article> = {
           caption:
             'Afsluitsignalen: per administratie instellen welke controles meedoen en hoe zwaar ze wegen.',
         },
-        { type: 'h2', id: 'clients', text: 'Uw assistent naar keuze, via één adres' },
+        { type: 'h2', id: 'clients', text: 'Je assistent naar keuze, via één adres' },
         {
           type: 'p',
-          text: 'De koppeling heeft nu één adres, ongeacht welke assistent u gebruikt en hoeveel administraties u heeft. Welke administratie erachter zit, wordt bij het koppelen bepaald: heeft u er één, dan is er niets te kiezen; heeft u er meer, dan krijgt u de vraag welke het moet worden. En u kunt een assistent later op een andere administratie zetten.',
+          text: 'De koppeling heeft nu één adres, ongeacht welke assistent je gebruikt en hoeveel administraties je hebt. Welke administratie erachter zit, wordt bij het koppelen bepaald: heb je er één, dan is er niets te kiezen; heb je er meer, dan krijg je de vraag welke het moet worden. En je kunt een assistent later op een andere administratie zetten.',
         },
         {
           type: 'p',
@@ -666,7 +656,7 @@ export const articles: Record<ArticleKey, Article> = {
         { type: 'h2', id: 'zicht', text: 'Zicht op wat er gebeurt' },
         {
           type: 'p',
-          text: 'Het auditlog vermeldt nu welke assistent elke aanroep deed. Niet “er is een rapport opgehaald”, maar “Claude heeft om 07:41 een financieel rapport opgehaald voor Voorbeeld B.V.”. Het log is te filteren op type, module en tool, en te exporteren naar CSV, handig als uw accountant wil zien wat er is opgevraagd.',
+          text: 'Het auditlog vermeldt nu welke assistent elke aanroep deed. Niet “er is een rapport opgehaald”, maar “Claude heeft om 07:41 een financieel rapport opgehaald voor Voorbeeld B.V.”. Het log is te filteren op type, module en tool, en te exporteren naar CSV, handig als je accountant wil zien wat er is opgevraagd.',
         },
         {
           type: 'figure',
@@ -677,7 +667,7 @@ export const articles: Record<ArticleKey, Article> = {
         },
         {
           type: 'p',
-          text: 'Er is ook een sessieoverzicht: welke assistenten op deze verbinding zijn ingelogd en wanneer voor het laatst, met per assistent een knop om de sessie te beëindigen. Iemand die de organisatie verlaat of een assistent die u niet meer gebruikt, zet u er zo weer af.',
+          text: 'Er is ook een sessieoverzicht: welke assistenten op deze verbinding zijn ingelogd en wanneer voor het laatst, met per assistent een knop om de sessie te beëindigen. Iemand die de organisatie verlaat of een assistent die je niet meer gebruikt, zet je er zo weer af.',
         },
         {
           type: 'figure',
@@ -689,20 +679,20 @@ export const articles: Record<ArticleKey, Article> = {
         { type: 'h2', id: 'eromheen', text: 'Nieuw eromheen' },
         {
           type: 'p',
-          text: 'Buiten de koppeling zelf zijn er twee dingen bijgekomen. Er is een iOS-app, zodat u onderweg een vraag kunt stellen of een afsluitronde kunt volgen. En de webomgeving heeft een vernieuwde interface: elke verbinding heeft nu een eigen pagina met overzicht, sessies, auditlog, tools, afsluitsignalen en planningen, in plaats van alles op één lijst.',
+          text: 'Buiten de koppeling zelf zijn er twee dingen bijgekomen. Er is een iOS-app, zodat je onderweg een vraag kunt stellen of een afsluitronde kunt volgen. En de webomgeving heeft een vernieuwde interface: elke verbinding heeft nu een eigen pagina met overzicht, sessies, auditlog, tools, afsluitsignalen en planningen, in plaats van alles op één lijst.',
         },
         { type: 'h2', id: 'actie', text: 'Eén actie: opnieuw een account aanmaken' },
         {
           type: 'p',
-          text: 'Er is één ding dat u zelf moet doen. We zijn overgestapt op een nieuw inlogsysteem, zodat we een eigen inlogscherm kunnen bouwen in plaats van dat van een ander te lenen. Daardoor moet u eenmalig opnieuw een account aanmaken.',
+          text: 'Er is één ding dat je zelf moet doen. We zijn overgestapt op een nieuw inlogsysteem, zodat we een eigen inlogscherm kunnen bouwen in plaats van dat van een ander te lenen. Daardoor moet je eenmalig opnieuw een account aanmaken.',
         },
         {
           type: 'p',
-          text: 'Gebruik daarbij hetzelfde e-mailadres als voorheen. Dan staat alles er weer zoals u het achterliet: uw verbindingen, uw instellingen en uw gespreksgeschiedenis. U kunt meteen verder. Duurt een minuut.',
+          text: 'Gebruik daarbij hetzelfde e-mailadres als voorheen. Dan staat alles er weer zoals je het achterliet: je verbindingen, je instellingen en je gespreksgeschiedenis. Je kunt meteen verder. Duurt een minuut.',
         },
         {
           type: 'p',
-          text: 'Vragen over wat er is veranderd, of wilt u dat we de afsluitcontroles samen met u op uw eigen administratie inrichten? Neem gerust contact op; we lopen het graag met u door.',
+          text: 'Vragen over wat er is veranderd, of wil je dat we de afsluitcontroles samen met jou op je eigen administratie inrichten? Neem gerust contact op; we lopen het graag met je door.',
         },
       ],
       claireTitle: 'Claire draait op deze release',
@@ -716,7 +706,6 @@ export const articles: Record<ArticleKey, Article> = {
       cat: 'AI',
       tag: 'Release',
       date: '7 August 2026',
-      readTime: '8 min read',
       title: 'What’s new in the latest release of our MCP connector',
       lead:
         'We are rolling out a substantially renewed version of the connection between your AI assistant and Exact Online. It is the same connection, considerably smarter: you can now ask it to close the month, and a report comes back that you tick off line by line.',
@@ -860,3 +849,32 @@ export const articles: Record<ArticleKey, Article> = {
     },
   },
 };
+
+
+/**
+ * Reading time, derived from the rendered text rather than authored per
+ * article. The hand-written values had drifted badly: the flagship piece
+ * was labelled the same as one three times its length. 200 words a minute
+ * is the usual figure for prose read on screen, rounded up, floor of 1.
+ */
+const WORDS_PER_MINUTE = 200;
+
+function blockWords(block: ArticleBlock): string {
+  switch (block.type) {
+    case 'p':
+    case 'h2':
+    case 'quote':
+      return block.text;
+    case 'ol':
+      return block.items.map((item) => `${item.strong} ${item.rest}`).join(' ');
+    case 'figure':
+      return block.caption;
+  }
+}
+
+export function readTime(content: ArticleContent, lang: Lang): string {
+  const text = [content.lead, ...content.blocks.map(blockWords)].join(' ');
+  const words = text.split(/\s+/).filter(Boolean).length;
+  const minutes = Math.max(1, Math.round(words / WORDS_PER_MINUTE));
+  return lang === 'nl' ? `${minutes} min leestijd` : `${minutes} min read`;
+}

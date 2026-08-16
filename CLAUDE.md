@@ -66,8 +66,8 @@ link labels.
 
 ### Register
 
-- Dutch is formal: `u`, never `je`. English keeps the same distance without
-  going stiff.
+- Dutch is informal: `je`, never `u`. Direct, not chummy; the informal register
+  does not license slang or exclamation marks. English keeps the same tone.
 - Short declarative sentences. A sentence that needs a dash to hold together
   wants to be two sentences.
 - Be concrete where a marketer would be enthusiastic. "€ 4.812,66 op

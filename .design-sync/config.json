@@ -1,0 +1,7 @@
+{
+  "projectId": "72771c1c-359f-42ef-b870-7cc96c13a723",
+  "projectName": "DataFlowr Website",
+  "shape": "brand-only",
+  "readmeHeader": ".design-sync/conventions.md",
+  "notes": "Astro marketing site — no runnable component library. Brand-only sync: tokens, fonts, global.css idiom, logo/Claire SVG marks, guidelines. No _ds_bundle.js is produced; the design agent uses generic components styled with these tokens."
+}

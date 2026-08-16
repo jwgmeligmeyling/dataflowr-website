@@ -11,6 +11,9 @@ export const EMAIL_JANWILLEM = 'janwillem@dataflowr.nl';
 /** Mailboxes named on the legal pages, carried over from the previous site. */
 export const EMAIL_PRIVACY = 'privacy@dataflowr.nl';
 export const EMAIL_INFO = 'info@dataflowr.nl';
+/** Display form per language; the tel: href below dials the same number. */
+export const PHONE_DISPLAY = { nl: '023-2052813', en: '+31 23 2052813' } as const;
+export const PHONE_TEL = '+31232052813';
 
 /** Registered company details (KVK). */
 export const COMPANY = {
@@ -36,7 +39,7 @@ const articleRoutes = {
     en: '/en/resources/psp-reconciliation-why-the-bank-never-quite-matches',
   },
   'premium-features': {
-    nl: '/kennisbank/premium-features-waar-u-voor-betaalt-maar-niets-mee-doet',
+    nl: '/kennisbank/premium-features-waar-je-voor-betaalt-maar-niets-mee-doet',
     en: '/en/resources/premium-features-you-pay-for-but-are-not-using',
   },
   'mcp-voor-finance': {
@@ -56,6 +59,9 @@ const articleRoutes = {
  */
 export const routes = {
   home: { nl: '/', en: '/en' },
+  /** Overview pages. Every article and service page breadcrumbs back to one of these. */
+  resources: { nl: '/kennisbank', en: '/en/resources' },
+  servicesIndex: { nl: '/diensten', en: '/en/services' },
   claire: { nl: '/claire', en: '/en/claire' },
   /**
    * Handoff into the app. `/claire/start` is the stable, brand-shaped entry
@@ -67,7 +73,10 @@ export const routes = {
   claireStart: { nl: `${APP_URL}claire/start`, en: `${APP_URL}en/claire/start` },
   about: { nl: '/over-ons', en: '/en/about' },
   articles: articleRoutes,
-  /** Flagship article; also where the "Kennisbank" nav item points. */
+  /**
+   * Flagship article. The "Kennisbank" nav item points at `resources` above;
+   * this alias stays for links that deliberately open the lead piece.
+   */
   article: articleRoutes.maandafsluiting,
   /**
    * Legal pages. The English slugs are the ones the previous site served, and
@@ -100,8 +109,9 @@ export const ui = {
     solutions: 'Oplossingen',
     product: 'Product',
     services: 'Diensten',
-    claireTag: 'AI in uw Exact Online',
+    claireTag: 'AI in je Exact Online',
     resources: 'Kennisbank',
+    servicesIndex: 'Alle diensten',
     about: 'Over ons',
     signIn: 'Inloggen',
     cta: 'Plan een kennismaking',
@@ -115,8 +125,7 @@ export const ui = {
     footerTagline: 'Gespecialiseerde integratiepartner',
     footerBody: 'Procesoptimalisatie en integraties binnen het Exact Online ecosysteem, met de precisie van een specialist.',
     footerContact: 'Contact',
-    footerMeet: 'Ontmoet ons',
-    footerMeetItems: ['Exact Online Live', 'CFO User Groups', 'Partnerevents'],
+    footerExplore: 'Op deze site',
     footerCopyright: '© 2026 DataFlowr B.V.',
     footerMotto: 'Premium partner van',
     footerCompact: '© 2026 DataFlowr B.V. · Gespecialiseerde Exact Online integratiepartner',
@@ -128,7 +137,7 @@ export const ui = {
       make: 'Automatiseren zonder code',
       camunda: 'Workflow-orkestratie',
       rpa: 'Repetitief werk robotiseren',
-      training: 'Uw team meenemen',
+      training: 'Je team meenemen',
     } as Record<ServiceKey, string>,
     serviceNavTitles: {
       'exact-online-premium': 'Exact Online Premium',
@@ -145,6 +154,7 @@ export const ui = {
     services: 'Services',
     claireTag: 'AI in your Exact Online',
     resources: 'Resources',
+    servicesIndex: 'All services',
     about: 'About',
     signIn: 'Sign in',
     cta: 'Get in touch',
@@ -158,8 +168,7 @@ export const ui = {
     footerTagline: 'Specialised integration partner',
     footerBody: 'Process optimisation and integrations within the Exact Online ecosystem, with the precision of a specialist.',
     footerContact: 'Contact',
-    footerMeet: 'Meet us',
-    footerMeetItems: ['Exact Online Live', 'CFO User Groups', 'Partner events'],
+    footerExplore: 'On this site',
     footerCopyright: '© 2026 DataFlowr B.V.',
     footerMotto: 'Premium partner of',
     footerCompact: '© 2026 DataFlowr B.V. · Specialised Exact Online integration partner',
