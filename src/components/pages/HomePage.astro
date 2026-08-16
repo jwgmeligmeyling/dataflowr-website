@@ -1,6 +1,6 @@
 ---
 /**
- * Home page — implementation of "DataFlowr Landing v4.dc.html" (leading design),
+ * Home page: implementation of "DataFlowr Landing v4.dc.html" (leading design),
  * locked to palette 0a. Hero has the neural-network canvas, nebula parallax,
  * scroll reveals and cursor-aware bento tiles (see /src/scripts/home-fx.ts).
  */
@@ -17,16 +17,16 @@ const { lang } = Astro.props;
 const nl = {
   metaTitle: 'DataFlowr | Exact Online Premium integratiepartner',
   metaDescription:
-    'DataFlowr is een gespecialiseerde integratie- en automatiseringspartner binnen het Exact Online ecosysteem. Wij verbinden systemen, automatiseren workflows en geven uw finance team grip, in tijd, kosten en controle.',
+    'DataFlowr is een gespecialiseerde integratie- en automatiseringspartner binnen het Exact Online ecosysteem. Wij verbinden systemen, automatiseren workflows en geven je finance team grip, in tijd, kosten en controle.',
   heroEyebrow: 'Exact Online Premium · Integratiepartner',
   heroTitlePre: 'Financiële processen die ',
   heroTitleAccent: 'stromen',
   heroTitlePost: '.',
   heroSub:
-    'DataFlowr is een integratie- en automatiseringspartner voor Exact Online. Wij verbinden systemen, automatiseren workflows en geven uw finance team grip, in tijd, kosten en controle.',
+    'DataFlowr is een integratie- en automatiseringspartner voor Exact Online. Wij verbinden systemen, automatiseren workflows en geven je finance team grip, in tijd, kosten en controle.',
   heroCta: 'Plan een kennismaking',
   heroCta2: 'Bekijk onze diensten',
-  heroNote: '30 minuten · vrijblijvend · u spreekt direct een founder',
+  heroNote: '30 minuten · vrijblijvend · je spreekt direct een founder',
   scroll: 'Scroll',
   ticker: ['Exact Online Premium', 'Power BI', 'Smart Closing', 'Mollie', 'Pay.nl', 'Make · iPaaS', 'Camunda', 'Webshops & portalen', 'PSP-reconciliatie', 'API-integraties'],
   whyEyebrow: 'Waarom DataFlowr',
@@ -42,29 +42,29 @@ const nl = {
   darkTileSub: 'Dat maakt ons uniek als Exact Online partner.',
   darkTileItems: ['100% focus op Exact Online', 'Early adopter Premium-features', 'Direct contact met de founders', 'Geworteld in de Randstad'],
   servicesEyebrow: 'Diensten',
-  servicesTitle: 'Wat wij voor u bouwen.',
+  servicesTitle: 'Wat wij voor jou realiseren.',
   servicesSub: 'Zes diensten, gebouwd op dezelfde drie disciplines. Per situatie combineren we ze, en vaak zit Claire, ons eigen product, er bovenop.',
   serviceRows: [
     { key: 'exact-online-premium', title: 'Exact Online Premium', body: 'Implementatie, migratie en de Premium-features daadwerkelijk in gebruik, Smart Closing, de Power BI Connector en de API’s eronder.' },
     { key: 'integraties', title: 'Integraties', body: 'Webshops, PSP’s, CRM en portalen gekoppeld aan Exact Online. Data één keer invoeren, overal kloppend, inclusief PSP-reconciliatie.' },
-    { key: 'make', title: 'Make & low-code', body: 'Automatiseringen in Make en n8n die uw team zelf kan lezen en aanpassen. Met eigen Exact Online-connectors waar de standaard tekortkomt.' },
+    { key: 'make', title: 'Make & low-code', body: 'Automatiseringen in Make en n8n die je team zelf kan lezen en aanpassen. Met eigen Exact Online-connectors waar de standaard tekortkomt.' },
     { key: 'camunda', title: 'Camunda', body: 'Orkestratie met BPMN en DMN voor processen die dagen doorlopen, langs meerdere mensen gaan en herleidbaar moeten zijn.' },
     { key: 'rpa', title: 'RPA', body: 'Klikwerk overnemen waar een systeem geen API heeft. Elke run identiek, gelogd met screenshots, als brug, niet als eindoplossing.' },
-    { key: 'training', title: 'Training', body: 'Uw team leert de tools zelf beheren, geoefend op uw eigen administratie. Kennis blijft intern, geen afhankelijkheid van één partij.' },
+    { key: 'training', title: 'Training', body: 'Je team leert de tools zelf beheren, geoefend op je eigen administratie. Kennis blijft intern, geen afhankelijkheid van één partij.' },
   ] as { key: keyof typeof routes.services; title: string; body: string }[],
   servicesNote: 'Iets anders nodig? Geen standaardpakket, maar een gereedschapskist voor maatwerk dat native integreert.',
   servicesNoteCta: 'Leg het ons voor →',
   claireEyebrow: 'Ons product',
   claireTitlePre: 'Maak kennis met ',
   claireTitlePost: ', de AI-laag boven op Exact Online.',
-  claireP1: 'De cijfers bestaan al, ze zijn alleen tien klikken verderop. Claire beantwoordt vragen in gewone taal, rechtstreeks uit uw eigen administratie, en zet autonoom werk klaar volgens schema.',
-  claireP2: 'Niets wordt geboekt zonder uw akkoord. Uw data blijft in Exact Online staan, geen schaduwkopie.',
+  claireP1: 'De cijfers bestaan al, ze zijn alleen tien klikken verderop. Claire beantwoordt vragen in gewone taal, rechtstreeks uit je eigen administratie, en zet autonoom werk klaar volgens schema.',
+  claireP2: 'Niets wordt geboekt zonder je akkoord. Je data blijft in Exact Online staan, geen schaduwkopie.',
   claireCta: 'Ontdek Claire',
   claireCta2: 'Verbind Exact Online',
   claireCardStatus: 'live in Exact Online',
   claireCardQuote: '"Welke inkoopfacturen staan langer dan 60 dagen open?"',
   claireCardItems: ['Realtime rapportage uit het grootboek', 'Afsluitcontroles op de eerste werkdag', 'Debiteurenbewaking met concept-herinneringen', 'Werkt in Claude, ChatGPT en Copilot'],
-  ctaTitle: 'Klaar om uw financiële processen te moderniseren?',
+  ctaTitle: 'Klaar om je financiële processen te moderniseren?',
   ctaSub: 'Plan een vrijblijvend gesprek van 30 minuten.',
   ctaButton: 'Neem contact op',
   ctaNote: 'Kies direct een moment in onze agenda',
@@ -98,7 +98,7 @@ const en: typeof nl = {
   darkTileSub: 'That is what makes us unique as an Exact Online partner.',
   darkTileItems: ['100% focus on Exact Online', 'Early adopter of Premium features', 'Direct contact with the founders', 'Rooted in the Randstad'],
   servicesEyebrow: 'Services',
-  servicesTitle: 'What we build for you.',
+  servicesTitle: 'What we deliver for you.',
   servicesSub: 'Six services, built on the same three disciplines. We combine them per case, and Claire, our own product, often sits on top.',
   serviceRows: [
     { key: 'exact-online-premium', title: 'Exact Online Premium', body: 'Implementation, migration and the Premium features actually in use, Smart Closing, the Power BI Connector and the APIs underneath.' },
@@ -326,7 +326,7 @@ const schema = [
   .hero h1 {
     margin: 0 0 28px;
     max-width: 940px;
-    font-size: clamp(52px, 6vw, 82px);
+    font-size: clamp(3.25rem, 6vw, 5.125rem);
     line-height: 1.02;
     font-weight: 700;
     letter-spacing: -0.035em;
@@ -338,18 +338,18 @@ const schema = [
   .hero-sub {
     margin: 0 0 42px;
     max-width: 560px;
-    font-size: 17.5px;
+    font-size: 1.1875rem;
     line-height: 1.7;
     color: color-mix(in srgb, var(--bg) 78%, transparent);
     text-wrap: pretty;
   }
   .hero-ctas { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; }
-  .hero-btn { font-size: 15px; padding: 16px 32px; }
+  .hero-btn { font-size: 1.03125rem; padding: 16px 32px; }
   .hero-btn2 {
     border: 1px solid color-mix(in srgb, var(--bg) 30%, transparent);
     color: var(--bg);
     font-weight: 500;
-    font-size: 15px;
+    font-size: 1.03125rem;
     padding: 15px 30px;
     border-radius: 99px;
     transition: background 0.3s, border-color 0.3s;
@@ -359,7 +359,7 @@ const schema = [
     border-color: color-mix(in srgb, var(--bg) 55%, transparent);
     color: var(--bg);
   }
-  .hero-note { margin: 26px 0 0; font-size: 12.5px; color: color-mix(in srgb, var(--bg) 52%, transparent); }
+  .hero-note { margin: 26px 0 0; font-size: 0.84375rem; color: color-mix(in srgb, var(--bg) 52%, transparent); }
   .scroll-cue {
     position: absolute;
     left: 50%;
@@ -372,7 +372,7 @@ const schema = [
     pointer-events: none;
   }
   .cue-label {
-    font-size: 10px;
+    font-size: 0.6875rem;
     font-weight: 500;
     letter-spacing: 0.26em;
     text-transform: uppercase;
@@ -394,7 +394,7 @@ const schema = [
   .ticker-track { display: flex; width: max-content; animation: df-marq 32s linear infinite; padding: 19px 0; }
   .ticker-group { display: flex; gap: 52px; align-items: center; padding-right: 52px; }
   .ticker-item {
-    font-size: 12px;
+    font-size: 0.8125rem;
     font-weight: 500;
     letter-spacing: 0.2em;
     text-transform: uppercase;
@@ -420,13 +420,13 @@ const schema = [
   .why h2, .services h2 {
     margin: 0;
     max-width: 680px;
-    font-size: clamp(38px, 4vw, 54px);
+    font-size: clamp(2.375rem, 4vw, 3.375rem);
     line-height: 1.06;
     font-weight: 700;
     letter-spacing: -0.03em;
     text-wrap: balance;
   }
-  .why-intro { flex: 0 1 420px; margin: 0; font-size: 15.5px; line-height: 1.7; color: var(--muted); text-wrap: pretty; }
+  .why-intro { flex: 0 1 420px; margin: 0; font-size: 1.0625rem; line-height: 1.7; color: var(--muted); text-wrap: pretty; }
   .bento { display: grid; grid-template-columns: repeat(12, 1fr); gap: 16px; }
   .bento > div { min-width: 0; overflow-wrap: break-word; }
   .span7 { grid-column: span 7; }
@@ -450,15 +450,15 @@ const schema = [
   }
   .tile-kicker {
     margin: 0 0 14px;
-    font-size: 11.5px;
+    font-size: 0.78125rem;
     font-weight: 700;
     letter-spacing: 0.2em;
     text-transform: uppercase;
     color: color-mix(in srgb, var(--hl) 85%, var(--brand));
   }
-  .tile h3 { margin: 0 0 22px; max-width: 420px; font-size: 24px; line-height: 1.25; font-weight: 700; letter-spacing: -0.015em; }
+  .tile h3 { margin: 0 0 22px; max-width: 420px; font-size: 1.5rem; line-height: 1.25; font-weight: 700; letter-spacing: -0.015em; }
   .tile ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; max-width: 480px; }
-  .tile li { display: flex; gap: 13px; align-items: flex-start; font-size: 14.5px; line-height: 1.55; color: var(--muted); }
+  .tile li { display: flex; gap: 13px; align-items: flex-start; font-size: 1rem; line-height: 1.55; color: var(--muted); }
   .dot { flex: none; width: 6px; height: 6px; border-radius: 50%; margin-top: 7px; background: var(--pos); }
   .tile--dark {
     position: relative;
@@ -472,8 +472,8 @@ const schema = [
   }
   .tile-nebula { position: absolute; right: -120px; top: -120px; filter: blur(70px) saturate(1.1); opacity: 0.5; }
   .tile-dark-inner { position: relative; }
-  .tile--dark h3 { margin: 0 0 10px; font-size: 28px; line-height: 1.2; letter-spacing: -0.02em; max-width: none; }
-  .tile-dark-sub { margin: 0 0 26px; font-size: 15px; line-height: 1.6; color: color-mix(in srgb, var(--bg) 72%, transparent); }
+  .tile--dark h3 { margin: 0 0 10px; font-size: 1.75rem; line-height: 1.2; letter-spacing: -0.02em; max-width: none; }
+  .tile-dark-sub { margin: 0 0 26px; font-size: 1.03125rem; line-height: 1.6; color: color-mix(in srgb, var(--bg) 72%, transparent); }
   .tile-dark-grid {
     border-top: 1px solid color-mix(in srgb, var(--bg) 16%, transparent);
     padding-top: 22px;
@@ -485,7 +485,7 @@ const schema = [
     display: flex;
     gap: 11px;
     align-items: center;
-    font-size: 13.5px;
+    font-size: 0.90625rem;
     font-weight: 500;
     color: color-mix(in srgb, var(--bg) 80%, transparent);
   }
@@ -501,7 +501,7 @@ const schema = [
   }
   .services-inner { padding-top: 120px; padding-bottom: 120px; }
   .services h2 { margin-bottom: 22px; }
-  .services-sub { margin: 0 0 52px; max-width: 620px; font-size: 16px; line-height: 1.7; color: var(--muted); text-wrap: pretty; }
+  .services-sub { margin: 0 0 52px; max-width: 620px; font-size: 1.09375rem; line-height: 1.7; color: var(--muted); text-wrap: pretty; }
   .service-list { border-top: 1px solid color-mix(in srgb, var(--brand) 12%, transparent); }
   .service-row {
     display: grid;
@@ -514,16 +514,16 @@ const schema = [
     transition: background 0.3s, padding-left 0.3s;
   }
   .service-row:hover { background: color-mix(in srgb, var(--hl) 4%, transparent); padding-left: 18px; color: var(--brand); }
-  .service-num { font-size: 44px; font-weight: 300; line-height: 1; color: var(--hl); }
-  .service-row h3 { margin: 0 0 6px; font-size: 21px; font-weight: 700; letter-spacing: -0.01em; }
-  .service-row p { margin: 0; max-width: 720px; font-size: 14.5px; line-height: 1.6; color: var(--muted); }
-  .service-arrow { font-size: 22px; color: var(--hl); }
+  .service-num { font-size: 2.75rem; font-weight: 300; line-height: 1; color: var(--hl); }
+  .service-row h3 { margin: 0 0 6px; font-size: 1.3125rem; font-weight: 700; letter-spacing: -0.01em; }
+  .service-row p { margin: 0; max-width: 720px; font-size: 1rem; line-height: 1.6; color: var(--muted); }
+  .service-arrow { font-size: 1.375rem; color: var(--hl); }
   @media (max-width: 720px) {
     .service-row { grid-template-columns: 1fr; gap: 10px; }
-    .service-num { font-size: 30px; }
+    .service-num { font-size: 1.875rem; }
     .service-arrow { display: none; }
   }
-  .services-note { margin: 32px 0 0; font-size: 14.5px; color: var(--muted); }
+  .services-note { margin: 32px 0 0; font-size: 1rem; color: var(--muted); }
   .services-note-cta { font-weight: 700; }
 
   /* ---------- Claire product ---------- */
@@ -537,8 +537,8 @@ const schema = [
   .claire-nebula { position: absolute; right: -140px; top: -190px; filter: blur(120px) saturate(1.15); opacity: 0.4; --logoBase: transparent; }
   .claire-inner {
     position: relative;
-    padding-top: 72px;
-    padding-bottom: 72px;
+    padding-top: 110px;
+    padding-bottom: 110px;
     display: grid;
     grid-template-columns: 1.1fr 460px;
     gap: 60px;
@@ -548,7 +548,7 @@ const schema = [
   .claire h2 {
     margin: 0 0 20px;
     max-width: 620px;
-    font-size: clamp(36px, 3.9vw, 52px);
+    font-size: clamp(2.25rem, 3.9vw, 3.25rem);
     line-height: 1.06;
     font-weight: 700;
     letter-spacing: -0.032em;
@@ -556,14 +556,14 @@ const schema = [
   }
   .claire .eyebrow { margin-bottom: 20px; gap: 14px; }
   .claire-accent { color: var(--pos); }
-  .claire-p1 { margin: 0 0 16px; max-width: 540px; font-size: 17px; line-height: 1.7; color: color-mix(in srgb, var(--bg) 80%, transparent); text-wrap: pretty; }
-  .claire-p2 { margin: 0 0 34px; max-width: 540px; font-size: 15px; line-height: 1.7; color: color-mix(in srgb, var(--bg) 62%, transparent); }
+  .claire-p1 { margin: 0 0 16px; max-width: 540px; font-size: 1.15625rem; line-height: 1.7; color: color-mix(in srgb, var(--bg) 80%, transparent); text-wrap: pretty; }
+  .claire-p2 { margin: 0 0 34px; max-width: 540px; font-size: 1.03125rem; line-height: 1.7; color: color-mix(in srgb, var(--bg) 62%, transparent); }
   .claire-ctas { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
   .claire-btn {
     background: var(--pos);
     color: var(--brand);
     font-weight: 700;
-    font-size: 15px;
+    font-size: 1.03125rem;
     padding: 16px 30px;
     border-radius: 99px;
     transition: transform 0.3s, box-shadow 0.3s;
@@ -573,7 +573,7 @@ const schema = [
     box-shadow: 0 12px 36px color-mix(in srgb, var(--pos) 45%, transparent);
     color: var(--brand);
   }
-  .claire-btn2 { font-size: 15px; padding: 15px 28px; }
+  .claire-btn2 { font-size: 1.03125rem; padding: 15px 28px; }
   .claire-card {
     background: color-mix(in srgb, #ffffff 7%, transparent);
     border: 1px solid color-mix(in srgb, var(--bg) 16%, transparent);
@@ -599,11 +599,11 @@ const schema = [
     place-items: center;
   }
   .claire-card-id { display: grid; gap: 1px; }
-  .claire-card-id strong { font-size: 14px; }
-  .claire-card-id span:last-child { font-size: 11.5px; color: color-mix(in srgb, var(--bg) 60%, transparent); }
-  .claire-card-quote { margin: 0; font-size: 13.5px; line-height: 1.6; font-style: italic; color: color-mix(in srgb, var(--bg) 74%, transparent); }
+  .claire-card-id strong { font-size: 0.9375rem; }
+  .claire-card-id span:last-child { font-size: 0.78125rem; color: color-mix(in srgb, var(--bg) 60%, transparent); }
+  .claire-card-quote { margin: 0; font-size: 0.90625rem; line-height: 1.6; font-style: italic; color: color-mix(in srgb, var(--bg) 74%, transparent); }
   .claire-card-items { display: grid; gap: 10px; }
-  .claire-card-items > span { display: flex; align-items: center; gap: 10px; font-size: 13px; }
+  .claire-card-items > span { display: flex; align-items: center; gap: 10px; font-size: 0.875rem; }
   .claire-card-items .dot { margin-top: 0; }
 
   /* ---------- CTA ---------- */
@@ -618,13 +618,13 @@ const schema = [
   .cta-inner { position: relative; max-width: 880px; margin: 0 auto; padding: 130px 40px; text-align: center; }
   .cta h2 {
     margin: 0 0 18px;
-    font-size: clamp(36px, 4.4vw, 58px);
+    font-size: clamp(2.25rem, 4.4vw, 3.625rem);
     line-height: 1.06;
     font-weight: 700;
     letter-spacing: -0.03em;
     text-wrap: balance;
   }
-  .cta-sub { margin: 0 0 40px; font-size: 17px; line-height: 1.6; color: color-mix(in srgb, var(--bg) 74%, transparent); }
-  .cta-btn { font-size: 16px; padding: 17px 46px; }
-  .cta-note { margin: 24px 0 0; font-size: 12.5px; color: color-mix(in srgb, var(--bg) 50%, transparent); }
+  .cta-sub { margin: 0 0 40px; font-size: 1.15625rem; line-height: 1.6; color: color-mix(in srgb, var(--bg) 74%, transparent); }
+  .cta-btn { font-size: 1.09375rem; padding: 17px 46px; }
+  .cta-note { margin: 24px 0 0; font-size: 0.84375rem; color: color-mix(in srgb, var(--bg) 50%, transparent); }
 </style>

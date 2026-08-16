@@ -1,0 +1,241 @@
+---
+/**
+ * Legal page template: privacy statement and terms of service.
+ * Copy lives in src/data/legal.ts; this file only lays it out.
+ */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import {
+  abs,
+  routes,
+  ui,
+  COMPANY,
+  EMAIL_PRIVACY,
+  EMAIL_INFO,
+  PHONE_DISPLAY,
+  PHONE_TEL,
+  type Lang,
+  type LegalKey,
+} from '../../lib/site';
+import { legal, legalUi } from '../../data/legal';
+
+interface Props {
+  lang: Lang;
+  doc: LegalKey;
+}
+const { lang, doc } = Astro.props;
+const other: Lang = lang === 'nl' ? 'en' : 'nl';
+
+const t = legal[lang][doc];
+const s = legalUi[lang];
+const path = routes.legal[doc][lang];
+const altPath = routes.legal[doc][other];
+const mailbox = { privacy: EMAIL_PRIVACY, info: EMAIL_INFO } as const;
+
+const schema = [
+  {
+    '@type': 'WebPage',
+    '@id': abs(`${path}#page`),
+    url: abs(path),
+    name: t.metaTitle,
+    description: t.metaDescription,
+    inLanguage: lang === 'nl' ? 'nl-NL' : 'en',
+    isPartOf: { '@id': abs('/#website') },
+    publisher: { '@id': abs('/#organization') },
+  },
+  {
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: ui[lang].home, item: abs(routes.home[lang]) },
+      { '@type': 'ListItem', position: 2, name: s.crumbLegal },
+      { '@type': 'ListItem', position: 3, name: t.title, item: abs(path) },
+    ],
+  },
+];
+---
+<BaseLayout
+  lang={lang}
+  title={t.metaTitle}
+  description={t.metaDescription}
+  path={path}
+  altPath={altPath}
+  navVariant="solid"
+  footer="compact-bg"
+  schema={schema}
+>
+  <section class="wrap legal">
+    <nav aria-label={lang === 'nl' ? 'Kruimelpad' : 'Breadcrumb'} class="crumbs">
+      <a href={routes.home[lang]}>{ui[lang].home}</a><span>/</span>
+      <span class="crumb-current">{t.title}</span>
+    </nav>
+
+    <p class="eyebrow eyebrow--thin legal-eyebrow">{t.eyebrow}</p>
+    <h1>{t.title}</h1>
+    <p class="intro">{t.lead}</p>
+    <p class="updated">{t.lastUpdated}</p>
+
+    <nav class="toc" aria-label={s.tocTitle}>
+      <p class="toc-title">{s.tocTitle}</p>
+      <ol>
+        {t.sections.map((section) => (
+          <li><a href={`#${section.id}`}>{section.title}</a></li>
+        ))}
+      </ol>
+    </nav>
+
+    <div class="doc">
+      {t.sections.map((section) => (
+        <section id={section.id}>
+          <h2>{section.title}</h2>
+          {section.blocks.map((block) => {
+            if (block.type === 'p') return <p>{block.text}</p>;
+            if (block.type === 'mail')
+              return (
+                <p>
+                  {block.text} <a href={`mailto:${mailbox[block.address]}`}>{mailbox[block.address]}</a>.
+                </p>
+              );
+            if (block.type === 'doclink')
+              return (
+                <p>
+                  {block.text} <a href={routes.legal[block.to][lang]}>{block.label}</a>.
+                </p>
+              );
+            return (
+              <ul>
+                {block.items.map((item) => <li><strong>{item.strong}</strong> {item.rest}</li>)}
+              </ul>
+            );
+          })}
+        </section>
+      ))}
+    </div>
+
+    <div class="company-details">
+      <h2>{s.detailsTitle}</h2>
+      <dl>
+        <div>
+          <dt>{s.detailsAddress}</dt>
+          <dd>{COMPANY.legalName}<br />{COMPANY.street}<br />{COMPANY.postalCode} {COMPANY.city}</dd>
+        </div>
+        <div>
+          <dt>{s.detailsPhone}</dt>
+          <dd><a href={`tel:${PHONE_TEL}`}>{PHONE_DISPLAY[lang]}</a></dd>
+        </div>
+        <div>
+          <dt>{s.detailsKvk}</dt>
+          <dd>{COMPANY.kvk}</dd>
+        </div>
+        <div>
+          <dt>{s.detailsBranch}</dt>
+          <dd>{COMPANY.vestigingsnummer}</dd>
+        </div>
+      </dl>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .legal { padding-top: 96px; padding-bottom: 110px; max-width: 860px; }
+  .crumbs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+    margin-bottom: 26px;
+    font-size: 0.84375rem;
+    color: var(--muted);
+  }
+  .crumbs span { color: color-mix(in srgb, var(--brand) 35%, transparent); }
+  .crumb-current { color: var(--muted); }
+  .legal-eyebrow { color: color-mix(in srgb, var(--hl) 85%, var(--brand)); margin-bottom: 18px; gap: 14px; }
+  h1 {
+    margin: 0 0 22px;
+    font-size: clamp(2.25rem, 4vw, 3.25rem);
+    line-height: 1.06;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    text-wrap: balance;
+  }
+  .intro { margin: 0 0 14px; max-width: 720px; font-size: 1.125rem; line-height: 1.7; color: var(--muted); text-wrap: pretty; }
+  .updated {
+    margin: 0;
+    font-size: 0.78125rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: color-mix(in srgb, var(--hl) 85%, var(--brand));
+  }
+  .toc {
+    margin-top: 48px;
+    background: #ffffff;
+    border: 1px solid color-mix(in srgb, var(--brand) 9%, transparent);
+    border-radius: 20px;
+    padding: 26px 30px;
+  }
+  .toc-title {
+    margin: 0 0 14px;
+    font-size: 0.71875rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .toc ol {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    columns: 2;
+    column-gap: 40px;
+  }
+  .toc li { margin: 0 0 9px; font-size: 0.9375rem; break-inside: avoid; }
+  .doc { margin-top: 56px; }
+  .doc section { scroll-margin-top: 96px; }
+  .doc section + section {
+    margin-top: 44px;
+    padding-top: 40px;
+    border-top: 1px solid color-mix(in srgb, var(--brand) 9%, transparent);
+  }
+  .doc h2 { margin: 0 0 16px; font-size: 1.375rem; font-weight: 700; letter-spacing: -0.02em; }
+  .doc p { margin: 0 0 14px; font-size: 1.0625rem; line-height: 1.75; color: var(--muted); text-wrap: pretty; }
+  .doc p:last-child { margin-bottom: 0; }
+  .doc ul { margin: 0 0 14px; padding: 0; list-style: none; display: grid; gap: 12px; }
+  .doc ul:last-child { margin-bottom: 0; }
+  .doc li {
+    padding-left: 18px;
+    position: relative;
+    font-size: 1.0625rem;
+    line-height: 1.75;
+    color: var(--muted);
+    text-wrap: pretty;
+  }
+  .doc li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.7em;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: color-mix(in srgb, var(--hl) 70%, var(--brand));
+  }
+  .doc li strong { color: var(--brand); font-weight: 600; }
+  .company-details {
+    margin-top: 64px;
+    padding-top: 44px;
+    border-top: 1px solid color-mix(in srgb, var(--brand) 9%, transparent);
+  }
+  .company-details h2 { margin: 0 0 20px; font-size: 1.375rem; font-weight: 700; letter-spacing: -0.02em; }
+  .company-details dl { margin: 0; display: flex; flex-wrap: wrap; gap: 28px 64px; }
+  .company-details dt {
+    margin: 0 0 6px;
+    font-size: 0.78125rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: color-mix(in srgb, var(--hl) 85%, var(--brand));
+  }
+  .company-details dd { margin: 0; font-size: 1rem; line-height: 1.65; color: var(--muted); }
+  @media (max-width: 640px) {
+    .toc ol { columns: 1; }
+  }
+</style>

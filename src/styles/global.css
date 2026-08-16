@@ -1,10 +1,20 @@
 /* ============================================================
-   DataFlowr — global styles
-   Palette 0a "RGB origineel (12 juni)" — locked per CLAUDE.md.
+   DataFlowr global styles
+   Palette 0a "RGB origineel (12 juni)", locked per CLAUDE.md.
    Logo faces are tonal gradients of #1B5FB3 (v4, 17 juli designs).
    ============================================================ */
 
 :root {
+  /* Type scale. Sizes across the site are written in rem, so they all
+     measure against the root font size set on html below. 1rem is 16px,
+     the size the design was drawn at, so 14.5px in the design is
+     0.90625rem here.
+
+     One exception: the "=exact" tile in the Claire onboarding mock sits in
+     a square of fixed pixels and is brand chrome rather than text to read,
+     so it keeps its px sizes. */
+  --text-scale: 1;
+
   --brand: #0D1B27;
   --hl: #1B5FB3;
   --pos: #4DCBC9;
@@ -41,7 +51,23 @@
 @font-face { font-family: 'Poppins'; src: url('/fonts/Poppins-Medium.ttf') format('truetype'); font-weight: 500; font-display: swap; }
 @font-face { font-family: 'Poppins'; src: url('/fonts/Poppins-Bold.ttf') format('truetype'); font-weight: 700; font-display: swap; }
 
-html { scroll-behavior: smooth; }
+html {
+  /* The base every rem on the site measures against, and the one knob for
+     resizing the lot: 100% is the reader's own browser setting, 16px unless
+     they raised it, and --text-scale multiplies it. At 1.05 all text grows
+     5% with the proportions untouched.
+
+     Room to move: up to 1.1 every page holds at 1440, 981 and 390 pixels
+     wide, with the desktop menu keeping 79px to spare at 981px, just above
+     the width where it folds into the hamburger. At 1.2 that menu runs out
+     of room and pages start to scroll sideways. A reader who has raised
+     their own browser font size lands in the same arithmetic.
+
+     Fluid headings are clamp(rem, vw, rem): the scale moves their floor and
+     ceiling, the middle of the range follows the viewport. */
+  font-size: calc(100% * var(--text-scale));
+  scroll-behavior: smooth;
+}
 
 * { box-sizing: border-box; }
 
@@ -56,7 +82,8 @@ body {
 
 a { color: var(--hl); text-decoration: none; }
 a:hover { color: var(--teal); }
-button { font-family: inherit; }
+/* Buttons default to the user agent's own 13.33px, outside the scale. */
+button { font-family: inherit; font-size: inherit; }
 summary { list-style: none; cursor: pointer; }
 summary::-webkit-details-marker { display: none; }
 ::selection { background: color-mix(in srgb, var(--signal) 26%, transparent); }
@@ -71,7 +98,7 @@ summary::-webkit-details-marker { display: none; }
   padding: 10px 18px;
   border-radius: 0 0 10px 0;
   font-weight: 700;
-  font-size: 14px;
+  font-size: 0.9375rem;
 }
 .skip-link:focus { left: 0; color: #fff; }
 
@@ -85,7 +112,7 @@ summary::-webkit-details-marker { display: none; }
   display: flex;
   align-items: center;
   gap: 12px;
-  font-size: 12px;
+  font-size: 0.8125rem;
   font-weight: 500;
   letter-spacing: 0.22em;
   text-transform: uppercase;
@@ -149,7 +176,7 @@ summary::-webkit-details-marker { display: none; }
     var(--bg);
   border: 1px dashed color-mix(in srgb, var(--brand) 18%, transparent);
   color: var(--muted);
-  font-size: 12px;
+  font-size: 0.8125rem;
   font-weight: 500;
   letter-spacing: 0.06em;
   text-align: center;
@@ -167,6 +194,23 @@ summary::-webkit-details-marker { display: none; }
   95% { transform: scaleY(0.25); transform-origin: bottom; }
 }
 
+/* Scroll reveals (see /src/scripts/home-fx.ts).
+   [data-reveal] elements are hidden from the very first paint, so the entrance
+   only ever fades content in. Without this they paint opaque and the animation
+   blanks them again once they cross the observer threshold: the scroll flicker.
+   The .df-js gate (set by an inline script in BaseLayout) keeps content visible
+   whenever JS is unavailable and can therefore never reveal it. */
+.df-js [data-reveal] { opacity: 0; }
+.df-js [data-reveal].df-revealed {
+  opacity: 1;
+  animation: df-reveal 800ms cubic-bezier(0.16, 1, 0.3, 1) var(--df-reveal-delay, 0ms) both;
+}
+@keyframes df-reveal {
+  from { opacity: 0; transform: translateY(26px); }
+  to { opacity: 1; transform: none; }
+}
+@media print { .df-js [data-reveal] { opacity: 1; } }
+
 /* Claire page keyframes */
 @keyframes ob-in { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
 @keyframes ob-pop { 0% { transform: scale(0.6); opacity: 0; } 60% { transform: scale(1.08); } 100% { transform: scale(1); opacity: 1; } }
@@ -180,4 +224,7 @@ summary::-webkit-details-marker { display: none; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+  /* No entrance at all: show reveal targets outright instead of staging them. */
+  .df-js [data-reveal] { opacity: 1; }
+  .df-js [data-reveal].df-revealed { animation: none; }
 }

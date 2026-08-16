@@ -1,6 +1,6 @@
 ---
 /**
- * Claire product page — implementation of "Claire.dc.html".
+ * Claire product page: implementation of "Claire.dc.html".
  * Hero chat demo, AI-assistant band, Q&A practice cards, capabilities,
  * month-end close feature, security, interactive onboarding flow,
  * three ways to use Claire, CTA.
@@ -38,27 +38,27 @@ interface Plan {
 }
 
 const nl = {
-  metaTitle: 'Claire, AI in uw Exact Online administratie',
+  metaTitle: 'Claire, AI in je Exact Online administratie',
   metaDescription:
-    'Claire is de AI-collega van DataFlowr. Veilig gekoppeld aan Exact Online beantwoordt ze cijfervragen, bereidt de maandafsluiting voor en bewaakt uw debiteuren. Werkt in Claude, ChatGPT en Copilot. Binnen een dag live.',
+    'Claire is de AI-collega van DataFlowr. Veilig gekoppeld aan Exact Online beantwoordt ze cijfervragen, bereidt de maandafsluiting voor en bewaakt je debiteuren. Werkt in Claude, ChatGPT en Copilot. Binnen een dag live.',
   heroEyebrow: 'De AI-collega van DataFlowr',
   heroTitlePre: 'Maak kennis met ',
   heroTitlePost: '.',
-  heroLead1: 'Claire praat niet alleen over uw administratie. ',
+  heroLead1: 'Claire praat niet alleen over je administratie. ',
   heroLead2: 'Ze werkt erin.',
   heroSub:
-    'Veilig gekoppeld aan Exact Online haalt Claire cijfers op, zet werk klaar en bewaakt uw processen, van openstaande facturen tot maandafsluiting.',
+    'Veilig gekoppeld aan Exact Online haalt Claire cijfers op, zet werk klaar en bewaakt je processen, van openstaande facturen tot maandafsluiting.',
   heroCta: 'Verbind Exact Online',
   heroCta2: 'Plan een kennismaking',
   heroNote1: 'Binnen een dag live',
   heroNote2: 'gebouwd op MCP, de open standaard',
   chatRole: 'Financieel assistent · online',
-  chatLive: 'Live in uw administratie',
+  chatLive: 'Live in je administratie',
   chatQ: 'Claire, hoe staan we ervoor met de openstaande facturen?',
-  chatA1a: 'Goedemorgen! Ik keek net in uw administratie: er staan ',
+  chatA1a: 'Goedemorgen! Ik keek net in je administratie: er staan ',
   chatA1b: '14 facturen open, samen €48.200',
   chatA1c: '. Drie daarvan zijn ouder dan 60 dagen.',
-  chatWorkTitle: 'Claire werkte in uw administratie',
+  chatWorkTitle: 'Claire werkte in je administratie',
   chatWork: ['Openstaande debiteuren opgehaald', 'Ouderdomsanalyse opgesteld'],
   chatWorkPending: 'Concept-herinneringen klaargezet',
   chatWorkPendingState: 'wacht op akkoord',
@@ -66,23 +66,23 @@ const nl = {
   chatBtnYes: 'Ja, verstuur ze',
   chatBtnNo: 'Eerst bekijken',
   chatReview:
-    'Prima. De drie concepten staan in uw werkruimte klaar om te beoordelen; er gaat niets de deur uit zonder uw akkoord.',
+    'Prima. De drie concepten staan in je werkruimte klaar om te beoordelen; er gaat niets de deur uit zonder je akkoord.',
   chatSent:
     'Gedaan! De drie herinneringen zijn verstuurd en ik heb ze bij de facturen genoteerd. Ik houd de reacties in de gaten.',
   chatWorkSent: 'Herinneringen verstuurd',
-  bandLabel: 'Claire werkt in uw eigen AI-assistent',
+  bandLabel: 'Claire werkt in je eigen AI-assistent',
   bandNote: 'of elke MCP-client · wisselen kan altijd',
   challengeEyebrow: 'De uitdaging',
   challengeTitle: 'De cijfers bestaan al. Ze zijn alleen moeilijk bereikbaar.',
   challengeBody:
-    'In Exact Online is elk antwoord tien klikken verderop, als u het snelste pad kent. En bij de volgende vraag begint hetzelfde proces van exports, draaitabellen en overtypwerk opnieuw. Meer mensen aannemen lost dit zelden op: het werk is niet te veel, het werk is te handmatig.',
+    'In Exact Online is elk antwoord tien klikken verderop, als je het snelste pad kent. En bij de volgende vraag begint hetzelfde proces van exports, draaitabellen en overtypwerk opnieuw. Meer mensen aannemen lost dit zelden op: het werk is niet te veel, het werk is te handmatig.',
   doCards: [
-    { quote: '"Claire, wie moet er nog betalen?"', title: 'Debiteurenbewaking', body: 'Ze bewaakt openstaande posten, stelt ouderdomsanalyses op en zet herinneringen klaar, of stuurt ze op schema.' },
-    { quote: '"Claire, bereid de maandafsluiting voor."', title: 'Maandafsluiting', body: 'Ze loopt de checklist na, signaleert ontbrekende boekingen en levert een afsluiting op die klaar is voor controle.' },
-    { quote: '"Claire, hoe ziet Q4 eruit?"', title: 'Rapportage & prognose', body: 'Ze beantwoordt cijfervragen in gewone taal en onderbouwt elk antwoord met data rechtstreeks uit uw boekhouding.' },
+    { quote: '"Claire, wie moet er nog betalen?"', title: 'Debiteurenbewaking', body: 'Claire bewaakt openstaande posten, stelt ouderdomsanalyses op en zet herinneringen klaar, of stuurt ze op schema.' },
+    { quote: '"Claire, bereid de maandafsluiting voor."', title: 'Maandafsluiting', body: 'Claire loopt de checklist na, signaleert ontbrekende boekingen en levert een afsluiting op die klaar is voor controle.' },
+    { quote: '"Claire, hoe ziet Q4 eruit?"', title: 'Rapportage & prognose', body: 'Claire beantwoordt cijfervragen in gewone taal en onderbouwt elk antwoord met data rechtstreeks uit je boekhouding.' },
   ],
   praktijkEyebrow: 'Bekijk het in actie',
-  praktijkTitle: 'Stel de vraag zoals u die aan een collega zou stellen.',
+  praktijkTitle: 'Stel de vraag zoals je die aan een collega zou stellen.',
   praktijkSub:
     'Claire haalt de actuele cijfers rechtstreeks uit Exact Online en antwoordt als tekst, tabel of overzichtskaart, direct in het gesprek.',
   praktijkDisclaimer: 'Voorbeelden uit onze demo-omgeving; bedragen en namen zijn fictief.',
@@ -98,7 +98,7 @@ const nl = {
         [{ text: 'Subadministraties sluiten aan' }, { text: '✓ Gecheckt', chip: 'ok' }],
         [{ text: 'Btw-codes consistent' }, { text: '✓ Gecheckt', chip: 'ok' }],
       ],
-      note: '1 punt vraagt uw beoordeling. Correcties pas na uw akkoord.',
+      note: '1 punt vraagt je beoordeling. Correcties pas na je akkoord.',
     },
     {
       cat: 'Rapportage',
@@ -160,7 +160,7 @@ const nl = {
   pricing: {
     eyebrow: 'Pricing',
     title: 'Vandaag starten, elk moment groeien.',
-    sub: 'Alle plannen werken op uw eigen Exact Online. Maandelijks opzegbaar.',
+    sub: 'Alle plannen werken op je eigen Exact Online. Maandelijks opzegbaar.',
     badge: 'Meest gekozen',
     plans: [
       { name: 'Individueel', price: '€99', period: 'per maand, excl. btw', cta: 'Kies Individueel',
@@ -181,78 +181,78 @@ const nl = {
     { title: 'Rapportage & inzicht', items: ['Realtime balans, W&V en kasstroom, tot op de grootboekrekening', 'KPI-stoplicht: DSO, werkkapitaal, runway met signalering', 'Herleidbaar: elk antwoord toont de brongegevens'] },
     { title: 'Financiële processen', items: ['Verkoop & facturatie: van offerte tot factuur', 'Inkoop & crediteuren: facturen en openstaande betalingen', 'Boekingen: ze controleert memorialen en stelt correcties voor'] },
     { title: 'Klanten & projecten', items: ['CRM: klanten, leveranciers, verkoopkansen en offertes', 'Projecten & uren: budgetten, planning, tijdregistratie', 'In beeld: interactieve tabellen en kaarten in het gesprek'] },
-    { title: 'Monitoring & signalering', items: ['Autonoom volgens schema: afsluitcontroles, wekelijkse overzichten', 'Debiteurenbewaking: signaleert achterstand, zet herinnering klaar', 'Rust: u hoort het pas als er iets van u nodig is'] },
+    { title: 'Monitoring & signalering', items: ['Autonoom volgens schema: afsluitcontroles, wekelijkse overzichten', 'Debiteurenbewaking: signaleert achterstand, zet herinnering klaar', 'Rust: je hoort het pas als er iets van je nodig is'] },
   ],
   closeEyebrow: 'Uitgelicht',
   closeTitle: 'De AI-gestuurde maandafsluiting.',
   closeSub:
     'De maandafsluiting is waar controle en tijdsdruk botsen. Claire is dat extra paar ogen dat elke maand naar dezelfde administratie kijkt, een vaste reeks deterministische controles, en onderzoek naar wat opvalt.',
   closeSteps: [
-    { kicker: '01 · VAST', title: 'Controleren', body: 'Een vaste reeks afsluitcontroles draait op uw administratie.' },
+    { kicker: '01 · VAST', title: 'Controleren', body: 'Een vaste reeks afsluitcontroles draait op je administratie.' },
     { kicker: '02 · ANALYSE', title: 'Onderzoeken', body: 'Afwijkingen worden uitgezocht en boekingen gescand op posten die om een oordeel vragen.' },
-    { kicker: '03 · RAPPORT', title: 'Rapporteren', body: 'U ontvangt een close-readiness rapport met bevindingen en aanbevelingen.' },
-    { kicker: '04 · U BESLIST', title: 'Beoordelen', body: 'U beoordeelt elke bevinding; correcties pas na uw akkoord.' },
+    { kicker: '03 · RAPPORT', title: 'Rapporteren', body: 'Je ontvangt een close-readiness rapport met bevindingen en aanbevelingen.' },
+    { kicker: '04 · JIJ BESLIST', title: 'Beoordelen', body: 'Je beoordeelt elke bevinding; correcties pas na je akkoord.' },
   ],
   secEyebrow: 'Veiligheid & beheer',
   secTitle: 'Een beheerd product, geen losse scripts.',
   secCardTitle: 'Lezen vrij, schrijven na akkoord',
   secCardBody:
-    'Claire leest en rekent zelfstandig, maar schrijft nooit ongevraagd: elke wijziging staat klaar als voorstel en wacht op uw akkoord.',
-  secProposalLabel: 'Voorstel · wacht op uw akkoord',
+    'Claire leest en rekent zelfstandig, maar schrijft nooit ongevraagd: elke wijziging staat klaar als voorstel en wacht op je akkoord.',
+  secProposalLabel: 'Voorstel · wacht op je akkoord',
   secProposalBody: 'Betalingsherinnering versturen, Van Dijk Techniek · VK-2026-167 · €18.200',
   secApprove: '✓ Goedkeuren',
   secNotNow: 'Nu niet',
-  secApprovedLabel: 'Uitgevoerd · met uw akkoord',
+  secApprovedLabel: 'Uitgevoerd · met je akkoord',
   secApprovedResult: 'Herinnering verstuurd naar Van Dijk Techniek',
   secPausedLabel: 'Geparkeerd · geen actie',
   secPausedResult: 'Er is niets verstuurd. Het voorstel blijft klaarstaan.',
   secReset: '↺ Opnieuw',
   secItems: [
     { title: 'Toegang per gebruiker', body: 'Iedereen koppelt met zijn eigen Exact Online-account en kan precies wat hij daar mag, niets meer. Elke actie wordt onder de eigen gebruiker gelogd.' },
-    { title: 'Geen schaduwkopie', body: 'Uw data blijft in Exact Online. Claire haalt per vraag alleen op wat nodig is; er ontstaat geen kopie in een extern platform.' },
+    { title: 'Geen schaduwkopie', body: 'Je data blijft in Exact Online. Claire haalt per vraag alleen op wat nodig is; er ontstaat geen kopie in een extern platform.' },
     { title: 'Onderhoud is ons werk', body: 'Wijzigingen in de Exact Online-API en nieuwe functionaliteit zijn ons probleem, niet het uwe. Centraal beheerd, met een stabiele interface.' },
   ],
   obEyebrow: 'Aan de slag',
   obTitle: 'Live in drie klikken.',
   obSub:
-    'Geen implementatietraject. Uw koppelintentie reist mee door het inloggen heen, dus u komt precies terug waar u was. Klik de flow hieronder door.',
+    'Geen implementatietraject. Je koppelintentie reist mee door het inloggen heen, dus je komt precies terug waar je was. Klik de flow hieronder door.',
   obSteps: ['Koppeling', 'Inloggen', 'Toestemming', 'Klaar'],
   obUrls: ['dataflowr.nl/claire', 'app.dataflowr.nl/login?returnTo=%2Fclaire%2Fstart', 'app.dataflowr.nl/claire/start', 'app.dataflowr.nl/claire/chat'],
   ob1Title: 'Koppel Exact Online aan Claire',
   ob1Body: 'Eén knop, geen omwegen. De koppeling start direct; registreren gebeurt onderweg, in dezelfde stap.',
   ob1Btn: 'Koppel Exact Online →',
-  ob1Checks: ['Vanaf €99 per maand', 'Klaar in 2 minuten', 'Claire boekt niets zonder uw akkoord'],
+  ob1Checks: ['Vanaf €99 per maand', 'Klaar in 2 minuten', 'Claire boekt niets zonder je akkoord'],
   ob2Title: 'Nog één stap: log in om Exact Online te koppelen',
-  ob2Body: 'Uw account bewaart de koppeling en uw gesprekken. Registreren gaat in dezelfde stap; u komt hierna direct terug bij deze koppeling.',
-  ob2ContinuePre: 'U gaat verder met: ',
+  ob2Body: 'Je account bewaart de koppeling en je gesprekken. Registreren gaat in dezelfde stap; je komt hierna direct terug bij deze koppeling.',
+  ob2ContinuePre: 'Je gaat verder met: ',
   ob2ContinueStrong: 'Exact Online koppelen aan Claire',
   ob2Btn: 'Inloggen of registreren →',
   ob2Checks: ['Inloggen met Google, Microsoft of e-mail', 'Claire leest alleen mee'],
-  ob3Title: 'Welkom terug. We gaan verder waar u was.',
-  ob3Body: 'U wordt doorgestuurd naar Exact Online om de koppeling goed te keuren. Daarna staat Claire voor u klaar.',
+  ob3Title: 'Welkom terug. We gaan verder waar je was.',
+  ob3Body: 'Je wordt doorgestuurd naar Exact Online om de koppeling goed te keuren. Daarna staat Claire voor je klaar.',
   ob3NothingPre: 'Gebeurt er niets? ',
   ob3Btn: 'Doorgaan naar Exact Online →',
   ob4ToastTitle: 'Exact Online gekoppeld',
   ob4ToastSub: 'Acme Holding B.V. · 3 administraties gevonden',
-  ob4Title: 'Waarmee kan ik u helpen?',
-  ob4Body: 'Ik kijk mee in Acme Nederland. Stel uw vraag, of kies hieronder.',
+  ob4Title: 'Waarmee kan ik je helpen?',
+  ob4Body: 'Ik kijk mee in Acme Nederland. Stel je vraag, of kies hieronder.',
   ob4Sug1Title: 'Hoe staat de omzet ervoor?',
   ob4Sug1Sub: 'Deze maand versus vorige maand, per klant',
   ob4Sug2Title: 'Welke facturen staan open?',
   ob4Sug2Sub: 'Openstaande debiteuren, gesorteerd op ouderdom',
-  ob4Input: 'Stel uw vraag aan Claire...',
+  ob4Input: 'Stel je vraag aan Claire...',
   ob4Cta: 'Start met Claire →',
   ob4Restart: '↺ Opnieuw bekijken',
   obFoot1: 'Beveiligde OAuth · geen schaduwkopie · maandelijks opzegbaar',
   obFoot2: 'Liever samen doorlopen? Plan een kennismaking van 30 minuten en we zetten het samen op.',
   waysTitle: 'Drie manieren om Claire in te zetten.',
   ways: [
-    { title: 'Interactief', body: 'Open uw AI-assistent en stel een vraag over uw boekhouding in gewone taal.', quote: '"Welke inkoopfacturen staan langer dan 60 dagen open?"' },
-    { title: 'Autonoom', body: 'Een agent voert volgens planning zelfstandig werk uit en meldt zich alleen wanneer er iets van u nodig is.', quote: '"Elke eerste werkdag: voer mijn afsluitcontroles uit en stuur de actielijst."' },
-    { title: 'Geïntegreerd', body: 'Gebruik de connector in Make, n8n of Zapier als bouwsteen in uw automatiseringen.', quote: '"Controleer elke binnenkomende factuur en markeer dubbele in #finance."' },
+    { title: 'Interactief', body: 'Open je AI-assistent en stel een vraag over je boekhouding in gewone taal.', quote: '"Welke inkoopfacturen staan langer dan 60 dagen open?"' },
+    { title: 'Autonoom', body: 'Een agent voert volgens planning zelfstandig werk uit en meldt zich alleen wanneer er iets van je nodig is.', quote: '"Elke eerste werkdag: voer mijn afsluitcontroles uit en stuur de actielijst."' },
+    { title: 'Geïntegreerd', body: 'Gebruik de connector in Make, n8n of Zapier als bouwsteen in je automatiseringen.', quote: '"Controleer elke binnenkomende factuur en markeer dubbele in #finance."' },
   ],
-  ctaTitle: 'Claire kan volgende week bij u beginnen.',
-  ctaSub: 'Plan een kennismaking van 30 minuten, u spreekt direct een founder.',
+  ctaTitle: 'Claire kan volgende week bij jou beginnen.',
+  ctaSub: 'Plan een kennismaking van 30 minuten, je spreekt direct een founder.',
   ctaBtn: 'Plan een kennismaking',
   ctaBtn2: 'Zelf Exact Online verbinden',
 };
@@ -297,9 +297,9 @@ const en: typeof nl = {
   challengeBody:
     "In Exact Online every answer is ten clicks away, if you know the fastest route. And with the next question, the same cycle of exports, pivot tables and re-typing starts all over. Hiring more people rarely fixes it: the work isn't too much, it's too manual.",
   doCards: [
-    { quote: '"Claire, who still needs to pay?"', title: 'Receivables monitoring', body: 'She watches outstanding items, builds ageing analyses and prepares reminders, or sends them on schedule.' },
-    { quote: '"Claire, prepare the month-end close."', title: 'Month-end close', body: "She runs the checklist, flags missing entries and delivers a close that's ready for review." },
-    { quote: '"Claire, how does Q4 look?"', title: 'Reporting & forecast', body: 'She answers number questions in plain language and backs every answer with data straight from your books.' },
+    { quote: '"Claire, who still needs to pay?"', title: 'Receivables monitoring', body: 'Claire watches outstanding items, builds ageing analyses and prepares reminders, or sends them on schedule.' },
+    { quote: '"Claire, prepare the month-end close."', title: 'Month-end close', body: "Claire runs the checklist, flags missing entries and delivers a close that's ready for review." },
+    { quote: '"Claire, how does Q4 look?"', title: 'Reporting & forecast', body: 'Claire answers number questions in plain language and backs every answer with data straight from your books.' },
   ],
   praktijkEyebrow: 'See it in action',
   praktijkTitle: "Ask it the way you'd ask a colleague.",
@@ -1114,7 +1114,7 @@ const schema = [
   .hero-copy { color: var(--bg); }
   .hero h1 {
     margin: 0 0 22px;
-    font-size: clamp(48px, 5.4vw, 72px);
+    font-size: clamp(3rem, 5.4vw, 4.5rem);
     line-height: 1.03;
     font-weight: 700;
     letter-spacing: -0.035em;
@@ -1122,13 +1122,13 @@ const schema = [
   }
   .hero .eyebrow { margin-bottom: 22px; }
   .accent { color: var(--teal); }
-  .hero-lead { margin: 0 0 14px; font-size: clamp(19px, 2vw, 23px); line-height: 1.45; font-weight: 500; color: #ffffff; text-wrap: pretty; }
+  .hero-lead { margin: 0 0 14px; font-size: clamp(1.1875rem, 2vw, 1.4375rem); line-height: 1.45; font-weight: 500; color: #ffffff; text-wrap: pretty; }
   .hero-lead-accent { color: var(--teal); font-weight: 700; }
-  .hero-sub { margin: 0 0 34px; max-width: 520px; font-size: 16px; line-height: 1.7; color: color-mix(in srgb, var(--bg) 76%, transparent); text-wrap: pretty; }
+  .hero-sub { margin: 0 0 34px; max-width: 520px; font-size: 1.09375rem; line-height: 1.7; color: color-mix(in srgb, var(--bg) 76%, transparent); text-wrap: pretty; }
   .hero-ctas { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; }
-  .hero-btn { font-size: 15px; padding: 16px 30px; }
-  .hero-btn2 { font-size: 15px; padding: 15px 28px; }
-  .hero-note { margin: 22px 0 0; font-size: 12.5px; color: color-mix(in srgb, var(--bg) 55%, transparent); }
+  .hero-btn { font-size: 1.03125rem; padding: 16px 30px; }
+  .hero-btn2 { font-size: 1.03125rem; padding: 15px 28px; }
+  .hero-note { margin: 22px 0 0; font-size: 0.84375rem; color: color-mix(in srgb, var(--bg) 55%, transparent); }
 
   /* Chat demo */
   .chat {
@@ -1149,11 +1149,11 @@ const schema = [
   }
   .chat-status { position: absolute; right: -1px; bottom: -1px; width: 11px; height: 11px; border-radius: 50%; background: var(--ok); border: 2px solid #fff; }
   .chat-id { display: grid; gap: 1px; }
-  .chat-id strong { font-size: 14.5px; color: var(--brand); }
-  .chat-id span:last-child { font-size: 11.5px; color: var(--muted); }
+  .chat-id strong { font-size: 1rem; color: var(--brand); }
+  .chat-id span:last-child { font-size: 0.78125rem; color: var(--muted); }
   .chat-live {
     margin-left: auto;
-    font-size: 10px;
+    font-size: 0.6875rem;
     font-weight: 700;
     letter-spacing: 0.1em;
     text-transform: uppercase;
@@ -1184,7 +1184,7 @@ const schema = [
     border-radius: 99px;
   }
   .chat-body::-webkit-scrollbar-thumb:hover { background: color-mix(in srgb, var(--muted) 55%, transparent); background-clip: content-box; }
-  .msg { font-size: 13.5px; line-height: 1.55; padding: 12px 16px; animation: claire-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) both; }
+  .msg { font-size: 0.90625rem; line-height: 1.55; padding: 12px 16px; animation: claire-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) both; }
   .msg--user { justify-self: end; max-width: 82%; background: var(--hl); color: #fff; border-radius: 16px 16px 4px 16px; }
   .msg--claire { justify-self: start; max-width: 88%; background: #ffffff; border: 1px solid var(--line); color: var(--brand); border-radius: 16px 16px 16px 4px; line-height: 1.6; }
   .chat-work {
@@ -1198,8 +1198,8 @@ const schema = [
     gap: 10px;
     animation: claire-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
   }
-  .chat-work-title { font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
-  .chat-work-row { display: flex; align-items: center; gap: 10px; font-size: 12.5px; color: var(--brand); }
+  .chat-work-title { font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+  .chat-work-row { display: flex; align-items: center; gap: 10px; font-size: 0.84375rem; color: var(--brand); }
   .chat-work-row strong { font-weight: 600; }
   .wdot { flex: none; width: 6px; height: 6px; border-radius: 50%; background: var(--teal); }
   .wdot--pulse { background: var(--hl); animation: claire-pulse 1.6s ease-in-out infinite; }
@@ -1208,9 +1208,9 @@ const schema = [
   .chat-actions { display: flex; gap: 10px; animation: claire-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) both; }
   .chat-actions button { font-family: inherit; cursor: pointer; transition: transform 0.2s, filter 0.2s, opacity 0.2s, border-color 0.2s, color 0.2s; }
   .chat-actions button:disabled { opacity: 0.55; cursor: default; }
-  .chat-btn-yes { border: 0; background: var(--hl); color: #fff; font-size: 12.5px; font-weight: 700; padding: 9px 18px; border-radius: 99px; }
+  .chat-btn-yes { border: 0; background: var(--hl); color: #fff; font-size: 0.84375rem; font-weight: 700; padding: 9px 18px; border-radius: 99px; }
   .chat-btn-yes:hover:not(:disabled) { filter: brightness(1.08); transform: translateY(-1px); }
-  .chat-btn-no { border: 1.5px solid var(--line); background: #fff; color: var(--muted); font-size: 12.5px; font-weight: 500; padding: 8px 16px; border-radius: 99px; }
+  .chat-btn-no { border: 1.5px solid var(--line); background: #fff; color: var(--muted); font-size: 0.84375rem; font-weight: 500; padding: 8px 16px; border-radius: 99px; }
   .chat-btn-no:hover:not(:disabled) { color: var(--brand); border-color: var(--muted); }
   .chat-check--pop { animation: ob-pop 0.5s cubic-bezier(0.16, 1, 0.3, 1) both; }
   .chat-typing { display: inline-flex; align-items: center; gap: 5px; padding: 15px 16px; }
@@ -1229,7 +1229,7 @@ const schema = [
     flex-wrap: wrap;
     justify-content: center;
   }
-  .band-label { font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
+  .band-label { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
   .band-pill {
     display: inline-flex;
     align-items: center;
@@ -1237,13 +1237,13 @@ const schema = [
     border: 1px solid var(--line);
     border-radius: 99px;
     padding: 9px 18px;
-    font-size: 14.5px;
+    font-size: 1rem;
     font-weight: 700;
     color: var(--brand);
     background: #ffffff;
   }
   .band-icon { display: grid; place-items: center; }
-  .band-note { font-size: 12.5px; color: var(--muted); }
+  .band-note { font-size: 0.84375rem; color: var(--muted); }
 
   /* ---------- Uitdaging ---------- */
   .challenge { background: #ffffff; }
@@ -1251,13 +1251,13 @@ const schema = [
   .challenge-eyebrow { justify-content: center; }
   .challenge h2 {
     margin: 0 0 20px;
-    font-size: clamp(30px, 3.6vw, 44px);
+    font-size: clamp(1.875rem, 3.6vw, 2.75rem);
     line-height: 1.1;
     font-weight: 700;
     letter-spacing: -0.03em;
     text-wrap: balance;
   }
-  .challenge-body { margin: 0; font-size: 17px; line-height: 1.7; color: var(--muted); text-wrap: pretty; }
+  .challenge-body { margin: 0; font-size: 1.15625rem; line-height: 1.7; color: var(--muted); text-wrap: pretty; }
 
   /* ---------- Wat Claire doet ---------- */
   .do { background: #ffffff; scroll-margin-top: 80px; }
@@ -1272,15 +1272,15 @@ const schema = [
     transition: transform 0.3s, box-shadow 0.3s;
   }
   .do-card:hover { transform: translateY(-3px); box-shadow: 0 16px 44px rgba(13, 27, 39, 0.10); }
-  .do-quote { font-size: 13px; line-height: 1.5; color: var(--muted); background: var(--bg); border-radius: 12px 12px 12px 4px; padding: 10px 14px; font-style: italic; }
-  .do-card h3 { margin: 0; font-size: 18px; font-weight: 700; }
-  .do-card p { margin: 0; font-size: 14px; line-height: 1.65; color: var(--muted); }
+  .do-quote { font-size: 0.875rem; line-height: 1.5; color: var(--muted); background: var(--bg); border-radius: 12px 12px 12px 4px; padding: 10px 14px; font-style: italic; }
+  .do-card h3 { margin: 0; font-size: 1.21875rem; font-weight: 700; }
+  .do-card p { margin: 0; font-size: 0.9375rem; line-height: 1.65; color: var(--muted); }
 
   /* ---------- Sectiekoppen ---------- */
   .qa h2, .caps h2, .close h2, .sec h2 {
     margin: 0 0 14px;
     max-width: 720px;
-    font-size: clamp(30px, 3.6vw, 44px);
+    font-size: clamp(1.875rem, 3.6vw, 2.75rem);
     line-height: 1.1;
     font-weight: 700;
     letter-spacing: -0.03em;
@@ -1290,7 +1290,7 @@ const schema = [
   /* ---------- Q&A praktijk ---------- */
   .qa { background: var(--bg); border-top: 1px solid var(--line); scroll-margin-top: 80px; }
   .qa-inner { padding-top: 92px; padding-bottom: 92px; }
-  .qa-sub { margin: 0 0 46px; max-width: 680px; font-size: 16px; line-height: 1.7; color: var(--muted); }
+  .qa-sub { margin: 0 0 46px; max-width: 680px; font-size: 1.09375rem; line-height: 1.7; color: var(--muted); }
   .qa-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(400px, 100%), 1fr)); gap: 16px; }
   .qa-card {
     background: #ffffff;
@@ -1303,15 +1303,15 @@ const schema = [
     transition: transform 0.3s, box-shadow 0.3s;
   }
   .qa-card:hover { transform: translateY(-3px); box-shadow: 0 16px 44px rgba(13, 27, 39, 0.09); }
-  .qa-cat { font-size: 10.5px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--posText); }
-  .qa-q { margin: 0; display: flex; gap: 9px; font-size: 14.5px; line-height: 1.45; font-weight: 500; color: var(--brand); }
+  .qa-cat { font-size: 0.71875rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--posText); }
+  .qa-q { margin: 0; display: flex; gap: 9px; font-size: 1rem; line-height: 1.45; font-weight: 500; color: var(--brand); }
   .qa-caret { color: var(--hl); font-weight: 700; }
   .qa-result { background: var(--bg); border-radius: 12px; padding: 16px 18px; }
-  .qa-table-title { margin: 0 0 12px; font-size: 11.5px; font-weight: 700; color: var(--brand); }
+  .qa-table-title { margin: 0 0 12px; font-size: 0.78125rem; font-weight: 700; color: var(--brand); }
   .qa-result table { width: 100%; border-collapse: collapse; }
   .qa-result th {
     padding: 0 0 7px;
-    font-size: 10px;
+    font-size: 0.6875rem;
     font-weight: 700;
     letter-spacing: 0.1em;
     text-transform: uppercase;
@@ -1320,7 +1320,7 @@ const schema = [
   }
   .qa-result td {
     padding: 7px 0;
-    font-size: 12.5px;
+    font-size: 0.84375rem;
     line-height: 1.4;
     font-variant-numeric: tabular-nums;
     border-bottom: 1px solid var(--line);
@@ -1334,7 +1334,7 @@ const schema = [
     display: inline-flex;
     align-items: center;
     gap: 5px;
-    font-size: 11px;
+    font-size: 0.75rem;
     font-weight: 700;
     border-radius: 99px;
     padding: 3px 9px;
@@ -1342,8 +1342,8 @@ const schema = [
   }
   .chip--ok { color: var(--posText); background: #E4F6F8; }
   .chip--warn { color: #B3210F; background: #FDE8E5; }
-  .qa-note { margin: 12px 0 0; font-size: 11.5px; line-height: 1.5; color: var(--muted); }
-  .qa-disclaimer { margin: 26px 0 0; font-size: 12.5px; color: var(--muted); }
+  .qa-note { margin: 12px 0 0; font-size: 0.78125rem; line-height: 1.5; color: var(--muted); }
+  .qa-disclaimer { margin: 26px 0 0; font-size: 0.84375rem; color: var(--muted); }
 
   /* ---------- Pricing ---------- */
   .pricing { position: relative; overflow: hidden; background: var(--brand); color: var(--bg); scroll-margin-top: 80px; }
@@ -1358,23 +1358,23 @@ const schema = [
     --logoRechtsA: #4DCBC9; --logoRechtsB: #4DCBC9;
   }
   .pricing-inner { position: relative; padding-top: 80px; padding-bottom: 90px; }
-  .pricing h2 { margin: 0 0 16px; font-size: clamp(38px, 4.2vw, 54px); line-height: 1.05; font-weight: 700; letter-spacing: -0.035em; }
-  .pricing-sub { margin: 0 0 56px; font-size: 17px; line-height: 1.7; color: color-mix(in srgb, var(--bg) 72%, transparent); max-width: 560px; }
+  .pricing h2 { margin: 0 0 16px; font-size: clamp(2.375rem, 4.2vw, 3.375rem); line-height: 1.05; font-weight: 700; letter-spacing: -0.035em; }
+  .pricing-sub { margin: 0 0 56px; font-size: 1.15625rem; line-height: 1.7; color: color-mix(in srgb, var(--bg) 72%, transparent); max-width: 560px; }
   .pricing-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; align-items: stretch; }
   @media (max-width: 1080px) { .pricing-grid { grid-template-columns: repeat(2, 1fr); } }
   @media (max-width: 640px) { .pricing-grid { grid-template-columns: 1fr; } }
   .plan { position: relative; display: flex; flex-direction: column; border: 1.5px solid color-mix(in srgb, var(--bg) 16%, transparent); border-radius: 18px; padding: 34px 30px 30px; }
   .plan--hl { border-color: var(--teal); background: color-mix(in srgb, var(--teal) 7%, transparent); }
   .plan--dashed { border-style: dashed; border-color: color-mix(in srgb, var(--bg) 28%, transparent); }
-  .plan-badge { position: absolute; top: -15px; left: 50%; transform: translateX(-50%); background: var(--teal); color: var(--brand); font-weight: 700; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; padding: 7px 18px; border-radius: 99px; white-space: nowrap; }
-  .plan-name { letter-spacing: 0.2em; font-size: 12px; font-weight: 600; text-transform: uppercase; margin-bottom: 22px; }
+  .plan-badge { position: absolute; top: -15px; left: 50%; transform: translateX(-50%); background: var(--teal); color: var(--brand); font-weight: 700; font-size: 0.8125rem; letter-spacing: 0.14em; text-transform: uppercase; padding: 7px 18px; border-radius: 99px; white-space: nowrap; }
+  .plan-name { letter-spacing: 0.2em; font-size: 0.8125rem; font-weight: 600; text-transform: uppercase; margin-bottom: 22px; }
   .plan--hl .plan-name { color: var(--teal); }
-  .plan-price { font-size: 44px; font-weight: 700; letter-spacing: -0.02em; line-height: 1; }
-  .plan-period { color: color-mix(in srgb, var(--bg) 52%, transparent); font-size: 14px; margin: 10px 0 28px; }
+  .plan-price { font-size: 2.75rem; font-weight: 700; letter-spacing: -0.02em; line-height: 1; }
+  .plan-period { color: color-mix(in srgb, var(--bg) 52%, transparent); font-size: 0.9375rem; margin: 10px 0 28px; }
   .plan-features { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 15px; flex: 1; }
-  .plan-features li { position: relative; padding-left: 19px; font-size: 15px; line-height: 1.5; color: color-mix(in srgb, var(--bg) 84%, transparent); }
+  .plan-features li { position: relative; padding-left: 19px; font-size: 1.03125rem; line-height: 1.5; color: color-mix(in srgb, var(--bg) 84%, transparent); }
   .plan-features li::before { content: ''; position: absolute; left: 0; top: 7px; width: 7px; height: 7px; border-radius: 50%; background: var(--teal); }
-  .plan-cta { display: block; margin-top: 34px; text-align: center; font-size: 15px; padding: 14px 0; border-radius: 99px; }
+  .plan-cta { display: block; margin-top: 34px; text-align: center; font-size: 1.03125rem; padding: 14px 0; border-radius: 99px; }
   .plan-cta--solid { background: var(--teal); color: var(--brand); font-weight: 700; padding: 15px 0; transition: box-shadow 0.3s; }
   .plan-cta--solid:hover { color: var(--brand); box-shadow: 0 10px 44px color-mix(in srgb, var(--teal) 50%, transparent); }
   .plan-cta--ghost { border: 1.5px solid color-mix(in srgb, var(--bg) 30%, transparent); color: var(--bg); font-weight: 600; }
@@ -1384,12 +1384,12 @@ const schema = [
   .caps { background: #ffffff; border-top: 1px solid var(--line); scroll-margin-top: 80px; }
   .caps-inner { padding-top: 92px; padding-bottom: 92px; }
   .caps h2 { margin-bottom: 12px; max-width: 680px; }
-  .caps-sub { margin: 0 0 46px; max-width: 640px; font-size: 16px; line-height: 1.7; color: var(--muted); }
+  .caps-sub { margin: 0 0 46px; max-width: 640px; font-size: 1.09375rem; line-height: 1.7; color: var(--muted); }
   .caps-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr)); gap: 16px; }
   .caps-card { background: #ffffff; border: 1px solid var(--line); border-radius: 16px; padding: 26px; }
-  .caps-card h3 { margin: 0 0 14px; font-size: 17px; font-weight: 700; }
+  .caps-card h3 { margin: 0 0 14px; font-size: 1.15625rem; font-weight: 700; }
   .caps-card ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 11px; }
-  .caps-card li { display: flex; gap: 11px; font-size: 13.5px; line-height: 1.55; color: var(--muted); }
+  .caps-card li { display: flex; gap: 11px; font-size: 0.90625rem; line-height: 1.55; color: var(--muted); }
   .dot { flex: none; width: 6px; height: 6px; border-radius: 50%; margin-top: 6px; background: var(--pos); }
   .dot--teal { background: var(--teal); }
 
@@ -1408,7 +1408,7 @@ const schema = [
   }
   .close-inner { position: relative; padding-top: 92px; padding-bottom: 92px; }
   .close h2 { margin-bottom: 18px; max-width: 760px; }
-  .close-sub { margin: 0 0 48px; max-width: 720px; font-size: 16px; line-height: 1.7; color: color-mix(in srgb, var(--bg) 76%, transparent); }
+  .close-sub { margin: 0 0 48px; max-width: 720px; font-size: 1.09375rem; line-height: 1.7; color: color-mix(in srgb, var(--bg) 76%, transparent); }
   .close-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr)); gap: 16px; }
   .close-card {
     background: color-mix(in srgb, #ffffff 6%, transparent);
@@ -1416,9 +1416,9 @@ const schema = [
     border-radius: 14px;
     padding: 24px;
   }
-  .close-kicker { margin: 0 0 10px; font-size: 11px; font-weight: 700; letter-spacing: 0.16em; color: var(--teal); }
-  .close-card h3 { margin: 0 0 8px; font-size: 17px; font-weight: 700; }
-  .close-card p:last-child { margin: 0; font-size: 13.5px; line-height: 1.55; color: color-mix(in srgb, var(--bg) 66%, transparent); }
+  .close-kicker { margin: 0 0 10px; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.16em; color: var(--teal); }
+  .close-card h3 { margin: 0 0 8px; font-size: 1.15625rem; font-weight: 700; }
+  .close-card p:last-child { margin: 0; font-size: 0.90625rem; line-height: 1.55; color: color-mix(in srgb, var(--bg) 66%, transparent); }
 
   /* ---------- Veiligheid ---------- */
   .sec { background: #ffffff; scroll-margin-top: 80px; }
@@ -1426,8 +1426,8 @@ const schema = [
   .sec h2 { margin-bottom: 46px; max-width: 680px; }
   .sec-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(420px, 100%), 1fr)); gap: 16px; align-items: stretch; }
   .sec-card { background: var(--brand); color: var(--bg); border-radius: 18px; padding: 34px; display: grid; gap: 14px; align-content: start; }
-  .sec-card h3 { margin: 0; font-size: 22px; font-weight: 700; letter-spacing: -0.02em; }
-  .sec-card > p { margin: 0; font-size: 14.5px; line-height: 1.65; color: color-mix(in srgb, var(--bg) 74%, transparent); }
+  .sec-card h3 { margin: 0; font-size: 1.375rem; font-weight: 700; letter-spacing: -0.02em; }
+  .sec-card > p { margin: 0; font-size: 1rem; line-height: 1.65; color: color-mix(in srgb, var(--bg) 74%, transparent); }
   .sec-proposal {
     margin-top: 10px;
     background: color-mix(in srgb, #ffffff 8%, transparent);
@@ -1437,16 +1437,16 @@ const schema = [
     display: grid;
     gap: 14px;
   }
-  .sec-proposal-label { font-size: 10px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--pos); }
-  .sec-proposal p { margin: 0; font-size: 13.5px; line-height: 1.55; }
+  .sec-proposal-label { font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--pos); }
+  .sec-proposal p { margin: 0; font-size: 0.90625rem; line-height: 1.55; }
   .sec-proposal-btns { display: flex; gap: 10px; flex-wrap: wrap; }
   .sec-proposal-btns button { font-family: inherit; cursor: pointer; transition: transform 0.2s, filter 0.2s, color 0.2s, border-color 0.2s; }
-  .sec-approve { border: 0; background: var(--pos); color: var(--brand); font-size: 12.5px; font-weight: 700; padding: 9px 18px; border-radius: 99px; }
+  .sec-approve { border: 0; background: var(--pos); color: var(--brand); font-size: 0.84375rem; font-weight: 700; padding: 9px 18px; border-radius: 99px; }
   .sec-approve:hover { filter: brightness(1.08); transform: translateY(-1px); }
   .sec-notnow {
     border: 1px solid color-mix(in srgb, var(--bg) 30%, transparent);
     background: transparent;
-    font-size: 12.5px;
+    font-size: 0.84375rem;
     font-weight: 600;
     padding: 8px 17px;
     border-radius: 99px;
@@ -1457,7 +1457,7 @@ const schema = [
     display: flex;
     align-items: center;
     gap: 10px;
-    font-size: 13.5px;
+    font-size: 0.90625rem;
     animation: claire-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
   }
   .sec-result-icon {
@@ -1467,7 +1467,7 @@ const schema = [
     border-radius: 50%;
     display: grid;
     place-items: center;
-    font-size: 12px;
+    font-size: 0.8125rem;
     font-weight: 700;
     background: var(--pos);
     color: var(--brand);
@@ -1479,7 +1479,7 @@ const schema = [
     border: 0;
     background: transparent;
     font-family: inherit;
-    font-size: 12px;
+    font-size: 0.8125rem;
     font-weight: 600;
     color: color-mix(in srgb, var(--bg) 70%, transparent);
     cursor: pointer;
@@ -1497,13 +1497,13 @@ const schema = [
     background: color-mix(in srgb, var(--ok) 14%, transparent);
     color: var(--ok);
     font-weight: 700;
-    font-size: 13px;
+    font-size: 0.875rem;
     display: grid;
     place-items: center;
     margin-top: 2px;
   }
-  .sec-item h3 { margin: 0 0 5px; font-size: 15.5px; font-weight: 700; }
-  .sec-item p { margin: 0; font-size: 13.5px; line-height: 1.6; color: var(--muted); }
+  .sec-item h3 { margin: 0 0 5px; font-size: 1.0625rem; font-weight: 700; }
+  .sec-item p { margin: 0; font-size: 0.90625rem; line-height: 1.6; color: var(--muted); }
 
   /* ---------- Onboarding ---------- */
   .ob { background: var(--bg); border-top: 1px solid var(--line); scroll-margin-top: 72px; }
@@ -1513,13 +1513,13 @@ const schema = [
   .ob h2 {
     margin: 0 auto 14px;
     max-width: 680px;
-    font-size: clamp(30px, 3.6vw, 44px);
+    font-size: clamp(1.875rem, 3.6vw, 2.75rem);
     line-height: 1.1;
     font-weight: 700;
     letter-spacing: -0.03em;
     text-wrap: balance;
   }
-  .ob-sub { margin: 0 auto; max-width: 600px; font-size: 16px; line-height: 1.7; color: var(--muted); text-wrap: pretty; }
+  .ob-sub { margin: 0 auto; max-width: 600px; font-size: 1.09375rem; line-height: 1.7; color: var(--muted); text-wrap: pretty; }
   .ob-frame {
     max-width: 1020px;
     margin: 0 auto;
@@ -1550,7 +1550,7 @@ const schema = [
     border: 1px solid var(--line);
     border-radius: 99px;
     padding: 6px 16px;
-    font-size: 12px;
+    font-size: 0.8125rem;
     color: var(--muted);
     text-align: center;
     white-space: nowrap;
@@ -1567,7 +1567,7 @@ const schema = [
     border-radius: 50%;
     display: grid;
     place-items: center;
-    font-size: 12px;
+    font-size: 0.8125rem;
     font-weight: 700;
     transition: background 0.25s;
     color: var(--muted);
@@ -1575,7 +1575,7 @@ const schema = [
   }
   .ob-step-num.is-active { color: #fff; background: var(--hl); }
   .ob-step-num.is-done { color: #fff; background: var(--ok); }
-  .ob-step-label { font-size: 13px; font-weight: 500; color: var(--muted); }
+  .ob-step-label { font-size: 0.875rem; font-weight: 500; color: var(--muted); }
   .ob-step-label.is-active { font-weight: 700; color: var(--brand); }
   .ob-step-line {
     flex: 0 1 34px;
@@ -1617,14 +1617,14 @@ const schema = [
   }
   .ob-logo-exact--sm { width: 34px; height: 34px; border-radius: 9px; font-size: 8px; }
   .ob-logo-exact--md { width: 42px; height: 42px; border-radius: 11px; font-size: 10px; }
-  .ob-p1 h3 { margin: 6px 0 0; font-size: 25px; font-weight: 700; letter-spacing: -0.02em; }
-  .ob-p1 > p { margin: 0; max-width: 520px; font-size: 14.5px; line-height: 1.65; color: var(--muted); }
+  .ob-p1 h3 { margin: 6px 0 0; font-size: 1.5625rem; font-weight: 700; letter-spacing: -0.02em; }
+  .ob-p1 > p { margin: 0; max-width: 520px; font-size: 1rem; line-height: 1.65; color: var(--muted); }
   .ob-primary {
     background: var(--hl);
     color: #ffffff;
     border: none;
     font-weight: 700;
-    font-size: 14.5px;
+    font-size: 1rem;
     padding: 14px 28px;
     border-radius: 99px;
     cursor: pointer;
@@ -1637,13 +1637,13 @@ const schema = [
   a.ob-primary, a.ob-primary:hover { color: #ffffff; }
   .ob-checks { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; }
   .ob-checks--left { justify-content: flex-start; }
-  .ob-checks span { display: inline-flex; align-items: center; gap: 7px; font-size: 12.5px; color: var(--muted); }
+  .ob-checks span { display: inline-flex; align-items: center; gap: 7px; font-size: 0.84375rem; color: var(--muted); }
   .ob-check { color: var(--ok); font-weight: 700; }
 
   .ob-p2 { max-width: 560px; margin: 0 auto; display: grid; gap: 16px; padding-top: 4px; animation: ob-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) both; }
   .ob-logos--sm { gap: 12px; }
-  .ob-p2 h3 { margin: 0; font-size: 23px; font-weight: 700; letter-spacing: -0.02em; text-wrap: balance; }
-  .ob-p2 > p { margin: 0; font-size: 14.5px; line-height: 1.65; color: var(--muted); }
+  .ob-p2 h3 { margin: 0; font-size: 1.4375rem; font-weight: 700; letter-spacing: -0.02em; text-wrap: balance; }
+  .ob-p2 > p { margin: 0; font-size: 1rem; line-height: 1.65; color: var(--muted); }
   .ob-continue {
     display: flex;
     gap: 12px;
@@ -1654,13 +1654,13 @@ const schema = [
     padding: 13px 16px;
     flex-wrap: wrap;
   }
-  .ob-continue > span { font-size: 13px; color: var(--brand); }
-  .ob-continue code { margin-left: auto; font-size: 11.5px; color: var(--muted); }
+  .ob-continue > span { font-size: 0.875rem; color: var(--brand); }
+  .ob-continue code { margin-left: auto; font-size: 0.78125rem; color: var(--muted); }
 
   .ob-p3 { max-width: 560px; margin: 0 auto; display: grid; justify-items: center; text-align: center; gap: 16px; padding-top: 26px; animation: ob-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) both; }
   .ob-logos { gap: 14px; }
-  .ob-p3 h3 { margin: 0; font-size: 24px; font-weight: 700; letter-spacing: -0.02em; text-wrap: balance; }
-  .ob-p3 > p { margin: 0; max-width: 480px; font-size: 14.5px; line-height: 1.65; color: var(--muted); }
+  .ob-p3 h3 { margin: 0; font-size: 1.5rem; font-weight: 700; letter-spacing: -0.02em; text-wrap: balance; }
+  .ob-p3 > p { margin: 0; max-width: 480px; font-size: 1rem; line-height: 1.65; color: var(--muted); }
   .ob-progress {
     width: 100%;
     max-width: 420px;
@@ -1677,8 +1677,8 @@ const schema = [
     background: linear-gradient(90deg, var(--hl), var(--pos));
     animation: ob-bar 1.7s cubic-bezier(0.3, 0.8, 0.4, 1) 0.2s both;
   }
-  .ob-nothing { margin: 4px 0 0; font-size: 13px; color: var(--muted); }
-  .ob-linkbtn { background: none; border: none; cursor: pointer; font-size: 13px; font-weight: 700; color: var(--hl); padding: 0; }
+  .ob-nothing { margin: 4px 0 0; font-size: 0.875rem; color: var(--muted); }
+  .ob-linkbtn { background: none; border: none; cursor: pointer; font-size: 0.875rem; font-weight: 700; color: var(--hl); padding: 0; }
 
   .ob-p4-wrap { position: relative; }
   .ob-toast {
@@ -1698,15 +1698,15 @@ const schema = [
   }
   @media (max-width: 720px) { .ob-toast { position: static; margin-bottom: 14px; } }
   .ob-toast-check { font-weight: 700; }
-  .ob-toast-body { display: grid; gap: 2px; font-size: 12.5px; line-height: 1.45; }
+  .ob-toast-body { display: grid; gap: 2px; font-size: 0.84375rem; line-height: 1.45; }
   .ob-toast-body span:last-child { opacity: 0.85; }
   .ob-p4 { display: grid; justify-items: center; text-align: center; gap: 14px; padding-top: 6px; animation: ob-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) both; }
-  .ob-p4 h3 { margin: 2px 0 0; font-size: 25px; font-weight: 700; letter-spacing: -0.02em; }
-  .ob-p4 > p { margin: 0; font-size: 14.5px; color: var(--muted); }
+  .ob-p4 h3 { margin: 2px 0 0; font-size: 1.5625rem; font-weight: 700; letter-spacing: -0.02em; }
+  .ob-p4 > p { margin: 0; font-size: 1rem; color: var(--muted); }
   .ob-suggestions { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr)); gap: 12px; width: 100%; max-width: 620px; }
   .ob-sug { border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; text-align: left; display: grid; gap: 3px; background: #ffffff; }
-  .ob-sug strong { font-size: 13.5px; }
-  .ob-sug span:last-child { font-size: 12px; color: var(--muted); }
+  .ob-sug strong { font-size: 0.90625rem; }
+  .ob-sug span:last-child { font-size: 0.8125rem; color: var(--muted); }
   .ob-input {
     display: flex;
     align-items: center;
@@ -1720,7 +1720,7 @@ const schema = [
     background: #ffffff;
     box-shadow: 0 10px 30px rgba(13, 27, 39, 0.06);
   }
-  .ob-input-hint { flex: 1; text-align: left; font-size: 13.5px; color: var(--muted); }
+  .ob-input-hint { flex: 1; text-align: left; font-size: 0.90625rem; color: var(--muted); }
   .ob-input-send {
     flex: none;
     width: 34px;
@@ -1732,11 +1732,11 @@ const schema = [
     place-items: center;
     font-weight: 700;
   }
-  .ob-restart { background: none; border: none; cursor: pointer; font-size: 12.5px; color: var(--muted); padding: 2px; }
+  .ob-restart { background: none; border: none; cursor: pointer; font-size: 0.84375rem; color: var(--muted); padding: 2px; }
   .ob-restart:hover { color: var(--hl); }
-  .ob-foot1 { margin: 20px auto 0; text-align: center; font-size: 13px; color: var(--muted); }
+  .ob-foot1 { margin: 20px auto 0; text-align: center; font-size: 0.875rem; color: var(--muted); }
   .ob-live-dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--ok); margin-right: 8px; vertical-align: 2px; }
-  .ob-foot2 { margin: 10px auto 0; max-width: 720px; text-align: center; font-size: 13px; line-height: 1.6; color: var(--muted); }
+  .ob-foot2 { margin: 10px auto 0; max-width: 720px; text-align: center; font-size: 0.875rem; line-height: 1.6; color: var(--muted); }
 
   /* ---------- Drie manieren ---------- */
   .ways { background: #ffffff; border-top: 1px solid var(--line); }
@@ -1744,7 +1744,7 @@ const schema = [
   .ways h2 {
     margin: 0 0 46px;
     max-width: 680px;
-    font-size: clamp(28px, 3.2vw, 40px);
+    font-size: clamp(1.75rem, 3.2vw, 2.5rem);
     line-height: 1.12;
     font-weight: 700;
     letter-spacing: -0.03em;
@@ -1752,9 +1752,9 @@ const schema = [
   }
   .ways-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); gap: 18px; }
   .way-card { border: 1px solid var(--line); border-radius: 16px; padding: 28px; display: grid; gap: 12px; }
-  .way-card h3 { margin: 0; font-size: 18px; font-weight: 700; }
-  .way-card p { margin: 0; font-size: 14px; line-height: 1.65; color: var(--muted); }
-  .way-quote { font-size: 13px; line-height: 1.5; color: var(--brand); background: var(--bg); border-radius: 12px; padding: 11px 14px; font-style: italic; }
+  .way-card h3 { margin: 0; font-size: 1.21875rem; font-weight: 700; }
+  .way-card p { margin: 0; font-size: 0.9375rem; line-height: 1.65; color: var(--muted); }
+  .way-quote { font-size: 0.875rem; line-height: 1.5; color: var(--brand); background: var(--bg); border-radius: 12px; padding: 11px 14px; font-style: italic; }
 
   /* ---------- CTA ---------- */
   .cta { background: var(--brand); color: var(--bg); }
@@ -1768,9 +1768,9 @@ const schema = [
     margin-bottom: 22px;
   }
   .cta-status { position: absolute; right: 1px; bottom: 1px; width: 13px; height: 13px; border-radius: 50%; background: var(--ok); border: 2.5px solid var(--brand); }
-  .cta h2 { margin: 0 0 14px; font-size: clamp(32px, 4vw, 46px); line-height: 1.08; font-weight: 700; letter-spacing: -0.03em; text-wrap: balance; }
-  .cta-sub { margin: 0 0 34px; font-size: 16.5px; line-height: 1.6; color: color-mix(in srgb, var(--bg) 74%, transparent); }
+  .cta h2 { margin: 0 0 14px; font-size: clamp(2rem, 4vw, 2.875rem); line-height: 1.08; font-weight: 700; letter-spacing: -0.03em; text-wrap: balance; }
+  .cta-sub { margin: 0 0 34px; font-size: 1.125rem; line-height: 1.6; color: color-mix(in srgb, var(--bg) 74%, transparent); }
   .cta-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
-  .cta-btn { font-size: 16px; padding: 17px 40px; }
-  .cta-btn2 { font-size: 16px; padding: 16px 34px; }
+  .cta-btn { font-size: 1.09375rem; padding: 17px 40px; }
+  .cta-btn2 { font-size: 1.09375rem; padding: 16px 34px; }
 </style>
