@@ -26,7 +26,6 @@ export interface ArticleContent {
   /** Chip above the title. */
   tag: string;
   date: string;
-  readTime: string;
   title: string;
   lead: string;
   /** Hero screenshot (16:9, 2880×1620), captured from the Claire app. */
@@ -103,7 +102,6 @@ export const articles: Record<ArticleKey, Article> = {
       cat: 'Finance',
       tag: 'Praktijkgids',
       date: '12 juli 2026',
-      readTime: '8 min leestijd',
       title: 'Waarom de maandafsluiting nog een week kost, en wat er écht helpt',
       lead:
         'Dezelfde checklist, elke maand opnieuw: kloppen de openingsbalansen, zijn de tussenrekeningen leeg, sluiten de subadministraties aan? Belangrijk werk, maar grotendeels routine, en juist daar sluipt het erin.',
@@ -156,7 +154,6 @@ export const articles: Record<ArticleKey, Article> = {
       cat: 'Finance',
       tag: 'Guide',
       date: '12 July 2026',
-      readTime: '8 min read',
       title: 'Why the month-end close still takes a week, and what actually shortens it',
       lead:
         "The same checklist every month: do the opening balances add up, are the suspense accounts empty, do the sub-ledgers reconcile? Important work, but largely routine, and exactly where things slip through.",
@@ -214,7 +211,6 @@ export const articles: Record<ArticleKey, Article> = {
       cat: 'Integraties',
       tag: 'Praktijkgids',
       date: '26 juli 2026',
-      readTime: '6 min leestijd',
       title: 'PSP-reconciliatie: waarom de bank nooit precies aansluit',
       lead:
         'Wie via een payment service provider ontvangt, kent het patroon: de omzet staat in de webshop of het kassasysteem, de uitbetaling staat op de bank, en daartussen zit een bedrag dat nooit precies klopt. Dat is geen slordigheid. Het zit in het model ingebakken.',
@@ -267,7 +263,6 @@ export const articles: Record<ArticleKey, Article> = {
       cat: 'Integrations',
       tag: 'Guide',
       date: '26 July 2026',
-      readTime: '6 min read',
       title: 'PSP reconciliation: why the bank never quite matches',
       lead:
         'Anyone who collects payments through a payment service provider knows the pattern: revenue sits in the webshop or POS system, the payout sits on the bank statement, and in between is an amount that never quite adds up. That is not sloppiness. It is built into the model.',
@@ -325,7 +320,6 @@ export const articles: Record<ArticleKey, Article> = {
       cat: 'Exact Online',
       tag: 'Praktijkgids',
       date: '14 juni 2026',
-      readTime: '5 min leestijd',
       title: 'Premium-features waar je voor betaalt maar niets mee doet',
       lead:
         'De overstap naar Exact Online Premium wordt meestal gemaakt voor één reden: meer administraties, meer gebruikers of een rapportagewens. De rest van het pakket komt daarna zelden nog ter sprake. Zonde, want juist daar zit de winst.',
@@ -379,7 +373,6 @@ export const articles: Record<ArticleKey, Article> = {
       cat: 'Exact Online',
       tag: 'Guide',
       date: '14 June 2026',
-      readTime: '5 min read',
       title: "Premium features you're paying for but not using",
       lead:
         'The move to Exact Online Premium is usually made for one reason: more administrations, more users or a reporting need. The rest of the package rarely comes up afterwards. A shame, because that is exactly where the gains are.',
@@ -438,7 +431,6 @@ export const articles: Record<ArticleKey, Article> = {
       cat: 'AI',
       tag: 'Uitleg',
       date: '2 augustus 2026',
-      readTime: '7 min leestijd',
       title: 'Wat MCP is, en waarom het voor finance uitmaakt',
       lead:
         'Elke leverancier bouwt momenteel “AI in het product”. Handig, maar het levert tien losse chatbots op die elkaar niet kennen en elk hun eigen stukje van je data zien. MCP draait het om: één open standaard waarmee je AI-assistent veilig bij je systemen kan.',
@@ -499,7 +491,6 @@ export const articles: Record<ArticleKey, Article> = {
       cat: 'AI',
       tag: 'Explainer',
       date: '2 August 2026',
-      readTime: '7 min read',
       title: 'What MCP is, and why it matters for finance',
       lead:
         'Every vendor is currently building “AI into the product”. Convenient, but it produces ten separate chatbots that don’t know each other and each see their own slice of your data. MCP turns that around: one open standard through which your AI assistant can safely reach your systems.',
@@ -566,7 +557,6 @@ export const articles: Record<ArticleKey, Article> = {
       cat: 'AI',
       tag: 'Release',
       date: '7 augustus 2026',
-      readTime: '8 min leestijd',
       title: 'Wat er nieuw is in de nieuwe release van onze MCP-koppeling',
       lead:
         'We rollen een flink vernieuwde versie uit van de koppeling die je AI-assistent met Exact Online verbindt. Het is dezelfde koppeling, maar een stuk slimmer: je kunt nu vragen om de maand af te sluiten, en er komt een rapport terug dat je regel voor regel afvinkt.',
@@ -716,7 +706,6 @@ export const articles: Record<ArticleKey, Article> = {
       cat: 'AI',
       tag: 'Release',
       date: '7 August 2026',
-      readTime: '8 min read',
       title: 'What’s new in the latest release of our MCP connector',
       lead:
         'We are rolling out a substantially renewed version of the connection between your AI assistant and Exact Online. It is the same connection, considerably smarter: you can now ask it to close the month, and a report comes back that you tick off line by line.',
@@ -860,3 +849,32 @@ export const articles: Record<ArticleKey, Article> = {
     },
   },
 };
+
+
+/**
+ * Reading time, derived from the rendered text rather than authored per
+ * article. The hand-written values had drifted badly: the flagship piece
+ * was labelled the same as one three times its length. 200 words a minute
+ * is the usual figure for prose read on screen, rounded up, floor of 1.
+ */
+const WORDS_PER_MINUTE = 200;
+
+function blockWords(block: ArticleBlock): string {
+  switch (block.type) {
+    case 'p':
+    case 'h2':
+    case 'quote':
+      return block.text;
+    case 'ol':
+      return block.items.map((item) => `${item.strong} ${item.rest}`).join(' ');
+    case 'figure':
+      return block.caption;
+  }
+}
+
+export function readTime(content: ArticleContent, lang: Lang): string {
+  const text = [content.lead, ...content.blocks.map(blockWords)].join(' ');
+  const words = text.split(/\s+/).filter(Boolean).length;
+  const minutes = Math.max(1, Math.round(words / WORDS_PER_MINUTE));
+  return lang === 'nl' ? `${minutes} min leestijd` : `${minutes} min read`;
+}
