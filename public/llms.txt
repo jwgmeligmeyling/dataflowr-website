@@ -18,6 +18,28 @@ DataFlowr combines three disciplines in one team: deep Exact Online ecosystem kn
   so it works in Claude, ChatGPT, Microsoft Copilot or any MCP client. Reads freely,
   writes only after explicit user approval; no shadow copy of your data. Live within a day.
 
+## Documentation
+
+- [Documentatie](https://dataflowr.nl/documentatie): the Claire product documentation,
+  included with every plan (customers on Standard support work from these pages). English
+  at https://dataflowr.nl/en/docs. The seven pages:
+  - Aan de slag met Claire: https://dataflowr.nl/documentatie/aan-de-slag-met-claire
+    (EN: https://dataflowr.nl/en/docs/getting-started-with-claire)
+  - Claire in Claude, ChatGPT en Copilot:
+    https://dataflowr.nl/documentatie/claire-in-claude-chatgpt-en-copilot
+    (EN: https://dataflowr.nl/en/docs/claire-in-claude-chatgpt-and-copilot)
+  - Werken met Claire: https://dataflowr.nl/documentatie/werken-met-claire
+    (EN: https://dataflowr.nl/en/docs/working-with-claire)
+  - De maandafsluiting en planningen:
+    https://dataflowr.nl/documentatie/maandafsluiting-en-planningen
+    (EN: https://dataflowr.nl/en/docs/month-end-close-and-schedules)
+  - Team, toegang en logboek: https://dataflowr.nl/documentatie/team-toegang-en-logboek
+    (EN: https://dataflowr.nl/en/docs/team-access-and-audit-log)
+  - Abonnement en facturen: https://dataflowr.nl/documentatie/abonnement-en-facturen
+    (EN: https://dataflowr.nl/en/docs/subscription-and-invoices)
+  - Problemen oplossen: https://dataflowr.nl/documentatie/problemen-oplossen
+    (EN: https://dataflowr.nl/en/docs/troubleshooting)
+
 ## Services
 
 All six services are listed at https://dataflowr.nl/diensten (English:

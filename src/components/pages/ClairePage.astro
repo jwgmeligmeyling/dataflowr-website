@@ -172,6 +172,9 @@ const nl = {
       { name: 'Enterprise', price: 'Op offerte', period: 'maatwerk', cta: 'Plan een gesprek', dashed: true,
         features: ['Zonder limieten, in overleg', 'Onbeperkt administraties', 'Maatwerk oplossingen'] },
     ] as Plan[],
+    notePre: 'Standaard support betekent zelf aan de slag met de ',
+    noteLink: 'documentatie',
+    notePost: '; Bedrijf en Kantoor voegen begeleiding en training toe.',
   },
   capsEyebrow: 'Kernmogelijkheden',
   capsTitle: 'Eén gesprek, de hele administratie.',
@@ -401,6 +404,9 @@ const en: typeof nl = {
       { name: 'Enterprise', price: 'On request', period: 'tailored', cta: 'Book a call', dashed: true,
         features: ['No limits, by arrangement', 'Unlimited administrations', 'Custom solutions'] },
     ] as Plan[],
+    notePre: 'Standard support means working on your own from the ',
+    noteLink: 'documentation',
+    notePost: '; Business and Firm add guidance and training.',
   },
   capsEyebrow: 'Core capabilities',
   capsTitle: 'One conversation, the whole administration.',
@@ -733,6 +739,7 @@ const schema = [
           </div>
         ))}
       </div>
+      <p class="pricing-note">{t.pricing.notePre}<a href={routes.docs[lang]}>{t.pricing.noteLink}</a>{t.pricing.notePost}</p>
     </div>
   </section>
 
@@ -1419,6 +1426,9 @@ const schema = [
   .plan-cta--solid { background: var(--teal); color: var(--brand); font-weight: 700; padding: 15px 0; transition: box-shadow 0.3s; }
   .plan-cta--solid:hover { color: var(--brand); box-shadow: 0 10px 44px color-mix(in srgb, var(--teal) 50%, transparent); }
   .plan-cta--ghost { border: 1.5px solid color-mix(in srgb, var(--bg) 30%, transparent); color: var(--bg); font-weight: 600; }
+  .pricing-note { margin: 26px 0 0; font-size: 0.875rem; line-height: 1.6; color: color-mix(in srgb, var(--bg) 64%, transparent); }
+  .pricing-note a { color: color-mix(in srgb, var(--bg) 88%, transparent); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+  .pricing-note a:hover { color: var(--bg); }
   .plan-cta--ghost:hover { border-color: var(--bg); color: var(--bg); }
 
   /* ---------- Kernmogelijkheden ---------- */

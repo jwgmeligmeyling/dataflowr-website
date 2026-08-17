@@ -23,7 +23,7 @@ const other: Lang = lang === 'nl' ? 'en' : 'nl';
 const nl = {
   metaTitle: 'Ondersteuning, zo bereik je onze support',
   metaDescription:
-    'Support voor Claire en onze integraties: bel 023-2052813, mail info@dataflowr.nl of plan een gesprek. Documentatie vind je in de kennisbank en op de Claire-pagina.',
+    'Support voor Claire en onze integraties: bel 023-2052813, mail info@dataflowr.nl of plan een gesprek. Zelf verder kun je met de documentatie en de kennisbank.',
   eyebrow: 'Ondersteuning',
   title: 'Support van de mensen die het bouwen.',
   intro:
@@ -43,9 +43,9 @@ const nl = {
     'Je abonnement en facturatie',
   ],
   docsTitle: 'Documentatie',
-  docsStartPre: 'Het stappenplan voor de koppeling staat op de ',
-  docsStartLink: 'Claire-pagina',
-  docsStartPost: ', inclusief een klikbare demo van de onboarding.',
+  docsStartPre: 'De ',
+  docsStartLink: 'documentatie',
+  docsStartPost: ' behandelt alles om zelf te werken met Claire: van de koppeling met Exact Online en je AI-assistent tot de maandafsluiting en het beheer van team en abonnement.',
   docsKbPre: 'In de ',
   docsKbLink: 'kennisbank',
   docsKbPost: ' staan praktijkartikelen over onder meer de maandafsluiting, PSP-reconciliatie en MCP.',
@@ -56,7 +56,7 @@ const nl = {
 const en: typeof nl = {
   metaTitle: 'Support, how to reach us',
   metaDescription:
-    'Support for Claire and our integrations: call +31 23 2052813, email info@dataflowr.nl or book a call. Documentation lives in the resources section and on the Claire page.',
+    'Support for Claire and our integrations: call +31 23 2052813, email info@dataflowr.nl or book a call. To carry on yourself there are the documentation and the resources.',
   eyebrow: 'Support',
   title: 'Support from the people who build it.',
   intro:
@@ -76,9 +76,9 @@ const en: typeof nl = {
     'Your subscription and billing',
   ],
   docsTitle: 'Documentation',
-  docsStartPre: 'The step-by-step connection guide lives on the ',
-  docsStartLink: 'Claire page',
-  docsStartPost: ', including a clickable demo of the onboarding.',
+  docsStartPre: 'The ',
+  docsStartLink: 'documentation',
+  docsStartPost: ' covers everything to work with Claire on your own: from connecting Exact Online and your AI assistant to the month-end close and managing team and subscription.',
   docsKbPre: 'The ',
   docsKbLink: 'resources section',
   docsKbPost: ' has practical articles on the month-end close, PSP reconciliation and MCP, among others.',
@@ -90,7 +90,6 @@ const t = lang === 'nl' ? nl : en;
 const path = routes.support[lang];
 const altPath = routes.support[other];
 const calendlyHref = `${routes.about[lang]}#plan-afspraak`;
-const claireStartHref = `${routes.claire[lang]}#${lang === 'nl' ? 'aan-de-slag' : 'get-started'}`;
 
 const schema = [
   {
@@ -144,7 +143,7 @@ const schema = [
       </div>
       <div class="block">
         <h2>{t.docsTitle}</h2>
-        <p>{t.docsStartPre}<a href={claireStartHref}>{t.docsStartLink}</a>{t.docsStartPost}</p>
+        <p>{t.docsStartPre}<a href={routes.docs[lang]}>{t.docsStartLink}</a>{t.docsStartPost}</p>
         <p>{t.docsKbPre}<a href={routes.resources[lang]}>{t.docsKbLink}</a>{t.docsKbPost}</p>
       </div>
     </div>

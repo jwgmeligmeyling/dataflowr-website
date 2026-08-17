@@ -33,6 +33,42 @@ export const COMPANY = {
 
 export type Lang = 'nl' | 'en';
 
+/**
+ * Documentation routes; NL under /documentatie, EN under /en/docs.
+ * The order here is the reading order: the index page and the
+ * previous/next links on the doc pages both follow it.
+ */
+const docRoutes = {
+  'aan-de-slag': {
+    nl: '/documentatie/aan-de-slag-met-claire',
+    en: '/en/docs/getting-started-with-claire',
+  },
+  'ai-assistenten': {
+    nl: '/documentatie/claire-in-claude-chatgpt-en-copilot',
+    en: '/en/docs/claire-in-claude-chatgpt-and-copilot',
+  },
+  'werken-met-claire': {
+    nl: '/documentatie/werken-met-claire',
+    en: '/en/docs/working-with-claire',
+  },
+  maandafsluiting: {
+    nl: '/documentatie/maandafsluiting-en-planningen',
+    en: '/en/docs/month-end-close-and-schedules',
+  },
+  'team-en-toegang': {
+    nl: '/documentatie/team-toegang-en-logboek',
+    en: '/en/docs/team-access-and-audit-log',
+  },
+  abonnement: {
+    nl: '/documentatie/abonnement-en-facturen',
+    en: '/en/docs/subscription-and-invoices',
+  },
+  'problemen-oplossen': {
+    nl: '/documentatie/problemen-oplossen',
+    en: '/en/docs/troubleshooting',
+  },
+} as const;
+
 /** Knowledge-base article routes; NL under /kennisbank, EN under /en/resources. */
 const articleRoutes = {
   maandafsluiting: {
@@ -84,6 +120,13 @@ export const routes = {
    */
   contact: { nl: '/contact', en: '/en/contact' },
   support: { nl: '/ondersteuning', en: '/en/support' },
+  /**
+   * Product documentation for Claire. Standard support means a customer works
+   * from these pages, so they are linked from the support page, the pricing
+   * note on the Claire page and the footer: deliberately not from the nav.
+   */
+  docs: { nl: '/documentatie', en: '/en/docs' },
+  docPages: docRoutes,
   articles: articleRoutes,
   /**
    * Flagship article. The "Kennisbank" nav item points at `resources` above;
@@ -113,6 +156,7 @@ export const routes = {
 
 export type ServiceKey = keyof typeof routes.services;
 export type ArticleKey = keyof typeof routes.articles;
+export type DocKey = keyof typeof routes.docPages;
 export type LegalKey = keyof typeof routes.legal;
 
 /** Shared UI strings (nav, footer, breadcrumbs). */
@@ -146,6 +190,7 @@ export const ui = {
     footerTerms: 'Algemene voorwaarden',
     contactPage: 'Contact',
     supportPage: 'Ondersteuning',
+    docsPage: 'Documentatie',
     serviceNavDescriptions: {
       'exact-online-premium': 'Implementatie & partner',
       integraties: 'Systemen & data koppelen',
@@ -192,6 +237,7 @@ export const ui = {
     footerTerms: 'Terms of Service',
     contactPage: 'Contact',
     supportPage: 'Support',
+    docsPage: 'Documentation',
     serviceNavDescriptions: {
       'exact-online-premium': 'Implementation & partner',
       integraties: 'Connect systems & data',

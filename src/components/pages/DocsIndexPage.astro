@@ -1,0 +1,197 @@
+---
+/**
+ * Documentation overview. Groups the pages by doc.group in reading order;
+ * the closing band names what standard support does and does not include,
+ * and points at the support page for the rest.
+ */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { abs, routes, ui, type DocKey, type Lang } from '../../lib/site';
+import { docOrder, docs, docsUi } from '../../data/docs';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const other: Lang = lang === 'nl' ? 'en' : 'nl';
+
+const nl = {
+  metaTitle: 'Documentatie | Zelf aan de slag met Claire',
+  metaDescription:
+    'De documentatie van Claire: Exact Online koppelen, werken in de chat, Claude of ChatGPT verbinden, de maandafsluiting inplannen en je team en abonnement beheren.',
+  eyebrow: 'Documentatie',
+  title: 'Zelf aan de slag met Claire.',
+  intro:
+    'De stappen om te starten en de uitleg om verder te komen: van de koppeling met Exact Online tot de maandafsluiting op schema. Bij elk plan inbegrepen.',
+  read: 'Lees verder →',
+  ctaTitle: 'Liever samen doorlopen?',
+  ctaSub:
+    'Bij het plan Bedrijf hoort onboarding met begeleiding, bij Kantoor ook training. En bellen mag altijd: alle kanalen staan op de ondersteuningspagina.',
+  ctaBtn: 'Naar ondersteuning',
+};
+
+const en: typeof nl = {
+  metaTitle: 'Documentation | Working with Claire on your own',
+  metaDescription:
+    'The Claire documentation: connect Exact Online, work in the chat, hook up Claude or ChatGPT, schedule the month-end close and manage your team and subscription.',
+  eyebrow: 'Documentation',
+  title: 'Working with Claire on your own.',
+  intro:
+    'The steps to get started and the explanations to get further: from the Exact Online connection to the month-end close on a schedule. Included with every plan.',
+  read: 'Read on →',
+  ctaTitle: 'Prefer to walk through it together?',
+  ctaSub:
+    'The Business plan comes with guided onboarding, Firm adds training. And calling is always fine: every channel is on the support page.',
+  ctaBtn: 'Go to support',
+};
+
+const t = lang === 'nl' ? nl : en;
+const s = ui[lang];
+const d = docsUi[lang];
+const path = routes.docs[lang];
+
+const groups = (['start', 'use', 'manage'] as const).map((group) => ({
+  group,
+  label: d.groups[group],
+  pages: docOrder
+    .filter((key) => docs[key].group === group)
+    .map((key: DocKey) => ({
+      href: routes.docPages[key][lang],
+      title: docs[key][lang].title,
+      summary: docs[key][lang].summary,
+    })),
+}));
+
+const schema = [
+  {
+    '@type': 'CollectionPage',
+    '@id': abs(`${path}#collection`),
+    name: t.eyebrow,
+    description: t.metaDescription,
+    url: abs(path),
+    inLanguage: lang === 'nl' ? 'nl-NL' : 'en',
+    isPartOf: { '@id': abs('/#organization') },
+    mainEntity: {
+      '@type': 'ItemList',
+      numberOfItems: docOrder.length,
+      itemListElement: docOrder.map((key, i) => ({
+        '@type': 'ListItem',
+        position: i + 1,
+        url: abs(routes.docPages[key][lang]),
+        name: docs[key][lang].title,
+      })),
+    },
+  },
+  {
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: s.home, item: abs(routes.home[lang]) },
+      { '@type': 'ListItem', position: 2, name: t.eyebrow, item: abs(path) },
+    ],
+  },
+];
+---
+<BaseLayout
+  lang={lang}
+  title={t.metaTitle}
+  description={t.metaDescription}
+  path={path}
+  altPath={routes.docs[other]}
+  navVariant="solid"
+  footer="compact-bg"
+  schema={schema}
+>
+  <div class="page">
+    <section class="wrap head">
+      <nav aria-label={lang === 'nl' ? 'Kruimelpad' : 'Breadcrumb'} class="crumbs">
+        <a href={routes.home[lang]}>{s.home}</a><span>/</span>
+        <span class="crumb-current">{t.eyebrow}</span>
+      </nav>
+      <p class="eyebrow">{t.eyebrow}</p>
+      <h1>{t.title}</h1>
+      <p class="intro">{t.intro}</p>
+    </section>
+
+    <section class="wrap listing">
+      {groups.map((group) => (
+        <div class="group">
+          <h2>{group.label}</h2>
+          <div class="cards">
+            {group.pages.map((page) => (
+              <a href={page.href} class="card">
+                <h3>{page.title}</h3>
+                <p>{page.summary}</p>
+                <span class="more">{t.read}</span>
+              </a>
+            ))}
+          </div>
+        </div>
+      ))}
+    </section>
+
+    <section class="cta">
+      <div class="wrap cta-inner">
+        <h2>{t.ctaTitle}</h2>
+        <p>{t.ctaSub}</p>
+        <a href={routes.support[lang]} class="btn-signal cta-btn">{t.ctaBtn}</a>
+      </div>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  .page { background: #ffffff; }
+  .head { padding-top: 56px; padding-bottom: 44px; }
+  .crumbs { display: flex; align-items: center; gap: 10px; margin-bottom: 34px; font-size: 0.84375rem; color: var(--muted); }
+  .crumb-current { color: var(--brand); font-weight: 600; }
+  .eyebrow {
+    margin: 0 0 20px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--hl);
+  }
+  h1 {
+    margin: 0 0 22px;
+    max-width: 18ch;
+    font-size: clamp(2.125rem, 4.2vw, 3.25rem);
+    line-height: 1.08;
+    font-weight: 700;
+    letter-spacing: -0.035em;
+    text-wrap: balance;
+  }
+  .intro { margin: 0; max-width: 62ch; font-size: 1.09375rem; line-height: 1.7; color: var(--muted); }
+
+  .listing { padding-bottom: 88px; display: grid; gap: 44px; }
+  .group h2 {
+    margin: 0 0 18px;
+    font-size: 0.78125rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: color-mix(in srgb, var(--hl) 85%, var(--brand));
+  }
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); gap: 18px; }
+  .card {
+    display: grid;
+    gap: 10px;
+    align-content: start;
+    padding: 26px;
+    background: #ffffff;
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    color: var(--brand);
+    text-decoration: none;
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+  }
+  .card:hover { transform: translateY(-3px); box-shadow: 0 16px 44px rgba(13, 27, 39, 0.10); color: var(--brand); }
+  .card h3 { margin: 0; font-size: 1.15625rem; line-height: 1.3; font-weight: 700; letter-spacing: -0.015em; text-wrap: balance; }
+  .card p { margin: 0; font-size: 0.96875rem; line-height: 1.65; color: var(--muted); }
+  .more { font-size: 0.9375rem; font-weight: 600; color: var(--hl); }
+
+  .cta { background: var(--bg); border-top: 1px solid var(--line); }
+  .cta-inner { padding-top: 72px; padding-bottom: 72px; display: grid; gap: 14px; justify-items: start; }
+  .cta h2 { margin: 0; font-size: clamp(1.5rem, 2.6vw, 2rem); line-height: 1.15; font-weight: 700; letter-spacing: -0.025em; }
+  .cta p { margin: 0; max-width: 60ch; font-size: 1rem; line-height: 1.65; color: var(--muted); }
+  .cta-btn { margin-top: 8px; font-size: 1.09375rem; padding: 17px 40px; }
+</style>
