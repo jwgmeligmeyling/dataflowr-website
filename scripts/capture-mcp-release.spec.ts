@@ -234,7 +234,7 @@ function toolModules(lang: Lang) {
 }
 
 /**
- * Audit rows with caller attribution filled in — the release's point is that
+ * Audit rows with caller attribution filled in. The release's point is that
  * every row now names the client that made the call.
  */
 function auditEntries(lang: Lang) {
@@ -364,7 +364,7 @@ for (const lang of langs) {
 }
 
 /* ------------------------------------------------------------------ */
-/* MCP Apps view — the same self-contained HTML an external host renders */
+/* MCP Apps view: the same self-contained HTML an external host renders */
 /* ------------------------------------------------------------------ */
 
 const VIEWS: Record<string, string> = {
@@ -397,7 +397,7 @@ function mockChatShell(api: MockApi): void {
   api.json("GET", `/api/chat/${demoConnection.id}/files`, { files: [] });
   api.json("GET", `/api/chat/${demoConnection.id}/background`, { processes: [] });
   api.json("GET", "/api/chat/conversations", { conversations: [] });
-  // The view HTML the host loads into its sandboxed iframe — dumped straight
+  // The view HTML the host loads into its sandboxed iframe, dumped straight
   // from the connector package by capture-mcp-release-view.ts, so the
   // screenshot shows the real view rather than a stand-in.
   api.on("GET", "/api/chat/app-view", (request) => {
@@ -408,7 +408,7 @@ function mockChatShell(api: MockApi): void {
   });
 }
 
-/** A P&L with a prior-year comparison — what the report viewer is built for. */
+/** A P&L with a prior-year comparison: what the report viewer is built for. */
 function reportStructuredContent(lang: Lang) {
   const nl = lang === "nl";
   const line = (
@@ -575,8 +575,8 @@ function closeStructuredContent(lang: Lang) {
           items: [
             item(
               nl
-                ? "Kruisposten (1300) staat op € 4.812,66 per 31 juli — de PSP-uitbetaling van 31 juli is nog niet afgeletterd."
-                : "Clearing account (1300) stands at €4,812.66 as at 31 July — the PSP payout of 31 July is not yet matched.",
+                ? "Kruisposten (1300) staat op € 4.812,66 per 31 juli: de PSP-uitbetaling van 31 juli is nog niet afgeletterd."
+                : "Clearing account (1300) stands at €4,812.66 as at 31 July: the PSP payout of 31 July is not yet matched.",
               "suspense-1300",
             ),
           ],
@@ -589,8 +589,8 @@ function closeStructuredContent(lang: Lang) {
           items: [
             item(
               nl
-                ? "Verschil van € 1.240,00 tussen de debiteurensubadministratie en grootboekrekening 1300 — één vraagpost op een creditnota."
-                : "€1,240.00 difference between the receivables sub-ledger and GL account 1300 — one query item on a credit note.",
+                ? "Verschil van € 1.240,00 tussen de debiteurensubadministratie en grootboekrekening 1300: één vraagpost op een creditnota."
+                : "€1,240.00 difference between the receivables sub-ledger and GL account 1300: one query item on a credit note.",
               "recv-1300",
             ),
           ],
@@ -683,14 +683,14 @@ for (const lang of langs) {
           type: "content",
           content: nl
             ? [
-                "De afsluitcontroles over juli zijn klaar. Er zijn **geen blokkers**: vijf bevindingen vragen om uw beoordeling, waarvan er één al is afgehandeld.",
+                "De afsluitcontroles over juli zijn klaar. Er zijn **geen blokkers**: vijf bevindingen vragen om je beoordeling, waarvan er één al is afgehandeld.",
                 "",
-                "De grootste post is de restant op de kruisposten — dat is de PSP-uitbetaling van 31 juli, die in augustus wordt afgeletterd.",
+                "De grootste post is de restant op de kruisposten: dat is de PSP-uitbetaling van 31 juli, die in augustus wordt afgeletterd.",
               ].join("\n")
             : [
                 "The close checks for July are done. There are **no blockers**: five findings need your review, one of which is already handled.",
                 "",
-                "The largest item is the balance left on the clearing account — that is the PSP payout of 31 July, which is matched in August.",
+                "The largest item is the balance left on the clearing account: that is the PSP payout of 31 July, which is matched in August.",
               ].join("\n"),
         },
         { type: "done" },
