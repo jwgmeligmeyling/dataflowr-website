@@ -19,7 +19,13 @@ export type DocBlock =
   | { type: 'ul'; items: string[] }
   | { type: 'steps'; items: { strong: string; rest: string }[] }
   | { type: 'note'; text: string }
-  | { type: 'code'; label: string; text: string };
+  | { type: 'code'; label: string; text: string }
+  /**
+   * Product screenshot (16:9, 2880×1620), captured from the Claire app via
+   * scripts/capture-documentatie.spec.ts into public/documentatie/. A few
+   * reuse the kennisbank captures where the staged state is identical.
+   */
+  | { type: 'figure'; src: string; alt: string; caption: string };
 
 export interface DocContent {
   metaTitle: string;
@@ -34,7 +40,7 @@ export interface DocContent {
 
 export interface Doc {
   /** Index group; the overview page renders the groups in this order. */
-  group: 'start' | 'use' | 'manage';
+  group: 'start' | 'connect' | 'use' | 'manage';
   nl: DocContent;
   en: DocContent;
 }
@@ -44,7 +50,7 @@ export const docsUi = {
   nl: {
     crumbDocs: 'Documentatie',
     tocTitle: 'Op deze pagina',
-    groups: { start: 'Starten', use: 'Gebruiken', manage: 'Beheren' },
+    groups: { start: 'Starten', connect: 'Koppelen', use: 'Gebruiken', manage: 'Beheren' },
     prev: '← Vorige',
     next: 'Volgende →',
     supportTitle: 'Kom je er niet uit?',
@@ -54,7 +60,7 @@ export const docsUi = {
   en: {
     crumbDocs: 'Documentation',
     tocTitle: 'On this page',
-    groups: { start: 'Getting started', use: 'Everyday use', manage: 'Managing' },
+    groups: { start: 'Getting started', connect: 'Connecting', use: 'Everyday use', manage: 'Managing' },
     prev: '← Previous',
     next: 'Next →',
     supportTitle: 'Stuck on something?',
@@ -110,6 +116,18 @@ export const docs: Record<DocKey, Doc> = {
               rest: ' Na de goedkeuring zie je je administratie bevestigd, met de knop Open Claire. Stel je eerste vraag, bijvoorbeeld: welke facturen staan open?',
             },
           ],
+        },
+        {
+          type: 'figure',
+          src: '/documentatie/plan-kiezen-nl.png',
+          alt: 'De plankiezer in de Claire-app met de plannen Individueel, Bedrijf en Kantoor',
+          caption: 'Stap 1 en 3: de plankiezer. Eén abonnement dekt je hele team en is maandelijks opzegbaar.',
+        },
+        {
+          type: 'figure',
+          src: '/documentatie/verbonden-nl.png',
+          alt: 'De bevestigingspagina na het koppelen: Exact Online is gekoppeld, met de knop Open Claire',
+          caption: 'Na de goedkeuring bij Exact Online: de administratie is bevestigd en Claire staat klaar.',
         },
         {
           type: 'p',
@@ -172,6 +190,18 @@ export const docs: Record<DocKey, Doc> = {
           ],
         },
         {
+          type: 'figure',
+          src: '/documentatie/plan-kiezen-en.png',
+          alt: 'The plan chooser in the Claire app with the Individual, Business and Firm plans',
+          caption: 'Steps 1 and 3: the plan chooser. One subscription covers your whole team and cancels monthly.',
+        },
+        {
+          type: 'figure',
+          src: '/documentatie/verbonden-en.png',
+          alt: 'The confirmation page after connecting: Exact Online is connected, with the Open Claire button',
+          caption: 'After approving at Exact Online: the administration is confirmed and Claire is ready.',
+        },
+        {
           type: 'p',
           text: 'The connection itself takes minutes. From there the dashboard keeps a short checklist: choose tools for the connection, ask your first question, connect an AI assistant and schedule the month-end close.',
         },
@@ -188,139 +218,465 @@ export const docs: Record<DocKey, Doc> = {
     },
   },
 
-  'ai-assistenten': {
-    group: 'start',
+  claude: {
+    group: 'connect',
     nl: {
-      metaTitle: 'Claire koppelen aan Claude, ChatGPT of Microsoft 365 Copilot',
+      metaTitle: 'Claude koppelen aan Exact Online',
       metaDescription:
-        'Verbind Claire met je eigen AI-assistent via MCP: één adres voor Claude, ChatGPT en Microsoft 365 Copilot, en een token voor platformen als Make en Zapier.',
-      crumbCurrent: 'AI-assistenten',
-      title: 'Claire in Claude, ChatGPT en Copilot',
-      summary: 'Eén MCP-adres voor je eigen AI-assistent, en een token voor automatiseringsplatformen.',
+        'Koppel Claude aan Exact Online via Claire: plak één MCP-adres, log in met je DataFlowr-account en vraag naar je cijfers. Werkt in de browser, op je telefoon en in de desktop-app.',
+      crumbCurrent: 'Claude',
+      title: 'Claude koppelen aan Exact Online',
+      summary: 'Eén adres plakken, inloggen, en Claude werkt in je administratie.',
       lead:
-        'Claire werkt in de AI-assistent die je al gebruikt. Je voegt één adres toe, logt in met je DataFlowr-account en werkt verder waar je gewend bent.',
+        'Met de connector van Claire werkt Claude rechtstreeks in je Exact Online-administratie: actuele cijfers in het gesprek, zonder exports. De koppeling is een kwestie van plakken en inloggen.',
       blocks: [
-        { type: 'h2', id: 'adres', text: 'Eén adres voor elke assistent' },
+        { type: 'h2', id: 'nodig', text: 'Wat je nodig hebt' },
         {
-          type: 'p',
-          text: 'Elke assistent gebruikt hetzelfde MCP-adres. Je logt in met je DataFlowr-account; er komt geen token aan te pas.',
+          type: 'ul',
+          items: [
+            `Een Claire-abonnement met een gekoppelde administratie; zie [Aan de slag met Claire](${routes.docPages['aan-de-slag'].nl}).`,
+            'Een Claude-account waarin je connectors kunt toevoegen.',
+          ],
         },
+        { type: 'h2', id: 'stappen', text: 'Zo koppel je Claude' },
         { type: 'code', label: 'MCP-adres', text: 'https://app.dataflowr.nl/mcp' },
         {
-          type: 'p',
-          text: 'Heb je meerdere administraties, dan vraagt DataFlowr bij het inloggen in welke administratie deze assistent moet werken. Bij één administratie slaat die vraag over.',
-        },
-        { type: 'h2', id: 'claude', text: 'Claude' },
-        {
           type: 'steps',
           items: [
-            { strong: 'Open Instellingen → Connectors', rest: ' en kies Aangepaste connector toevoegen.' },
+            { strong: 'Open in Claude Instellingen → Connectors', rest: ' en kies Aangepaste connector toevoegen.' },
             { strong: 'Plak het MCP-adres', rest: ' hierboven en bevestig.' },
-            { strong: 'Log in met je DataFlowr-account', rest: ' en kies zo nodig de administratie.' },
+            { strong: 'Log in met je DataFlowr-account', rest: ' en kies zo nodig de administratie waarin Claude moet werken.' },
           ],
         },
         {
-          type: 'p',
-          text: 'Eén keer toevoegen is genoeg: de connector werkt daarna in Claude in je browser, op je telefoon en in de desktop-app.',
+          type: 'figure',
+          src: '/documentatie/koppelen-claude-nl.png',
+          alt: 'De verbindingspagina in de Claire-app met het MCP-adres en de setup-gids voor Claude',
+          caption: 'De setup-gids op je verbindingspagina toont hetzelfde adres en dezelfde stappen, met een kopieerknop.',
         },
-        { type: 'h2', id: 'chatgpt', text: 'ChatGPT' },
         {
-          type: 'steps',
+          type: 'p',
+          text: 'Eén keer toevoegen is genoeg: de connector werkt daarna in Claude in je browser, op je telefoon en in de desktop-app. Claude toont DataFlowr nog niet in zijn connector-directory; tot die vermelding er is, is het adres plakken de route.',
+        },
+        { type: 'h2', id: 'vragen', text: 'Wat je Claude daarna kunt vragen' },
+        {
+          type: 'ul',
           items: [
-            { strong: 'Open Instellingen → Connectors', rest: ' en kies Create.' },
-            { strong: 'Plak het MCP-adres', rest: ' hierboven.' },
-            { strong: 'Log in met je DataFlowr-account', rest: ' zodra ChatGPT daarom vraagt.' },
+            '"Welke verkoopfacturen staan langer dan 60 dagen open?"',
+            '"Zet de winst-en-verliesrekening van dit kwartaal naast vorig jaar."',
+            '"Voer de afsluitcontroles voor juli uit."',
           ],
         },
-        {
-          type: 'note',
-          text: 'Zie je geen Create onder Connectors? Eigen connectors toevoegen moet eerst aanstaan voor je ChatGPT-werkomgeving (ontwikkelaarsmodus) en kan een betaald ChatGPT-plan vragen. Vraag degene die de werkomgeving beheert.',
-        },
-        { type: 'h2', id: 'copilot', text: 'Microsoft 365 Copilot' },
+        { type: 'h2', id: 'meerdere', text: 'Meerdere administraties' },
         {
           type: 'p',
-          text: `Copilot werkt niet met een adres maar met een agentpakket. Download het pakket op je [verbindingspagina](${APP_URL}connections) en upload het in Copilot of Teams via Apps, Uw apps beheren, Een app uploaden. Log daarna in de DataFlowr-agent in met je DataFlowr-account.`,
+          text: `Heb je meerdere administraties, dan vraagt DataFlowr bij het inloggen in welke administratie Claude moet werken; bij één administratie slaat die vraag over. Wisselen doe je door vanuit Claude opnieuw in te loggen. Onder Sessies op de verbindingspagina trek je de toegang weer in; zie [Team, toegang en logboek](${routes.docPages['team-en-toegang'].nl}).`,
         },
         {
           type: 'note',
-          text: 'Het uploaden van een eigen app moet door je Microsoft 365-beheerder zijn ingeschakeld. GitHub Copilot in VS Code is een ander product: daar voeg je het MCP-adres toe in .vscode/mcp.json.',
-        },
-        { type: 'h2', id: 'automatisering', text: 'Make, Zapier en andere platformen' },
-        {
-          type: 'p',
-          text: 'Automatiseringsplatformen loggen niet zelf in. Die gebruiken hetzelfde adres met een bearer token in de Authorization-header. Het token staat op je verbindingspagina en hoort bij precies één administratie. Andere MCP-clients met tokenondersteuning, zoals n8n, werken op dezelfde manier.',
-        },
-        { type: 'h2', id: 'wisselen', text: 'Wisselen en toegang intrekken' },
-        {
-          type: 'p',
-          text: `Wil je een assistent in een andere administratie laten werken, log dan vanuit die assistent opnieuw in en kies de andere. Onder Sessies op de verbindingspagina zie je welke assistenten toegang hebben; beëindig je een sessie, dan is die toegang binnen een uur weg totdat er opnieuw wordt ingelogd. Meer daarover in [Team, toegang en logboek](${routes.docPages['team-en-toegang'].nl}).`,
+          text: `Komt de koppeling niet tot stand, kijk dan bij [Problemen oplossen](${routes.docPages['problemen-oplossen'].nl}).`,
         },
       ],
     },
     en: {
-      metaTitle: 'Connecting Claire to Claude, ChatGPT or Microsoft 365 Copilot',
+      metaTitle: 'Connect Claude to Exact Online',
       metaDescription:
-        'Connect Claire to your own AI assistant through MCP: one address for Claude, ChatGPT and Microsoft 365 Copilot, and a token for platforms like Make and Zapier.',
-      crumbCurrent: 'AI assistants',
-      title: 'Claire in Claude, ChatGPT and Copilot',
-      summary: 'One MCP address for your own AI assistant, and a token for automation platforms.',
+        'Connect Claude to Exact Online through Claire: paste one MCP address, sign in with your DataFlowr account and ask about your figures. Works in the browser, on your phone and in the desktop app.',
+      crumbCurrent: 'Claude',
+      title: 'Connect Claude to Exact Online',
+      summary: 'Paste one address, sign in, and Claude works in your administration.',
       lead:
-        'Claire works in the AI assistant you already use. You add one address, sign in with your DataFlowr account and carry on where you are at home.',
+        'With the Claire connector, Claude works directly in your Exact Online administration: current figures in the conversation, no exports. Connecting is a matter of pasting and signing in.',
       blocks: [
-        { type: 'h2', id: 'adres', text: 'One address for every assistant' },
+        { type: 'h2', id: 'nodig', text: 'What you need' },
         {
-          type: 'p',
-          text: 'Every assistant uses the same MCP address. You sign in with your DataFlowr account; no token is involved.',
+          type: 'ul',
+          items: [
+            `A Claire subscription with a connected administration; see [Getting started with Claire](${routes.docPages['aan-de-slag'].en}).`,
+            'A Claude account that lets you add connectors.',
+          ],
         },
+        { type: 'h2', id: 'stappen', text: 'How to connect Claude' },
         { type: 'code', label: 'MCP address', text: 'https://app.dataflowr.nl/mcp' },
         {
-          type: 'p',
-          text: 'If you have more than one administration, DataFlowr asks at sign-in which administration this assistant should work in. With a single administration that question is skipped.',
-        },
-        { type: 'h2', id: 'claude', text: 'Claude' },
-        {
           type: 'steps',
           items: [
-            { strong: 'Open Settings → Connectors', rest: ' and choose Add custom connector.' },
+            { strong: 'In Claude, open Settings → Connectors', rest: ' and choose Add custom connector.' },
             { strong: 'Paste the MCP address', rest: ' above and confirm.' },
-            { strong: 'Sign in with your DataFlowr account', rest: ' and pick the administration if asked.' },
+            { strong: 'Sign in with your DataFlowr account', rest: ' and pick the administration Claude should work in, if asked.' },
           ],
         },
         {
-          type: 'p',
-          text: 'Adding it once is enough: the connector then works in Claude in your browser, on your phone and in the desktop app.',
+          type: 'figure',
+          src: '/documentatie/koppelen-claude-en.png',
+          alt: 'The connection page in the Claire app with the MCP address and the setup guide for Claude',
+          caption: 'The setup guide on your connection page shows the same address and the same steps, with a copy button.',
         },
-        { type: 'h2', id: 'chatgpt', text: 'ChatGPT' },
+        {
+          type: 'p',
+          text: 'Adding it once is enough: the connector then works in Claude in your browser, on your phone and in the desktop app. Claude does not list DataFlowr in its connector directory yet; until that listing exists, pasting the address is the route.',
+        },
+        { type: 'h2', id: 'vragen', text: 'What to ask Claude next' },
+        {
+          type: 'ul',
+          items: [
+            '"Which sales invoices have been open for more than 60 days?"',
+            '"Put this quarter’s P&L next to last year."',
+            '"Run the close checks for July."',
+          ],
+        },
+        { type: 'h2', id: 'meerdere', text: 'Multiple administrations' },
+        {
+          type: 'p',
+          text: `With more than one administration, DataFlowr asks at sign-in which administration Claude should work in; with a single one that question is skipped. To switch, sign in again from Claude. Under Sessions on the connection page you revoke the access again; see [Team, access and audit log](${routes.docPages['team-en-toegang'].en}).`,
+        },
+        {
+          type: 'note',
+          text: `If the connection does not come through, see [Troubleshooting](${routes.docPages['problemen-oplossen'].en}).`,
+        },
+      ],
+    },
+  },
+
+  chatgpt: {
+    group: 'connect',
+    nl: {
+      metaTitle: 'ChatGPT koppelen aan Exact Online',
+      metaDescription:
+        'Koppel ChatGPT aan Exact Online via Claire: maak een connector met één MCP-adres en log in. Vereist ontwikkelaarsmodus in je ChatGPT-werkomgeving; Codex gebruikt hetzelfde adres.',
+      crumbCurrent: 'ChatGPT',
+      title: 'ChatGPT koppelen aan Exact Online',
+      summary: 'Een eigen connector in ChatGPT, met hetzelfde adres en je DataFlowr-login.',
+      lead:
+        'Met de connector van Claire beantwoordt ChatGPT vragen met actuele cijfers uit je Exact Online-administratie. Je maakt één keer een connector aan en logt in; daarna staat de koppeling er.',
+      blocks: [
+        { type: 'h2', id: 'nodig', text: 'Wat je nodig hebt' },
+        {
+          type: 'ul',
+          items: [
+            `Een Claire-abonnement met een gekoppelde administratie; zie [Aan de slag met Claire](${routes.docPages['aan-de-slag'].nl}).`,
+            'Een ChatGPT-werkomgeving waarin eigen connectors aanstaan (ontwikkelaarsmodus); dit kan een betaald ChatGPT-plan vragen.',
+          ],
+        },
+        { type: 'h2', id: 'stappen', text: 'Zo koppel je ChatGPT' },
+        { type: 'code', label: 'MCP-adres', text: 'https://app.dataflowr.nl/mcp' },
         {
           type: 'steps',
           items: [
-            { strong: 'Open Settings → Connectors', rest: ' and choose Create.' },
-            { strong: 'Paste the MCP address', rest: ' above.' },
-            { strong: 'Sign in with your DataFlowr account', rest: ' when ChatGPT asks.' },
+            { strong: 'Open in ChatGPT Instellingen → Connectors', rest: ' en kies Create.' },
+            { strong: 'Plak het MCP-adres', rest: ' hierboven.' },
+            { strong: 'Log in met je DataFlowr-account', rest: ' zodra ChatGPT daarom vraagt, en kies zo nodig de administratie.' },
           ],
         },
         {
-          type: 'note',
-          text: 'No Create option under Connectors? Adding your own connectors has to be switched on for your ChatGPT workspace first (developer mode) and may require a paid ChatGPT plan. Ask whoever manages the workspace.',
-        },
-        { type: 'h2', id: 'copilot', text: 'Microsoft 365 Copilot' },
-        {
-          type: 'p',
-          text: `Copilot does not take an address but an agent package. Download the package on your [connection page](${APP_URL}en/connections) and upload it in Copilot or Teams via Apps, Manage your apps, Upload an app. Then sign in to the DataFlowr agent with your DataFlowr account.`,
+          type: 'figure',
+          src: '/documentatie/koppelen-chatgpt-nl.png',
+          alt: 'De verbindingspagina in de Claire-app met het MCP-adres en de setup-gids voor ChatGPT',
+          caption: 'De setup-gids op je verbindingspagina, met het adres dat je in ChatGPT plakt.',
         },
         {
           type: 'note',
-          text: 'Uploading a custom app has to be enabled by your Microsoft 365 administrator. GitHub Copilot in VS Code is a different product: there you add the MCP address to .vscode/mcp.json.',
+          text: 'Zie je geen Create onder Connectors? Dan staat de ontwikkelaarsmodus uit voor je werkomgeving. Vraag degene die de werkomgeving beheert om hem aan te zetten.',
         },
-        { type: 'h2', id: 'automatisering', text: 'Make, Zapier and other platforms' },
+        { type: 'h2', id: 'vragen', text: 'Wat je ChatGPT daarna kunt vragen' },
+        {
+          type: 'ul',
+          items: [
+            '"Hoe staat de omzet er deze maand voor, per klant?"',
+            '"Welke inkoopfacturen vervallen deze week?"',
+            '"Maak een ouderdomsanalyse van de debiteuren."',
+          ],
+        },
+        { type: 'h2', id: 'meerdere', text: 'Meerdere administraties en Codex' },
         {
           type: 'p',
-          text: 'Automation platforms do not sign in themselves. They use the same address with a bearer token in the Authorization header. The token lives on your connection page and belongs to exactly one administration. Other MCP clients with token support, such as n8n, work the same way.',
+          text: `Bij het inloggen kies je in welke administratie ChatGPT werkt; wisselen doe je door opnieuw in te loggen. Codex, de ontwikkelaarsassistent van OpenAI, gebruikt hetzelfde adres. De toegang trek je in onder Sessies op de verbindingspagina; zie [Team, toegang en logboek](${routes.docPages['team-en-toegang'].nl}).`,
         },
-        { type: 'h2', id: 'wisselen', text: 'Switching and revoking access' },
+        {
+          type: 'note',
+          text: `Komt de koppeling niet tot stand, kijk dan bij [Problemen oplossen](${routes.docPages['problemen-oplossen'].nl}).`,
+        },
+      ],
+    },
+    en: {
+      metaTitle: 'Connect ChatGPT to Exact Online',
+      metaDescription:
+        'Connect ChatGPT to Exact Online through Claire: create a connector with one MCP address and sign in. Requires developer mode in your ChatGPT workspace; Codex uses the same address.',
+      crumbCurrent: 'ChatGPT',
+      title: 'Connect ChatGPT to Exact Online',
+      summary: 'A custom connector in ChatGPT, with the same address and your DataFlowr sign-in.',
+      lead:
+        'With the Claire connector, ChatGPT answers questions with current figures from your Exact Online administration. You create a connector once and sign in; after that the connection stays.',
+      blocks: [
+        { type: 'h2', id: 'nodig', text: 'What you need' },
+        {
+          type: 'ul',
+          items: [
+            `A Claire subscription with a connected administration; see [Getting started with Claire](${routes.docPages['aan-de-slag'].en}).`,
+            'A ChatGPT workspace with custom connectors switched on (developer mode); this may require a paid ChatGPT plan.',
+          ],
+        },
+        { type: 'h2', id: 'stappen', text: 'How to connect ChatGPT' },
+        { type: 'code', label: 'MCP address', text: 'https://app.dataflowr.nl/mcp' },
+        {
+          type: 'steps',
+          items: [
+            { strong: 'In ChatGPT, open Settings → Connectors', rest: ' and choose Create.' },
+            { strong: 'Paste the MCP address', rest: ' above.' },
+            { strong: 'Sign in with your DataFlowr account', rest: ' when ChatGPT asks, and pick the administration if needed.' },
+          ],
+        },
+        {
+          type: 'figure',
+          src: '/documentatie/koppelen-chatgpt-en.png',
+          alt: 'The connection page in the Claire app with the MCP address and the setup guide for ChatGPT',
+          caption: 'The setup guide on your connection page, with the address you paste into ChatGPT.',
+        },
+        {
+          type: 'note',
+          text: 'No Create option under Connectors? Then developer mode is off for your workspace. Ask whoever manages the workspace to switch it on.',
+        },
+        { type: 'h2', id: 'vragen', text: 'What to ask ChatGPT next' },
+        {
+          type: 'ul',
+          items: [
+            '"How is revenue doing this month, by customer?"',
+            '"Which purchase invoices fall due this week?"',
+            '"Build an ageing analysis of the receivables."',
+          ],
+        },
+        { type: 'h2', id: 'meerdere', text: 'Multiple administrations and Codex' },
         {
           type: 'p',
-          text: `To move an assistant to another administration, sign in again from that assistant and pick the other one. Under Sessions on the connection page you see which assistants have access; end a session and that access is gone within the hour, until someone signs in again. More in [Team, access and audit log](${routes.docPages['team-en-toegang'].en}).`,
+          text: `At sign-in you pick which administration ChatGPT works in; to switch, sign in again. Codex, OpenAI’s developer assistant, uses the same address. You revoke access under Sessions on the connection page; see [Team, access and audit log](${routes.docPages['team-en-toegang'].en}).`,
+        },
+        {
+          type: 'note',
+          text: `If the connection does not come through, see [Troubleshooting](${routes.docPages['problemen-oplossen'].en}).`,
+        },
+      ],
+    },
+  },
+
+  copilot: {
+    group: 'connect',
+    nl: {
+      metaTitle: 'Microsoft 365 Copilot koppelen aan Exact Online',
+      metaDescription:
+        'Koppel Microsoft 365 Copilot aan Exact Online via Claire: download het agentpakket, upload het in Copilot of Teams en log in. Je beheerder moet eigen apps toestaan.',
+      crumbCurrent: 'Copilot',
+      title: 'Microsoft 365 Copilot koppelen aan Exact Online',
+      summary: 'Het agentpakket uploaden in Copilot of Teams, en inloggen met je DataFlowr-account.',
+      lead:
+        'Met de DataFlowr-agent werkt Microsoft 365 Copilot in je Exact Online-administratie, gewoon vanuit Teams of de Copilot-app. Copilot werkt niet met een adres maar met een agentpakket dat je uploadt.',
+      blocks: [
+        { type: 'h2', id: 'nodig', text: 'Wat je nodig hebt' },
+        {
+          type: 'ul',
+          items: [
+            `Een Claire-abonnement met een gekoppelde administratie; zie [Aan de slag met Claire](${routes.docPages['aan-de-slag'].nl}).`,
+            'Een Microsoft 365-omgeving waarin het uploaden van eigen apps is toegestaan, of een beheerder die het pakket voor de organisatie uitrolt.',
+          ],
+        },
+        { type: 'h2', id: 'stappen', text: 'Zo koppel je Copilot' },
+        {
+          type: 'steps',
+          items: [
+            { strong: 'Download het agentpakket', rest: ` (een zip) op je [verbindingspagina](${APP_URL}connections).` },
+            { strong: 'Upload het in Copilot of Teams', rest: ' via Apps, Uw apps beheren, Een app uploaden.' },
+            { strong: 'Open de DataFlowr-agent en log in', rest: ' met je DataFlowr-account; kies zo nodig de administratie.' },
+          ],
+        },
+        {
+          type: 'figure',
+          src: '/documentatie/koppelen-copilot-nl.png',
+          alt: 'De verbindingspagina in de Claire-app met de setup-gids en downloadknop voor Microsoft 365 Copilot',
+          caption: 'De setup-gids op je verbindingspagina, met de download van het agentpakket.',
+        },
+        {
+          type: 'note',
+          text: 'Het uploaden van een eigen app moet door je Microsoft 365-beheerder zijn ingeschakeld. Ziet je organisatie de uploadoptie niet, dan kan de beheerder het pakket ook organisatiebreed uitrollen vanuit het Microsoft 365-beheercentrum.',
+        },
+        { type: 'h2', id: 'vragen', text: 'Wat je Copilot daarna kunt vragen' },
+        {
+          type: 'ul',
+          items: [
+            '"Vat de openstaande posten samen voor het maandagoverleg."',
+            '"Welke projecten lopen boven hun budget?"',
+            '"Hoe ontwikkelen de personeelskosten zich dit jaar?"',
+          ],
+        },
+        { type: 'h2', id: 'meerdere', text: 'Meerdere administraties' },
+        {
+          type: 'p',
+          text: `Bij het inloggen kies je in welke administratie de agent werkt; die keuze blijft staan tot je opnieuw inlogt. De toegang trek je in onder Sessies op de verbindingspagina; zie [Team, toegang en logboek](${routes.docPages['team-en-toegang'].nl}).`,
+        },
+        {
+          type: 'note',
+          text: `GitHub Copilot in VS Code is een ander product: daar voeg je het MCP-adres https://app.dataflowr.nl/mcp toe in .vscode/mcp.json. Komt de koppeling niet tot stand, kijk dan bij [Problemen oplossen](${routes.docPages['problemen-oplossen'].nl}).`,
+        },
+      ],
+    },
+    en: {
+      metaTitle: 'Connect Microsoft 365 Copilot to Exact Online',
+      metaDescription:
+        'Connect Microsoft 365 Copilot to Exact Online through Claire: download the agent package, upload it in Copilot or Teams and sign in. Your admin must allow custom apps.',
+      crumbCurrent: 'Copilot',
+      title: 'Connect Microsoft 365 Copilot to Exact Online',
+      summary: 'Upload the agent package in Copilot or Teams, and sign in with your DataFlowr account.',
+      lead:
+        'With the DataFlowr agent, Microsoft 365 Copilot works in your Exact Online administration, right from Teams or the Copilot app. Copilot does not take an address but an agent package you upload.',
+      blocks: [
+        { type: 'h2', id: 'nodig', text: 'What you need' },
+        {
+          type: 'ul',
+          items: [
+            `A Claire subscription with a connected administration; see [Getting started with Claire](${routes.docPages['aan-de-slag'].en}).`,
+            'A Microsoft 365 environment that allows uploading custom apps, or an admin who deploys the package for the organisation.',
+          ],
+        },
+        { type: 'h2', id: 'stappen', text: 'How to connect Copilot' },
+        {
+          type: 'steps',
+          items: [
+            { strong: 'Download the agent package', rest: ` (a zip) on your [connection page](${APP_URL}en/connections).` },
+            { strong: 'Upload it in Copilot or Teams', rest: ' via Apps, Manage your apps, Upload an app.' },
+            { strong: 'Open the DataFlowr agent and sign in', rest: ' with your DataFlowr account; pick the administration if needed.' },
+          ],
+        },
+        {
+          type: 'figure',
+          src: '/documentatie/koppelen-copilot-en.png',
+          alt: 'The connection page in the Claire app with the setup guide and download button for Microsoft 365 Copilot',
+          caption: 'The setup guide on your connection page, with the agent package download.',
+        },
+        {
+          type: 'note',
+          text: 'Uploading a custom app has to be enabled by your Microsoft 365 administrator. If your organisation does not see the upload option, the admin can also deploy the package organisation-wide from the Microsoft 365 admin center.',
+        },
+        { type: 'h2', id: 'vragen', text: 'What to ask Copilot next' },
+        {
+          type: 'ul',
+          items: [
+            '"Summarise the open items for the Monday meeting."',
+            '"Which projects are running over budget?"',
+            '"How are personnel costs developing this year?"',
+          ],
+        },
+        { type: 'h2', id: 'meerdere', text: 'Multiple administrations' },
+        {
+          type: 'p',
+          text: `At sign-in you pick which administration the agent works in; that choice stays until you sign in again. You revoke access under Sessions on the connection page; see [Team, access and audit log](${routes.docPages['team-en-toegang'].en}).`,
+        },
+        {
+          type: 'note',
+          text: `GitHub Copilot in VS Code is a different product: there you add the MCP address https://app.dataflowr.nl/mcp to .vscode/mcp.json. If the connection does not come through, see [Troubleshooting](${routes.docPages['problemen-oplossen'].en}).`,
+        },
+      ],
+    },
+  },
+
+  automatisering: {
+    group: 'connect',
+    nl: {
+      metaTitle: 'Make, Zapier en n8n koppelen aan Exact Online',
+      metaDescription:
+        'Gebruik Exact Online als bouwsteen in Make, Zapier of n8n via de MCP-connector van Claire: één adres plus een bearer token per administratie. Zo zet je het op.',
+      crumbCurrent: 'Make, Zapier en n8n',
+      title: 'Make, Zapier en n8n koppelen aan Exact Online',
+      summary: 'Hetzelfde adres met een bearer token, als bouwsteen in je automatiseringen.',
+      lead:
+        'Automatiseringsplatformen loggen niet zelf in; die gebruiken het MCP-adres met een bearer token. Daarmee wordt je administratie een bouwsteen in elk scenario, van factuurcontrole tot wekelijkse overzichten.',
+      blocks: [
+        { type: 'h2', id: 'stappen', text: 'Zo zet je de koppeling op' },
+        {
+          type: 'steps',
+          items: [
+            { strong: 'Open je verbindingspagina', rest: ` in [de app](${APP_URL}connections) en kies Make of Zapier in de setup-gids.` },
+            { strong: 'Kopieer de MCP URL en het bearer token.', rest: ' Nog geen token? Genereer het met één klik.' },
+            { strong: 'Maak in je platform een MCP-verbinding', rest: ' met die URL, en stuur het token mee als Authorization-header: Bearer gevolgd door het token.' },
+          ],
+        },
+        {
+          type: 'figure',
+          src: '/documentatie/koppelen-make-nl.png',
+          alt: 'De verbindingspagina in de Claire-app met het MCP-adres, het bearer token en de setup-gids voor Make',
+          caption: 'De setup-gids voor Make: de URL en de Authorization-header staan klaar om te kopiëren.',
+        },
+        { type: 'h2', id: 'token', text: 'Het token en de administratie' },
+        {
+          type: 'p',
+          text: 'Het token hoort bij precies één administratie, dus je scenario werkt altijd in de juiste omgeving. Behandel het als een wachtwoord. Genereer je het opnieuw, dan vervalt het oude token en werk je scenario’s bij met het nieuwe.',
+        },
+        { type: 'h2', id: 'begrenzen', text: 'Begrens wat een automatisering kan' },
+        {
+          type: 'p',
+          text: `Een automatisering vraagt niet om akkoord in een chat; hij doet precies wat het scenario zegt. Kies daarom bewust welke tools voor de verbinding aanstaan: wat uitstaat kan ook via het token niet worden aangeroepen. Hoe dat werkt staat in [Team, toegang en logboek](${routes.docPages['team-en-toegang'].nl}).`,
+        },
+        { type: 'h2', id: 'voorbeelden', text: 'Voorbeelden van scenario’s' },
+        {
+          type: 'ul',
+          items: [
+            'Controleer elke binnenkomende factuur en meld mogelijke dubbele in je teamkanaal.',
+            'Zet elke maandag de openstaande posten in een spreadsheet voor het werkoverleg.',
+            'Maak een taak aan zodra een klant boven zijn kredietlimiet komt.',
+          ],
+        },
+        { type: 'h2', id: 'n8n', text: 'Ook voor n8n en andere MCP-clients' },
+        {
+          type: 'p',
+          text: 'n8n en andere MCP-clients met tokenondersteuning gebruiken dezelfde URL en hetzelfde token. In de setup-gids staan Make en Zapier uitgeschreven; de velden zijn overal dezelfde twee.',
+        },
+      ],
+    },
+    en: {
+      metaTitle: 'Connect Make, Zapier and n8n to Exact Online',
+      metaDescription:
+        'Use Exact Online as a building block in Make, Zapier or n8n through the Claire MCP connector: one address plus a bearer token per administration. Here is the setup.',
+      crumbCurrent: 'Make, Zapier and n8n',
+      title: 'Connect Make, Zapier and n8n to Exact Online',
+      summary: 'The same address with a bearer token, as a building block in your automations.',
+      lead:
+        'Automation platforms do not sign in themselves; they use the MCP address with a bearer token. That turns your administration into a building block for any scenario, from invoice checks to weekly overviews.',
+      blocks: [
+        { type: 'h2', id: 'stappen', text: 'How to set up the connection' },
+        {
+          type: 'steps',
+          items: [
+            { strong: 'Open your connection page', rest: ` in [the app](${APP_URL}en/connections) and pick Make or Zapier in the setup guide.` },
+            { strong: 'Copy the MCP URL and the bearer token.', rest: ' No token yet? Generate one with a single click.' },
+            { strong: 'Create an MCP connection in your platform', rest: ' with that URL, and send the token as the Authorization header: Bearer followed by the token.' },
+          ],
+        },
+        {
+          type: 'figure',
+          src: '/documentatie/koppelen-make-en.png',
+          alt: 'The connection page in the Claire app with the MCP address, the bearer token and the setup guide for Make',
+          caption: 'The setup guide for Make: the URL and the Authorization header are ready to copy.',
+        },
+        { type: 'h2', id: 'token', text: 'The token and the administration' },
+        {
+          type: 'p',
+          text: 'The token belongs to exactly one administration, so your scenario always works in the right environment. Treat it like a password. If you regenerate it, the old token stops working and you update your scenarios with the new one.',
+        },
+        { type: 'h2', id: 'begrenzen', text: 'Limit what an automation can do' },
+        {
+          type: 'p',
+          text: `An automation does not ask for approval in a chat; it does exactly what the scenario says. So choose deliberately which tools are enabled for the connection: whatever is off cannot be invoked through the token either. How that works is in [Team, access and audit log](${routes.docPages['team-en-toegang'].en}).`,
+        },
+        { type: 'h2', id: 'voorbeelden', text: 'Example scenarios' },
+        {
+          type: 'ul',
+          items: [
+            'Check every incoming invoice and report possible duplicates in your team channel.',
+            'Every Monday, put the open items in a spreadsheet for the stand-up.',
+            'Create a task when a customer exceeds their credit limit.',
+          ],
+        },
+        { type: 'h2', id: 'n8n', text: 'Also for n8n and other MCP clients' },
+        {
+          type: 'p',
+          text: 'n8n and other MCP clients with token support use the same URL and the same token. The setup guide spells out Make and Zapier; the fields are the same two everywhere.',
         },
       ],
     },
@@ -343,10 +699,22 @@ export const docs: Record<DocKey, Doc> = {
           type: 'p',
           text: 'Kies eerst een bedrijf en administratie met de knop naast het invoerveld; wisselen kan op elk moment, ook midden in een gesprek. Claire antwoordt als tekst, tabel of grafiek en laat zien welke gegevens ze daarvoor ophaalde. Gesprekken blijven bewaard in de zijbalk, dus morgen verdergaan kan.',
         },
+        {
+          type: 'figure',
+          src: '/kennisbank/mcp-release-app-view-nl.png',
+          alt: 'Een gesprek met Claire waarin een winst-en-verliesrekening als interactieve tabel wordt getoond',
+          caption: 'Een cijfervraag levert een interactieve tabel op, met de vergelijking en de toelichting erbij.',
+        },
         { type: 'h2', id: 'akkoord', text: 'Lezen is vrij, schrijven wacht op jou' },
         {
           type: 'p',
           text: 'Claire leest en rekent zelfstandig, maar wijzigt niets zonder akkoord. Voor elke wijziging verschijnt een voorstel: wat er gebeurt, in welke administratie, met welke gegevens. Bij een aanpassing van bestaande gegevens zie je precies wat er verandert. Bevat een stap meerdere acties, dan staat dat erbij en keur je ze samen goed. Afwijzen kan altijd; het voorstel vervalt dan zonder gevolgen.',
+        },
+        {
+          type: 'figure',
+          src: '/documentatie/goedkeuring-nl.png',
+          alt: 'Het goedkeuringsvenster van Claire voor het aanmaken van een verkoopfactuur, met administratie en factuurregels',
+          caption: 'Het voorstel voor een wijziging: wat er gebeurt, waar, en met welke gegevens. Niets wordt geboekt zonder jouw akkoord.',
         },
         { type: 'h2', id: 'bestanden', text: 'Bestanden delen en bewaren' },
         {
@@ -389,10 +757,22 @@ export const docs: Record<DocKey, Doc> = {
           type: 'p',
           text: 'First pick a company and administration with the button next to the message box; you can switch at any moment, mid-conversation included. Claire answers as text, a table or a chart, and shows which data she fetched for it. Conversations stay in the sidebar, so continuing tomorrow works.',
         },
+        {
+          type: 'figure',
+          src: '/kennisbank/mcp-release-app-view-en.png',
+          alt: 'A conversation with Claire showing a profit and loss statement as an interactive table',
+          caption: 'A numbers question yields an interactive table, with the comparison and the explanation alongside.',
+        },
         { type: 'h2', id: 'akkoord', text: 'Reading is free, writing waits for you' },
         {
           type: 'p',
           text: 'Claire reads and calculates on her own, but changes nothing without approval. Every change appears as a proposal first: what happens, in which administration, with which data. When existing data is updated you see exactly what changes. If a step carries several actions, the proposal says so and you approve them together. Rejecting is always possible; the proposal then lapses without consequences.',
+        },
+        {
+          type: 'figure',
+          src: '/documentatie/goedkeuring-en.png',
+          alt: 'The Claire approval dialog for creating a sales invoice, with administration and invoice lines',
+          caption: 'The proposal for a change: what happens, where, and with which data. Nothing is posted without your approval.',
         },
         { type: 'h2', id: 'bestanden', text: 'Sharing and keeping files' },
         {
@@ -443,6 +823,12 @@ export const docs: Record<DocKey, Doc> = {
           type: 'p',
           text: 'Het resultaat is een close-readiness rapport: per bevinding de ernst, de onderbouwing met brongegevens en een aanbeveling. Het rekenwerk gebeurt in een deterministische rekenlaag, niet in het taalmodel; dezelfde administratie geeft dezelfde uitkomst.',
         },
+        {
+          type: 'figure',
+          src: '/kennisbank/mcp-release-close-nl.png',
+          alt: 'Een afgeronde maandafsluiting in Claire: het rapport met bevindingen per controle en hun ernst',
+          caption: 'Het rapport na een afsluitrun: per controle de bevindingen, met de ernst en het bedrag erbij.',
+        },
         { type: 'h2', id: 'bevindingen', text: 'Bevindingen beoordelen' },
         {
           type: 'p',
@@ -453,10 +839,22 @@ export const docs: Record<DocKey, Doc> = {
           type: 'p',
           text: 'Op de verbindingspagina staan onder Afsluitsignalen alle controles. Per verbinding of per administratie zet je controles aan of uit, pas je de ernst aan en stel je drempels en reikwijdte bij, bijvoorbeeld welke grootboekrekeningen of dagboeken meetellen. Eigen regels bouw je op een sjabloon of op een bestaande controle, en toleranties zoals het toegestane afrondingsverschil stel je centraal in. Zonder configuratie gelden de standaardwaarden.',
         },
+        {
+          type: 'figure',
+          src: '/kennisbank/mcp-release-signals-nl.png',
+          alt: 'Het scherm Afsluitsignalen met de lijst controles, hun ernst en de schakelaars per controle',
+          caption: 'Afsluitsignalen op de verbindingspagina: elke controle heeft een ernst en een schakelaar.',
+        },
         { type: 'h2', id: 'planningen', text: 'Planningen' },
         {
           type: 'p',
           text: 'Een planning is een terugkerende opdracht voor Claire: een naam, de instructie, de administratie en een frequentie. Dagelijks, wekelijks of maandelijks; dag 31 telt als de laatste dag van de maand. Je kiest het tijdstip en de tijdzone. Zo draait de afsluiting elke maand op een vaste dag, of een KPI-overzicht elke maandagochtend.',
+        },
+        {
+          type: 'figure',
+          src: '/documentatie/planningen-nl.png',
+          alt: 'Het scherm Planningen met een maandelijkse afsluiting en een wekelijkse KPI-snapshot, beide met een schone laatste run',
+          caption: 'Twee planningen op een verbinding: de maandafsluiting op dag 1 en een KPI-snapshot op maandagochtend.',
         },
         {
           type: 'p',
@@ -488,6 +886,12 @@ export const docs: Record<DocKey, Doc> = {
           type: 'p',
           text: 'The result is a close-readiness report: per finding the severity, the underlying source data and a recommendation. The number work happens in a deterministic calculation layer, not in the language model; the same administration gives the same outcome.',
         },
+        {
+          type: 'figure',
+          src: '/kennisbank/mcp-release-close-en.png',
+          alt: 'A finished month-end close in Claire: the report with findings per check and their severity',
+          caption: 'The report after a close run: findings per check, with the severity and the amount alongside.',
+        },
         { type: 'h2', id: 'bevindingen', text: 'Reviewing findings' },
         {
           type: 'p',
@@ -498,10 +902,22 @@ export const docs: Record<DocKey, Doc> = {
           type: 'p',
           text: 'On the connection page, under Closing signals, you find every check. Per connection or per administration you switch checks on or off, adjust their severity and tune thresholds and scope, for example which ledger accounts or journals count. You build your own rules on a template or on an existing check, and tolerances such as the allowed rounding difference are set centrally. Without configuration, the defaults apply.',
         },
+        {
+          type: 'figure',
+          src: '/kennisbank/mcp-release-signals-en.png',
+          alt: 'The Closing signals screen with the list of checks, their severity and a switch per check',
+          caption: 'Closing signals on the connection page: every check carries a severity and a switch.',
+        },
         { type: 'h2', id: 'planningen', text: 'Schedules' },
         {
           type: 'p',
           text: 'A schedule is a recurring instruction for Claire: a name, the instruction, the administration and a frequency. Daily, weekly or monthly; day 31 counts as the last day of the month. You pick the time and the time zone. That way the close runs on a fixed day each month, or a KPI overview every Monday morning.',
+        },
+        {
+          type: 'figure',
+          src: '/documentatie/planningen-en.png',
+          alt: 'The Schedules screen with a monthly close and a weekly KPI snapshot, both with a clean last run',
+          caption: 'Two schedules on a connection: the month-end close on day 1 and a KPI snapshot on Monday morning.',
         },
         {
           type: 'p',
@@ -533,6 +949,12 @@ export const docs: Record<DocKey, Doc> = {
           type: 'p',
           text: `Op de [Team-pagina](${APP_URL}team) nodig je collega’s uit per e-mail. De uitnodiging is 7 dagen geldig en werkt alleen voor het uitgenodigde e-mailadres. Er zijn twee rollen: beheerders beheren leden, abonnement en gevoelige instellingen; leden gebruiken de verbindingen. Hoeveel leden je kunt uitnodigen hangt af van je plan.`,
         },
+        {
+          type: 'figure',
+          src: '/documentatie/team-nl.png',
+          alt: 'De Team-pagina met drie leden, hun rollen, een openstaande uitnodiging en het uitnodigingsformulier',
+          caption: 'De Team-pagina: leden met hun rol, de openstaande uitnodiging en het formulier voor de volgende collega.',
+        },
         { type: 'h2', id: 'eigen-naam', text: 'Iedereen werkt onder eigen naam' },
         {
           type: 'p',
@@ -543,10 +965,22 @@ export const docs: Record<DocKey, Doc> = {
           type: 'p',
           text: 'Per verbinding bepaal je welke tools en categorieën beschikbaar zijn. Wat uitstaat bestaat voor Claire niet: het is verborgen en kan niet worden aangeroepen, in de chat en in gekoppelde assistenten. Per tool zie je of die leest, schrijft of verwijdert. Grote categorieën zoals HRM, voorraad en productie staan standaard uit; je zet ze aan wanneer je ze nodig hebt.',
         },
+        {
+          type: 'figure',
+          src: '/documentatie/tools-nl.png',
+          alt: 'Het scherm Tools beheren met categorieën en per tool een schakelaar en het label lezen, schrijven of destructief',
+          caption: 'Tools beheren: per tool zie je of die leest, schrijft of verwijdert, en een categorie gaat in één keer uit.',
+        },
         { type: 'h2', id: 'sessies', text: 'Sessies van assistenten' },
         {
           type: 'p',
           text: 'Per verbinding zie je onder Sessies welke AI-assistenten zijn ingelogd en wanneer voor het laatst. Vertrekt een collega, of vertrouw je een sessie niet, dan beëindig je die: binnen een uur is de toegang weg totdat er opnieuw wordt ingelogd. In je Exact Online verandert er niets.',
+        },
+        {
+          type: 'figure',
+          src: '/kennisbank/mcp-release-sessions-nl.png',
+          alt: 'Het scherm Sessies met de ingelogde AI-assistenten en per sessie een knop om hem te beëindigen',
+          caption: 'Sessies op de verbindingspagina: wie is ingelogd, sinds wanneer, en de knop om een sessie te beëindigen.',
         },
         { type: 'h2', id: 'auditlog', text: 'Het auditlog' },
         {
@@ -570,6 +1004,12 @@ export const docs: Record<DocKey, Doc> = {
           type: 'p',
           text: `On the [Team page](${APP_URL}en/team) you invite colleagues by email. The invitation is valid for 7 days and only works for the invited email address. There are two roles: admins manage members, the subscription and sensitive settings; members use the connections. How many members you can invite depends on your plan.`,
         },
+        {
+          type: 'figure',
+          src: '/documentatie/team-en.png',
+          alt: 'The Team page with three members, their roles, a pending invitation and the invite form',
+          caption: 'The Team page: members with their role, the pending invitation and the form for the next colleague.',
+        },
         { type: 'h2', id: 'eigen-naam', text: 'Everyone works under their own name' },
         {
           type: 'p',
@@ -580,10 +1020,22 @@ export const docs: Record<DocKey, Doc> = {
           type: 'p',
           text: 'Per connection you decide which tools and categories are available. Whatever is off does not exist for Claire: it is hidden and cannot be invoked, in the chat and in connected assistants alike. Per tool you see whether it reads, writes or deletes. Large categories such as HRM, inventory and manufacturing are off by default; switch them on when you need them.',
         },
+        {
+          type: 'figure',
+          src: '/documentatie/tools-en.png',
+          alt: 'The Manage tools screen with categories and, per tool, a switch and the label read, write or destructive',
+          caption: 'Manage tools: per tool you see whether it reads, writes or deletes, and a category switches off in one go.',
+        },
         { type: 'h2', id: 'sessies', text: 'Assistant sessions' },
         {
           type: 'p',
           text: 'Under Sessions on the connection page you see which AI assistants are signed in and when they last did. When a colleague leaves, or a session looks off, end it: access is gone within the hour, until someone signs in again. Nothing changes in your Exact Online.',
+        },
+        {
+          type: 'figure',
+          src: '/kennisbank/mcp-release-sessions-en.png',
+          alt: 'The Sessions screen with the signed-in AI assistants and, per session, a button to end it',
+          caption: 'Sessions on the connection page: who is signed in, since when, and the button to end a session.',
         },
         { type: 'h2', id: 'auditlog', text: 'The audit log' },
         {
@@ -615,6 +1067,12 @@ export const docs: Record<DocKey, Doc> = {
         {
           type: 'p',
           text: 'Bij elk plan hoort een maandbudget voor het werk dat Claire doet, uitgedrukt in agent-tokens en tool-aanroepen. Het team deelt dat budget; op de Team-pagina zie je het verbruik. Is het budget op, dan pauzeren nieuwe runs tot de volgende maand of tot een upgrade. Er verdwijnt niets: verbindingen, configuratie en gesprekken blijven staan.',
+        },
+        {
+          type: 'figure',
+          src: '/documentatie/abonnement-nl.png',
+          alt: 'Het abonnementsblok op de Team-pagina met het plan Bedrijf, het verbruik van het maandbudget en de facturen',
+          caption: 'Het abonnement op de Team-pagina: het plan, het verbruik tegen het maandbudget en de facturen eronder.',
         },
         { type: 'h2', id: 'wijzigen', text: 'Upgraden, downgraden en opzeggen' },
         {
@@ -651,6 +1109,12 @@ export const docs: Record<DocKey, Doc> = {
         {
           type: 'p',
           text: 'Every plan carries a monthly budget for the work Claire does, expressed in agent tokens and tool calls. The team shares that budget; the Team page shows the usage. When the budget runs out, new runs pause until the next month or an upgrade. Nothing disappears: connections, configuration and conversations stay put.',
+        },
+        {
+          type: 'figure',
+          src: '/documentatie/abonnement-en.png',
+          alt: 'The subscription block on the Team page with the Business plan, the monthly budget usage and the invoices',
+          caption: 'The subscription on the Team page: the plan, usage against the monthly budget and the invoices below.',
         },
         { type: 'h2', id: 'wijzigen', text: 'Upgrading, downgrading and cancelling' },
         {
@@ -695,12 +1159,12 @@ export const docs: Record<DocKey, Doc> = {
         { type: 'h2', id: 'chatgpt', text: 'ChatGPT toont geen Create onder Connectors' },
         {
           type: 'p',
-          text: 'Eigen connectors toevoegen staat dan uit voor je werkomgeving. Vraag de beheerder van je ChatGPT-werkomgeving om de ontwikkelaarsmodus aan te zetten; ook kan een betaald ChatGPT-plan nodig zijn.',
+          text: `Eigen connectors toevoegen staat dan uit voor je werkomgeving. Vraag de beheerder van je ChatGPT-werkomgeving om de ontwikkelaarsmodus aan te zetten; ook kan een betaald ChatGPT-plan nodig zijn. De stappen staan in [ChatGPT koppelen aan Exact Online](${routes.docPages.chatgpt.nl}).`,
         },
         { type: 'h2', id: 'copilot', text: 'Copilot accepteert het agentpakket niet' },
         {
           type: 'p',
-          text: 'Het uploaden van eigen apps staat dan uit. Vraag je Microsoft 365-beheerder om het uploaden van een aangepaste app in te schakelen, of om het pakket voor de hele organisatie uit te rollen vanuit het Microsoft 365-beheercentrum.',
+          text: `Het uploaden van eigen apps staat dan uit. Vraag je Microsoft 365-beheerder om het uploaden van een aangepaste app in te schakelen, of om het pakket voor de hele organisatie uit te rollen vanuit het Microsoft 365-beheercentrum. De stappen staan in [Copilot koppelen aan Exact Online](${routes.docPages.copilot.nl}).`,
         },
         { type: 'h2', id: 'administratie', text: 'Een assistent werkt in de verkeerde administratie' },
         {
@@ -746,12 +1210,12 @@ export const docs: Record<DocKey, Doc> = {
         { type: 'h2', id: 'chatgpt', text: 'ChatGPT shows no Create under Connectors' },
         {
           type: 'p',
-          text: 'Adding your own connectors is switched off for your workspace. Ask your ChatGPT workspace administrator to enable developer mode; a paid ChatGPT plan may also be required.',
+          text: `Adding your own connectors is switched off for your workspace. Ask your ChatGPT workspace administrator to enable developer mode; a paid ChatGPT plan may also be required. The steps are in [Connect ChatGPT to Exact Online](${routes.docPages.chatgpt.en}).`,
         },
         { type: 'h2', id: 'copilot', text: 'Copilot rejects the agent package' },
         {
           type: 'p',
-          text: 'Uploading custom apps is switched off. Ask your Microsoft 365 administrator to enable custom app upload, or to deploy the package organisation-wide from the Microsoft 365 admin center.',
+          text: `Uploading custom apps is switched off. Ask your Microsoft 365 administrator to enable custom app upload, or to deploy the package organisation-wide from the Microsoft 365 admin center. The steps are in [Connect Copilot to Exact Online](${routes.docPages.copilot.en}).`,
         },
         { type: 'h2', id: 'administratie', text: 'An assistant works in the wrong administration' },
         {

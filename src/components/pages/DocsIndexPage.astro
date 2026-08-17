@@ -49,7 +49,7 @@ const s = ui[lang];
 const d = docsUi[lang];
 const path = routes.docs[lang];
 
-const groups = (['start', 'use', 'manage'] as const).map((group) => ({
+const groups = (['start', 'connect', 'use', 'manage'] as const).map((group) => ({
   group,
   label: d.groups[group],
   pages: docOrder

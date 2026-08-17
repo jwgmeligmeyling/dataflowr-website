@@ -22,12 +22,21 @@ DataFlowr combines three disciplines in one team: deep Exact Online ecosystem kn
 
 - [Documentatie](https://dataflowr.nl/documentatie): the Claire product documentation,
   included with every plan (customers on Standard support work from these pages). English
-  at https://dataflowr.nl/en/docs. The seven pages:
+  at https://dataflowr.nl/en/docs. The ten pages:
   - Aan de slag met Claire: https://dataflowr.nl/documentatie/aan-de-slag-met-claire
     (EN: https://dataflowr.nl/en/docs/getting-started-with-claire)
-  - Claire in Claude, ChatGPT en Copilot:
-    https://dataflowr.nl/documentatie/claire-in-claude-chatgpt-en-copilot
-    (EN: https://dataflowr.nl/en/docs/claire-in-claude-chatgpt-and-copilot)
+  - Claude koppelen aan Exact Online:
+    https://dataflowr.nl/documentatie/claude-koppelen-aan-exact-online
+    (EN: https://dataflowr.nl/en/docs/connect-claude-to-exact-online)
+  - ChatGPT koppelen aan Exact Online:
+    https://dataflowr.nl/documentatie/chatgpt-koppelen-aan-exact-online
+    (EN: https://dataflowr.nl/en/docs/connect-chatgpt-to-exact-online)
+  - Microsoft 365 Copilot koppelen aan Exact Online:
+    https://dataflowr.nl/documentatie/copilot-koppelen-aan-exact-online
+    (EN: https://dataflowr.nl/en/docs/connect-copilot-to-exact-online)
+  - Make, Zapier en n8n koppelen aan Exact Online:
+    https://dataflowr.nl/documentatie/make-zapier-n8n-koppelen-aan-exact-online
+    (EN: https://dataflowr.nl/en/docs/connect-make-zapier-n8n-to-exact-online)
   - Werken met Claire: https://dataflowr.nl/documentatie/werken-met-claire
     (EN: https://dataflowr.nl/en/docs/working-with-claire)
   - De maandafsluiting en planningen:

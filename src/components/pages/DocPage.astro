@@ -128,6 +128,13 @@ const schema = [
                   <p>{inline(block.text).map((seg) => (seg.link ? <a href={seg.href}>{seg.text}</a> : seg.text))}</p>
                 </aside>
               );
+            if (block.type === 'figure')
+              return (
+                <figure class="shot">
+                  <img src={block.src} alt={block.alt} loading="lazy" width="2880" height="1620" />
+                  <figcaption>{block.caption}</figcaption>
+                </figure>
+              );
             return (
               <div class="addr">
                 <span class="addr-label">{block.label}</span>
@@ -240,6 +247,22 @@ const schema = [
   }
   .note { margin: 34px 0; padding: 22px 26px; background: var(--bg); border-radius: 16px; }
   .note p { margin: 0; font-size: 1rem; line-height: 1.7; color: var(--brand); text-wrap: pretty; }
+  .shot { margin: 34px 0; }
+  .shot img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 16px;
+    border: 1px solid var(--line);
+    background: var(--bg);
+  }
+  .shot figcaption {
+    margin: 12px 2px 0;
+    font-size: 0.90625rem;
+    line-height: 1.6;
+    color: var(--muted);
+    text-wrap: pretty;
+  }
   .addr {
     margin: 0 0 24px;
     border: 1px solid var(--line);

@@ -43,9 +43,25 @@ const docRoutes = {
     nl: '/documentatie/aan-de-slag-met-claire',
     en: '/en/docs/getting-started-with-claire',
   },
-  'ai-assistenten': {
-    nl: '/documentatie/claire-in-claude-chatgpt-en-copilot',
-    en: '/en/docs/claire-in-claude-chatgpt-and-copilot',
+  /**
+   * One connect page per client, so each ranks on its own query
+   * ("Claude koppelen aan Exact Online") instead of sharing one URL.
+   */
+  claude: {
+    nl: '/documentatie/claude-koppelen-aan-exact-online',
+    en: '/en/docs/connect-claude-to-exact-online',
+  },
+  chatgpt: {
+    nl: '/documentatie/chatgpt-koppelen-aan-exact-online',
+    en: '/en/docs/connect-chatgpt-to-exact-online',
+  },
+  copilot: {
+    nl: '/documentatie/copilot-koppelen-aan-exact-online',
+    en: '/en/docs/connect-copilot-to-exact-online',
+  },
+  automatisering: {
+    nl: '/documentatie/make-zapier-n8n-koppelen-aan-exact-online',
+    en: '/en/docs/connect-make-zapier-n8n-to-exact-online',
   },
   'werken-met-claire': {
     nl: '/documentatie/werken-met-claire',
