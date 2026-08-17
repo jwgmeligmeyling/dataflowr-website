@@ -1,7 +1,7 @@
 ---
 /** Full footer (home, Claire, service pages). Compact logo top-left per design review. */
 import Logo from './Logo.astro';
-import { routes, ui, LINKEDIN_URL, EMAIL_DAAN, EMAIL_JANWILLEM, type Lang } from '../lib/site';
+import { routes, ui, LINKEDIN_URL, EMAIL_DAAN, EMAIL_JANWILLEM, PHONE_DISPLAY, PHONE_TEL, type Lang } from '../lib/site';
 
 interface Props {
   lang: Lang;
@@ -25,6 +25,7 @@ const t = ui[lang];
         <div class="links">
           <a href={`mailto:${EMAIL_DAAN}`}>{EMAIL_DAAN}</a>
           <a href={`mailto:${EMAIL_JANWILLEM}`}>{EMAIL_JANWILLEM}</a>
+          <a href={`tel:${PHONE_TEL}`}>{PHONE_DISPLAY[lang]}</a>
           <a href={routes.about[lang]}>{t.cta}</a>
         </div>
       </div>
@@ -36,14 +37,24 @@ const t = ui[lang];
         </div>
       </div>
       <div class="col">
-        <p class="heading">{t.footerMeet}</p>
-        <div class="links links--plain">
-          {t.footerMeetItems.map((item) => <span>{item}</span>)}
+        <p class="heading">{t.footerExplore}</p>
+        <div class="links">
+          <a href={routes.servicesIndex[lang]}>{t.servicesIndex}</a>
+          <a href={routes.claire[lang]}>Claire</a>
+          <a href={routes.resources[lang]}>{t.resources}</a>
         </div>
       </div>
     </div>
     <div class="legal">
-      <span>{t.footerCopyright}</span>
+      {/* Copyright and the two legal pages read as one run of fine print, so the
+          bar keeps the two poles the design review settled on. */}
+      <div class="legal-run">
+        <span>{t.footerCopyright}</span>
+        <span class="dot" aria-hidden="true">·</span>
+        <a href={routes.legal.privacy[lang]}>{t.footerPrivacy}</a>
+        <span class="dot" aria-hidden="true">·</span>
+        <a href={routes.legal.terms[lang]}>{t.footerTerms}</a>
+      </div>
       <span class="motto">{t.footerMotto}</span>
     </div>
   </div>
@@ -61,19 +72,18 @@ const t = ui[lang];
   .col { flex: 0 1 auto; }
   .col--brand { flex: 1 1 300px; min-width: 0; }
   .lockup { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
-  .name { font-size: 19px; font-weight: 700; letter-spacing: -0.02em; color: var(--brand); }
+  .name { font-size: 1.28125rem; font-weight: 700; letter-spacing: -0.02em; color: var(--brand); }
   .tagline, .heading {
     margin: 0 0 12px;
-    font-size: 10.5px;
+    font-size: 0.71875rem;
     font-weight: 500;
     letter-spacing: 0.18em;
     text-transform: uppercase;
     color: var(--muted);
   }
   .heading { margin-bottom: 14px; }
-  .body { margin: 0; max-width: 340px; font-size: 13.5px; line-height: 1.65; color: var(--muted); }
-  .links { display: grid; gap: 9px; font-size: 14px; }
-  .links--plain { color: var(--muted); }
+  .body { margin: 0; max-width: 340px; font-size: 0.90625rem; line-height: 1.65; color: var(--muted); }
+  .links { display: grid; gap: 9px; font-size: 0.9375rem; }
   .legal {
     border-top: 1px solid color-mix(in srgb, var(--brand) 9%, transparent);
     padding-top: 20px;
@@ -82,8 +92,12 @@ const t = ui[lang];
     gap: 12px;
     justify-content: space-between;
     align-items: center;
-    font-size: 12.5px;
+    font-size: 0.84375rem;
     color: var(--muted);
   }
-  .motto { font-size: 11px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; }
+  .legal-run { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+  .legal-run a { color: inherit; }
+  .legal-run a:hover { color: var(--hl); }
+  .dot { color: color-mix(in srgb, var(--brand) 28%, transparent); }
+  .motto { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; }
 </style>

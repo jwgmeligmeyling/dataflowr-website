@@ -133,7 +133,7 @@ const chatShots: ChatShot[] = [
             ? [
                 "### Close-readiness · juli 2026",
                 "",
-                "De administratie is **bijna gereed** voor afsluiting: 14 van de 16 controles slagen. Twee bevindingen vragen om uw beoordeling.",
+                "De administratie is **bijna gereed** voor afsluiting: 14 van de 16 controles slagen. Twee bevindingen vragen om je beoordeling.",
                 "",
                 "| Controle | Resultaat |",
                 "| --- | --- |",
@@ -144,8 +144,8 @@ const chatShots: ChatShot[] = [
                 "",
                 "**Aanbevolen acties**",
                 "",
-                "1. Beoordeel de restpost op de kruisposten — dit is de PSP-uitbetaling van 31 juli.",
-                "2. Keur de voorgestelde correctie voor de vraagpost goed; er wordt niets geboekt zonder uw akkoord.",
+                "1. Beoordeel de restpost op de kruisposten: dit is de PSP-uitbetaling van 31 juli.",
+                "2. Keur de voorgestelde correctie voor de vraagpost goed; er wordt niets geboekt zonder je akkoord.",
               ].join("\n")
             : [
                 "### Close readiness · July 2026",
@@ -161,7 +161,7 @@ const chatShots: ChatShot[] = [
                 "",
                 "**Recommended actions**",
                 "",
-                "1. Review the remaining item on the clearing account — this is the PSP payout of 31 July.",
+                "1. Review the remaining item on the clearing account: this is the PSP payout of 31 July.",
                 "2. Approve the proposed correction for the query item; nothing is posted without your approval.",
               ].join("\n"),
       },
@@ -440,7 +440,7 @@ function toolModules(lang: Lang) {
           name: "closing_agent_decide",
           title: nl ? "Beslissing over afsluitbevinding vastleggen" : "Record close decision",
           description: nl
-            ? "Boekt uitsluitend na uw akkoord"
+            ? "Boekt uitsluitend na je akkoord"
             : "Posts only after your approval",
           readOnlyHint: false,
           destructiveHint: false,

@@ -1,6 +1,6 @@
 ---
 /**
- * Service page — implementation of the "Dienst *.dc.html" template.
+ * Service page: implementation of the "Dienst *.dc.html" template.
  * One template, six services; copy comes from src/data/services.ts.
  * The Exact Online Premium page has no "Resultaat" section (per design review).
  */
@@ -29,18 +29,18 @@ const str = {
     approachEyebrow: 'Zo werken wij',
     approachTitle: 'In vier stappen live.',
     approachSub:
-      'Geen ellenlange implementatie. Vooraf is duidelijk wat er gebeurt, wie wat doet en wat de oplevering omvat, en na livegang houdt u één vast aanspreekpunt.',
+      'Geen ellenlange implementatie. Vooraf is duidelijk wat er gebeurt, wie wat doet en wat de oplevering omvat, en na livegang houd je één vast aanspreekpunt.',
     approachSteps: [
       { num: '01', title: 'Quickscan', body: 'Processen, volumes en knelpunten in kaart, met een doorrekening van de verwachte besparing.' },
       { num: '02', title: 'Ontwerp', body: 'Wij ontwerpen de flow rond controls en auditability, en spreken af wat de oplevering omvat.' },
-      { num: '03', title: 'Bouw & onboarding', body: 'Wij bouwen in korte cycli, testen op uw echte data en leiden uw team op in het resultaat.' },
+      { num: '03', title: 'Bouw & onboarding', body: 'Wij bouwen in korte cycli, testen op je echte data en leiden je team op in het resultaat.' },
       { num: '04', title: 'Onderhoud', body: 'Wij onderhouden de oplossing en blijven betrokken; nieuwe functionaliteit komt vanzelf beschikbaar.' },
     ],
-    resultsTitle: 'Wat u eraan overhoudt.',
+    resultsTitle: 'Wat je eraan overhoudt.',
     relatedTitle: 'Vaak in combinatie met',
     relatedSub: 'Zelden één discipline op zichzelf. Dit is waar deze dienst meestal mee samengaat.',
-    ctaTitle: 'Benieuwd wat dit voor u zou betekenen?',
-    ctaSub: 'Plan een kennismaking van 30 minuten, vrijblijvend, en u spreekt direct een founder.',
+    ctaTitle: 'Benieuwd wat dit voor jou zou betekenen?',
+    ctaSub: 'Plan een kennismaking van 30 minuten, vrijblijvend, en je spreekt direct een founder.',
     ctaBtn: 'Plan een kennismaking',
     ctaBtn2: 'Maak kennis met Claire',
   },
@@ -90,7 +90,7 @@ const schema = [
     '@type': 'BreadcrumbList',
     itemListElement: [
       { '@type': 'ListItem', position: 1, name: t.home, item: abs(routes.home[lang]) },
-      { '@type': 'ListItem', position: 2, name: str.breadcrumb },
+      { '@type': 'ListItem', position: 2, name: str.breadcrumb, item: abs(routes.servicesIndex[lang]) },
       { '@type': 'ListItem', position: 3, name: s.nav, item: abs(path) },
     ],
   },
@@ -112,7 +112,7 @@ const schema = [
     <div class="wrap hero-wrap">
       <nav aria-label={lang === 'nl' ? 'Kruimelpad' : 'Breadcrumb'} class="crumbs">
         <a href={routes.home[lang]}>{t.home}</a>
-        <span>/</span><span>{str.breadcrumb}</span><span>/</span>
+        <span>/</span><a href={routes.servicesIndex[lang]}>{str.breadcrumb}</a><span>/</span>
         <span class="crumb-current">{s.nav}</span>
       </nav>
       <div class="hero-grid">
@@ -239,7 +239,7 @@ const schema = [
     align-items: center;
     gap: 10px;
     margin-bottom: 30px;
-    font-size: 12.5px;
+    font-size: 0.84375rem;
     color: color-mix(in srgb, var(--bg) 56%, transparent);
   }
   .crumbs a { color: color-mix(in srgb, var(--bg) 56%, transparent); }
@@ -251,7 +251,7 @@ const schema = [
   .hero h1 {
     margin: 0 0 22px;
     max-width: 800px;
-    font-size: clamp(38px, 4.6vw, 60px);
+    font-size: clamp(2.375rem, 4.6vw, 3.75rem);
     line-height: 1.05;
     font-weight: 700;
     letter-spacing: -0.035em;
@@ -260,14 +260,14 @@ const schema = [
   .hero-intro {
     margin: 0 0 32px;
     max-width: 600px;
-    font-size: 17px;
+    font-size: 1.15625rem;
     line-height: 1.7;
     color: color-mix(in srgb, var(--bg) 78%, transparent);
     text-wrap: pretty;
   }
   .hero-ctas { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; }
-  .hero-btn { font-size: 15px; padding: 16px 30px; }
-  .hero-btn2 { font-size: 15px; padding: 15px 28px; }
+  .hero-btn { font-size: 1.03125rem; padding: 16px 30px; }
+  .hero-btn2 { font-size: 1.03125rem; padding: 15px 28px; }
   .facts {
     background: color-mix(in srgb, #ffffff 8%, transparent);
     border: 1px solid color-mix(in srgb, var(--bg) 16%, transparent);
@@ -277,7 +277,7 @@ const schema = [
   }
   .facts-heading {
     margin: 0 0 16px;
-    font-size: 10.5px;
+    font-size: 0.71875rem;
     font-weight: 700;
     letter-spacing: 0.16em;
     text-transform: uppercase;
@@ -288,7 +288,7 @@ const schema = [
     display: flex;
     gap: 11px;
     align-items: flex-start;
-    font-size: 14px;
+    font-size: 0.9375rem;
     line-height: 1.5;
     color: color-mix(in srgb, var(--bg) 86%, transparent);
   }
@@ -299,7 +299,7 @@ const schema = [
   h2 {
     margin: 0 0 46px;
     max-width: 680px;
-    font-size: clamp(28px, 3.4vw, 42px);
+    font-size: clamp(1.75rem, 3.4vw, 2.625rem);
     line-height: 1.1;
     font-weight: 700;
     letter-spacing: -0.03em;
@@ -320,15 +320,15 @@ const schema = [
     transition: transform 0.3s, box-shadow 0.3s;
   }
   .deliver-card:hover { transform: translateY(-3px); box-shadow: 0 16px 44px rgba(13, 27, 39, 0.10); }
-  .deliver-num { font-size: 11px; font-weight: 700; letter-spacing: 0.16em; color: var(--posText); }
-  .deliver-card h3 { margin: 0; font-size: 18px; font-weight: 700; letter-spacing: -0.015em; }
-  .deliver-card p { margin: 0; font-size: 14px; line-height: 1.65; color: var(--muted); }
+  .deliver-num { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.16em; color: var(--posText); }
+  .deliver-card h3 { margin: 0; font-size: 1.21875rem; font-weight: 700; letter-spacing: -0.015em; }
+  .deliver-card p { margin: 0; font-size: 0.9375rem; line-height: 1.65; color: var(--muted); }
 
   /* ---------- Aanpak ---------- */
   .approach { background: var(--bg); border-top: 1px solid var(--line); scroll-margin-top: 80px; }
   .approach-wrap { padding-top: 84px; padding-bottom: 84px; }
   .approach h2 { margin-bottom: 14px; }
-  .approach-sub { margin: 0 0 46px; max-width: 640px; font-size: 16px; line-height: 1.7; color: var(--muted); }
+  .approach-sub { margin: 0 0 46px; max-width: 640px; font-size: 1.09375rem; line-height: 1.7; color: var(--muted); }
   .approach-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr)); gap: 16px; }
   .approach-card {
     background: #ffffff;
@@ -339,9 +339,9 @@ const schema = [
     gap: 9px;
     align-content: start;
   }
-  .approach-num { font-size: 32px; font-weight: 300; line-height: 1; color: var(--hl); }
-  .approach-card h3 { margin: 0; font-size: 17px; font-weight: 700; }
-  .approach-card p { margin: 0; font-size: 13.5px; line-height: 1.6; color: var(--muted); }
+  .approach-num { font-size: 2rem; font-weight: 300; line-height: 1; color: var(--hl); }
+  .approach-card h3 { margin: 0; font-size: 1.15625rem; font-weight: 700; }
+  .approach-card p { margin: 0; font-size: 0.90625rem; line-height: 1.6; color: var(--muted); }
 
   /* ---------- Resultaat ---------- */
   .results { position: relative; overflow: hidden; background: var(--brand); color: var(--bg); }
@@ -361,20 +361,20 @@ const schema = [
   .result { display: grid; gap: 9px; align-content: start; }
   .result-stat {
     margin: 0;
-    font-size: clamp(34px, 3.4vw, 44px);
+    font-size: clamp(2.125rem, 3.4vw, 2.75rem);
     font-weight: 300;
     letter-spacing: -0.03em;
     line-height: 1;
     color: var(--teal);
   }
-  .result h3 { margin: 0; font-size: 16px; font-weight: 700; }
-  .result-body { margin: 0; font-size: 13.5px; line-height: 1.6; color: color-mix(in srgb, var(--bg) 68%, transparent); }
+  .result h3 { margin: 0; font-size: 1.09375rem; font-weight: 700; }
+  .result-body { margin: 0; font-size: 0.90625rem; line-height: 1.6; color: color-mix(in srgb, var(--bg) 68%, transparent); }
 
   /* ---------- Combineert met ---------- */
   .related { background: #ffffff; }
   .related-wrap { padding-top: 80px; padding-bottom: 80px; }
-  .related h2 { margin: 0 0 12px; font-size: clamp(24px, 2.6vw, 32px); line-height: 1.15; letter-spacing: -0.025em; }
-  .related-sub { margin: 0 0 34px; max-width: 600px; font-size: 15.5px; line-height: 1.7; color: var(--muted); }
+  .related h2 { margin: 0 0 12px; font-size: clamp(1.5rem, 2.6vw, 2rem); line-height: 1.15; letter-spacing: -0.025em; }
+  .related-sub { margin: 0 0 34px; max-width: 600px; font-size: 1.0625rem; line-height: 1.7; color: var(--muted); }
   .related-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr)); gap: 16px; }
   .related-card {
     border: 1px solid var(--line);
@@ -392,10 +392,10 @@ const schema = [
     border-color: color-mix(in srgb, var(--hl) 35%, transparent);
     color: var(--brand);
   }
-  .related-kind { font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--posText); }
-  .related-card h3 { margin: 0; font-size: 18px; font-weight: 700; letter-spacing: -0.015em; }
-  .related-card p { margin: 0; font-size: 13.5px; line-height: 1.6; color: var(--muted); }
-  .related-cta { font-size: 13px; font-weight: 700; color: var(--hl); }
+  .related-kind { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--posText); }
+  .related-card h3 { margin: 0; font-size: 1.21875rem; font-weight: 700; letter-spacing: -0.015em; }
+  .related-card p { margin: 0; font-size: 0.90625rem; line-height: 1.6; color: var(--muted); }
+  .related-cta { font-size: 0.875rem; font-weight: 700; color: var(--hl); }
 
   /* ---------- CTA ---------- */
   .cta {
@@ -426,15 +426,15 @@ const schema = [
     mask-composite: intersect;
   }
   .cta-wrap { position: relative; z-index: 1; max-width: 860px; margin: 0 auto; padding: 88px 40px; text-align: center; }
-  .cta h2 { margin: 0 0 14px; max-width: none; font-size: clamp(30px, 3.8vw, 44px); line-height: 1.08; }
-  .cta-sub { margin: 0 0 34px; font-size: 16.5px; line-height: 1.6; color: var(--muted); }
+  .cta h2 { margin: 0 0 14px; max-width: none; font-size: clamp(1.875rem, 3.8vw, 2.75rem); line-height: 1.08; }
+  .cta-sub { margin: 0 0 34px; font-size: 1.125rem; line-height: 1.6; color: var(--muted); }
   .cta-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
-  .cta-btn { font-size: 16px; padding: 17px 40px; }
+  .cta-btn { font-size: 1.09375rem; padding: 17px 40px; }
   .cta-btn2 {
     border: 1.5px solid color-mix(in srgb, var(--brand) 20%, transparent);
     color: var(--brand);
     font-weight: 600;
-    font-size: 16px;
+    font-size: 1.09375rem;
     padding: 16px 34px;
     border-radius: 99px;
   }

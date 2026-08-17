@@ -1,5 +1,5 @@
 /**
- * Home page effects — ported from the "DataFlowr Landing v4" prototype logic:
+ * Home page effects, ported from the "DataFlowr Landing v4" prototype logic:
  *  - hero neural-network ("brain") canvas with firing pulses + mouse parallax
  *  - blurred logo nebula parallax (hero + CTA)
  *  - scroll reveals on [data-reveal]
@@ -175,29 +175,39 @@ function drawBrain(
   }
 }
 
+/**
+ * Scroll reveals on [data-reveal]. The elements are already hidden by CSS
+ * (`.df-js [data-reveal]`, see global.css) from the first paint on, so revealing
+ * only ever fades content in. It never blanks content that is on screen, which
+ * is what made scrolling flicker. Claiming the flag below tells the inline head
+ * script that reveals are live and its fallback is not needed.
+ */
 function setupReveals(reduced: boolean) {
+  const els = Array.from(document.querySelectorAll<HTMLElement>('[data-reveal]'));
+  document.documentElement.setAttribute('data-df-reveals', '');
+  if (!els.length) return;
+
+  if (reduced) {
+    els.forEach((el) => el.classList.add('df-revealed'));
+    return;
+  }
+
   const io = new IntersectionObserver(
     (ents) => {
       for (const en of ents) {
         if (!en.isIntersecting) continue;
         const el = en.target as HTMLElement;
         io.unobserve(el);
-        if (el.dataset.dfDone) continue;
-        el.dataset.dfDone = '1';
-        if (!reduced) {
-          const d = parseFloat(el.getAttribute('data-reveal') || '0') || 0;
-          el.animate(
-            [{ opacity: 0, transform: 'translateY(26px)' }, { opacity: 1, transform: 'none' }],
-            { duration: 800, delay: d, easing: 'cubic-bezier(0.16,1,0.3,1)', fill: 'backwards' },
-          );
-        }
+        const d = parseFloat(el.getAttribute('data-reveal') || '0') || 0;
+        if (d) el.style.setProperty('--df-reveal-delay', `${d}ms`);
+        el.classList.add('df-revealed');
       }
     },
-    { threshold: 0.2, rootMargin: '0px 0px -6% 0px' },
+    // Fire as soon as the element edges into view: it is invisible until then, so
+    // triggering late would leave a visible gap rather than hide the entrance.
+    { threshold: 0, rootMargin: '0px 0px -8% 0px' },
   );
-  document.querySelectorAll<HTMLElement>('[data-reveal]').forEach((el) => {
-    if (!el.dataset.dfDone) io.observe(el);
-  });
+  els.forEach((el) => io.observe(el));
 }
 
 export function initHomeFx() {

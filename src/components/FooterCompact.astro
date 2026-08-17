@@ -1,7 +1,7 @@
 ---
 /** Compact footer (article + about pages). */
 import Logo from './Logo.astro';
-import { ui, type Lang } from '../lib/site';
+import { routes, ui, type Lang } from '../lib/site';
 
 interface Props {
   lang: Lang;
@@ -13,8 +13,16 @@ const t = ui[lang];
 ---
 <footer class={`compact compact--${tone}`}>
   <div class="wrap inner">
-    <span class="lockup"><Logo mode="mark" h={20} /><span class="name">DataFlowr</span></span>
-    <p class="legal">{t.footerCompact}</p>
+    {/* Two poles: mark and copyright left, the legal pages as fine print right. */}
+    <div class="ident">
+      <span class="lockup"><Logo mode="mark" h={20} /><span class="name">DataFlowr</span></span>
+      <p class="legal">{t.footerCompact}</p>
+    </div>
+    <div class="legal-run">
+      <a href={routes.legal.privacy[lang]}>{t.footerPrivacy}</a>
+      <span class="dot" aria-hidden="true">·</span>
+      <a href={routes.legal.terms[lang]}>{t.footerTerms}</a>
+    </div>
   </div>
 </footer>
 
@@ -29,10 +37,15 @@ const t = ui[lang];
     gap: 16px;
     align-items: center;
     justify-content: space-between;
-    font-size: 12.5px;
+    font-size: 0.84375rem;
     color: var(--muted);
   }
   .lockup { display: flex; align-items: center; gap: 9px; }
   .name { font-weight: 600; color: var(--brand); }
+  .ident { display: flex; flex-wrap: wrap; gap: 16px 22px; align-items: center; }
   .legal { margin: 0; }
+  .legal-run { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+  .legal-run a { color: inherit; }
+  .legal-run a:hover { color: var(--hl); }
+  .dot { color: color-mix(in srgb, var(--brand) 28%, transparent); }
 </style>
