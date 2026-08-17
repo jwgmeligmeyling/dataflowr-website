@@ -67,6 +67,14 @@ const docRoutes = {
     nl: '/documentatie/werken-met-claire',
     en: '/en/docs/working-with-claire',
   },
+  vragen: {
+    nl: '/documentatie/wat-je-claire-kunt-vragen',
+    en: '/en/docs/what-to-ask-claire',
+  },
+  debiteuren: {
+    nl: '/documentatie/debiteurenbeheer-met-claire',
+    en: '/en/docs/receivables-management-with-claire',
+  },
   maandafsluiting: {
     nl: '/documentatie/maandafsluiting-en-planningen',
     en: '/en/docs/month-end-close-and-schedules',

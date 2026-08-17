@@ -22,7 +22,7 @@ DataFlowr combines three disciplines in one team: deep Exact Online ecosystem kn
 
 - [Documentatie](https://dataflowr.nl/documentatie): the Claire product documentation,
   included with every plan (customers on Standard support work from these pages). English
-  at https://dataflowr.nl/en/docs. The ten pages:
+  at https://dataflowr.nl/en/docs. The twelve pages:
   - Aan de slag met Claire: https://dataflowr.nl/documentatie/aan-de-slag-met-claire
     (EN: https://dataflowr.nl/en/docs/getting-started-with-claire)
   - Claude koppelen aan Exact Online:
@@ -39,6 +39,11 @@ DataFlowr combines three disciplines in one team: deep Exact Online ecosystem kn
     (EN: https://dataflowr.nl/en/docs/connect-make-zapier-n8n-to-exact-online)
   - Werken met Claire: https://dataflowr.nl/documentatie/werken-met-claire
     (EN: https://dataflowr.nl/en/docs/working-with-claire)
+  - Wat je Claire kunt vragen: https://dataflowr.nl/documentatie/wat-je-claire-kunt-vragen
+    (EN: https://dataflowr.nl/en/docs/what-to-ask-claire)
+  - Debiteurenbeheer met Claire:
+    https://dataflowr.nl/documentatie/debiteurenbeheer-met-claire
+    (EN: https://dataflowr.nl/en/docs/receivables-management-with-claire)
   - De maandafsluiting en planningen:
     https://dataflowr.nl/documentatie/maandafsluiting-en-planningen
     (EN: https://dataflowr.nl/en/docs/month-end-close-and-schedules)

@@ -802,6 +802,370 @@ export const docs: Record<DocKey, Doc> = {
     },
   },
 
+  vragen: {
+    group: 'use',
+    nl: {
+      metaTitle: 'Wat je Claire kunt vragen over je Exact Online-administratie',
+      metaDescription:
+        'Voorbeeldvragen per onderwerp: rapportages en KPI’s, debiteuren en crediteuren, verkoop, btw, projecten en voorraad. Met grafieken in het gesprek en terugkerende controles.',
+      crumbCurrent: 'Voorbeeldvragen',
+      title: 'Wat je Claire kunt vragen',
+      summary: 'Voorbeeldvragen per onderwerp, van rapportage tot voorraad.',
+      lead:
+        'Claire ontsluit vrijwel elk onderdeel van Exact Online. Deze pagina geeft per onderwerp voorbeeldvragen die je letterlijk kunt overnemen, met erbij wat er dan gebeurt.',
+      blocks: [
+        { type: 'h2', id: 'zo-werkt-het', text: 'Zo werkt een vraag' },
+        {
+          type: 'p',
+          text: 'Stel je vraag in gewone taal en noem de periode als die uitmaakt; Claire kiest zelf de juiste gegevens en laat zien wat ze ophaalde. Voor veelvoorkomende analyses volgt ze een vast draaiboek, zodat de aanpak elke keer dezelfde is. Cijfers presenteert ze pas wanneer de data compleet binnen is: geen indicaties, maar de echte stand.',
+        },
+        { type: 'h2', id: 'rapportage', text: 'Cijfers en rapportages' },
+        {
+          type: 'p',
+          text: 'Balans, winst-en-verliesrekening en kasstroom, met een vergelijking tegen vorig jaar, een vorige periode of het jaareinde. Doorzoomen kan per rubriek, tot op de grootboekrekening. Vraag om een grafiek en je krijgt hem in het gesprek: staaf, lijn, vlak, taart of waterval.',
+        },
+        {
+          type: 'ul',
+          items: [
+            '"Toon de winst-en-verliesrekening tot en met juli, vergeleken met vorig jaar."',
+            '"Zet de omzet per maand in een grafiek."',
+            '"Wat zit er in Overige bedrijfskosten? Zoom door naar de grootboekrekeningen."',
+            '"Geef het maandoverzicht van juli: omzet, kosten, marge en resultaat."',
+            '"Hoe staan de KPI’s ervoor: brutomarge, current ratio, DSO?"',
+          ],
+        },
+        {
+          type: 'figure',
+          src: '/documentatie/vragen-grafiek-nl.png',
+          alt: 'Een gesprek met Claire waarin de omzet per maand als staafgrafiek wordt getoond',
+          caption: 'Eén vraag, één grafiek: de omzet per maand, getekend in het gesprek zelf.',
+        },
+        { type: 'h2', id: 'debiteuren-crediteuren', text: 'Debiteuren en crediteuren' },
+        {
+          type: 'p',
+          text: 'Openstaande posten aan beide kanten, met ouderdom en per klant of leverancier.',
+        },
+        {
+          type: 'ul',
+          items: [
+            '"Welke verkoopfacturen staan open, gesorteerd op ouderdom?"',
+            '"Maak een ouderdomsanalyse van de debiteuren."',
+            '"Welke inkoopfacturen vervallen deze week?"',
+            '"Bij welke leveranciers geven we het meeste uit?"',
+          ],
+        },
+        {
+          type: 'p',
+          text: `Voor het vaste ritme rond open posten staat een uitgewerkte werkwijze in [Debiteurenbeheer met Claire](${routes.docPages.debiteuren.nl}).`,
+        },
+        { type: 'h2', id: 'verkoop-klanten', text: 'Verkoop en klanten' },
+        {
+          type: 'ul',
+          items: [
+            '"Zoek klant Helder BV op en toon de openstaande posten."',
+            '"Wie zijn onze tien grootste klanten dit jaar, en hoe ontwikkelt hun omzet?"',
+            '"Maak een conceptfactuur voor Acme Group: 12 consultancy-uren van € 95."',
+          ],
+        },
+        {
+          type: 'p',
+          text: `Een factuur aanmaken is een wijziging: Claire zet hem klaar en boekt pas na je akkoord. Hoe dat eruitziet staat in [Werken met Claire](${routes.docPages['werken-met-claire'].nl}#akkoord).`,
+        },
+        { type: 'h2', id: 'btw', text: 'Btw' },
+        {
+          type: 'ul',
+          items: [
+            '"Geef een inschatting van de btw-afdracht voor dit kwartaal op basis van het grootboek."',
+            '"Welke boekingen in juli hebben geen btw-code?"',
+            '"Welke btw-codes gebruiken we, en waarvoor?"',
+          ],
+        },
+        { type: 'h2', id: 'projecten', text: 'Projecten en uren' },
+        {
+          type: 'ul',
+          items: [
+            '"Welke projecten lopen boven hun budget?"',
+            '"Hoeveel ongefactureerde uren staan er per project, en wat is de geschatte omzet?"',
+          ],
+        },
+        { type: 'h2', id: 'voorraad', text: 'Voorraad' },
+        {
+          type: 'ul',
+          items: [
+            '"Welke artikelen raken bijna uit voorraad?"',
+            '"Wat is de voorraadwaarde per magazijn?"',
+            '"Welke artikelen liggen al maanden stil?"',
+          ],
+        },
+        {
+          type: 'note',
+          text: `Voorraadvragen gebruiken de categorie Voorraad; die staat standaard uit. Zet hem aan bij Tools beheren op de verbindingspagina; zie [Team, toegang en logboek](${routes.docPages['team-en-toegang'].nl}).`,
+        },
+        { type: 'h2', id: 'bestanden', text: 'Een bestand naast je administratie' },
+        {
+          type: 'p',
+          text: 'Upload een tekstbestand, bijvoorbeeld een bankafschrift als CSV, en laat Claire het naast je administratie leggen: welke regels sluiten aan en welke niet.',
+        },
+        {
+          type: 'ul',
+          items: [
+            '"Analyseer dit bankafschrift en zet de regels naast het grootboek."',
+            '"Hier is de export van onze webshop; sluit de omzet aan op de verkoopboekingen?"',
+          ],
+        },
+        { type: 'h2', id: 'terugkerend', text: 'Maak het terugkerend' },
+        {
+          type: 'p',
+          text: `Elke vraag die je vaker stelt kan een planning worden: dagelijks, wekelijks of maandelijks, met een e-mail wanneer er iets uitspringt. Een wekelijks uitzonderingsrapport over je KPI’s is er zo een; de maandafsluiting is de grootste. Zie [De maandafsluiting en planningen](${routes.docPages.maandafsluiting.nl}).`,
+        },
+        {
+          type: 'note',
+          text: 'Deze lijst is niet compleet: vrijwel elk onderdeel van Exact Online is bereikbaar, van CRM tot activa en documenten. Wat je uitzet bij Tools beheren, bestaat voor Claire niet.',
+        },
+      ],
+    },
+    en: {
+      metaTitle: 'What to ask Claire about your Exact Online administration',
+      metaDescription:
+        'Example questions by topic: reporting and KPIs, receivables and payables, sales, VAT, projects and inventory. With charts in the conversation and recurring checks.',
+      crumbCurrent: 'Example questions',
+      title: 'What to ask Claire',
+      summary: 'Example questions by topic, from reporting to inventory.',
+      lead:
+        'Claire opens up nearly every part of Exact Online. This page gives example questions per topic that you can copy word for word, with what happens next.',
+      blocks: [
+        { type: 'h2', id: 'zo-werkt-het', text: 'How a question works' },
+        {
+          type: 'p',
+          text: 'Ask in plain language and name the period when it matters; Claire picks the right data herself and shows what she fetched. For common analyses she follows a fixed playbook, so the approach is the same every time. She only presents figures once the data is complete: no indications, the real position.',
+        },
+        { type: 'h2', id: 'rapportage', text: 'Figures and reports' },
+        {
+          type: 'p',
+          text: 'Balance sheet, profit and loss and cash flow, with a comparison against last year, a previous period or year-end. Drilling down works per rubric, right to the ledger account. Ask for a chart and you get one in the conversation: bar, line, area, pie or waterfall.',
+        },
+        {
+          type: 'ul',
+          items: [
+            '"Show the P&L through July, compared with last year."',
+            '"Chart revenue by month."',
+            '"What is inside Other operating expenses? Drill down to the ledger accounts."',
+            '"Give me the July summary: revenue, costs, margin and result."',
+            '"How are the KPIs doing: gross margin, current ratio, DSO?"',
+          ],
+        },
+        {
+          type: 'figure',
+          src: '/documentatie/vragen-grafiek-en.png',
+          alt: 'A conversation with Claire showing revenue by month as a bar chart',
+          caption: 'One question, one chart: revenue by month, drawn right in the conversation.',
+        },
+        { type: 'h2', id: 'debiteuren-crediteuren', text: 'Receivables and payables' },
+        {
+          type: 'p',
+          text: 'Open items on both sides, with ageing and per customer or supplier.',
+        },
+        {
+          type: 'ul',
+          items: [
+            '"Which sales invoices are open, sorted by age?"',
+            '"Build an ageing analysis of the receivables."',
+            '"Which purchase invoices fall due this week?"',
+            '"Which suppliers do we spend the most with?"',
+          ],
+        },
+        {
+          type: 'p',
+          text: `For a steady routine around open items there is a worked-out approach in [Receivables management with Claire](${routes.docPages.debiteuren.en}).`,
+        },
+        { type: 'h2', id: 'verkoop-klanten', text: 'Sales and customers' },
+        {
+          type: 'ul',
+          items: [
+            '"Look up customer Helder BV and show the open items."',
+            '"Who are our ten largest customers this year, and how is their revenue developing?"',
+            '"Draft an invoice for Acme Group: 12 consulting hours at €95."',
+          ],
+        },
+        {
+          type: 'p',
+          text: `Creating an invoice is a change: Claire prepares it and posts only after your approval. What that looks like is in [Working with Claire](${routes.docPages['werken-met-claire'].en}#akkoord).`,
+        },
+        { type: 'h2', id: 'btw', text: 'VAT' },
+        {
+          type: 'ul',
+          items: [
+            '"Estimate the VAT payable for this quarter from the general ledger."',
+            '"Which July entries carry no VAT code?"',
+            '"Which VAT codes do we use, and what for?"',
+          ],
+        },
+        { type: 'h2', id: 'projecten', text: 'Projects and hours' },
+        {
+          type: 'ul',
+          items: [
+            '"Which projects are running over budget?"',
+            '"How many unbilled hours sit on each project, and what is the estimated revenue?"',
+          ],
+        },
+        { type: 'h2', id: 'voorraad', text: 'Inventory' },
+        {
+          type: 'ul',
+          items: [
+            '"Which items are running low on stock?"',
+            '"What is the inventory value per warehouse?"',
+            '"Which items have not moved for months?"',
+          ],
+        },
+        {
+          type: 'note',
+          text: `Inventory questions use the Inventory category, which is off by default. Switch it on under Manage tools on the connection page; see [Team, access and audit log](${routes.docPages['team-en-toegang'].en}).`,
+        },
+        { type: 'h2', id: 'bestanden', text: 'A file next to your administration' },
+        {
+          type: 'p',
+          text: 'Upload a text file, a bank statement as CSV for example, and have Claire put it next to your administration: which lines reconcile and which do not.',
+        },
+        {
+          type: 'ul',
+          items: [
+            '"Analyse this bank statement and put the lines next to the ledger."',
+            '"Here is our webshop export; does the revenue tie to the sales entries?"',
+          ],
+        },
+        { type: 'h2', id: 'terugkerend', text: 'Make it recurring' },
+        {
+          type: 'p',
+          text: `Any question you ask more than once can become a schedule: daily, weekly or monthly, with an email when something stands out. A weekly exception report on your KPIs is one; the month-end close is the biggest. See [The month-end close and schedules](${routes.docPages.maandafsluiting.en}).`,
+        },
+        {
+          type: 'note',
+          text: 'This list is not complete: nearly every part of Exact Online is reachable, from CRM to assets and documents. Whatever you switch off under Manage tools does not exist for Claire.',
+        },
+      ],
+    },
+  },
+
+  debiteuren: {
+    group: 'use',
+    nl: {
+      metaTitle: 'Debiteurenbeheer met Claire, van ouderdomsanalyse tot herinnering',
+      metaDescription:
+        'Een vaste debiteurenronde met Claire op Exact Online: ouderdomsanalyse, doorzoomen per klant, conceptherinneringen schrijven en een wekelijkse planning met e-mail bij uitzonderingen.',
+      crumbCurrent: 'Debiteurenbeheer',
+      title: 'Debiteurenbeheer met Claire',
+      summary: 'Een vaste debiteurenronde: analyse, opvolging en een wekelijks ritme.',
+      lead:
+        'Open posten bewaken is precies het soort werk dat elke week hetzelfde is. Zo richt je met Claire een vaste ronde in, van ouderdomsanalyse tot conceptherinnering, met jou aan het stuur.',
+      blocks: [
+        { type: 'h2', id: 'analyse', text: 'Begin met de ouderdomsanalyse' },
+        {
+          type: 'p',
+          text: 'Vraag om een ouderdomsanalyse en Claire haalt alle openstaande verkoopfacturen op en verdeelt ze in bakken: tot 30 dagen, 31–60, 61–90 en ouder. Je ziet per klant waar het geld staat. Het draaiboek telt pas wanneer alle posten binnen zijn, dus het totaal is de echte stand, geen indicatie.',
+        },
+        {
+          type: 'figure',
+          src: '/documentatie/debiteuren-ouderdom-nl.png',
+          alt: 'Een gesprek met Claire met een ouderdomsanalyse van de debiteuren als tabel, met een voorstel voor opvolging',
+          caption: 'De ouderdomsanalyse als tabel in het gesprek; met de kopieerknop staat hij zo in Excel.',
+        },
+        { type: 'h2', id: 'doorzoomen', text: 'Zoom in waar het schuurt' },
+        {
+          type: 'p',
+          text: 'Vraag door op de post die eruit springt: welke facturen zitten erachter, sinds wanneer, en wat is er al ontvangen. Claire haalt de details per klant op, tot de factuurregels aan toe.',
+        },
+        {
+          type: 'ul',
+          items: [
+            '"Welke facturen van Van Dijk Techniek staan open, en sinds wanneer?"',
+            '"Welke ontvangsten staan er deze maand op deze klant?"',
+          ],
+        },
+        { type: 'h2', id: 'herinneren', text: 'Laat de herinnering schrijven, verstuur hem zelf' },
+        {
+          type: 'p',
+          text: 'Claire verstuurt zelf geen e-mail. Wel schrijft ze per klant een conceptherinnering op basis van de open posten: factuurnummers, bedragen en vervaldata, in de toon die je vraagt. Het concept bewaart ze als bestand in de werkruimte van het gesprek; jij controleert, kopieert en verstuurt.',
+        },
+        { type: 'h2', id: 'ritme', text: 'Zet er een wekelijks ritme op' },
+        {
+          type: 'p',
+          text: `Maak op de verbindingspagina een planning, bijvoorbeeld elke maandag om 08:30: maak de ouderdomsanalyse, vergelijk met vorige week en noem elke post die nieuw boven de 60 dagen uitkomt. Het resultaat verschijnt als gesprek in de zijbalk; een e-mail krijg je alleen wanneer er iets uitspringt. Hoe planningen werken staat in [De maandafsluiting en planningen](${routes.docPages.maandafsluiting.nl}).`,
+        },
+        { type: 'h2', id: 'grenzen', text: 'Wat er wel en niet vanzelf gebeurt' },
+        {
+          type: 'ul',
+          items: [
+            'Claire leest en analyseert zelfstandig; wijzigingen in je administratie wachten altijd op je akkoord.',
+            'E-mails aan klanten verstuurt Claire niet; concepten schrijven kan wel.',
+            'De cijfers komen per vraag vers uit Exact Online; er ontstaat geen kopie buiten je administratie.',
+          ],
+        },
+        {
+          type: 'note',
+          text: `Dezelfde ronde werkt in je eigen assistent: stel de vragen in Claude, ChatGPT of Copilot zodra die gekoppeld is. Zie bijvoorbeeld [Claude koppelen aan Exact Online](${routes.docPages.claude.nl}).`,
+        },
+      ],
+    },
+    en: {
+      metaTitle: 'Receivables management with Claire, from ageing analysis to reminder',
+      metaDescription:
+        'A steady receivables routine with Claire on Exact Online: ageing analysis, drilling down per customer, drafting reminders and a weekly schedule with email on exceptions.',
+      crumbCurrent: 'Receivables',
+      title: 'Receivables management with Claire',
+      summary: 'A steady receivables routine: analysis, follow-up and a weekly rhythm.',
+      lead:
+        'Watching open items is exactly the kind of work that repeats every week. This is how you set up a steady routine with Claire, from ageing analysis to draft reminder, with you at the wheel.',
+      blocks: [
+        { type: 'h2', id: 'analyse', text: 'Start with the ageing analysis' },
+        {
+          type: 'p',
+          text: 'Ask for an ageing analysis and Claire fetches every outstanding sales invoice and sorts them into buckets: up to 30 days, 31–60, 61–90 and older. You see per customer where the money sits. The playbook only counts once every item is in, so the total is the real position, not an indication.',
+        },
+        {
+          type: 'figure',
+          src: '/documentatie/debiteuren-ouderdom-en.png',
+          alt: 'A conversation with Claire showing an ageing analysis of receivables as a table, with a follow-up proposal',
+          caption: 'The ageing analysis as a table in the conversation; the copy button drops it straight into Excel.',
+        },
+        { type: 'h2', id: 'doorzoomen', text: 'Zoom in where it hurts' },
+        {
+          type: 'p',
+          text: 'Follow up on the item that stands out: which invoices sit behind it, since when, and what has already been received. Claire fetches the details per customer, down to the invoice lines.',
+        },
+        {
+          type: 'ul',
+          items: [
+            '"Which invoices from Van Dijk Techniek are open, and since when?"',
+            '"Which receipts landed on this customer this month?"',
+          ],
+        },
+        { type: 'h2', id: 'herinneren', text: 'Have the reminder written, send it yourself' },
+        {
+          type: 'p',
+          text: 'Claire does not send email herself. She does write a draft reminder per customer from the open items: invoice numbers, amounts and due dates, in the tone you ask for. She keeps the draft as a file in the conversation workspace; you check, copy and send.',
+        },
+        { type: 'h2', id: 'ritme', text: 'Put a weekly rhythm on it' },
+        {
+          type: 'p',
+          text: `Create a schedule on the connection page, say every Monday at 08:30: build the ageing analysis, compare with last week and name every item newly past 60 days. The result appears as a conversation in the sidebar; you get an email only when something stands out. How schedules work is in [The month-end close and schedules](${routes.docPages.maandafsluiting.en}).`,
+        },
+        { type: 'h2', id: 'grenzen', text: 'What happens by itself, and what does not' },
+        {
+          type: 'ul',
+          items: [
+            'Claire reads and analyses on her own; changes to your administration always wait for your approval.',
+            'Claire does not send emails to customers; writing drafts she can.',
+            'Figures come fresh from Exact Online per question; no copy builds up outside your administration.',
+          ],
+        },
+        {
+          type: 'note',
+          text: `The same routine works in your own assistant: ask these questions in Claude, ChatGPT or Copilot once it is connected. See for example [Connect Claude to Exact Online](${routes.docPages.claude.en}).`,
+        },
+      ],
+    },
+  },
+
   maandafsluiting: {
     group: 'use',
     nl: {

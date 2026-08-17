@@ -446,6 +446,159 @@ for (const lang of langs) {
 }
 
 /* ------------------------------------------------------------------ */
+/* Chat: a chart answer and an ageing analysis (the use-case pages)    */
+/* ------------------------------------------------------------------ */
+
+/** Monthly revenue jan-jul; sums to the 4.128.400 the P&L fixture shows. */
+const monthlyRevenue = [545200, 561800, 594700, 588300, 601900, 612400, 624100];
+
+function chartSpec(lang: Lang) {
+  const nl = lang === "nl";
+  const months = nl
+    ? ["jan", "feb", "mrt", "apr", "mei", "jun", "jul"]
+    : ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"];
+  return {
+    type: "bar",
+    title: nl ? "Omzet per maand · 2026" : "Revenue by month · 2026",
+    data: months.map((name, i) => ({ name, value: monthlyRevenue[i] })),
+    xKey: "name",
+    series: [{ key: "value", label: nl ? "Omzet" : "Revenue" }],
+    format: "currency",
+  };
+}
+
+function agingTable(lang: Lang): string {
+  if (lang === "nl") {
+    return [
+      "Dit is de ouderdom van de openstaande debiteuren per vandaag:",
+      "",
+      "| Klant | 0–30 | 31–60 | 61–90 | >90 | Totaal |",
+      "| --- | ---: | ---: | ---: | ---: | ---: |",
+      "| Acme Group | € 15.200 | € 4.100 | € 0 | € 0 | € 19.300 |",
+      "| Helder BV | € 3.400 | € 6.550 | € 2.100 | € 0 | € 12.050 |",
+      "| Van Dijk Techniek | € 0 | € 0 | € 3.300 | € 8.650 | € 11.950 |",
+      "| Overige (8 facturen) | € 2.700 | € 2.200 | € 0 | € 0 | € 4.900 |",
+      "| **Totaal** | **€ 21.300** | **€ 12.850** | **€ 5.400** | **€ 8.650** | **€ 48.200** |",
+      "",
+      "Eén post vraagt aandacht: bij Van Dijk Techniek staat € 8.650 langer dan 90 dagen open, op factuur VK-2026-167. Zal ik een conceptherinnering voor ze schrijven?",
+    ].join("\n");
+  }
+  return [
+    "This is the ageing of the outstanding receivables as of today:",
+    "",
+    "| Customer | 0–30 | 31–60 | 61–90 | >90 | Total |",
+    "| --- | ---: | ---: | ---: | ---: | ---: |",
+    "| Acme Group | €15,200 | €4,100 | €0 | €0 | €19,300 |",
+    "| Helder BV | €3,400 | €6,550 | €2,100 | €0 | €12,050 |",
+    "| Van Dijk Techniek | €0 | €0 | €3,300 | €8,650 | €11,950 |",
+    "| Other (8 invoices) | €2,700 | €2,200 | €0 | €0 | €4,900 |",
+    "| **Total** | **€21,300** | **€12,850** | **€5,400** | **€8,650** | **€48,200** |",
+    "",
+    "One item needs attention: Van Dijk Techniek has €8,650 outstanding for more than 90 days, on invoice VK-2026-167. Shall I write a draft reminder for them?",
+  ].join("\n");
+}
+
+for (const lang of langs) {
+  test(`chat chart answer (${lang})`, async ({ api, page }) => {
+    mockChatShell(api);
+    const nl = lang === "nl";
+    api.on("POST", `/api/chat/${demoConnection.id}`, () => ({
+      contentType: "text/event-stream",
+      rawBody: sse([
+        {
+          type: "tool_call",
+          id: "tool-period",
+          name: "financial_period_report",
+          arguments: { division: 123, report_type: "income_statement", year: 2026 },
+          requiresConfirmation: false,
+        },
+        {
+          type: "tool_result",
+          id: "tool-period",
+          name: "financial_period_report",
+          result: { success: true },
+        },
+        {
+          type: "tool_call",
+          id: "tool-chart",
+          name: "render_chart",
+          arguments: chartSpec(lang),
+          requiresConfirmation: false,
+        },
+        {
+          type: "tool_result",
+          id: "tool-chart",
+          name: "render_chart",
+          result: { success: true, structuredContent: chartSpec(lang) },
+        },
+        {
+          type: "content",
+          content: nl
+            ? "Hier is de omzet per maand tot en met juli. Juli is met € 624.100 de sterkste maand tot nu toe; het totaal staat op € 4.128.400."
+            : "Here is revenue by month through July. July is the strongest month so far at €624,100; the total stands at €4,128,400.",
+        },
+        { type: "done" },
+      ]),
+    }));
+
+    await page.goto(appPath(lang, "/"));
+    await page.getByTestId("button-open-chat").click();
+    await page.getByTestId("button-fullscreen-chat").click();
+    const sidebar = page.getByTestId("sidebar-conversations");
+    if (await sidebar.isVisible()) {
+      await page.getByTestId("button-toggle-sidebar").click();
+    }
+    await page
+      .getByTestId("input-chat-message")
+      .fill(nl ? "Zet de omzet per maand van dit jaar in een grafiek." : "Chart revenue by month for this year.");
+    await page.getByTestId("button-send-message").click();
+    await page.getByText(nl ? "sterkste maand" : "strongest month").waitFor();
+    await page.waitForTimeout(1800);
+    await page.screenshot({ path: `${OUT}/vragen-grafiek-${lang}.png` });
+  });
+
+  test(`chat ageing answer (${lang})`, async ({ api, page }) => {
+    mockChatShell(api);
+    const nl = lang === "nl";
+    api.on("POST", `/api/chat/${demoConnection.id}`, () => ({
+      contentType: "text/event-stream",
+      rawBody: sse([
+        {
+          type: "tool_call",
+          id: "tool-aging",
+          name: "aging_receivables",
+          arguments: { division: 123 },
+          requiresConfirmation: false,
+        },
+        {
+          type: "tool_result",
+          id: "tool-aging",
+          name: "aging_receivables",
+          result: { success: true },
+        },
+        { type: "content", content: agingTable(lang) },
+        { type: "done" },
+      ]),
+    }));
+
+    await page.goto(appPath(lang, "/"));
+    await page.getByTestId("button-open-chat").click();
+    await page.getByTestId("button-fullscreen-chat").click();
+    const sidebar = page.getByTestId("sidebar-conversations");
+    if (await sidebar.isVisible()) {
+      await page.getByTestId("button-toggle-sidebar").click();
+    }
+    await page
+      .getByTestId("input-chat-message")
+      .fill(nl ? "Maak een ouderdomsanalyse van de debiteuren." : "Build an ageing analysis of the receivables.");
+    await page.getByTestId("button-send-message").click();
+    await page.getByText("Van Dijk Techniek").first().waitFor();
+    await page.waitForTimeout(1200);
+    await page.screenshot({ path: `${OUT}/debiteuren-ouderdom-${lang}.png` });
+  });
+}
+
+/* ------------------------------------------------------------------ */
 /* Connection management: schedules and the tools panel                */
 /* ------------------------------------------------------------------ */
 
