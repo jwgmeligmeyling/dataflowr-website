@@ -14,6 +14,11 @@ export const EMAIL_INFO = 'info@dataflowr.nl';
 /** Display form per language; the tel: href below dials the same number. */
 export const PHONE_DISPLAY = { nl: '023-2052813', en: '+31 23 2052813' } as const;
 export const PHONE_TEL = '+31232052813';
+/**
+ * Exact's own site. The App Store partner guidelines require the landing
+ * page behind "Meer informatie" to link to it.
+ */
+export const EXACT_URL = { nl: 'https://www.exact.com/nl', en: 'https://www.exact.com/en' } as const;
 
 /** Registered company details (KVK). */
 export const COMPANY = {
@@ -72,6 +77,13 @@ export const routes = {
    */
   claireStart: { nl: `${APP_URL}claire/start`, en: `${APP_URL}en/claire/start` },
   about: { nl: '/over-ons', en: '/en/about' },
+  /**
+   * Contact and support. The Exact Online App Store review requires both to
+   * exist as explicit pages with a phone number; the same details also stay
+   * in the footer and on the about page.
+   */
+  contact: { nl: '/contact', en: '/en/contact' },
+  support: { nl: '/ondersteuning', en: '/en/support' },
   articles: articleRoutes,
   /**
    * Flagship article. The "Kennisbank" nav item points at `resources` above;
@@ -132,6 +144,8 @@ export const ui = {
     footerCompact: '© 2026 DataFlowr · Gespecialiseerde Exact Online integratiepartner',
     footerPrivacy: 'Privacyverklaring',
     footerTerms: 'Algemene voorwaarden',
+    contactPage: 'Contact',
+    supportPage: 'Ondersteuning',
     serviceNavDescriptions: {
       'exact-online-premium': 'Implementatie & partner',
       integraties: 'Systemen & data koppelen',
@@ -176,6 +190,8 @@ export const ui = {
     footerCompact: '© 2026 DataFlowr · Specialised Exact Online integration partner',
     footerPrivacy: 'Privacy Policy',
     footerTerms: 'Terms of Service',
+    contactPage: 'Contact',
+    supportPage: 'Support',
     serviceNavDescriptions: {
       'exact-online-premium': 'Implementation & partner',
       integraties: 'Connect systems & data',

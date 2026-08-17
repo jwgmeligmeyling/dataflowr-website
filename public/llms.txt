@@ -57,7 +57,12 @@ https://dataflowr.nl/en/services).
   - Wat er nieuw is in de nieuwe release van onze MCP-koppeling:
     https://dataflowr.nl/kennisbank/wat-er-nieuw-is-in-de-mcp-release
     (EN: https://dataflowr.nl/en/resources/what-is-new-in-the-mcp-release)
-- Contact: daan@dataflowr.nl · janwillem@dataflowr.nl · +31 23 2052813 · book a call at https://dataflowr.nl/over-ons
+- [Contact](https://dataflowr.nl/contact): phone +31 23 2052813, info@dataflowr.nl,
+  daan@dataflowr.nl, janwillem@dataflowr.nl, or book a 30-minute call. English at
+  https://dataflowr.nl/en/contact.
+- [Ondersteuning](https://dataflowr.nl/ondersteuning): support for Claire and the
+  integrations, by phone (+31 23 2052813), email (info@dataflowr.nl) or a scheduled call.
+  English at https://dataflowr.nl/en/support.
 - LinkedIn: https://linkedin.com/company/dataflowr
 
 ## Legal

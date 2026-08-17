@@ -19,6 +19,10 @@ const t = ui[lang];
       <p class="legal">{t.footerCompact}</p>
     </div>
     <div class="legal-run">
+      <a href={routes.contact[lang]}>{t.contactPage}</a>
+      <span class="dot" aria-hidden="true">·</span>
+      <a href={routes.support[lang]}>{t.supportPage}</a>
+      <span class="dot" aria-hidden="true">·</span>
       <a href={routes.legal.privacy[lang]}>{t.footerPrivacy}</a>
       <span class="dot" aria-hidden="true">·</span>
       <a href={routes.legal.terms[lang]}>{t.footerTerms}</a>

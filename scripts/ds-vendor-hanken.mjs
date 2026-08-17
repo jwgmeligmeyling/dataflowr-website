@@ -16,7 +16,7 @@ const css = await (await fetch(cssUrl, { headers: { 'User-Agent': UA } })).text(
 const blocks = [...css.matchAll(/\/\* ([a-z-]+) \*\/\n(@font-face \{[\s\S]*?\})/g)].filter((m) => m[1] === 'latin');
 if (!blocks.length) throw new Error('no latin @font-face blocks found in Google Fonts CSS');
 
-let outCss = '/* Hanken Grotesk — vendored from Google Fonts (latin subset), weights 300–800. */\n';
+let outCss = '/* Hanken Grotesk, vendored from Google Fonts (latin subset), weights 300–800. */\n';
 for (const [, , block] of blocks) {
   const url = block.match(/url\((https:[^)]+\.woff2)\)/)?.[1];
   const weight = block.match(/font-weight: (\d+)/)?.[1];

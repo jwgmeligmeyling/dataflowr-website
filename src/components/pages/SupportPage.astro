@@ -1,0 +1,206 @@
+---
+/**
+ * Support page. The Exact Online App Store review requires support details
+ * with a phone number; this page spells out the channels, what we help with
+ * and where the documentation lives.
+ */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import {
+  abs,
+  routes,
+  EMAIL_INFO,
+  PHONE_DISPLAY,
+  PHONE_TEL,
+  type Lang,
+} from '../../lib/site';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const other: Lang = lang === 'nl' ? 'en' : 'nl';
+
+const nl = {
+  metaTitle: 'Ondersteuning, zo bereik je onze support',
+  metaDescription:
+    'Support voor Claire en onze integraties: bel 023-2052813, mail info@dataflowr.nl of plan een gesprek. Documentatie vind je in de kennisbank en op de Claire-pagina.',
+  eyebrow: 'Ondersteuning',
+  title: 'Support van de mensen die het bouwen.',
+  intro:
+    'Supportvragen over Claire of een integratie komen direct terecht bij de twee founders die het product bouwen. Zij kennen de koppeling en de Exact Online API’s; je hoeft niets twee keer uit te leggen.',
+  phoneTitle: 'Telefoon',
+  phoneBody: 'Op werkdagen tijdens kantooruren. Handig bij storingen, of als je er samen doorheen wilt lopen.',
+  mailTitle: 'E-mail',
+  mailBody: 'Beschrijf wat je deed en wat je verwachtte; we komen er per mail of telefonisch bij je op terug.',
+  meetTitle: 'Gesprek',
+  meetCta: 'Plan een gesprek',
+  meetBody: 'Voor vragen die meer tijd vragen: kies zelf een moment van 30 minuten in de agenda.',
+  helpTitle: 'Waarmee we helpen',
+  helpItems: [
+    'De koppeling met Exact Online opzetten, verhuizen of opzeggen',
+    'Storingen en foutmeldingen in Claire of een integratie',
+    'Vragen over een antwoord of controle van Claire',
+    'Je abonnement en facturatie',
+  ],
+  docsTitle: 'Documentatie',
+  docsStartPre: 'Het stappenplan voor de koppeling staat op de ',
+  docsStartLink: 'Claire-pagina',
+  docsStartPost: ', inclusief een klikbare demo van de onboarding.',
+  docsKbPre: 'In de ',
+  docsKbLink: 'kennisbank',
+  docsKbPost: ' staan praktijkartikelen over onder meer de maandafsluiting, PSP-reconciliatie en MCP.',
+  plansNote:
+    'Bij het plan Bedrijf hoort onboarding met begeleiding; bij Kantoor priority support en training.',
+};
+
+const en: typeof nl = {
+  metaTitle: 'Support, how to reach us',
+  metaDescription:
+    'Support for Claire and our integrations: call +31 23 2052813, email info@dataflowr.nl or book a call. Documentation lives in the resources section and on the Claire page.',
+  eyebrow: 'Support',
+  title: 'Support from the people who build it.',
+  intro:
+    'Support questions about Claire or an integration go straight to the two founders who build the product. They know the connection and the Exact Online APIs; you never have to explain anything twice.',
+  phoneTitle: 'Phone',
+  phoneBody: 'On working days during office hours. Useful for outages, or when you want to walk through something together.',
+  mailTitle: 'Email',
+  mailBody: 'Describe what you did and what you expected; we get back to you by email or by phone.',
+  meetTitle: 'Call',
+  meetCta: 'Book a call',
+  meetBody: 'For questions that need more time: pick a 30-minute slot in the calendar.',
+  helpTitle: 'What we help with',
+  helpItems: [
+    'Setting up, moving or ending the connection with Exact Online',
+    'Outages and error messages in Claire or an integration',
+    'Questions about an answer or check from Claire',
+    'Your subscription and billing',
+  ],
+  docsTitle: 'Documentation',
+  docsStartPre: 'The step-by-step connection guide lives on the ',
+  docsStartLink: 'Claire page',
+  docsStartPost: ', including a clickable demo of the onboarding.',
+  docsKbPre: 'The ',
+  docsKbLink: 'resources section',
+  docsKbPost: ' has practical articles on the month-end close, PSP reconciliation and MCP, among others.',
+  plansNote:
+    'The Business plan comes with guided onboarding; Firm comes with priority support and training.',
+};
+
+const t = lang === 'nl' ? nl : en;
+const path = routes.support[lang];
+const altPath = routes.support[other];
+const calendlyHref = `${routes.about[lang]}#plan-afspraak`;
+const claireStartHref = `${routes.claire[lang]}#${lang === 'nl' ? 'aan-de-slag' : 'get-started'}`;
+
+const schema = [
+  {
+    '@type': 'ContactPage',
+    '@id': abs(`${path}#page`),
+    url: abs(path),
+    name: t.metaTitle,
+    description: t.metaDescription,
+    about: { '@id': abs('/#organization') },
+  },
+];
+---
+<BaseLayout
+  lang={lang}
+  title={t.metaTitle}
+  description={t.metaDescription}
+  path={path}
+  altPath={altPath}
+  navVariant="solid"
+  ctaHref={calendlyHref}
+  footer="compact-bg"
+  schema={schema}
+>
+  <section class="wrap support">
+    <p class="eyebrow eyebrow--thin support-eyebrow">{t.eyebrow}</p>
+    <h1>{t.title}</h1>
+    <p class="intro">{t.intro}</p>
+    <div class="channels">
+      <div class="channel">
+        <h2>{t.phoneTitle}</h2>
+        <a href={`tel:${PHONE_TEL}`} class="channel-main">{PHONE_DISPLAY[lang]}</a>
+        <p>{t.phoneBody}</p>
+      </div>
+      <div class="channel">
+        <h2>{t.mailTitle}</h2>
+        <a href={`mailto:${EMAIL_INFO}`} class="channel-main">{EMAIL_INFO}</a>
+        <p>{t.mailBody}</p>
+      </div>
+      <div class="channel">
+        <h2>{t.meetTitle}</h2>
+        <a href={calendlyHref} class="channel-main">{t.meetCta}</a>
+        <p>{t.meetBody}</p>
+      </div>
+    </div>
+    <div class="cols">
+      <div class="block">
+        <h2>{t.helpTitle}</h2>
+        <ul>
+          {t.helpItems.map((item) => <li><span class="dot-mark" aria-hidden="true"></span><span>{item}</span></li>)}
+        </ul>
+      </div>
+      <div class="block">
+        <h2>{t.docsTitle}</h2>
+        <p>{t.docsStartPre}<a href={claireStartHref}>{t.docsStartLink}</a>{t.docsStartPost}</p>
+        <p>{t.docsKbPre}<a href={routes.resources[lang]}>{t.docsKbLink}</a>{t.docsKbPost}</p>
+      </div>
+    </div>
+    <p class="plans-note">{t.plansNote}</p>
+  </section>
+</BaseLayout>
+
+<style>
+  .support { padding-top: 96px; padding-bottom: 110px; }
+  .support-eyebrow { color: color-mix(in srgb, var(--hl) 85%, var(--brand)); margin-bottom: 18px; gap: 14px; }
+  h1 {
+    margin: 0 0 22px;
+    font-size: clamp(2.5rem, 4.5vw, 3.625rem);
+    line-height: 1.06;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    text-wrap: balance;
+  }
+  .intro { margin: 0 0 56px; max-width: 720px; font-size: 1.125rem; line-height: 1.7; color: var(--muted); text-wrap: pretty; }
+  .channels { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr)); gap: 20px; }
+  .channel {
+    background: #ffffff;
+    border: 1px solid color-mix(in srgb, var(--brand) 9%, transparent);
+    border-radius: 20px;
+    padding: 30px;
+  }
+  .channel h2 {
+    margin: 0 0 12px;
+    font-size: 0.78125rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: color-mix(in srgb, var(--hl) 85%, var(--brand));
+  }
+  .channel-main { display: inline-block; margin: 0 0 10px; font-size: 1.25rem; font-weight: 700; letter-spacing: -0.01em; overflow-wrap: anywhere; }
+  .channel p { margin: 0; font-size: 0.96875rem; line-height: 1.65; color: var(--muted); }
+  .cols {
+    margin-top: 64px;
+    padding-top: 44px;
+    border-top: 1px solid color-mix(in srgb, var(--brand) 9%, transparent);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
+    gap: 44px 64px;
+  }
+  .block h2 { margin: 0 0 14px; font-size: 1.5rem; font-weight: 700; letter-spacing: -0.02em; }
+  .block ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 10px; }
+  .block li { display: grid; grid-template-columns: auto 1fr; gap: 12px; align-items: baseline; font-size: 1rem; line-height: 1.65; color: var(--muted); }
+  .dot-mark {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: color-mix(in srgb, var(--hl) 85%, var(--brand));
+    transform: translateY(-1px);
+  }
+  .block p { margin: 0 0 12px; max-width: 560px; font-size: 1rem; line-height: 1.65; color: var(--muted); }
+  .block p:last-child { margin-bottom: 0; }
+  .block a { color: var(--hl); font-weight: 600; }
+  .plans-note { margin: 44px 0 0; font-size: 0.96875rem; line-height: 1.65; color: var(--muted); }
+</style>

@@ -8,7 +8,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Logo from '../Logo.astro';
 import ClaireMark from '../ClaireMark.astro';
-import { abs, routes, ui, APP_URL, type Lang } from '../../lib/site';
+import { abs, routes, ui, APP_URL, EXACT_URL, PHONE_DISPLAY, PHONE_TEL, type Lang } from '../../lib/site';
 
 interface Props {
   lang: Lang;
@@ -212,6 +212,11 @@ const nl = {
     { title: 'Geen schaduwkopie', body: 'Je data blijft in Exact Online. Claire haalt per vraag alleen op wat nodig is; er ontstaat geen kopie in een extern platform.' },
     { title: 'Onderhoud is ons werk', body: 'Wijzigingen in de Exact Online-API en nieuwe functionaliteit zijn ons probleem, niet het uwe. Centraal beheerd, met een stabiele interface.' },
   ],
+  secFoot1: 'Claire koppelt via de officiële API’s van Exact Online. Meer over Exact Online lees je op ',
+  secFootExact: 'exact.com/nl',
+  secFoot2: '. Hoe we met je gegevens omgaan, staat in de ',
+  secFootPrivacy: 'privacyverklaring',
+  secFoot3: '.',
   obEyebrow: 'Aan de slag',
   obTitle: 'Live in drie klikken.',
   obSub:
@@ -255,6 +260,10 @@ const nl = {
   ctaSub: 'Plan een kennismaking van 30 minuten, je spreekt direct een founder.',
   ctaBtn: 'Plan een kennismaking',
   ctaBtn2: 'Zelf Exact Online verbinden',
+  ctaNote1: 'Vragen of hulp nodig? Bel ',
+  ctaNote2: ' of kijk bij ',
+  ctaNoteSupport: 'ondersteuning',
+  ctaNote3: '.',
 };
 
 const en: typeof nl = {
@@ -432,6 +441,11 @@ const en: typeof nl = {
     { title: 'No shadow copy', body: 'Your data stays in Exact Online. Claire fetches only what a given answer needs; no copy of your books ends up in an external platform.' },
     { title: 'Maintenance is our job', body: 'Changes to the Exact Online API and new features are our problem, not yours. A centrally managed service with a stable interface.' },
   ],
+  secFoot1: 'Claire connects through the official Exact Online APIs. Read more about Exact Online at ',
+  secFootExact: 'exact.com/en',
+  secFoot2: '. How we handle your data is set out in the ',
+  secFootPrivacy: 'privacy policy',
+  secFoot3: '.',
   obEyebrow: 'Get started',
   obTitle: 'Live in three clicks.',
   obSub:
@@ -475,6 +489,10 @@ const en: typeof nl = {
   ctaSub: "Book a 30-minute intro, you'll speak to a founder directly.",
   ctaBtn: 'Get in touch',
   ctaBtn2: 'Connect Exact Online yourself',
+  ctaNote1: 'Questions or need help? Call ',
+  ctaNote2: ' or see ',
+  ctaNoteSupport: 'support',
+  ctaNote3: '.',
 };
 
 const t = lang === 'nl' ? nl : en;
@@ -762,6 +780,7 @@ const schema = [
           ))}
         </div>
       </div>
+      <p class="sec-foot">{t.secFoot1}<a href={EXACT_URL[lang]} target="_blank" rel="noopener">{t.secFootExact}</a>{t.secFoot2}<a href={routes.legal.privacy[lang]}>{t.secFootPrivacy}</a>{t.secFoot3}</p>
     </div>
   </section>
 
@@ -898,6 +917,7 @@ const schema = [
         <a href={routes.about[lang]} class="btn-signal cta-btn">{t.ctaBtn}</a>
         <a href={`#${startId}`} class="btn-ghost-dark cta-btn2">{t.ctaBtn2}</a>
       </div>
+      <p class="cta-note">{t.ctaNote1}<a href={`tel:${PHONE_TEL}`}>{PHONE_DISPLAY[lang]}</a>{t.ctaNote2}<a href={routes.support[lang]}>{t.ctaNoteSupport}</a>{t.ctaNote3}</p>
     </div>
   </section>
 </BaseLayout>
@@ -1525,6 +1545,8 @@ const schema = [
   }
   .sec-item h3 { margin: 0 0 5px; font-size: 1.0625rem; font-weight: 700; }
   .sec-item p { margin: 0; font-size: 0.90625rem; line-height: 1.6; color: var(--muted); }
+  .sec-foot { margin: 26px 0 0; font-size: 0.875rem; line-height: 1.6; color: var(--muted); }
+  .sec-foot a { color: var(--hl); font-weight: 600; }
 
   /* ---------- Onboarding ---------- */
   .ob { background: var(--bg); border-top: 1px solid var(--line); scroll-margin-top: 72px; }
@@ -1794,4 +1816,7 @@ const schema = [
   .cta-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
   .cta-btn { font-size: 1.09375rem; padding: 17px 40px; }
   .cta-btn2 { font-size: 1.09375rem; padding: 16px 34px; }
+  .cta-note { margin: 26px 0 0; font-size: 0.875rem; line-height: 1.6; color: color-mix(in srgb, var(--bg) 64%, transparent); }
+  .cta-note a { color: color-mix(in srgb, var(--bg) 88%, transparent); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+  .cta-note a:hover { color: var(--bg); }
 </style>
