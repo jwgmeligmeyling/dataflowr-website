@@ -1,0 +1,16 @@
+{
+  "artboards": [
+    { "file": "Main.dc.html", "title": "A · Tweeluik", "x": 0, "y": 0, "w": 1440, "h": 1180 },
+    { "file": "Console.dc.html", "title": "B · Console", "x": 1620, "y": 0, "w": 1440, "h": 1200 },
+    { "file": "DrieSporen.dc.html", "title": "C · Drie sporen", "x": 0, "y": 1500, "w": 1440, "h": 1060 },
+    { "file": "Vraagbalk.dc.html", "title": "D · Vraagbalk", "x": 1620, "y": 1500, "w": 1440, "h": 1170 }
+  ],
+  "annotations": [
+    { "id": "intro", "x": -560, "y": 0, "w": 460, "text": "Vier richtingen voor een nieuwe sectie op /claire die 'Bekijk het in actie' en 'Drie manieren om Claire in te zetten' samenvoegt tot een demo van vraag, inzicht en actie.\n\nAlles in palet 0a, Hanken Grotesk en de demo-data van de live pagina. Kies een richting of mix elementen; de gekozen richting wordt daarna interactief gebouwd in Astro." },
+    { "id": "richting-a", "x": 0, "y": -210, "w": 640, "text": "A · Tweeluik\n\nTabs per werkgebied; links lezen, rechts doen, met het akkoord als scharnier ertussen. De drie manieren staan als strip onderaan.\n\nMotivatie: dichtst bij de referentie en bij de huidige QA-kaarten; laagste risico.\nAfweging: minst verrassend, en de drie manieren blijven een voetnoot." },
+    { "id": "richting-b", "x": 1620, "y": -210, "w": 640, "text": "B · Console\n\nHet product als podium op donker: werkgebieden links, een gesprek dat van vraag naar akkoord loopt, de modus rechtsboven als schakelaar.\n\nMotivatie: voelt als de echte app, het meeste theater.\nAfweging: zware sectie; de pagina heeft al twee donkere blokken." },
+    { "id": "richting-c", "x": 0, "y": 1290, "w": 640, "text": "C · Drie sporen\n\nDe drie manieren zijn hier de structuur: per spoor aanleiding, inzicht en actie, met de akkoordgrens als verticale lijn door de hele sectie.\n\nMotivatie: voegt beide secties het meest letterlijk samen en maakt 'lezen vrij, schrijven na akkoord' in een oogopslag zichtbaar.\nAfweging: compacte kaarten, dus minder ruimte voor echte tabellen." },
+    { "id": "richting-d", "x": 1620, "y": 1290, "w": 640, "text": "D · Vraagbalk\n\nBegint waar de gebruiker begint: de vraag. Chips tonen de breedte van de onderwerpen, twee kaarten tonen lezen en doen.\n\nMotivatie: eigen compositie, nodigt uit om zelf een vraag te formuleren.\nAfweging: een voorbeeld tegelijk; de breedte van Claire is minder zichtbaar." }
+  ],
+  "launch": { "view": "canvas" }
+}
