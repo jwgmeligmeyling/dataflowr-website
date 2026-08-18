@@ -17,6 +17,7 @@ import {
   LINKEDIN_JANWILLEM,
   EMAIL_DAAN,
   EMAIL_JANWILLEM,
+  EMAIL_INFO,
   PHONE_TEL,
   ui,
   type Lang,
@@ -91,14 +92,24 @@ const organization = {
     { '@type': 'Person', name: 'Daan Jansen', jobTitle: 'Co-founder · Financial Consultant', email: `mailto:${EMAIL_DAAN}`, sameAs: [LINKEDIN_DAAN] },
     { '@type': 'Person', name: 'Jan-Willem Gmelig Meyling', jobTitle: 'Co-founder · Solution Architect', email: `mailto:${EMAIL_JANWILLEM}`, sameAs: [LINKEDIN_JANWILLEM] },
   ],
-  contactPoint: {
-    '@type': 'ContactPoint',
-    contactType: 'sales',
-    email: EMAIL_DAAN,
-    telephone: PHONE_TEL,
-    url: abs(routes.about[lang]),
-    availableLanguage: ['nl', 'en'],
-  },
+  contactPoint: [
+    {
+      '@type': 'ContactPoint',
+      contactType: 'sales',
+      email: EMAIL_DAAN,
+      telephone: PHONE_TEL,
+      url: abs(routes.contact[lang]),
+      availableLanguage: ['nl', 'en'],
+    },
+    {
+      '@type': 'ContactPoint',
+      contactType: 'customer support',
+      email: EMAIL_INFO,
+      telephone: PHONE_TEL,
+      url: abs(routes.support[lang]),
+      availableLanguage: ['nl', 'en'],
+    },
+  ],
 };
 
 const website = {
