@@ -1,16 +1,29 @@
 {
+  "pages": [
+    { "id": "ronde-1", "name": "Ronde 1" },
+    { "id": "ronde-2", "name": "Ronde 2" }
+  ],
   "artboards": [
-    { "file": "Main.dc.html", "title": "A · Tweeluik", "x": 0, "y": 0, "w": 1440, "h": 1180 },
-    { "file": "Console.dc.html", "title": "B · Console", "x": 1620, "y": 0, "w": 1440, "h": 1200 },
-    { "file": "DrieSporen.dc.html", "title": "C · Drie sporen", "x": 0, "y": 1500, "w": 1440, "h": 1060 },
-    { "file": "Vraagbalk.dc.html", "title": "D · Vraagbalk", "x": 1620, "y": 1500, "w": 1440, "h": 1170 }
+    { "file": "Main.dc.html", "title": "A · Tweeluik", "x": 0, "y": 0, "w": 1440, "h": 1180, "page": "ronde-1" },
+    { "file": "Console.dc.html", "title": "B · Console", "x": 1620, "y": 0, "w": 1440, "h": 1200, "page": "ronde-1" },
+    { "file": "DrieSporen.dc.html", "title": "C · Drie sporen", "x": 0, "y": 1500, "w": 1440, "h": 1060, "page": "ronde-1" },
+    { "file": "Vraagbalk.dc.html", "title": "D · Vraagbalk", "x": 1620, "y": 1500, "w": 1440, "h": 1170, "page": "ronde-1" },
+    { "file": "Editoriaal.dc.html", "title": "E · Editoriaal", "x": 0, "y": 0, "w": 1440, "h": 1180, "page": "ronde-2" },
+    { "file": "Stapel.dc.html", "title": "F · Stapel", "x": 1620, "y": 0, "w": 1440, "h": 1150, "page": "ronde-2" },
+    { "file": "Koppeling.dc.html", "title": "G · Koppeling", "x": 0, "y": 1500, "w": 1440, "h": 920, "page": "ronde-2" },
+    { "file": "Werkweek.dc.html", "title": "H · Werkweek", "x": 1620, "y": 1500, "w": 1440, "h": 1040, "page": "ronde-2" }
   ],
   "annotations": [
-    { "id": "intro", "x": -560, "y": 0, "w": 460, "text": "Vier richtingen voor een nieuwe sectie op /claire die 'Bekijk het in actie' en 'Drie manieren om Claire in te zetten' samenvoegt tot een demo van vraag, inzicht en actie.\n\nAlles in palet 0a, Hanken Grotesk en de demo-data van de live pagina. Kies een richting of mix elementen; de gekozen richting wordt daarna interactief gebouwd in Astro." },
-    { "id": "richting-a", "x": 0, "y": -210, "w": 640, "text": "A · Tweeluik\n\nTabs per werkgebied; links lezen, rechts doen, met het akkoord als scharnier ertussen. De drie manieren staan als strip onderaan.\n\nMotivatie: dichtst bij de referentie en bij de huidige QA-kaarten; laagste risico.\nAfweging: minst verrassend, en de drie manieren blijven een voetnoot." },
-    { "id": "richting-b", "x": 1620, "y": -210, "w": 640, "text": "B · Console\n\nHet product als podium op donker: werkgebieden links, een gesprek dat van vraag naar akkoord loopt, de modus rechtsboven als schakelaar.\n\nMotivatie: voelt als de echte app, het meeste theater.\nAfweging: zware sectie; de pagina heeft al twee donkere blokken." },
-    { "id": "richting-c", "x": 0, "y": 1290, "w": 640, "text": "C · Drie sporen\n\nDe drie manieren zijn hier de structuur: per spoor aanleiding, inzicht en actie, met de akkoordgrens als verticale lijn door de hele sectie.\n\nMotivatie: voegt beide secties het meest letterlijk samen en maakt 'lezen vrij, schrijven na akkoord' in een oogopslag zichtbaar.\nAfweging: compacte kaarten, dus minder ruimte voor echte tabellen." },
-    { "id": "richting-d", "x": 1620, "y": 1290, "w": 640, "text": "D · Vraagbalk\n\nBegint waar de gebruiker begint: de vraag. Chips tonen de breedte van de onderwerpen, twee kaarten tonen lezen en doen.\n\nMotivatie: eigen compositie, nodigt uit om zelf een vraag te formuleren.\nAfweging: een voorbeeld tegelijk; de breedte van Claire is minder zichtbaar." }
+    { "id": "intro", "x": -560, "y": 0, "w": 460, "page": "ronde-1", "text": "Vier richtingen voor een nieuwe sectie op /claire die 'Bekijk het in actie' en 'Drie manieren om Claire in te zetten' samenvoegt tot een demo van vraag, inzicht en actie.\n\nAlles in palet 0a, Hanken Grotesk en de demo-data van de live pagina. Kies een richting of mix elementen; de gekozen richting wordt daarna interactief gebouwd in Astro.\n\nRonde 2 staat op de tweede pagina (paginamenu in de werkbalk)." },
+    { "id": "richting-a", "x": 0, "y": -210, "w": 640, "page": "ronde-1", "text": "A · Tweeluik\n\nTabs per werkgebied; links lezen, rechts doen, met het akkoord als scharnier ertussen. De drie manieren staan als strip onderaan.\n\nMotivatie: dichtst bij de referentie en bij de huidige QA-kaarten; laagste risico.\nAfweging: minst verrassend, en de drie manieren blijven een voetnoot.\n\nRonde 1: afgevallen, te dicht op de referentie." },
+    { "id": "richting-b", "x": 1620, "y": -210, "w": 640, "page": "ronde-1", "text": "B · Console\n\nHet product als podium op donker: werkgebieden links, een gesprek dat van vraag naar akkoord loopt, de modus rechtsboven als schakelaar.\n\nMotivatie: voelt als de echte app, het meeste theater.\nAfweging: zware sectie; de pagina heeft al twee donkere blokken.\n\nRonde 1: blijft in de race." },
+    { "id": "richting-c", "x": 0, "y": 1290, "w": 640, "page": "ronde-1", "text": "C · Drie sporen\n\nDe drie manieren zijn hier de structuur: per spoor aanleiding, inzicht en actie, met de akkoordgrens als verticale lijn door de hele sectie.\n\nMotivatie: voegt beide secties het meest letterlijk samen en maakt 'lezen vrij, schrijven na akkoord' in een oogopslag zichtbaar.\nAfweging: compacte kaarten, dus minder ruimte voor echte tabellen.\n\nRonde 1: afgevallen, te druk." },
+    { "id": "richting-d", "x": 1620, "y": 1290, "w": 640, "page": "ronde-1", "text": "D · Vraagbalk\n\nBegint waar de gebruiker begint: de vraag. Chips tonen de breedte van de onderwerpen, twee kaarten tonen lezen en doen.\n\nMotivatie: eigen compositie, nodigt uit om zelf een vraag te formuleren.\nAfweging: een voorbeeld tegelijk; de breedte van Claire is minder zichtbaar.\n\nRonde 1: blijft in de race." },
+    { "id": "intro-2", "x": -560, "y": 0, "w": 460, "page": "ronde-2", "text": "Ronde 2, na de feedback: A viel af (te letterlijk), C viel af (te druk). Vier nieuwe richtingen, rustiger en verder van de referentie; B en D uit ronde 1 dingen nog mee.\n\nZelfde palet, type en demo-data als ronde 1." },
+    { "id": "richting-e", "x": 0, "y": -210, "w": 640, "page": "ronde-2", "text": "E · Editoriaal\n\nDe flow als redactioneel verhaal: grote cijfers, veel wit, de vraag op affichegrootte. De drie manieren zitten bij stap 01, als de plek waar de vraag vandaan komt.\n\nMotivatie: de rustigste van allemaal; typografie doet het werk en niets lijkt op de referentie.\nAfweging: hoge sectie, en er is minder 'product' te zien dan bij B." },
+    { "id": "richting-f", "x": 1620, "y": -210, "w": 640, "page": "ronde-2", "text": "F · Stapel\n\nEén voorbeeld tegelijk, de rest voelbaar als stapel erachter; bladeren per werkgebied. De drie manieren als regel onder de stapel.\n\nMotivatie: de focus van D, maar de breedte blijft zichtbaar; nodigt uit om te klikken.\nAfweging: leunt op interactie; wie niet bladert, ziet alleen het eerste werkgebied." },
+    { "id": "richting-g", "x": 0, "y": 1290, "w": 640, "page": "ronde-2", "text": "G · Koppeling\n\nNiet het gesprek maar de koppeling als held: links vragen, rechts Exact Online, met een leesstroom die altijd mag en een schrijfstroom die langs jouw akkoord loopt.\n\nMotivatie: laat als enige zien waar Claire werkt; sterk vertrouwensverhaal (geen schaduwkopie).\nAfweging: schematischer, minder demo-gevoel; de werkgebieden komen niet in beeld." },
+    { "id": "richting-h", "x": 1620, "y": 1290, "w": 640, "page": "ronde-2", "text": "H · Werkweek\n\nDrie momenten uit een gewone week op een tijdlijn: de geplande controle, de vraag tussendoor, de automatisering. De drie manieren zonder grid, als verhaal.\n\nMotivatie: dezelfde inhoud als C maar rustig, en laat als enige ook de afloop zien (goedgekeurd, alleen gemeld).\nAfweging: geen echte tabellen of cijferkaarten; abstracter dan A of B." }
   ],
-  "launch": { "view": "canvas" }
+  "launch": { "view": "canvas", "page": "ronde-2" }
 }
