@@ -8,7 +8,7 @@
     { "file": "Console.dc.html", "title": "B · Console", "x": 1620, "y": 0, "w": 1440, "h": 1200, "page": "ronde-1" },
     { "file": "DrieSporen.dc.html", "title": "C · Drie sporen", "x": 0, "y": 1500, "w": 1440, "h": 1060, "page": "ronde-1" },
     { "file": "Vraagbalk.dc.html", "title": "D · Vraagbalk", "x": 1620, "y": 1500, "w": 1440, "h": 1170, "page": "ronde-1" },
-    { "file": "Editoriaal.dc.html", "title": "E · Editoriaal", "x": 0, "y": 0, "w": 1440, "h": 1180, "page": "ronde-2" },
+    { "file": "Editoriaal.dc.html", "title": "E · Editoriaal", "x": 0, "y": 0, "w": 1440, "h": 1260, "page": "ronde-2" },
     { "file": "Stapel.dc.html", "title": "F · Stapel", "x": 1620, "y": 0, "w": 1440, "h": 1150, "page": "ronde-2" },
     { "file": "Koppeling.dc.html", "title": "G · Koppeling", "x": 0, "y": 1500, "w": 1440, "h": 920, "page": "ronde-2" },
     { "file": "Werkweek.dc.html", "title": "H · Werkweek", "x": 1620, "y": 1500, "w": 1440, "h": 1040, "page": "ronde-2" }
