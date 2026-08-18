@@ -28,6 +28,15 @@ Ronde 2, rustiger en verder van de referentie:
 | `Koppeling.dc.html` | G · Koppeling: gesprek links, Exact Online rechts, lees- en schrijfstroom ertussen |
 | `Werkweek.dc.html` | H · Werkweek: drie momenten uit een week op een tijdlijn, op donker |
 
+Ronde 3, creatiever en met meer inhoud:
+
+| Artboard | Richting |
+| --- | --- |
+| `Werkvloer.dc.html` | I · Werkvloer: één vraag uitgeklapt als collage van werkstukken, op donker |
+| `Journaal.dc.html` | J · Journaal: een sluitende journaalpost op papier, met kantlijnnotities en akkoordstempel |
+| `DagNacht.dc.html` | K · Dag en nacht: het nachtlog van de agent links, de ochtend met jouw akkoord rechts |
+| `Cockpit.dc.html` | L · Cockpit: de DSO-grafiek als held, met aantekening van Claire en de actie ernaast |
+
 De artboards volgen palet 0a, Hanken Grotesk en de demo-data van
 `src/components/pages/ClairePage.astro`; de bedragen en namen komen uit de
 bestaande QA-kaarten. `canvas.json` legt de indeling en de notities vast.
