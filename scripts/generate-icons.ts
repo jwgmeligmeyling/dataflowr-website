@@ -28,12 +28,13 @@
  *
  * 1. **Render big, then downscale.** Rasterizing straight to 16px asks Skia to
  *    resolve the whole mark on a 16-pixel grid in one shot, and the outer curve
- *    comes out soft. Rendering one 768px master (an exact multiple of every
- *    target, so the filter sees no fractional grid) and downscaling it is
- *    measurably crisper.
- * 2. **The downscale itself runs in linear light with a Mitchell filter.** That
- *    part lives in scripts/lib/raster.ts, next to the PNG codec, because
- *    generate-og.ts needs the same treatment.
+ *    comes out soft. Every target is therefore rendered at exactly four times
+ *    its own size and downscaled on that clean 4:1 grid; a shared master would
+ *    hand 180 and 512, which do not divide it, a fractional grid that blurs.
+ * 2. **The downscale itself runs in linear light with a Catmull-Rom filter.**
+ *    The machinery lives in scripts/lib/raster.ts, next to the PNG codec,
+ *    because generate-og.ts shares it; the OG cards keep the softer Mitchell
+ *    kernel, the icons take Catmull-Rom for edge crispness.
  *
  * The .ico carries 16/32/48 as 32-bit BGRA BMP frames, the shape every
  * consumer parses, including favicon crawlers that reject PNG-framed icons.
@@ -49,13 +50,13 @@ import { SITE_NAME } from "../src/lib/site.ts";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const publicDir = resolve(root, "public");
-const MASTER = 768;
+const SS = 4; // render at four times the target, downscale on the exact 4:1 grid
 const ICO_SIZES = [16, 32, 48];
 const PNG_SIZE = 96;
 const TOUCH_SIZE = 180;
 const MANIFEST_SIZES = [192, 512];
 /** Mark width as a fraction of the touch icon; iOS rounds the corners itself. */
-const TOUCH_MARK = 0.8;
+const TOUCH_MARK = 0.86;
 /**
  * The maskable safe zone is a circle of radius 0.4 x size. The mark's bounding
  * box has to keep its diagonal inside that circle, which caps its width at
@@ -120,29 +121,29 @@ const bg = brand();
 const browser = await chromium.launch(
   process.env.CHROMIUM_EXECUTABLE ? { executablePath: process.env.CHROMIUM_EXECUTABLE } : {},
 );
-const page = await browser.newPage({ viewport: { width: MASTER, height: MASTER } });
+const page = await browser.newPage();
 
-/** One square 768px master; `fraction` scales the mark, `fill` paints the canvas. */
-async function master(fraction: number, fill?: string): Promise<Image> {
+/** One supersampled render of the mark at `size`; `fraction` scales the mark, `fill` paints the canvas. */
+async function render(size: number, fraction: number, fill?: string): Promise<Image> {
+  const px = size * SS;
+  await page.setViewportSize({ width: px, height: px });
   await page.setContent(
     `<style>html,body{margin:0;padding:0;background:transparent}
-     #b{width:${MASTER}px;height:${MASTER}px;display:grid;place-items:center;background:${fill ?? "transparent"}}
-     #b svg{width:${Math.round(MASTER * fraction)}px;height:${Math.round(MASTER * fraction)}px;display:block}</style><div id="b">${svg}</div>`,
+     #b{width:${px}px;height:${px}px;display:grid;place-items:center;background:${fill ?? "transparent"}}
+     #b svg{width:${Math.round(px * fraction)}px;height:${Math.round(px * fraction)}px;display:block}</style><div id="b">${svg}</div>`,
   );
-  return decodePng(await page.screenshot({ omitBackground: !fill }));
+  return resize(decodePng(await page.screenshot({ omitBackground: !fill })), size, size, "catrom");
 }
 
-const bare = await master(1);
-const touch = await master(TOUCH_MARK, bg);
-const mask = await master(MASK_MARK, bg);
-await browser.close();
-
-writeFileSync(resolve(publicDir, `favicon-${PNG_SIZE}x${PNG_SIZE}.png`), encodePng(resize(bare, PNG_SIZE, PNG_SIZE)));
-writeFileSync(resolve(publicDir, "favicon.ico"), ico(ICO_SIZES.map((s) => resize(bare, s, s))));
-writeFileSync(resolve(publicDir, "apple-touch-icon.png"), encodePng(resize(touch, TOUCH_SIZE, TOUCH_SIZE)));
+writeFileSync(resolve(publicDir, `favicon-${PNG_SIZE}x${PNG_SIZE}.png`), encodePng(await render(PNG_SIZE, 1)));
+const frames: Image[] = [];
+for (const s of ICO_SIZES) frames.push(await render(s, 1));
+writeFileSync(resolve(publicDir, "favicon.ico"), ico(frames));
+writeFileSync(resolve(publicDir, "apple-touch-icon.png"), encodePng(await render(TOUCH_SIZE, TOUCH_MARK, bg)));
 for (const s of MANIFEST_SIZES) {
-  writeFileSync(resolve(publicDir, `web-app-manifest-${s}x${s}.png`), encodePng(resize(mask, s, s)));
+  writeFileSync(resolve(publicDir, `web-app-manifest-${s}x${s}.png`), encodePng(await render(s, MASK_MARK, bg)));
 }
+await browser.close();
 writeFileSync(
   resolve(publicDir, "site.webmanifest"),
   JSON.stringify(
