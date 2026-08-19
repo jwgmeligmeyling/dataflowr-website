@@ -1,12 +1,28 @@
 /**
- * Regenerates the raster favicons in public/ from public/favicon.svg.
+ * Regenerates the icon set in public/ from public/favicon.svg.
  *
  *   npm i --no-save playwright && npx tsx scripts/generate-icons.ts
  *
- * Run it after changing favicon.svg; it rewrites public/favicon.ico and
- * public/favicon-192.png in place. Chromium is the SVG rasterizer, but
- * playwright stays out of package.json deliberately: Vercel installs
- * devDependencies on every build, and this runs by hand about once a rebrand.
+ * Run it after changing favicon.svg or the :root palette. It rewrites, in
+ * place:
+ *
+ *   favicon.ico                   16/32/48, the classic fallback, also probed
+ *                                 at /favicon.ico by convention
+ *   favicon-96x96.png             the desktop PNG favicon; 96 is the size the
+ *                                 favicon checkers expect and a multiple of
+ *                                 the 48px square Google Search wants
+ *   apple-touch-icon.png          180x180 for the iOS home screen, on the
+ *                                 brand background because iOS composites
+ *                                 transparency onto black
+ *   web-app-manifest-192x192.png  the maskable icons named in
+ *   web-app-manifest-512x512.png  site.webmanifest; the mark stays inside the
+ *                                 safe zone so a circular crop keeps it whole
+ *   site.webmanifest              name from src/lib/site.ts, colours from the
+ *                                 :root palette in global.css
+ *
+ * Chromium is the SVG rasterizer, but playwright stays out of package.json
+ * deliberately: Vercel installs devDependencies on every build, and this runs
+ * by hand about once a rebrand.
  *
  * Why it is not a one-liner:
  *
@@ -29,11 +45,31 @@ import { readFileSync, writeFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { decodePng, encodePng, resize, type Image } from "./lib/raster.ts";
+import { SITE_NAME } from "../src/lib/site.ts";
 
-const publicDir = resolve(dirname(fileURLToPath(import.meta.url)), "..", "public");
+const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
+const publicDir = resolve(root, "public");
 const MASTER = 768;
 const ICO_SIZES = [16, 32, 48];
-const PNG_SIZE = 192; // Google wants a square of at least 48px and prefers multiples of 48.
+const PNG_SIZE = 96;
+const TOUCH_SIZE = 180;
+const MANIFEST_SIZES = [192, 512];
+/** Mark width as a fraction of the touch icon; iOS rounds the corners itself. */
+const TOUCH_MARK = 0.8;
+/**
+ * The maskable safe zone is a circle of radius 0.4 x size. The mark's bounding
+ * box has to keep its diagonal inside that circle, which caps its width at
+ * 0.59 x size for this mark's aspect; 0.58 leaves a hair of margin.
+ */
+const MASK_MARK = 0.58;
+
+/** The brand colour out of the locked :root palette; never a literal here. */
+function brand(): string {
+  const css = readFileSync(resolve(root, "src/styles/global.css"), "utf8");
+  const m = css.match(/--brand:\s*(#[0-9a-fA-F]{6})/);
+  if (!m) throw new Error("no --brand in src/styles/global.css");
+  return m[1];
+}
 
 // -------------------------------------------------------------------- .ico
 
@@ -77,6 +113,7 @@ function ico(images: Image[]): Buffer {
 // -------------------------------------------------------------------- main
 
 const svg = readFileSync(resolve(publicDir, "favicon.svg"), "utf8");
+const bg = brand();
 // CHROMIUM_EXECUTABLE lets a machine that already has a Chromium build (CI
 // images, sandboxes) skip `npx playwright install`, including when its build
 // number does not match the pinned playwright.
@@ -84,14 +121,50 @@ const browser = await chromium.launch(
   process.env.CHROMIUM_EXECUTABLE ? { executablePath: process.env.CHROMIUM_EXECUTABLE } : {},
 );
 const page = await browser.newPage({ viewport: { width: MASTER, height: MASTER } });
-await page.setContent(
-  `<style>html,body{margin:0;padding:0;background:transparent}
-   #b{width:${MASTER}px;height:${MASTER}px}#b svg{width:100%;height:100%;display:block}</style><div id="b">${svg}</div>`,
-);
-const master = decodePng(await page.screenshot({ omitBackground: true }));
+
+/** One square 768px master; `fraction` scales the mark, `fill` paints the canvas. */
+async function master(fraction: number, fill?: string): Promise<Image> {
+  await page.setContent(
+    `<style>html,body{margin:0;padding:0;background:transparent}
+     #b{width:${MASTER}px;height:${MASTER}px;display:grid;place-items:center;background:${fill ?? "transparent"}}
+     #b svg{width:${Math.round(MASTER * fraction)}px;height:${Math.round(MASTER * fraction)}px;display:block}</style><div id="b">${svg}</div>`,
+  );
+  return decodePng(await page.screenshot({ omitBackground: !fill }));
+}
+
+const bare = await master(1);
+const touch = await master(TOUCH_MARK, bg);
+const mask = await master(MASK_MARK, bg);
 await browser.close();
 
-const png = resize(master, PNG_SIZE, PNG_SIZE);
-writeFileSync(resolve(publicDir, `favicon-${PNG_SIZE}.png`), encodePng(png));
-writeFileSync(resolve(publicDir, "favicon.ico"), ico(ICO_SIZES.map((s) => resize(master, s, s))));
-console.log(`favicon-${PNG_SIZE}.png and favicon.ico (${ICO_SIZES.join("/")}) written to public/`);
+writeFileSync(resolve(publicDir, `favicon-${PNG_SIZE}x${PNG_SIZE}.png`), encodePng(resize(bare, PNG_SIZE, PNG_SIZE)));
+writeFileSync(resolve(publicDir, "favicon.ico"), ico(ICO_SIZES.map((s) => resize(bare, s, s))));
+writeFileSync(resolve(publicDir, "apple-touch-icon.png"), encodePng(resize(touch, TOUCH_SIZE, TOUCH_SIZE)));
+for (const s of MANIFEST_SIZES) {
+  writeFileSync(resolve(publicDir, `web-app-manifest-${s}x${s}.png`), encodePng(resize(mask, s, s)));
+}
+writeFileSync(
+  resolve(publicDir, "site.webmanifest"),
+  JSON.stringify(
+    {
+      name: SITE_NAME,
+      short_name: SITE_NAME,
+      start_url: "/",
+      display: "standalone",
+      background_color: bg,
+      theme_color: bg,
+      icons: MANIFEST_SIZES.map((s) => ({
+        src: `/web-app-manifest-${s}x${s}.png`,
+        sizes: `${s}x${s}`,
+        type: "image/png",
+        purpose: "maskable",
+      })),
+    },
+    null,
+    2,
+  ) + "\n",
+);
+console.log(
+  `favicon-${PNG_SIZE}x${PNG_SIZE}.png, favicon.ico (${ICO_SIZES.join("/")}), apple-touch-icon.png, ` +
+    `web-app-manifest (${MANIFEST_SIZES.join("/")}) and site.webmanifest written to public/`,
+);

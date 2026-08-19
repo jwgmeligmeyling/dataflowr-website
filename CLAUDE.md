@@ -146,5 +146,7 @@ next run overwrites them.
 The headline on the card is published copy in both languages. Change it in
 `CARDS` at the top of the script, re-run, and commit the PNGs with the copy.
 
-`scripts/generate-icons.ts` writes the favicons from `favicon.svg`. Both
-generators share the PNG codec and the resampler in `scripts/lib/raster.ts`.
+`scripts/generate-icons.ts` writes the favicons, the Apple touch icon, the
+maskable manifest icons and `site.webmanifest` from `favicon.svg`, with the
+background colour read from the `:root` palette. Both generators share the PNG
+codec and the resampler in `scripts/lib/raster.ts`.
