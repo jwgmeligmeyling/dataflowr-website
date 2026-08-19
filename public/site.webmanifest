@@ -1,10 +1,6 @@
 {
   "name": "DataFlowr",
   "short_name": "DataFlowr",
-  "start_url": "/",
-  "display": "standalone",
-  "background_color": "#0D1B27",
-  "theme_color": "#0D1B27",
   "icons": [
     {
       "src": "/web-app-manifest-192x192.png",
@@ -18,5 +14,8 @@
       "type": "image/png",
       "purpose": "maskable"
     }
-  ]
+  ],
+  "theme_color": "#0D1B27",
+  "background_color": "#0D1B27",
+  "display": "standalone"
 }

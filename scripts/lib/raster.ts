@@ -1,8 +1,7 @@
 /**
- * Minimal PNG codec and a high-quality downscaler, shared by the asset
- * generators in scripts/ (generate-icons.ts, generate-og.ts).
+ * Minimal PNG codec and a high-quality downscaler, used by generate-og.ts.
  *
- * Everything here is dependency-free on purpose: the generators run by hand a
+ * Everything here is dependency-free on purpose: the generator runs by hand a
  * few times a year, and adding sharp or jimp to the project would mean Vercel
  * installing them on every build for no runtime benefit.
  *
@@ -12,12 +11,9 @@
  *    gamma-encoded sRGB values darkens every edge, and averaging colour without
  *    weighting by alpha bleeds transparent pixels into the result. Both are why
  *    a naive resize of a logo looks muddy.
- * 2. **Cubic kernels, not Lanczos.** Lanczos-3 is sharper but overshoots,
+ * 2. **Mitchell-Netravali, not Lanczos.** Lanczos-3 is sharper but overshoots,
  *    which puts a visible dark halo around the white triangle where it meets
- *    the blue. The resampler offers two kernels from the Mitchell-Netravali
- *    family instead: Mitchell (B = C = 1/3), the soft, ring-free default the
- *    OG cards use, and Catmull-Rom (B = 0, C = 1/2), which keeps vector edges
- *    crisp at small sizes and is what the icon set downscales with.
+ *    the blue. Mitchell keeps the sharpness without ringing.
  */
 import { deflateSync, inflateSync } from "node:zlib";
 
@@ -161,20 +157,17 @@ const toLinear = (c: number) => (c <= 0.04045 ? c / 12.92 : Math.pow((c + 0.055)
 const toSrgb = (c: number) => (c <= 0.0031308 ? c * 12.92 : 1.055 * Math.pow(c, 1 / 2.4) - 0.055);
 const LINEAR = Float64Array.from({ length: 256 }, (_, i) => toLinear(i / 255));
 
-// The BC-spline family: Mitchell-Netravali at the authors' recommended
-// B = C = 1/3, Catmull-Rom at B = 0, C = 1/2.
-export type Filter = "mitchell" | "catrom";
-const BC: Record<Filter, [number, number]> = { mitchell: [1 / 3, 1 / 3], catrom: [0, 1 / 2] };
-
-function cubic(x: number, [B, C]: [number, number]): number {
+// Mitchell-Netravali with the authors' recommended B = C = 1/3.
+function mitchell(x: number): number {
   x = Math.abs(x);
+  const B = 1 / 3, C = 1 / 3;
   const x2 = x * x, x3 = x2 * x;
   if (x < 1) return ((12 - 9 * B - 6 * C) * x3 + (-18 + 12 * B + 6 * C) * x2 + (6 - 2 * B)) / 6;
   if (x < 2) return ((-B - 6 * C) * x3 + (6 * B + 30 * C) * x2 + (-12 * B - 48 * C) * x + (8 * B + 24 * C)) / 6;
   return 0;
 }
 
-function taps(srcLen: number, dstLen: number, filter: Filter): [number, number][][] {
+function taps(srcLen: number, dstLen: number): [number, number][][] {
   const scale = dstLen / srcLen;
   const support = 2 / Math.min(scale, 1); // widen the kernel when minifying
   const rows: [number, number][][] = [];
@@ -183,7 +176,7 @@ function taps(srcLen: number, dstLen: number, filter: Filter): [number, number][
     const row: [number, number][] = [];
     let sum = 0;
     for (let s = Math.max(0, Math.floor(center - support)); s <= Math.min(srcLen - 1, Math.ceil(center + support)); s++) {
-      const w = cubic((s + 0.5 - center) * Math.min(scale, 1), BC[filter]);
+      const w = mitchell((s + 0.5 - center) * Math.min(scale, 1));
       if (w !== 0) { row.push([s, w]); sum += w; }
     }
     rows.push(row.map(([s, w]) => [s, w / sum] as [number, number]));
@@ -192,7 +185,7 @@ function taps(srcLen: number, dstLen: number, filter: Filter): [number, number][
 }
 
 /** Resample to dstW x dstH. Separable, so it runs in two passes. */
-export function resize(src: Image, dstW: number, dstH: number, filter: Filter = "mitchell"): Image {
+export function resize(src: Image, dstW: number, dstH: number): Image {
   const { width: sw, height: sh, data } = src;
   const lin = new Float64Array(sw * sh * 4);
   for (let i = 0; i < sw * sh; i++) {
@@ -202,7 +195,7 @@ export function resize(src: Image, dstW: number, dstH: number, filter: Filter = 
     lin[i * 4 + 2] = LINEAR[data[i * 4 + 2]] * a;
     lin[i * 4 + 3] = a;
   }
-  const xTaps = taps(sw, dstW, filter);
+  const xTaps = taps(sw, dstW);
   const mid = new Float64Array(dstW * sh * 4);
   for (let y = 0; y < sh; y++) {
     for (let x = 0; x < dstW; x++) {
@@ -215,7 +208,7 @@ export function resize(src: Image, dstW: number, dstH: number, filter: Filter = 
       mid[o] = r; mid[o + 1] = g; mid[o + 2] = b; mid[o + 3] = a;
     }
   }
-  const yTaps = taps(sh, dstH, filter);
+  const yTaps = taps(sh, dstH);
   const out = Buffer.alloc(dstW * dstH * 4);
   const clamp = (v: number) => Math.round(Math.min(1, Math.max(0, toSrgb(Math.max(0, v)))) * 255);
   for (let y = 0; y < dstH; y++) {
