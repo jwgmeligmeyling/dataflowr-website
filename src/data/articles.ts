@@ -28,8 +28,15 @@ export interface ArticleContent {
   date: string;
   title: string;
   lead: string;
-  /** Hero screenshot (16:9, 2880×1620), captured from the Claire app. */
-  hero: { src: string; alt: string };
+  /**
+   * Hero image (16:9). Screenshots from the Claire app are 2880×1620, the
+   * assumed size when width/height are omitted. With heroVideo set this image
+   * is not shown on the article page itself, but still feeds the share card,
+   * the JSON-LD and the overview cards.
+   */
+  hero: { src: string; alt: string; width?: number; height?: number };
+  /** When set, the article page renders this embed in the hero slot instead of the image. */
+  heroVideo?: { embedUrl: string; title: string };
   blocks: ArticleBlock[];
   claireTitle: string;
   claireBody: string;
@@ -846,6 +853,185 @@ export const articles: Record<ArticleKey, Article> = {
       ],
       claireTitle: 'Claire runs on this release',
       claireBody: 'The month-end close as an instruction, a substantiated cashflow forecast, and answers with the overviews alongside them.',
+    },
+  },
+
+  aandeelhoudersrapportage: {
+    author: 'daan',
+    dateIso: '2026-08-15',
+    nl: {
+      metaTitle: 'Van vraag tot aandeelhoudersrapportage met Claude en Exact Online',
+      metaDescription:
+        'Eén vraag in Claude en de winst- en verliesrekening, de KPI’s en een analyse komen rechtstreeks uit Exact Online, met een aandeelhoudersrapportage in huisstijl als sluitstuk. Met video: zo werkt de MCP-koppeling in de praktijk.',
+      crumbCurrent: 'Aandeelhoudersrapportage',
+      cat: 'AI',
+      tag: 'Use case',
+      date: '15 augustus 2026',
+      title: 'Van vraag tot aandeelhoudersrapportage: Claude op je Exact Online administratie',
+      lead:
+        'De cijfers zijn klaar, en dan begint het eigenlijke werk pas: diezelfde cijfers omzetten in een verhaal dat aandeelhouders kunnen lezen. In de video hieronder doet Claude dat werk, van de eerste vraag tot een presentatie in huisstijl, rechtstreeks op een Exact Online administratie.',
+      hero: {
+        src: '/kennisbank/claude-exact-demo-video.jpg',
+        alt: 'Openingsbeeld van de demovideo: jouw eigen Claude in Exact Online, zonder export en zonder Excel, met een grafiek van netto-omzet, brutomarge en EBITDA',
+        width: 1280,
+        height: 720,
+      },
+      heroVideo: {
+        embedUrl: 'https://www.youtube-nocookie.com/embed/8u5pG68nPs0',
+        title: 'Videodemo: van vraag tot aandeelhoudersrapportage met Claude en Exact Online',
+      },
+      blocks: [
+        {
+          type: 'p',
+          text: 'De demo draait op onze eigen demo-administratie en begint met één zin: laat de winst- en verliesrekening van dit jaar zien, met een analyse erbij. Geen export, geen draaitabel, geen sjabloon dat eerst gevuld moet worden. Wat er in de minuten daarna gebeurt, is precies waar de MCP-koppeling voor is gebouwd, en het loont om er stap voor stap doorheen te lopen.',
+        },
+        { type: 'h2', id: 'toegang', text: 'Hoe Claude bij je cijfers komt' },
+        {
+          type: 'p',
+          text: 'Claude zoekt eerst uit welke administratie je bedoelt. Aan de verbinding in de video hangt er één, dus die is snel gevonden; hangen er meer aan je account, dan vraagt hij welke het moet zijn. Daarna volgt de vraag of hij in de administratie mag kijken. Eén klik op toestaan, en de winst- en verliesrekening staat in het gesprek: de afgelopen periode en het jaar tot en met nu, en op de vervolgvraag dezelfde cijfers per maand.',
+        },
+        {
+          type: 'p',
+          text: 'Onder water kiest Claude per vraag een tool van de koppeling: het financiële rapport, de KPI-set, een ouderdomsanalyse. Het rekenwerk gebeurt in een deterministische rekenlaag, dus dezelfde administratie geeft dezelfde uitkomst, hoe vaak je ook vraagt. Het taalmodel formuleert alleen het antwoord; de cijfers komen rechtstreeks uit Exact Online.',
+        },
+        {
+          type: 'p',
+          text: 'Er verhuist daarbij geen kopie van je administratie naar het model. Elke vraag is een gerichte opvraging op het moment dat je hem stelt, via je eigen toegang, en elke aanroep staat in het auditlog. Hoe dat protocol werkt hebben we eerder in de kennisbank uitgelegd, in het stuk over MCP.',
+        },
+        {
+          type: 'quote',
+          text: '"Je rapporteert niet over een export van vorige week, maar over de administratie zoals die er nu bij staat. En elke vervolgvraag begint waar de vorige ophield."',
+        },
+        { type: 'h2', id: 'analyse', text: 'De analyse die er meteen achteraan komt' },
+        {
+          type: 'p',
+          text: 'Cijfers ophalen is de helft. De prompt in de video vraagt ook om een analyse, en daar wordt het interessant: Claude kijkt naar de hele reeks en benoemt wat eruit springt. Groeit de omzet hard terwijl de kostprijs in absolute zin daalt, dan constateert hij dat die twee niet bij elkaar passen en dat je wilt weten waarom. Leunt de omzet zwaar op een handvol klanten, dan benoemt hij dat concentratierisico. In een demo-administratie is dat onschuldig; in een echte wil je het weten voordat je aandeelhouders het vragen.',
+        },
+        {
+          type: 'p',
+          text: 'Dat zijn richtingen, geen oordelen: plekken waar jij als eerste kijkt. Het beoordelen blijft bij jou, en omdat elke bevinding op een concrete opvraging rust, kun je hem narekenen. Het verschil met een dashboard zit in het doorvragen: waarom wijkt maart af, welke boekingen zitten erachter, hoe zag dezelfde maand er vorig jaar uit. Elk antwoord is een nieuwe gerichte opvraging, geen nieuwe export.',
+        },
+        { type: 'h2', id: 'rapportage', text: 'Van cijfers naar aandeelhoudersrapportage' },
+        {
+          type: 'p',
+          text: 'Dan de stap waar in een maandcyclus de meeste tijd in zit: van de cijfers een stuk maken dat aandeelhouders kunnen lezen. In de video is dat één opdracht, met een logo als bijlage. Het resultaat is een complete presentatie: omzet en resultaat, de maandreeks in grafieken, tabellen met de kerncijfers en per onderwerp een korte toelichting.',
+        },
+        {
+          type: 'ol',
+          items: [
+            { strong: 'De opdracht is één zin.', rest: ' “Maak hier een presentatie van voor onze aandeelhouders, in onze huisstijl.” Het meegestuurde logo is genoeg om de kleuren en letters over te nemen.' },
+            { strong: 'De inhoud komt uit het gesprek.', rest: ' Claude bouwt de slides op uit de cijfers en de analyse die hij net heeft opgehaald, en neemt context mee die eerder ter sprake kwam. In de demo rekent hij uit zichzelf een normalisatie voor het gebruikelijk loon van de twee DGA’s door, omdat hij weet dat die er zijn.' },
+            { strong: 'Het resultaat is een gewoon PowerPoint-bestand.', rest: ' Je opent het, past zelf een slide aan of vraagt Claude om de wijziging, en verstuurt het daarna zoals elke andere rapportage.' },
+          ],
+        },
+        { type: 'h2', id: 'grenzen', text: 'Wat dit wel en niet is' },
+        {
+          type: 'p',
+          text: 'De presentatie is een concept, geen persklaar stuk. De cijfers erin komen rechtstreeks uit de administratie, maar de duiding komt van een taalmodel, dus je leest het geheel na voordat het naar aandeelhouders gaat. Behandel het als het werk van een goede assistent: het staat er, jij tekent ervoor.',
+        },
+        {
+          type: 'p',
+          text: 'De hele demo is lezen, geen schrijven: er verandert niets in Exact Online, en wijzigingen via de koppeling vragen altijd een handmatig akkoord. De video draait bovendien op een demo-administratie, dus de bedragen zijn niet echt; de route van vraag naar rapportage is wel precies hoe het op een echte administratie werkt.',
+        },
+        {
+          type: 'p',
+          text: 'De koppeling zelf is niet aan Claude gebonden: dezelfde verbinding werkt in ChatGPT en Microsoft 365 Copilot, omdat MCP een open standaard is. De presentatiestap uit de video leunt wel op wat Claude zelf kan, bestanden maken en een huisstijl overnemen. De cijferkant loopt bij elke assistent via dezelfde koppeling.',
+        },
+        { type: 'h2', id: 'zelf-proberen', text: 'Zelf proberen' },
+        {
+          type: 'p',
+          text: 'De verbinding leg je in een paar minuten: één adres, inloggen met je Exact Online account, administratie kiezen. Begin daarna met de vraag uit de video, de winst- en verliesrekening van dit jaar met een analyse erbij, en kijk wat er bij jouw cijfers uit komt. De aandeelhoudersrapportage die erop volgt is nog één opdracht.',
+        },
+      ],
+      claireTitle: 'Dezelfde koppeling, met Claire erbij',
+      claireBody: 'Claire draait op de koppeling uit de video: vragen in gewone taal, rapportages uit je eigen administratie, boekingen alleen na akkoord.',
+    },
+    en: {
+      metaTitle: 'From question to shareholder report with Claude and Exact Online',
+      metaDescription:
+        'One question in Claude and the profit and loss statement, the KPIs and an analysis come straight from Exact Online, with a shareholder deck in your house style to finish. With video: the MCP connection at work.',
+      crumbCurrent: 'Shareholder report',
+      cat: 'AI',
+      tag: 'Use case',
+      date: '15 August 2026',
+      title: 'From question to shareholder report: Claude on your Exact Online administration',
+      lead:
+        'The figures are done, and then the real work starts: turning those same figures into a story shareholders can read. In the video below Claude does that work, from the first question to a deck in your house style, directly on an Exact Online administration.',
+      hero: {
+        src: '/kennisbank/claude-exact-demo-video.jpg',
+        alt: 'Opening frame of the demo video: your own Claude in Exact Online, without exports and without Excel, with a chart of net revenue, gross margin and EBITDA',
+        width: 1280,
+        height: 720,
+      },
+      heroVideo: {
+        embedUrl: 'https://www.youtube-nocookie.com/embed/8u5pG68nPs0',
+        title: 'Video demo (in Dutch): from question to shareholder report with Claude and Exact Online',
+      },
+      blocks: [
+        {
+          type: 'p',
+          text: 'The demo, recorded in Dutch, runs on our own demo administration and starts with one sentence: show this year’s profit and loss statement, with an analysis. No export, no pivot table, no template that needs filling first. What happens in the minutes after that is exactly what the MCP connection was built for, and it is worth walking through step by step.',
+        },
+        { type: 'h2', id: 'access', text: 'How Claude reaches your figures' },
+        {
+          type: 'p',
+          text: 'Claude first works out which administration you mean. The connection in the video has one behind it, so it is found quickly; with several on your account, it asks which one it should be. Then comes the question whether it may look inside the administration. One click on allow, and the profit and loss statement appears in the conversation: the most recent period and the year to date, and on the follow-up question the same figures per month.',
+        },
+        {
+          type: 'p',
+          text: 'Under the hood Claude picks a tool from the connection per question: the financial report, the KPI set, an ageing analysis. The number-crunching happens in a deterministic calculation layer, so the same administration gives the same outcome, however often you ask. The language model only phrases the answer; the figures come straight from Exact Online.',
+        },
+        {
+          type: 'p',
+          text: 'No copy of your administration moves to the model along the way. Every question is a targeted query at the moment you ask it, through your own access, and every call lands in the audit log. How that protocol works we explained earlier in the knowledge base, in the piece on MCP.',
+        },
+        {
+          type: 'quote',
+          text: '"You are not reporting on last week’s export, but on the administration as it stands right now. And every follow-up question starts where the previous one left off."',
+        },
+        { type: 'h2', id: 'analysis', text: 'The analysis that follows straight after' },
+        {
+          type: 'p',
+          text: 'Fetching figures is half of it. The prompt in the video also asks for an analysis, and that is where it gets interesting: Claude looks at the whole series and names what stands out. If revenue grows fast while the cost of sales falls in absolute terms, it points out that those two do not fit together and that you want to know why. If revenue leans heavily on a handful of customers, it names that concentration risk. In a demo administration that is harmless; in a real one you want to know before your shareholders ask.',
+        },
+        {
+          type: 'p',
+          text: 'Those are directions, not verdicts: the places where you look first. The judgement stays with you, and because every finding rests on a concrete query, you can recompute it. The difference with a dashboard is the follow-up: why does March deviate, which entries sit behind it, what did the same month look like last year. Every answer is a new targeted query, not a new export.',
+        },
+        { type: 'h2', id: 'report', text: 'From figures to shareholder report' },
+        {
+          type: 'p',
+          text: 'Then the step that takes the most time in a monthly cycle: turning the figures into a piece shareholders can read. In the video that is one instruction, with a logo attached. The result is a complete deck: revenue and result, the monthly series in charts, tables with the key figures and a short explanation per topic.',
+        },
+        {
+          type: 'ol',
+          items: [
+            { strong: 'The instruction is one sentence.', rest: ' “Turn this into a presentation for our shareholders, in our house style.” The attached logo is enough to carry over the colours and typefaces.' },
+            { strong: 'The content comes from the conversation.', rest: ' Claude builds the slides from the figures and the analysis it just fetched, and carries along context that came up earlier. In the demo it works out a normalisation for the Dutch customary salary of the two director-shareholders on its own, because it knows they are there.' },
+            { strong: 'The result is an ordinary PowerPoint file.', rest: ' You open it, adjust a slide yourself or ask Claude for the change, and send it out like any other report.' },
+          ],
+        },
+        { type: 'h2', id: 'limits', text: 'What this is and is not' },
+        {
+          type: 'p',
+          text: 'The deck is a draft, not a print-ready piece. The figures in it come straight from the administration, but the interpretation comes from a language model, so you read the whole thing before it goes to shareholders. Treat it as the work of a good assistant: it is on paper, you sign for it.',
+        },
+        {
+          type: 'p',
+          text: 'The entire demo is reading, not writing: nothing changes in Exact Online, and changes through the connection always require manual approval. The video also runs on a demo administration, so the amounts are not real; the route from question to report is exactly how it works on a real one.',
+        },
+        {
+          type: 'p',
+          text: 'The connection itself is not tied to Claude: the same connection works in ChatGPT and Microsoft 365 Copilot, because MCP is an open standard. The presentation step in the video does lean on what Claude itself can do, creating files and adopting a house style. The figures side runs through the same connection with every assistant.',
+        },
+        { type: 'h2', id: 'try-it', text: 'Try it yourself' },
+        {
+          type: 'p',
+          text: 'Connecting takes a few minutes: one address, sign in with your Exact Online account, pick the administration. Then start with the question from the video, this year’s profit and loss statement with an analysis, and see what comes out of your own figures. The shareholder report that follows is one more instruction.',
+        },
+      ],
+      claireTitle: 'The same connection, with Claire on top',
+      claireBody: 'Claire runs on the connection from the video: questions in plain language, reports from your own administration, postings only after approval.',
     },
   },
 };
