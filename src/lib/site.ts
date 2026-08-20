@@ -115,6 +115,10 @@ const articleRoutes = {
     nl: '/kennisbank/wat-er-nieuw-is-in-de-mcp-release',
     en: '/en/resources/what-is-new-in-the-mcp-release',
   },
+  cashflowprognose: {
+    nl: '/kennisbank/elke-maandag-een-cashflowprognose-in-je-mail',
+    en: '/en/resources/a-cashflow-forecast-in-your-inbox-every-monday',
+  },
 } as const;
 
 /**
