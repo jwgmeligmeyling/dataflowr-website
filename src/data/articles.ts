@@ -28,8 +28,15 @@ export interface ArticleContent {
   date: string;
   title: string;
   lead: string;
-  /** Hero screenshot (16:9, 2880×1620), captured from the Claire app. */
-  hero: { src: string; alt: string };
+  /**
+   * Hero image (16:9). Screenshots from the Claire app are 2880×1620, the
+   * assumed size when width/height are omitted. With heroVideo set this image
+   * is not shown on the article page itself, but still feeds the share card,
+   * the JSON-LD and the overview cards.
+   */
+  hero: { src: string; alt: string; width?: number; height?: number };
+  /** When set, the article page renders this embed in the hero slot instead of the image. */
+  heroVideo?: { embedUrl: string; title: string };
   blocks: ArticleBlock[];
   claireTitle: string;
   claireBody: string;
@@ -846,6 +853,177 @@ export const articles: Record<ArticleKey, Article> = {
       ],
       claireTitle: 'Claire runs on this release',
       claireBody: 'The month-end close as an instruction, a substantiated cashflow forecast, and answers with the overviews alongside them.',
+    },
+  },
+
+  'copilot-facturen': {
+    author: 'daan',
+    dateIso: '2026-08-20',
+    nl: {
+      metaTitle: 'Facturen maken tijdens de meeting, met Copilot in Teams',
+      metaDescription:
+        'Videodemo: Microsoft 365 Copilot maakt vanuit Teams een verkoopfactuur aan in Exact Online, via de MCP-koppeling van DataFlowr. Wat Copilot daarbij precies doet, hoe de bevestigingsstappen werken en waar de grenzen liggen.',
+      crumbCurrent: 'Copilot in Teams',
+      cat: 'AI',
+      tag: 'Use case',
+      date: '20 augustus 2026',
+      title: 'Facturen maken tijdens de meeting, met Copilot in Teams',
+      lead:
+        'De afspraak is rond: 40 uur consultancy voor € 100 per uur. Normaal schrijf je dat op en maakt iemand er later in de week een factuur van. In deze demo staat de conceptfactuur al in Exact Online voordat de meeting is afgelopen, gemaakt vanuit een chat in Microsoft Teams.',
+      hero: {
+        src: '/kennisbank/copilot-facturen.jpg',
+        alt: 'Openingsbeeld van de videodemo “Factuur in Exact vanuit Teams”: de prompt voor Meijer Logistiek BV in het Copilot-scherm van Microsoft Teams',
+        width: 1280,
+        height: 720,
+      },
+      heroVideo: {
+        embedUrl: 'https://www.youtube-nocookie.com/embed/F58aaGdGB_s',
+        title: 'Videodemo: een verkoopfactuur aanmaken in Exact Online vanuit Microsoft Teams',
+      },
+      blocks: [
+        {
+          type: 'p',
+          text: 'De video hierboven laat de volledige route zien: van een prompt in het Copilot-scherm van Microsoft Teams tot een conceptfactuur in Exact Online, met artikelregel, contactpersoon en btw erop. Er komt geen export en geen overtypwerk aan te pas. Exact zelf gaat pas open aan het einde, om te controleren of alles klopt.',
+        },
+        { type: 'h2', id: 'demo', text: 'Wat er in de demo gebeurt' },
+        {
+          type: 'p',
+          text: 'Het scenario is een gesprek zoals je dat elke week voert. Meijer Logistiek BV neemt 40 uur consultancy af voor € 100 per uur. De contactpersoon is Willem van der Laan, zijn telefoonnummer staat in de prompt, en de relatie bestaat nog niet in de administratie. Die ene prompt is genoeg om het proces te starten.',
+        },
+        {
+          type: 'ol',
+          items: [
+            { strong: 'De agent controleert eerst wat er al bestaat.', rest: ' Voordat er iets wordt aangemaakt, zoekt de koppeling in de administratie of de relatie en de contactpersoon al voorkomen en of ze aan elkaar gekoppeld zijn. Wat er al staat wordt hergebruikt; bij een bestaande klant slaat de agent het aanmaken gewoon over.' },
+            { strong: 'Elke schrijfactie vraagt om jouw bevestiging.', rest: ' Copilot toont per actie een kaart met wat er precies gaat gebeuren, en jij klikt op Confirm. De contactpersoon, de relatie en de factuur: geen van de drie ontstaat zonder akkoord.' },
+            { strong: 'De factuur staat als concept klaar.', rest: ' Meijer Logistiek, 40 uur consultancy à € 100, met het artikel gekoppeld: € 4.840 inclusief 21% btw. Een factuurnummer is er nog niet; dat wordt pas toegekend als jij de factuur in Exact Online verwerkt en verstuurt.' },
+          ],
+        },
+        {
+          type: 'p',
+          text: 'De demo is bewust niet gladgestreken. Halverwege meldt de agent dat hij de relatie niet kan vinden, direct nadat die is aangemaakt. Eén vervolgprompt, “controleer of Meijer Logistiek BV als klant bestaat”, en hij pakt de draad weer op: klant gevonden, contactpersoon gekoppeld, factuur aangemaakt. Zo ziet werken met een agent er in de praktijk uit: hij doet het werk, jij stuurt bij waar nodig.',
+        },
+        {
+          type: 'quote',
+          text: '"De factuur ontstaat waar de afspraak ontstaat. Wat overblijft voor later is niet het invoerwerk, maar alleen de controle en de verzendknop."',
+        },
+        { type: 'h2', id: 'copilot', text: 'Wat Microsoft 365 Copilot hier doet' },
+        {
+          type: 'p',
+          text: 'Copilot is in deze opzet meer dan een chatvenster: het is de omgeving waarin agents draaien. De DataFlowr-agent is er daar één van. Je opent hem in het Copilot-scherm van Teams, naast je chats en je agenda, en dat is precies het punt: het werk gebeurt in de applicatie waar de afspraak wordt gemaakt, niet in het pakket waar de factuur landt.',
+        },
+        {
+          type: 'p',
+          text: 'Copilot doet daarbij drie dingen zelf. Het vertaalt je zin naar concrete acties op de koppeling, in een logische volgorde: eerst zoeken, dan aanmaken, dan koppelen. Het bewaakt de schrijfacties met een bevestigingsstap, zodat een agent nooit ongevraagd iets in je administratie zet. En het houdt de context van het gesprek vast: “koppel de contactpersoon aan deze klant” is genoeg, zonder opnieuw te benoemen om wie het gaat.',
+        },
+        { type: 'h2', id: 'mcp', text: 'De rol van MCP' },
+        {
+          type: 'p',
+          text: 'Onder de motorkap praat Copilot met onze MCP-server voor Exact Online. MCP, het Model Context Protocol, is de open standaard die beschrijft welk gereedschap een AI-assistent op een systeem mag gebruiken. Voor deze demo zijn dat tools als relaties zoeken, een contactpersoon aanmaken en een conceptfactuur wegschrijven. De assistent kiest per stap een tool, en de gegevens komen op dat moment rechtstreeks uit je eigen administratie. Er staat geen kopie van je boekhouding tussen.',
+        },
+        {
+          type: 'p',
+          text: 'De toegang loopt via je eigen Exact Online-login, dus de agent ziet precies wat jij mag zien. En omdat MCP een open standaard is, is Copilot een keuze en geen verplichting: dezelfde koppeling werkt in Claude en ChatGPT. Twee praktische kanttekeningen bij Microsoft: Copilot vraagt een eigen licentie bovenop Microsoft 365, en het kan geen koppeling op adres toevoegen. Daarom leveren we voor Copilot een kant-en-klaar pakket dat je beheerder eenmalig installeert.',
+        },
+        { type: 'h2', id: 'winst', text: 'Waar de winst zit' },
+        {
+          type: 'p',
+          text: 'De winst zit niet in de paar minuten typwerk, maar in de stap die vervalt. Normaal reist zo’n afspraak van een aantekening naar een taak naar het boekhoudpakket, en bij elke overdracht kan er iets sneuvelen: het tarief, de tenaamstelling, de contactpersoon. Hier wordt de afspraak vastgelegd terwijl hij vers is. Wat later nog moet gebeuren is het concept controleren en versturen.',
+        },
+        {
+          type: 'p',
+          text: 'Even belangrijk is wat er niet gebeurt. De agent verstuurt niets en boekt niets definitief; de factuur wacht als concept op jouw controle. Elke aanmaakactie heb je expliciet bevestigd. En het resultaat is geen black box: aan het einde van de video zie je de factuur gewoon in Exact Online staan, met relatie, contactpersoon en artikel op de juiste plek.',
+        },
+        { type: 'h2', id: 'zelf', text: 'Zelf proberen' },
+        {
+          type: 'p',
+          text: 'De route uit de video werkt op elke Exact Online-administratie met onze koppeling. De installatie voor Microsoft 365 Copilot staat stap voor stap in de documentatie, inclusief het pakket voor je beheerder, en de agent bevat voorbeeldprompts voor onder meer dit scenario. Liever eerst zien of dit bij jullie proces past? Plan een kennismaking, dan laten we de demo op een testadministratie zien.',
+        },
+      ],
+      claireTitle: 'Dezelfde koppeling, ook zonder Teams',
+      claireBody: 'Claire werkt op dezelfde MCP-koppeling: vragen in gewone taal, facturen en boekingen alleen na jouw akkoord.',
+    },
+    en: {
+      metaTitle: 'Creating invoices during the meeting, with Copilot in Teams',
+      metaDescription:
+        'Video demo: Microsoft 365 Copilot creates a sales invoice in Exact Online straight from Teams, through DataFlowr’s MCP connector. What Copilot actually does, how the confirmation steps work and where the limits are.',
+      crumbCurrent: 'Copilot in Teams',
+      cat: 'AI',
+      tag: 'Use case',
+      date: '20 August 2026',
+      title: 'Creating invoices during the meeting, with Copilot in Teams',
+      lead:
+        'The deal is done: 40 hours of consultancy at €100 per hour. Normally you write that down and someone turns it into an invoice later in the week. In this demo the draft invoice is in Exact Online before the meeting ends, created from a chat in Microsoft Teams.',
+      hero: {
+        src: '/kennisbank/copilot-facturen.jpg',
+        alt: 'Opening frame of the video demo: the Copilot prompt for Meijer Logistiek BV in Microsoft Teams, under the Dutch title “Factuur in Exact vanuit Teams”',
+        width: 1280,
+        height: 720,
+      },
+      heroVideo: {
+        embedUrl: 'https://www.youtube-nocookie.com/embed/F58aaGdGB_s',
+        title: 'Video demo (in Dutch): creating a sales invoice in Exact Online from Microsoft Teams',
+      },
+      blocks: [
+        {
+          type: 'p',
+          text: 'The video above shows the whole route: from a prompt in the Copilot pane of Microsoft Teams to a draft invoice in Exact Online, with the item line, the contact person and VAT in place. No export, no retyping. Exact itself only opens at the end, to check that everything is right. The demo is recorded in Dutch, but the flow is easy to follow.',
+        },
+        { type: 'h2', id: 'demo', text: 'What happens in the demo' },
+        {
+          type: 'p',
+          text: 'The scenario is a conversation you have every week. Meijer Logistiek BV buys 40 hours of consultancy at €100 per hour. The contact person is Willem van der Laan, his phone number is in the prompt, and the customer does not exist in the administration yet. That single prompt is enough to start the process.',
+        },
+        {
+          type: 'ol',
+          items: [
+            { strong: 'The agent first checks what already exists.', rest: ' Before anything is created, the connector searches the administration for the customer and the contact person, and whether they are linked. Whatever is already there gets reused; with an existing customer the agent simply skips the creating.' },
+            { strong: 'Every write action asks for your confirmation.', rest: ' Per action Copilot shows a card with exactly what is about to happen, and you click Confirm. The contact person, the customer and the invoice: none of the three is created without approval.' },
+            { strong: 'The invoice is ready as a draft.', rest: ' Meijer Logistiek, 40 hours of consultancy at €100, with the item linked: €4,840 including 21% VAT. There is no invoice number yet; that is only assigned once you process and send the invoice in Exact Online.' },
+          ],
+        },
+        {
+          type: 'p',
+          text: 'The demo is deliberately not polished. Halfway through, the agent reports that it cannot find the customer, right after creating it. One follow-up prompt, “check whether Meijer Logistiek BV exists as a customer”, and it picks the thread back up: customer found, contact person linked, invoice created. That is what working with an agent looks like in practice: it does the work, you steer where needed.',
+        },
+        {
+          type: 'quote',
+          text: '"The invoice is created where the agreement is made. What remains for later is not the data entry, only the review and the send button."',
+        },
+        { type: 'h2', id: 'copilot', text: 'What Microsoft 365 Copilot does here' },
+        {
+          type: 'p',
+          text: 'In this setup Copilot is more than a chat window: it is the environment agents run in. The DataFlowr agent is one of them. You open it in the Copilot pane of Teams, next to your chats and your calendar, and that is exactly the point: the work happens in the application where the agreement is made, not in the package where the invoice lands.',
+        },
+        {
+          type: 'p',
+          text: 'Copilot itself does three things here. It translates your sentence into concrete actions on the connector, in a sensible order: search first, then create, then link. It guards the write actions with a confirmation step, so an agent never puts anything in your administration unasked. And it holds on to the context of the conversation: “link the contact person to this customer” is enough, without naming again who it is about.',
+        },
+        { type: 'h2', id: 'mcp', text: 'The role of MCP' },
+        {
+          type: 'p',
+          text: 'Under the hood Copilot talks to our MCP server for Exact Online. MCP, the Model Context Protocol, is the open standard that describes which tools an AI assistant may use on a system. For this demo those are tools like searching customers, creating a contact person and writing a draft invoice. The assistant picks a tool per step, and the data comes straight from your own administration at that moment. There is no copy of your books in between.',
+        },
+        {
+          type: 'p',
+          text: 'Access runs through your own Exact Online login, so the agent sees exactly what you are allowed to see. And because MCP is an open standard, Copilot is a choice, not an obligation: the same connector works in Claude and ChatGPT. Two practical notes on Microsoft: Copilot requires its own licence on top of Microsoft 365, and it cannot add a connection by address. That is why we provide a ready-made package for Copilot that your administrator installs once.',
+        },
+        { type: 'h2', id: 'gain', text: 'Where the gain is' },
+        {
+          type: 'p',
+          text: 'The gain is not the few minutes of typing, but the step that disappears. Normally an agreement like this travels from a note to a task to the accounting package, and something can get lost at every handover: the rate, the company name, the contact person. Here the agreement is recorded while it is fresh. What remains for later is reviewing the draft and sending it.',
+        },
+        {
+          type: 'p',
+          text: 'Just as important is what does not happen. The agent sends nothing and posts nothing final; the invoice waits as a draft for your review. Every create action was explicitly confirmed by you. And the result is no black box: at the end of the video you see the invoice sitting in Exact Online, with the customer, the contact person and the item in the right place.',
+        },
+        { type: 'h2', id: 'try', text: 'Try it yourself' },
+        {
+          type: 'p',
+          text: 'The route in the video works on any Exact Online administration with our connector. The setup for Microsoft 365 Copilot is documented step by step, including the package for your administrator, and the agent ships with example prompts for this scenario among others. Rather see first whether this fits your process? Book an intro call and we will run the demo on a test administration.',
+        },
+      ],
+      claireTitle: 'The same connector, without Teams too',
+      claireBody: 'Claire runs on the same MCP connector: questions in plain language, invoices and postings only after your approval.',
     },
   },
 };

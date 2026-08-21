@@ -128,6 +128,12 @@ The demo copy staged in those specs is published copy: it is rendered into the
 images on the live site. The copy rules apply to it in full, and changing it
 means re-capturing the images, or the screenshots and the source drift apart.
 
+One exception: `copilot-facturen.jpg` is the YouTube thumbnail of the Copilot
+demo video (the article embeds the video itself in the hero slot via
+`heroVideo` in `articles.ts`). It comes from the video, not from a capture
+spec; a new video thumbnail means downloading it again from
+`i.ytimg.com/vi/<id>/maxresdefault.jpg`.
+
 ## Share images
 
 `public/og/` is generated, never edited:
