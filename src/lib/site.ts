@@ -115,6 +115,10 @@ const articleRoutes = {
     nl: '/kennisbank/wat-er-nieuw-is-in-de-mcp-release',
     en: '/en/resources/what-is-new-in-the-mcp-release',
   },
+  aandeelhoudersrapportage: {
+    nl: '/kennisbank/van-vraag-tot-aandeelhoudersrapportage-met-claude',
+    en: '/en/resources/from-question-to-shareholder-report-with-claude',
+  },
   'copilot-facturen': {
     nl: '/kennisbank/facturen-maken-tijdens-de-meeting-met-copilot',
     en: '/en/resources/creating-invoices-during-the-meeting-with-copilot',

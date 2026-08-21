@@ -175,7 +175,7 @@ const schema = [
         <div class="more-grid">
           {more.map((post) => (
             <a href={post.href} class="more-card">
-              <div class="more-media"><img src={post.hero.src} alt="" loading="lazy" width="2880" height="1620" /></div>
+              <div class="more-media"><img src={post.hero.src} alt="" loading="lazy" width={post.hero.width ?? 2880} height={post.hero.height ?? 1620} /></div>
               <div class="more-body">
                 <span class="more-cat">{post.cat}</span>
                 <h3>{post.title}</h3>
