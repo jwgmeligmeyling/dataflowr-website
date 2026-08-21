@@ -1,0 +1,13 @@
+---
+import DocPage from '../../../components/pages/DocPage.astro';
+import { routes, type DocKey } from '../../../lib/site';
+
+export function getStaticPaths() {
+  return (Object.keys(routes.docPages) as DocKey[]).map((key) => ({
+    params: { slug: routes.docPages[key].en.split('/').pop()! },
+    props: { docKey: key },
+  }));
+}
+const { docKey } = Astro.props;
+---
+<DocPage lang="en" docKey={docKey} />

@@ -118,7 +118,7 @@ const schema = [
 
     <section class="wrap listing">
       <a href={lead.href} class="lead-card">
-        <div class="lead-media"><img src={lead.hero.src} alt={lead.hero.alt} width="2880" height="1620" /></div>
+        <div class="lead-media"><img src={lead.hero.src} alt={lead.hero.alt} width={lead.hero.width ?? 2880} height={lead.hero.height ?? 1620} /></div>
         <div class="lead-body">
           <span class="flag">{t.latest}</span>
           <span class="cat">{lead.cat}</span>
@@ -132,7 +132,7 @@ const schema = [
       <div class="grid">
         {rest.map((post) => (
           <a href={post.href} class="card">
-            <div class="card-media"><img src={post.hero.src} alt="" loading="lazy" width="2880" height="1620" /></div>
+            <div class="card-media"><img src={post.hero.src} alt="" loading="lazy" width={post.hero.width ?? 2880} height={post.hero.height ?? 1620} /></div>
             <div class="card-body">
               <span class="cat">{post.cat}</span>
               <h3>{post.title}</h3>
@@ -196,6 +196,10 @@ const schema = [
   .lead-card { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); align-items: stretch; }
   @media (max-width: 900px) { .lead-card { grid-template-columns: 1fr; } }
   .lead-media { aspect-ratio: 16 / 9; background: var(--bg); }
+  /* Two-column layout: the text column sets the row height, and an aspect
+     ratio would then derive a width that overflows the media column and puts
+     the image behind the text. Fill the cell and let object-fit crop instead. */
+  @media (min-width: 901px) { .lead-media { aspect-ratio: auto; min-width: 0; } }
   .lead-body { padding: 34px; display: grid; gap: 12px; align-content: center; }
   .lead-body h2 { margin: 0; font-size: clamp(1.4375rem, 2.4vw, 1.875rem); line-height: 1.2; font-weight: 700; letter-spacing: -0.025em; text-wrap: balance; }
   .lead-body p { margin: 0; font-size: 1rem; line-height: 1.65; color: var(--muted); }

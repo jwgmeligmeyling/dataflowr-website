@@ -17,7 +17,7 @@ const globalCss = readFileSync(join(root, 'src/styles/global.css'), 'utf8');
 
 const rootBlock = globalCss.match(/:root \{[\s\S]*?\n\}/);
 if (!rootBlock) throw new Error('could not find :root token block in global.css');
-writeFileSync(join(out, 'tokens/colors.css'), `/* DataFlowr tokens — palette 0a "RGB origineel", locked. Source: src/styles/global.css */\n${rootBlock[0]}\n`);
+writeFileSync(join(out, 'tokens/colors.css'), `/* DataFlowr tokens: palette 0a "RGB origineel", locked. Source: src/styles/global.css */\n${rootBlock[0]}\n`);
 
 // Everything except the :root block and the local @font-face lines (fonts.css replaces those).
 const shared = globalCss
@@ -44,7 +44,7 @@ fontsCss += poppins
 writeFileSync(join(out, 'fonts/fonts.css'), fontsCss);
 
 // ---- styles.css entry: the @import closure is all a rendered design receives ----
-writeFileSync(join(out, 'styles.css'), `/* DataFlowr brand — entry stylesheet. Rendered designs receive this file's @import closure. */
+writeFileSync(join(out, 'styles.css'), `/* DataFlowr brand: entry stylesheet. Rendered designs receive this file's @import closure. */
 @import './fonts/hanken.css';
 @import './fonts/fonts.css';
 @import './tokens/colors.css';
@@ -91,7 +91,7 @@ writeFileSync(join(out, 'guidelines/logo-lockup.svg'), logoSvg('lockup', false))
 writeFileSync(join(out, 'guidelines/logo-mark.svg'), logoSvg('mark', false));
 writeFileSync(join(out, 'guidelines/logo-mark-dots.svg'), logoSvg('mark', true));
 
-// Claire mark: the .astro template is a plain SVG with a templated uid — freeze it.
+// Claire mark: the .astro template is a plain SVG with a templated uid. Freeze it.
 const claireSrc = readFileSync(join(root, 'src/components/ClaireMark.astro'), 'utf8');
 let claire = claireSrc.slice(claireSrc.indexOf('<svg'));
 claire = claire
@@ -111,14 +111,14 @@ writeFileSync(join(out, 'README.md'), `${header}
 
 ## Bundle inventory (generated)
 
-- \`styles.css\` — entry; its \`@import\` closure is everything a rendered design receives.
-- \`tokens/colors.css\` — all custom properties:
+- \`styles.css\`: entry; its \`@import\` closure is everything a rendered design receives.
+- \`tokens/colors.css\`: all custom properties:
 ${tokenLines}
-- \`tokens/shared.css\` — shared classes and keyframes from the site's \`global.css\`.
-- \`fonts/\` — Hanken Grotesk 300–800 (woff2, primary) and Poppins 300/400/500/700 (ttf, fallback).
-- \`guidelines/\` — brand marks as standalone SVGs: \`logo-lockup.svg\`, \`logo-mark.svg\`, \`logo-mark-dots.svg\`, \`claire-mark.svg\`.
+- \`tokens/shared.css\`: shared classes and keyframes from the site's \`global.css\`.
+- \`fonts/\`: Hanken Grotesk 300–800 (woff2, primary) and Poppins 300/400/500/700 (ttf, fallback).
+- \`guidelines/\`: brand marks as standalone SVGs: \`logo-lockup.svg\`, \`logo-mark.svg\`, \`logo-mark-dots.svg\`, \`claire-mark.svg\`.
 
-Source of truth: the dataflowr-website repo (\`src/styles/global.css\`, \`src/components/Logo.astro\`, \`src/components/ClaireMark.astro\`). This bundle is brand-only — no component JS is shipped.
+Source of truth: the dataflowr-website repo (\`src/styles/global.css\`, \`src/components/Logo.astro\`, \`src/components/ClaireMark.astro\`). This bundle is brand-only: no component JS is shipped.
 `);
 
 console.log('ds-bundle built at', out);

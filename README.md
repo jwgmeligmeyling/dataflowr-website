@@ -59,7 +59,10 @@ equivalent of the current page.
   1200×630, with `og:image:alt`. Articles override the card with their own hero.
   Regenerate with `npx tsx scripts/generate-og.ts`; the script composes the card
   from the locked palette and the logo vectors, so nothing is redrawn by hand.
-- Favicons come from the same brand vectors (`npx tsx scripts/generate-icons.ts`)
+- The favicon set in `public/` (SVG, ICO, 96px PNG, Apple touch icon, the two
+  maskable manifest icons and `site.webmanifest`) comes from
+  RealFaviconGenerator and is committed as delivered. Regenerate it there from
+  `favicon.svg` rather than editing the files.
 
 ## Before launch
 
