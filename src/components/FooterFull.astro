@@ -1,6 +1,7 @@
 ---
 /** Full footer (home, Claire, service pages). Compact logo top-left per design review. */
 import Logo from './Logo.astro';
+import ExactWordmark from './ExactWordmark.astro';
 import { routes, ui, EMAIL_DAAN, EMAIL_INFO, PHONE_DISPLAY, PHONE_TEL, type Lang } from '../lib/site';
 
 interface Props {
@@ -26,6 +27,7 @@ const t = ui[lang];
           <a href={`mailto:${EMAIL_DAAN}`}>{EMAIL_DAAN}</a>
           <a href={`mailto:${EMAIL_INFO}`}>{EMAIL_INFO}</a>
           <a href={`tel:${PHONE_TEL}`}>{PHONE_DISPLAY[lang]}</a>
+          <a href={routes.support[lang]}>{t.supportPage}</a>
         </div>
       </div>
       <div class="col">
@@ -33,11 +35,15 @@ const t = ui[lang];
         <div class="links">
           <a href={routes.servicesIndex[lang]}>{t.servicesIndex}</a>
           <a href={routes.claire[lang]}>Claire</a>
+          <a href={routes.docs[lang]}>{t.docsPage}</a>
           <a href={routes.resources[lang]}>{t.resources}</a>
+          <a href={routes.contact[lang]}>{t.contactPage}</a>
         </div>
       </div>
     </div>
     <div class="legal">
+      {/* Copyright and the two legal pages read as one run of fine print, so the
+          bar keeps the two poles the design review settled on. */}
       <div class="legal-run">
         <span>{t.footerCopyright}</span>
         <span class="dot" aria-hidden="true">·</span>
@@ -45,7 +51,7 @@ const t = ui[lang];
         <span class="dot" aria-hidden="true">·</span>
         <a href={routes.legal.terms[lang]}>{t.footerTerms}</a>
       </div>
-      <span class="motto">{t.footerMotto} <span class="exact-logo" role="img" aria-label="Exact"><span class="exact-eq" aria-hidden="true"></span>exact</span></span>
+      <span class="motto">{t.footerMotto} <ExactWordmark height="1.15em" /></span>
     </div>
   </div>
 </footer>
@@ -90,32 +96,15 @@ const t = ui[lang];
   .legal-run a:hover { color: var(--hl); }
   .dot { color: color-mix(in srgb, var(--brand) 28%, transparent); }
   .motto {
+    /* The wordmark's viewBox ends on its baseline, so baseline alignment sits
+       it on the same line as the text instead of centring it against the
+       uppercase caps. */
     display: inline-flex;
-    align-items: center;
-    gap: 8px;
+    align-items: baseline;
+    gap: 9px;
     font-size: 0.6875rem;
     font-weight: 500;
     letter-spacing: 0.16em;
     text-transform: uppercase;
-  }
-  .exact-logo {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.14em;
-    font-size: 0.9375rem;
-    font-weight: 700;
-    letter-spacing: -0.02em;
-    line-height: 1;
-    text-transform: lowercase;
-    /* Exact brand chrome, not palette 0a: same red as the =exact tile on the Claire page. */
-    color: #E30613;
-    transform: translateY(-1px);
-  }
-  .exact-eq {
-    display: inline-block;
-    width: 0.6em;
-    height: 0.44em;
-    border-top: 0.16em solid currentColor;
-    border-bottom: 0.16em solid currentColor;
   }
 </style>

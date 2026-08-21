@@ -28,8 +28,15 @@ export interface ArticleContent {
   date: string;
   title: string;
   lead: string;
-  /** Hero screenshot (16:9, 2880×1620), captured from the Claire app. */
-  hero: { src: string; alt: string };
+  /**
+   * Hero image (16:9). Screenshots from the Claire app are 2880×1620, the
+   * assumed size when width/height are omitted. With heroVideo set this image
+   * is not shown on the article page itself, but still feeds the share card,
+   * the JSON-LD and the overview cards.
+   */
+  hero: { src: string; alt: string; width?: number; height?: number };
+  /** When set, the article page renders this embed in the hero slot instead of the image. */
+  heroVideo?: { embedUrl: string; title: string };
   blocks: ArticleBlock[];
   claireTitle: string;
   claireBody: string;
@@ -846,6 +853,527 @@ export const articles: Record<ArticleKey, Article> = {
       ],
       claireTitle: 'Claire runs on this release',
       claireBody: 'The month-end close as an instruction, a substantiated cashflow forecast, and answers with the overviews alongside them.',
+    },
+  },
+
+  aandeelhoudersrapportage: {
+    author: 'daan',
+    dateIso: '2026-08-15',
+    nl: {
+      metaTitle: 'Van vraag tot aandeelhoudersrapportage met Claude en Exact Online',
+      metaDescription:
+        'Eén vraag in Claude en de winst- en verliesrekening, de KPI’s en een analyse komen rechtstreeks uit Exact Online, met een aandeelhoudersrapportage in huisstijl als sluitstuk. Met video: zo werkt de MCP-koppeling in de praktijk.',
+      crumbCurrent: 'Aandeelhoudersrapportage',
+      cat: 'AI',
+      tag: 'Use case',
+      date: '15 augustus 2026',
+      title: 'Van vraag tot aandeelhoudersrapportage: Claude op je Exact Online administratie',
+      lead:
+        'De cijfers zijn klaar, en dan begint het eigenlijke werk pas: diezelfde cijfers omzetten in een verhaal dat aandeelhouders kunnen lezen. In de video hieronder doet Claude dat werk, van de eerste vraag tot een presentatie in huisstijl, rechtstreeks op een Exact Online administratie.',
+      hero: {
+        src: '/kennisbank/claude-exact-demo-video.jpg',
+        alt: 'Openingsbeeld van de demovideo: jouw eigen Claude in Exact Online, zonder export en zonder Excel, met een grafiek van netto-omzet, brutomarge en EBITDA',
+        width: 1280,
+        height: 720,
+      },
+      heroVideo: {
+        embedUrl: 'https://www.youtube-nocookie.com/embed/8u5pG68nPs0',
+        title: 'Videodemo: van vraag tot aandeelhoudersrapportage met Claude en Exact Online',
+      },
+      blocks: [
+        {
+          type: 'p',
+          text: 'De demo draait op onze eigen demo-administratie en begint met één zin: laat de winst- en verliesrekening van dit jaar zien, met een analyse erbij. Geen export, geen draaitabel, geen sjabloon dat eerst gevuld moet worden. Wat er in de minuten daarna gebeurt, is precies waar de MCP-koppeling voor is gebouwd, en het loont om er stap voor stap doorheen te lopen.',
+        },
+        { type: 'h2', id: 'toegang', text: 'Hoe Claude bij je cijfers komt' },
+        {
+          type: 'p',
+          text: 'Claude zoekt eerst uit welke administratie je bedoelt. Aan de verbinding in de video hangt er één, dus die is snel gevonden; hangen er meer aan je account, dan vraagt hij welke het moet zijn. Daarna volgt de vraag of hij in de administratie mag kijken. Eén klik op toestaan, en de winst- en verliesrekening staat in het gesprek: de afgelopen periode en het jaar tot en met nu, en op de vervolgvraag dezelfde cijfers per maand.',
+        },
+        {
+          type: 'p',
+          text: 'Onder water kiest Claude per vraag een tool van de koppeling: het financiële rapport, de KPI-set, een ouderdomsanalyse. Het rekenwerk gebeurt in een deterministische rekenlaag, dus dezelfde administratie geeft dezelfde uitkomst, hoe vaak je ook vraagt. Het taalmodel formuleert alleen het antwoord; de cijfers komen rechtstreeks uit Exact Online.',
+        },
+        {
+          type: 'p',
+          text: 'Er verhuist daarbij geen kopie van je administratie naar het model. Elke vraag is een gerichte opvraging op het moment dat je hem stelt, via je eigen toegang, en elke aanroep staat in het auditlog. Hoe dat protocol werkt hebben we eerder in de kennisbank uitgelegd, in het stuk over MCP.',
+        },
+        {
+          type: 'quote',
+          text: '"Je rapporteert niet over een export van vorige week, maar over de administratie zoals die er nu bij staat. En elke vervolgvraag begint waar de vorige ophield."',
+        },
+        { type: 'h2', id: 'analyse', text: 'De analyse die er meteen achteraan komt' },
+        {
+          type: 'p',
+          text: 'Cijfers ophalen is de helft. De prompt in de video vraagt ook om een analyse, en daar wordt het interessant: Claude kijkt naar de hele reeks en benoemt wat eruit springt. Groeit de omzet hard terwijl de kostprijs in absolute zin daalt, dan constateert hij dat die twee niet bij elkaar passen en dat je wilt weten waarom. Leunt de omzet zwaar op een handvol klanten, dan benoemt hij dat concentratierisico. In een demo-administratie is dat onschuldig; in een echte wil je het weten voordat je aandeelhouders het vragen.',
+        },
+        {
+          type: 'p',
+          text: 'Dat zijn richtingen, geen oordelen: plekken waar jij als eerste kijkt. Het beoordelen blijft bij jou, en omdat elke bevinding op een concrete opvraging rust, kun je hem narekenen. Het verschil met een dashboard zit in het doorvragen: waarom wijkt maart af, welke boekingen zitten erachter, hoe zag dezelfde maand er vorig jaar uit. Elk antwoord is een nieuwe gerichte opvraging, geen nieuwe export.',
+        },
+        { type: 'h2', id: 'rapportage', text: 'Van cijfers naar aandeelhoudersrapportage' },
+        {
+          type: 'p',
+          text: 'Dan de stap waar in een maandcyclus de meeste tijd in zit: van de cijfers een stuk maken dat aandeelhouders kunnen lezen. In de video is dat één opdracht, met een logo als bijlage. Het resultaat is een complete presentatie: omzet en resultaat, de maandreeks in grafieken, tabellen met de kerncijfers en per onderwerp een korte toelichting.',
+        },
+        {
+          type: 'ol',
+          items: [
+            { strong: 'De opdracht is één zin.', rest: ' “Maak hier een presentatie van voor onze aandeelhouders, in onze huisstijl.” Het meegestuurde logo is genoeg om de kleuren en letters over te nemen.' },
+            { strong: 'De inhoud komt uit het gesprek.', rest: ' Claude bouwt de slides op uit de cijfers en de analyse die hij net heeft opgehaald, en neemt context mee die eerder ter sprake kwam. In de demo rekent hij uit zichzelf een normalisatie voor het gebruikelijk loon van de twee DGA’s door, omdat hij weet dat die er zijn.' },
+            { strong: 'Het resultaat is een gewoon PowerPoint-bestand.', rest: ' Je opent het, past zelf een slide aan of vraagt Claude om de wijziging, en verstuurt het daarna zoals elke andere rapportage.' },
+          ],
+        },
+        { type: 'h2', id: 'grenzen', text: 'Wat dit wel en niet is' },
+        {
+          type: 'p',
+          text: 'De presentatie is een concept, geen persklaar stuk. De cijfers erin komen rechtstreeks uit de administratie, maar de duiding komt van een taalmodel, dus je leest het geheel na voordat het naar aandeelhouders gaat. Behandel het als het werk van een goede assistent: het staat er, jij tekent ervoor.',
+        },
+        {
+          type: 'p',
+          text: 'De hele demo is lezen, geen schrijven: er verandert niets in Exact Online, en wijzigingen via de koppeling vragen altijd een handmatig akkoord. De video draait bovendien op een demo-administratie, dus de bedragen zijn niet echt; de route van vraag naar rapportage is wel precies hoe het op een echte administratie werkt.',
+        },
+        {
+          type: 'p',
+          text: 'De koppeling zelf is niet aan Claude gebonden: dezelfde verbinding werkt in ChatGPT en Microsoft 365 Copilot, omdat MCP een open standaard is. De presentatiestap uit de video leunt wel op wat Claude zelf kan, bestanden maken en een huisstijl overnemen. De cijferkant loopt bij elke assistent via dezelfde koppeling.',
+        },
+        { type: 'h2', id: 'zelf-proberen', text: 'Zelf proberen' },
+        {
+          type: 'p',
+          text: 'De verbinding leg je in een paar minuten: één adres, inloggen met je Exact Online account, administratie kiezen. Begin daarna met de vraag uit de video, de winst- en verliesrekening van dit jaar met een analyse erbij, en kijk wat er bij jouw cijfers uit komt. De aandeelhoudersrapportage die erop volgt is nog één opdracht.',
+        },
+      ],
+      claireTitle: 'Dezelfde koppeling, met Claire erbij',
+      claireBody: 'Claire draait op de koppeling uit de video: vragen in gewone taal, rapportages uit je eigen administratie, boekingen alleen na akkoord.',
+    },
+    en: {
+      metaTitle: 'From question to shareholder report with Claude and Exact Online',
+      metaDescription:
+        'One question in Claude and the profit and loss statement, the KPIs and an analysis come straight from Exact Online, with a shareholder deck in your house style to finish. With video: the MCP connection at work.',
+      crumbCurrent: 'Shareholder report',
+      cat: 'AI',
+      tag: 'Use case',
+      date: '15 August 2026',
+      title: 'From question to shareholder report: Claude on your Exact Online administration',
+      lead:
+        'The figures are done, and then the real work starts: turning those same figures into a story shareholders can read. In the video below Claude does that work, from the first question to a deck in your house style, directly on an Exact Online administration.',
+      hero: {
+        src: '/kennisbank/claude-exact-demo-video.jpg',
+        alt: 'Opening frame of the demo video: your own Claude in Exact Online, without exports and without Excel, with a chart of net revenue, gross margin and EBITDA',
+        width: 1280,
+        height: 720,
+      },
+      heroVideo: {
+        embedUrl: 'https://www.youtube-nocookie.com/embed/8u5pG68nPs0',
+        title: 'Video demo (in Dutch): from question to shareholder report with Claude and Exact Online',
+      },
+      blocks: [
+        {
+          type: 'p',
+          text: 'The demo, recorded in Dutch, runs on our own demo administration and starts with one sentence: show this year’s profit and loss statement, with an analysis. No export, no pivot table, no template that needs filling first. What happens in the minutes after that is exactly what the MCP connection was built for, and it is worth walking through step by step.',
+        },
+        { type: 'h2', id: 'access', text: 'How Claude reaches your figures' },
+        {
+          type: 'p',
+          text: 'Claude first works out which administration you mean. The connection in the video has one behind it, so it is found quickly; with several on your account, it asks which one it should be. Then comes the question whether it may look inside the administration. One click on allow, and the profit and loss statement appears in the conversation: the most recent period and the year to date, and on the follow-up question the same figures per month.',
+        },
+        {
+          type: 'p',
+          text: 'Under the hood Claude picks a tool from the connection per question: the financial report, the KPI set, an ageing analysis. The number-crunching happens in a deterministic calculation layer, so the same administration gives the same outcome, however often you ask. The language model only phrases the answer; the figures come straight from Exact Online.',
+        },
+        {
+          type: 'p',
+          text: 'No copy of your administration moves to the model along the way. Every question is a targeted query at the moment you ask it, through your own access, and every call lands in the audit log. How that protocol works we explained earlier in the knowledge base, in the piece on MCP.',
+        },
+        {
+          type: 'quote',
+          text: '"You are not reporting on last week’s export, but on the administration as it stands right now. And every follow-up question starts where the previous one left off."',
+        },
+        { type: 'h2', id: 'analysis', text: 'The analysis that follows straight after' },
+        {
+          type: 'p',
+          text: 'Fetching figures is half of it. The prompt in the video also asks for an analysis, and that is where it gets interesting: Claude looks at the whole series and names what stands out. If revenue grows fast while the cost of sales falls in absolute terms, it points out that those two do not fit together and that you want to know why. If revenue leans heavily on a handful of customers, it names that concentration risk. In a demo administration that is harmless; in a real one you want to know before your shareholders ask.',
+        },
+        {
+          type: 'p',
+          text: 'Those are directions, not verdicts: the places where you look first. The judgement stays with you, and because every finding rests on a concrete query, you can recompute it. The difference with a dashboard is the follow-up: why does March deviate, which entries sit behind it, what did the same month look like last year. Every answer is a new targeted query, not a new export.',
+        },
+        { type: 'h2', id: 'report', text: 'From figures to shareholder report' },
+        {
+          type: 'p',
+          text: 'Then the step that takes the most time in a monthly cycle: turning the figures into a piece shareholders can read. In the video that is one instruction, with a logo attached. The result is a complete deck: revenue and result, the monthly series in charts, tables with the key figures and a short explanation per topic.',
+        },
+        {
+          type: 'ol',
+          items: [
+            { strong: 'The instruction is one sentence.', rest: ' “Turn this into a presentation for our shareholders, in our house style.” The attached logo is enough to carry over the colours and typefaces.' },
+            { strong: 'The content comes from the conversation.', rest: ' Claude builds the slides from the figures and the analysis it just fetched, and carries along context that came up earlier. In the demo it works out a normalisation for the Dutch customary salary of the two director-shareholders on its own, because it knows they are there.' },
+            { strong: 'The result is an ordinary PowerPoint file.', rest: ' You open it, adjust a slide yourself or ask Claude for the change, and send it out like any other report.' },
+          ],
+        },
+        { type: 'h2', id: 'limits', text: 'What this is and is not' },
+        {
+          type: 'p',
+          text: 'The deck is a draft, not a print-ready piece. The figures in it come straight from the administration, but the interpretation comes from a language model, so you read the whole thing before it goes to shareholders. Treat it as the work of a good assistant: it is on paper, you sign for it.',
+        },
+        {
+          type: 'p',
+          text: 'The entire demo is reading, not writing: nothing changes in Exact Online, and changes through the connection always require manual approval. The video also runs on a demo administration, so the amounts are not real; the route from question to report is exactly how it works on a real one.',
+        },
+        {
+          type: 'p',
+          text: 'The connection itself is not tied to Claude: the same connection works in ChatGPT and Microsoft 365 Copilot, because MCP is an open standard. The presentation step in the video does lean on what Claude itself can do, creating files and adopting a house style. The figures side runs through the same connection with every assistant.',
+        },
+        { type: 'h2', id: 'try-it', text: 'Try it yourself' },
+        {
+          type: 'p',
+          text: 'Connecting takes a few minutes: one address, sign in with your Exact Online account, pick the administration. Then start with the question from the video, this year’s profit and loss statement with an analysis, and see what comes out of your own figures. The shareholder report that follows is one more instruction.',
+        },
+      ],
+      claireTitle: 'The same connection, with Claire on top',
+      claireBody: 'Claire runs on the connection from the video: questions in plain language, reports from your own administration, postings only after approval.',
+    },
+  },
+
+  cashflowprognose: {
+    author: 'daan',
+    dateIso: '2026-08-17',
+    nl: {
+      metaTitle: 'Elke maandag een cashflowprognose in je mail',
+      metaDescription:
+        'Eén opdracht aan Claude en er staat elke maandagochtend een cashflowprognose in je mailbox, met het Excel-bestand in OneDrive. Hoe scheduled tasks, MCP-koppelingen en de prognoseagent dat samen mogelijk maken.',
+      crumbCurrent: 'Wekelijkse cashflowprognose',
+      cat: 'AI',
+      tag: 'Praktijkcase',
+      date: '17 augustus 2026',
+      title: 'Elke maandag een cashflowprognose in je mail',
+      lead:
+        'In de video hieronder zie je het van begin tot eind gebeuren: één opdracht aan Claude, en voortaan staat er elke maandagochtend een verse cashflowprognose in je mailbox, met het Excel-bestand erbij in OneDrive. Dit artikel legt uit wat daar onder water gebeurt.',
+      hero: {
+        src: '/kennisbank/cashflowprognose-video.jpg',
+        alt: 'Beginbeeld van de video: de titel “Claude maakt je cashflowprognose, rechtstreeks uit Exact Online” over een cashflowgrafiek in Claude',
+        width: 1280,
+        height: 720,
+      },
+      heroVideo: {
+        embedUrl: 'https://www.youtube-nocookie.com/embed/yiIjpAwJCDI',
+        title: 'Demo: een wekelijkse cashflowprognose uit Exact Online met Claude',
+      },
+      blocks: [
+        {
+          type: 'p',
+          text: 'Wat je in de video ziet, is geen maatwerkproject en geen koppeling die speciaal voor deze demo is gebouwd. Het is een keten van vier onderdelen die elk één ding goed doen: Claude als assistent, de MCP-koppeling op Exact Online voor de cijfers, een prognoseagent voor het rekenwerk en een scheduled task voor de herhaling. Elk onderdeel is los te begrijpen, en dat is precies wat de opzet controleerbaar houdt.',
+        },
+        { type: 'h2', id: 'prognose', text: 'Waar de prognose vandaan komt' },
+        {
+          type: 'p',
+          text: 'De vraag in de video is simpel: draai een cashflowprognose voor de komende zes maanden. Claude heeft zelf geen cijfers, dus de eerste stap is altijd een leesverzoek aan de administratie, via de MCP-koppeling en je eigen Exact Online-toegang. Daarna roept Claude de prognoseagent aan, en die bouwt de prognose op uit wat er werkelijk in de administratie staat: de openstaande debiteuren en crediteuren met hun vervaldatums, het feitelijke betaalgedrag uit de historie, het werkkapitaal en het budget voor de perioden die nog komen.',
+        },
+        {
+          type: 'p',
+          text: 'De methode is hybride. Voor de eerste weken telt de agent de openstaande posten en hun vervaldatums direct op; voor de maanden daarna schuift hij naar een indirecte benadering op basis van de resultatenrekening en het werkkapitaalverloop. De aannames die daarbij gelden, hoeveel weken de directe telling beslaat, welk betaalgedrag wordt aangehouden, staan in het dashboard en pas je daar ook aan. Het rekenwerk zelf gebeurt in een deterministische rekenlaag; het taalmodel formuleert alleen wat eruit komt.',
+        },
+        {
+          type: 'quote',
+          text: '"Claude rekent niet zelf. De prognose komt elke week uit dezelfde rekenlaag, met aannames die je kunt nalezen en cijfers die op dat moment uit je eigen administratie komen."',
+        },
+        { type: 'h2', id: 'drie-systemen', text: 'Eén opdracht, drie systemen' },
+        {
+          type: 'p',
+          text: 'Het tweede deel van de video draait om de vervolgvraag: maak hier een Excel-bestand van, zet het in OneDrive en mail me elke maandag een update. Die ene zin raakt drie systemen: Exact Online voor de cijfers, OneDrive voor het bestand en Outlook voor de mail. Voor Claude zijn dat drie losse koppelingen die alle drie hetzelfde protocol spreken, MCP. Daardoor kan één opdracht er dwars doorheen lopen zonder dat er ergens een integratieproject voor nodig was.',
+        },
+        {
+          type: 'p',
+          text: 'Claude doet daarbij niets stilzwijgend. In de video zie je Claude eerst toestemming vragen om in Exact Online mee te kijken, en daarna nog eens om de prognose te draaien; voor het versturen van mail geldt hetzelfde. Wie welke aanroep deed, staat achteraf in het auditlog van de koppeling.',
+        },
+        { type: 'h2', id: 'scheduled-task', text: 'Van vraag naar routine: de scheduled task' },
+        {
+          type: 'p',
+          text: 'Het sluitstuk is de scheduled task: een opdracht in gewone taal die Claude op een vast moment opnieuw uitvoert. In de video: roep de prognoseagent aan, sla het bestand op in OneDrive en stuur elke maandag om 08:00 uur een mail. De taak toont de prompt, de status en het volgende moment waarop hij draait, en je kunt hem op elk moment pauzeren of aanpassen.',
+        },
+        {
+          type: 'p',
+          text: 'Belangrijk om te zien: er wordt geen rapport bewaard en opnieuw verstuurd. Elke maandag draait de hele keten opnieuw, tegen de administratie van dat moment. Facturen die vorige week zijn betaald, zijn uit de prognose verdwenen; nieuwe inkoopfacturen zitten erin. De mail die binnenkomt vat de uitkomst samen, met de beginstand, de verwachte eindstand, de nettoverandering en de aandachtspunten, en daaronder het volledige Excel-bestand in je OneDrive.',
+        },
+        { type: 'h2', id: 'grenzen', text: 'Wat je ervan mag verwachten, en wat niet' },
+        {
+          type: 'p',
+          text: 'Een prognose is zo goed als de administratie eronder. Vervaldatums die niet worden bijgehouden, een budget dat halverwege het jaar ophoudt of inkoopfacturen die weken blijven liggen, komen allemaal terug als ruis in de uitkomst. De agent geeft daarom een bandbreedte in plaats van één lijn, gemeten aan hoe goed dezelfde methode het in het verleden op je eigen cijfers deed.',
+        },
+        {
+          type: 'p',
+          text: 'Het wekelijkse ritme heeft daarbij een eigen functie: wijkt de nieuwe prognose ineens af van die van vorige week, dan is er iets veranderd in de administratie dat je wilt zien. Zo wordt de prognose een signaal dat naar je toe komt, in plaats van een rapport dat je moet onthouden te openen. Het oordeel blijft bij jou; de prognose vertelt je waar je moet kijken.',
+        },
+        { type: 'h2', id: 'zelf-doen', text: 'Zelf opzetten' },
+        {
+          type: 'ol',
+          items: [
+            { strong: 'Koppel je assistent aan Exact Online.', rest: ' Dat is de MCP-koppeling van DataFlowr: inloggen met je eigen Exact Online-account, en de assistent ziet precies wat jij mag zien.' },
+            { strong: 'Koppel je mail en opslag.', rest: ' In Claude voeg je Outlook en OneDrive als connector toe, zodat de uitkomst ergens kan landen. Werk je met Gmail en Drive, dan werkt dat net zo.' },
+            { strong: 'Stel de vraag eerst één keer los.', rest: ' Draai de prognose, loop de aannames in het dashboard na en toets de uitkomst aan je eigen beeld van de cijfers. Pas daarna maak je er een scheduled task van.' },
+          ],
+        },
+        {
+          type: 'p',
+          text: 'Vragen over deze opzet, of hulp nodig om de aannames op jouw administratie goed te zetten? Neem gerust contact op; we zetten hem graag samen met je aan.',
+        },
+      ],
+      claireTitle: 'Claire maakt je cashflowprognose',
+      claireBody: 'Rechtstreeks uit je eigen administratie, wekelijks in je mail als je dat wilt.',
+    },
+    en: {
+      metaTitle: 'A cashflow forecast in your inbox every Monday',
+      metaDescription:
+        'One instruction to Claude and a cashflow forecast lands in your inbox every Monday morning, with the Excel file in OneDrive. How scheduled tasks, MCP connections and the forecasting agent make that work together.',
+      crumbCurrent: 'Weekly cashflow forecast',
+      cat: 'AI',
+      tag: 'Use case',
+      date: '17 August 2026',
+      title: 'A cashflow forecast in your inbox every Monday',
+      lead:
+        'The video below shows it end to end: one instruction to Claude, and from then on a fresh cashflow forecast lands in your inbox every Monday morning, with the Excel file in OneDrive. The video is Dutch-spoken; this article explains what happens under the surface.',
+      hero: {
+        src: '/kennisbank/cashflowprognose-video.jpg',
+        alt: 'Opening frame of the video: the Dutch title “Claude maakt je cashflowprognose, rechtstreeks uit Exact Online” over a cash forecast chart in Claude',
+        width: 1280,
+        height: 720,
+      },
+      heroVideo: {
+        embedUrl: 'https://www.youtube-nocookie.com/embed/yiIjpAwJCDI',
+        title: 'Demo: a weekly cashflow forecast from Exact Online with Claude (Dutch spoken)',
+      },
+      blocks: [
+        {
+          type: 'p',
+          text: 'What you see in the video is not a bespoke project, and not a connection built specially for the demo. It is a chain of four parts that each do one thing well: Claude as the assistant, the MCP connection to Exact Online for the figures, a forecasting agent for the number-crunching and a scheduled task for the repetition. Each part can be understood on its own, and that is exactly what keeps the setup controllable.',
+        },
+        { type: 'h2', id: 'forecast', text: 'Where the forecast comes from' },
+        {
+          type: 'p',
+          text: 'The question in the video is simple: run a cashflow forecast for the next six months. Claude has no figures of its own, so the first step is always a read request to the administration, through the MCP connection and your own Exact Online access. Claude then calls the forecasting agent, which builds the forecast from what is actually in the books: open receivables and payables with their due dates, actual payment behaviour from history, working capital and the budget for the periods still to come.',
+        },
+        {
+          type: 'p',
+          text: 'The method is hybrid. For the first weeks the agent adds up the open items and their due dates directly; for the months after that it shifts to an indirect approach based on the profit and loss account and the working capital pattern. The assumptions involved, how many weeks the direct count covers, what payment behaviour is assumed, sit in the dashboard and can be adjusted there. The number-crunching itself happens in a deterministic calculation layer; the language model only phrases what comes out.',
+        },
+        {
+          type: 'quote',
+          text: '"Claude does not do the maths itself. The forecast comes out of the same calculation layer every week, with assumptions you can read back and figures pulled from your own administration at that moment."',
+        },
+        { type: 'h2', id: 'three-systems', text: 'One instruction, three systems' },
+        {
+          type: 'p',
+          text: 'The second part of the video turns on the follow-up question: make this into an Excel file, put it in OneDrive and mail me an update every Monday. That one sentence touches three systems: Exact Online for the figures, OneDrive for the file and Outlook for the mail. To Claude these are three separate connections that all speak the same protocol, MCP. That is why one instruction can run straight through them without an integration project anywhere.',
+        },
+        {
+          type: 'p',
+          text: 'Claude does none of this silently. In the video you see Claude first ask permission to look into Exact Online, and then again to run the forecast; the same applies to sending mail. Afterwards, the connection’s audit log shows who made which call.',
+        },
+        { type: 'h2', id: 'scheduled-task', text: 'From question to routine: the scheduled task' },
+        {
+          type: 'p',
+          text: 'The closing piece is the scheduled task: an instruction in plain language that Claude runs again at a fixed moment. In the video: call the forecasting agent, save the file to OneDrive and send a mail every Monday at 08:00. The task shows the prompt, its status and the next moment it will run, and you can pause or change it at any time.',
+        },
+        {
+          type: 'p',
+          text: 'The important part: no report is stored and resent. Every Monday the whole chain runs again, against the administration as it stands at that moment. Invoices paid last week have dropped out of the forecast; new purchase invoices are in. The mail that arrives summarises the outcome, with the opening position, the expected end position, the net change and the points of attention, and the full Excel file in your OneDrive underneath.',
+        },
+        { type: 'h2', id: 'limits', text: 'What to expect from it, and what not' },
+        {
+          type: 'p',
+          text: 'A forecast is only as good as the administration underneath it. Due dates nobody maintains, a budget that stops halfway through the year or purchase invoices that sit unbooked for weeks all come back as noise in the outcome. That is why the agent gives a band rather than a single line, measured against how well the same method did on your own figures in the past.',
+        },
+        {
+          type: 'p',
+          text: 'The weekly rhythm has a function of its own: if the new forecast suddenly deviates from last week’s, something changed in the administration that you want to see. The forecast becomes a signal that comes to you, instead of a report you have to remember to open. The judgement stays with you; the forecast tells you where to look.',
+        },
+        { type: 'h2', id: 'set-up', text: 'Setting it up yourself' },
+        {
+          type: 'ol',
+          items: [
+            { strong: 'Connect your assistant to Exact Online.', rest: ' That is DataFlowr’s MCP connection: sign in with your own Exact Online account, and the assistant sees exactly what you are allowed to see.' },
+            { strong: 'Connect your mail and storage.', rest: ' In Claude you add Outlook and OneDrive as connectors, so the outcome has somewhere to land. If you work with Gmail and Drive, that works the same way.' },
+            { strong: 'Ask the question once, on its own, first.', rest: ' Run the forecast, walk through the assumptions in the dashboard and check the outcome against your own sense of the numbers. Only then turn it into a scheduled task.' },
+          ],
+        },
+        {
+          type: 'p',
+          text: 'Questions about this setup, or would you like help getting the assumptions right on your own administration? Do get in touch; we are happy to switch it on together with you.',
+        },
+      ],
+      claireTitle: 'Claire builds your cashflow forecast',
+      claireBody: 'Straight from your own administration, weekly in your inbox if you want it.',
+    },
+  },
+
+  'copilot-facturen': {
+    author: 'daan',
+    dateIso: '2026-08-20',
+    nl: {
+      metaTitle: 'Facturen maken tijdens de meeting, met Copilot in Teams',
+      metaDescription:
+        'Videodemo: Microsoft 365 Copilot maakt vanuit Teams een verkoopfactuur aan in Exact Online, via de MCP-koppeling van DataFlowr. Wat Copilot daarbij precies doet, hoe de bevestigingsstappen werken en waar de grenzen liggen.',
+      crumbCurrent: 'Copilot in Teams',
+      cat: 'AI',
+      tag: 'Use case',
+      date: '20 augustus 2026',
+      title: 'Facturen maken tijdens de meeting, met Copilot in Teams',
+      lead:
+        'De afspraak is rond: 40 uur consultancy voor € 100 per uur. Normaal schrijf je dat op en maakt iemand er later in de week een factuur van. In deze demo staat de conceptfactuur al in Exact Online voordat de meeting is afgelopen, gemaakt vanuit een chat in Microsoft Teams.',
+      hero: {
+        src: '/kennisbank/copilot-facturen.jpg',
+        alt: 'Openingsbeeld van de videodemo “Factuur in Exact vanuit Teams”: de prompt voor Meijer Logistiek BV in het Copilot-scherm van Microsoft Teams',
+        width: 1280,
+        height: 720,
+      },
+      heroVideo: {
+        embedUrl: 'https://www.youtube-nocookie.com/embed/F58aaGdGB_s',
+        title: 'Videodemo: een verkoopfactuur aanmaken in Exact Online vanuit Microsoft Teams',
+      },
+      blocks: [
+        {
+          type: 'p',
+          text: 'De video hierboven laat de volledige route zien: van een prompt in het Copilot-scherm van Microsoft Teams tot een conceptfactuur in Exact Online, met artikelregel, contactpersoon en btw erop. Er komt geen export en geen overtypwerk aan te pas. Exact zelf gaat pas open aan het einde, om te controleren of alles klopt.',
+        },
+        { type: 'h2', id: 'demo', text: 'Wat er in de demo gebeurt' },
+        {
+          type: 'p',
+          text: 'Het scenario is een gesprek zoals je dat elke week voert. Meijer Logistiek BV neemt 40 uur consultancy af voor € 100 per uur. De contactpersoon is Willem van der Laan, zijn telefoonnummer staat in de prompt, en de relatie bestaat nog niet in de administratie. Die ene prompt is genoeg om het proces te starten.',
+        },
+        {
+          type: 'ol',
+          items: [
+            { strong: 'De agent controleert eerst wat er al bestaat.', rest: ' Voordat er iets wordt aangemaakt, zoekt de koppeling in de administratie of de relatie en de contactpersoon al voorkomen en of ze aan elkaar gekoppeld zijn. Wat er al staat wordt hergebruikt; bij een bestaande klant slaat de agent het aanmaken gewoon over.' },
+            { strong: 'Elke schrijfactie vraagt om jouw bevestiging.', rest: ' Copilot toont per actie een kaart met wat er precies gaat gebeuren, en jij klikt op Confirm. De contactpersoon, de relatie en de factuur: geen van de drie ontstaat zonder akkoord.' },
+            { strong: 'De factuur staat als concept klaar.', rest: ' Meijer Logistiek, 40 uur consultancy à € 100, met het artikel gekoppeld: € 4.840 inclusief 21% btw. Een factuurnummer is er nog niet; dat wordt pas toegekend als jij de factuur in Exact Online verwerkt en verstuurt.' },
+          ],
+        },
+        {
+          type: 'p',
+          text: 'De demo is bewust niet gladgestreken. Halverwege meldt de agent dat hij de relatie niet kan vinden, direct nadat die is aangemaakt. Eén vervolgprompt, “controleer of Meijer Logistiek BV als klant bestaat”, en hij pakt de draad weer op: klant gevonden, contactpersoon gekoppeld, factuur aangemaakt. Zo ziet werken met een agent er in de praktijk uit: hij doet het werk, jij stuurt bij waar nodig.',
+        },
+        {
+          type: 'quote',
+          text: '"De factuur ontstaat waar de afspraak ontstaat. Wat overblijft voor later is niet het invoerwerk, maar alleen de controle en de verzendknop."',
+        },
+        { type: 'h2', id: 'copilot', text: 'Wat Microsoft 365 Copilot hier doet' },
+        {
+          type: 'p',
+          text: 'Copilot is in deze opzet meer dan een chatvenster: het is de omgeving waarin agents draaien. De DataFlowr-agent is er daar één van. Je opent hem in het Copilot-scherm van Teams, naast je chats en je agenda, en dat is precies het punt: het werk gebeurt in de applicatie waar de afspraak wordt gemaakt, niet in het pakket waar de factuur landt.',
+        },
+        {
+          type: 'p',
+          text: 'Copilot doet daarbij drie dingen zelf. Het vertaalt je zin naar concrete acties op de koppeling, in een logische volgorde: eerst zoeken, dan aanmaken, dan koppelen. Het bewaakt de schrijfacties met een bevestigingsstap, zodat een agent nooit ongevraagd iets in je administratie zet. En het houdt de context van het gesprek vast: “koppel de contactpersoon aan deze klant” is genoeg, zonder opnieuw te benoemen om wie het gaat.',
+        },
+        { type: 'h2', id: 'mcp', text: 'De rol van MCP' },
+        {
+          type: 'p',
+          text: 'Onder de motorkap praat Copilot met onze MCP-server voor Exact Online. MCP, het Model Context Protocol, is de open standaard die beschrijft welk gereedschap een AI-assistent op een systeem mag gebruiken. Voor deze demo zijn dat tools als relaties zoeken, een contactpersoon aanmaken en een conceptfactuur wegschrijven. De assistent kiest per stap een tool, en de gegevens komen op dat moment rechtstreeks uit je eigen administratie. Er staat geen kopie van je boekhouding tussen.',
+        },
+        {
+          type: 'p',
+          text: 'De toegang loopt via je eigen Exact Online-login, dus de agent ziet precies wat jij mag zien. En omdat MCP een open standaard is, is Copilot een keuze en geen verplichting: dezelfde koppeling werkt in Claude en ChatGPT. Twee praktische kanttekeningen bij Microsoft: Copilot vraagt een eigen licentie bovenop Microsoft 365, en het kan geen koppeling op adres toevoegen. Daarom leveren we voor Copilot een kant-en-klaar pakket dat je beheerder eenmalig installeert.',
+        },
+        { type: 'h2', id: 'winst', text: 'Waar de winst zit' },
+        {
+          type: 'p',
+          text: 'De winst zit niet in de paar minuten typwerk, maar in de stap die vervalt. Normaal reist zo’n afspraak van een aantekening naar een taak naar het boekhoudpakket, en bij elke overdracht kan er iets sneuvelen: het tarief, de tenaamstelling, de contactpersoon. Hier wordt de afspraak vastgelegd terwijl hij vers is. Wat later nog moet gebeuren is het concept controleren en versturen.',
+        },
+        {
+          type: 'p',
+          text: 'Even belangrijk is wat er niet gebeurt. De agent verstuurt niets en boekt niets definitief; de factuur wacht als concept op jouw controle. Elke aanmaakactie heb je expliciet bevestigd. En het resultaat is geen black box: aan het einde van de video zie je de factuur gewoon in Exact Online staan, met relatie, contactpersoon en artikel op de juiste plek.',
+        },
+        { type: 'h2', id: 'zelf', text: 'Zelf proberen' },
+        {
+          type: 'p',
+          text: 'De route uit de video werkt op elke Exact Online-administratie met onze koppeling. De installatie voor Microsoft 365 Copilot staat stap voor stap in de documentatie, inclusief het pakket voor je beheerder, en de agent bevat voorbeeldprompts voor onder meer dit scenario. Liever eerst zien of dit bij jullie proces past? Plan een kennismaking, dan laten we de demo op een testadministratie zien.',
+        },
+      ],
+      claireTitle: 'Dezelfde koppeling, ook zonder Teams',
+      claireBody: 'Claire werkt op dezelfde MCP-koppeling: vragen in gewone taal, facturen en boekingen alleen na jouw akkoord.',
+    },
+    en: {
+      metaTitle: 'Creating invoices during the meeting, with Copilot in Teams',
+      metaDescription:
+        'Video demo: Microsoft 365 Copilot creates a sales invoice in Exact Online straight from Teams, through DataFlowr’s MCP connector. What Copilot actually does, how the confirmation steps work and where the limits are.',
+      crumbCurrent: 'Copilot in Teams',
+      cat: 'AI',
+      tag: 'Use case',
+      date: '20 August 2026',
+      title: 'Creating invoices during the meeting, with Copilot in Teams',
+      lead:
+        'The deal is done: 40 hours of consultancy at €100 per hour. Normally you write that down and someone turns it into an invoice later in the week. In this demo the draft invoice is in Exact Online before the meeting ends, created from a chat in Microsoft Teams.',
+      hero: {
+        src: '/kennisbank/copilot-facturen.jpg',
+        alt: 'Opening frame of the video demo: the Copilot prompt for Meijer Logistiek BV in Microsoft Teams, under the Dutch title “Factuur in Exact vanuit Teams”',
+        width: 1280,
+        height: 720,
+      },
+      heroVideo: {
+        embedUrl: 'https://www.youtube-nocookie.com/embed/F58aaGdGB_s',
+        title: 'Video demo (in Dutch): creating a sales invoice in Exact Online from Microsoft Teams',
+      },
+      blocks: [
+        {
+          type: 'p',
+          text: 'The video above shows the whole route: from a prompt in the Copilot pane of Microsoft Teams to a draft invoice in Exact Online, with the item line, the contact person and VAT in place. No export, no retyping. Exact itself only opens at the end, to check that everything is right. The demo is recorded in Dutch, but the flow is easy to follow.',
+        },
+        { type: 'h2', id: 'demo', text: 'What happens in the demo' },
+        {
+          type: 'p',
+          text: 'The scenario is a conversation you have every week. Meijer Logistiek BV buys 40 hours of consultancy at €100 per hour. The contact person is Willem van der Laan, his phone number is in the prompt, and the customer does not exist in the administration yet. That single prompt is enough to start the process.',
+        },
+        {
+          type: 'ol',
+          items: [
+            { strong: 'The agent first checks what already exists.', rest: ' Before anything is created, the connector searches the administration for the customer and the contact person, and whether they are linked. Whatever is already there gets reused; with an existing customer the agent simply skips the creating.' },
+            { strong: 'Every write action asks for your confirmation.', rest: ' Per action Copilot shows a card with exactly what is about to happen, and you click Confirm. The contact person, the customer and the invoice: none of the three is created without approval.' },
+            { strong: 'The invoice is ready as a draft.', rest: ' Meijer Logistiek, 40 hours of consultancy at €100, with the item linked: €4,840 including 21% VAT. There is no invoice number yet; that is only assigned once you process and send the invoice in Exact Online.' },
+          ],
+        },
+        {
+          type: 'p',
+          text: 'The demo is deliberately not polished. Halfway through, the agent reports that it cannot find the customer, right after creating it. One follow-up prompt, “check whether Meijer Logistiek BV exists as a customer”, and it picks the thread back up: customer found, contact person linked, invoice created. That is what working with an agent looks like in practice: it does the work, you steer where needed.',
+        },
+        {
+          type: 'quote',
+          text: '"The invoice is created where the agreement is made. What remains for later is not the data entry, only the review and the send button."',
+        },
+        { type: 'h2', id: 'copilot', text: 'What Microsoft 365 Copilot does here' },
+        {
+          type: 'p',
+          text: 'In this setup Copilot is more than a chat window: it is the environment agents run in. The DataFlowr agent is one of them. You open it in the Copilot pane of Teams, next to your chats and your calendar, and that is exactly the point: the work happens in the application where the agreement is made, not in the package where the invoice lands.',
+        },
+        {
+          type: 'p',
+          text: 'Copilot itself does three things here. It translates your sentence into concrete actions on the connector, in a sensible order: search first, then create, then link. It guards the write actions with a confirmation step, so an agent never puts anything in your administration unasked. And it holds on to the context of the conversation: “link the contact person to this customer” is enough, without naming again who it is about.',
+        },
+        { type: 'h2', id: 'mcp', text: 'The role of MCP' },
+        {
+          type: 'p',
+          text: 'Under the hood Copilot talks to our MCP server for Exact Online. MCP, the Model Context Protocol, is the open standard that describes which tools an AI assistant may use on a system. For this demo those are tools like searching customers, creating a contact person and writing a draft invoice. The assistant picks a tool per step, and the data comes straight from your own administration at that moment. There is no copy of your books in between.',
+        },
+        {
+          type: 'p',
+          text: 'Access runs through your own Exact Online login, so the agent sees exactly what you are allowed to see. And because MCP is an open standard, Copilot is a choice, not an obligation: the same connector works in Claude and ChatGPT. Two practical notes on Microsoft: Copilot requires its own licence on top of Microsoft 365, and it cannot add a connection by address. That is why we provide a ready-made package for Copilot that your administrator installs once.',
+        },
+        { type: 'h2', id: 'gain', text: 'Where the gain is' },
+        {
+          type: 'p',
+          text: 'The gain is not the few minutes of typing, but the step that disappears. Normally an agreement like this travels from a note to a task to the accounting package, and something can get lost at every handover: the rate, the company name, the contact person. Here the agreement is recorded while it is fresh. What remains for later is reviewing the draft and sending it.',
+        },
+        {
+          type: 'p',
+          text: 'Just as important is what does not happen. The agent sends nothing and posts nothing final; the invoice waits as a draft for your review. Every create action was explicitly confirmed by you. And the result is no black box: at the end of the video you see the invoice sitting in Exact Online, with the customer, the contact person and the item in the right place.',
+        },
+        { type: 'h2', id: 'try', text: 'Try it yourself' },
+        {
+          type: 'p',
+          text: 'The route in the video works on any Exact Online administration with our connector. The setup for Microsoft 365 Copilot is documented step by step, including the package for your administrator, and the agent ships with example prompts for this scenario among others. Rather see first whether this fits your process? Book an intro call and we will run the demo on a test administration.',
+        },
+      ],
+      claireTitle: 'The same connector, without Teams too',
+      claireBody: 'Claire runs on the same MCP connector: questions in plain language, invoices and postings only after your approval.',
     },
   },
 };

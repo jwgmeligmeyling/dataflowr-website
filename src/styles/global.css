@@ -43,6 +43,11 @@
   --logoDot2: #88ACD7;
   --logoDot3: #1B5FB3;
   --logoText: #0D1B27;
+
+  /* Not part of palette 0a and never to be mixed into it: this is Exact's own
+     brand red, taken from the wordmark they serve on exact.com. It lives here
+     so the hex stays out of the components that draw the mark. */
+  --exactRed: #e1141d;
 }
 
 /* Poppins is the local fallback behind Hanken Grotesk (Google Fonts). */

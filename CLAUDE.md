@@ -128,6 +128,14 @@ The demo copy staged in those specs is published copy: it is rendered into the
 images on the live site. The copy rules apply to it in full, and changing it
 means re-capturing the images, or the screenshots and the source drift apart.
 
+The exception is the video articles. `copilot-facturen.jpg`,
+`claude-exact-demo-video.jpg` and `cashflowprognose-video.jpg` are YouTube
+thumbnails, not captures: those articles set `heroVideo` in `articles.ts` and
+embed the video itself in the hero slot, so the thumbnail only serves the share
+card and the overview cards. They come from the video, so a new thumbnail means
+downloading it again from `i.ytimg.com/vi/<id>/maxresdefault.jpg`, at 1280×720
+rather than the 2880×1620 of a capture.
+
 ## Share images
 
 `public/og/` is generated, never edited:
@@ -146,5 +154,18 @@ next run overwrites them.
 The headline on the card is published copy in both languages. Change it in
 `CARDS` at the top of the script, re-run, and commit the PNGs with the copy.
 
-`scripts/generate-icons.ts` writes the favicons from `favicon.svg`. Both
-generators share the PNG codec and the resampler in `scripts/lib/raster.ts`.
+## Favicons
+
+The icon set in `public/` is the exception to the generated-here rule. These
+seven files come from RealFaviconGenerator and are committed as delivered:
+
+```
+favicon.svg  favicon.ico  favicon-96x96.png  apple-touch-icon.png
+web-app-manifest-192x192.png  web-app-manifest-512x512.png  site.webmanifest
+```
+
+Do not hand-edit them and do not add a script that rewrites them. To change the
+mark, feed `favicon.svg` back through realfavicongenerator.net and commit the
+new set whole, then check the filenames still match the `<link>` tags in
+`BaseLayout.astro`. `favicon.svg` carries the same traced paths and palette
+gradients as `Logo.astro`, so the design locks above apply to it too.
