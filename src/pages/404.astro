@@ -1,0 +1,59 @@
+---
+/**
+ * Prerendered 404. With the Vercel adapter, unmatched paths would otherwise
+ * fall through to the serverless function on every stray crawler hit; this
+ * static page keeps them on the CDN. One page serves both languages, so the
+ * Dutch copy leads and one English line follows.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { routes } from '../lib/site';
+---
+<BaseLayout
+  lang="nl"
+  title="Pagina niet gevonden"
+  description="Deze pagina bestaat niet (meer). Ga naar de homepage, de kennisbank of de dienstenpagina van DataFlowr."
+  path="/404"
+  altPath="/404"
+  navVariant="solid"
+  footer="compact-white"
+  noindex={true}
+>
+  <section class="page">
+    <div class="wrap inner">
+      <div class="col">
+      <p class="eyebrow">404</p>
+      <h1>Deze pagina bestaat niet</h1>
+      <p class="body">
+        Het adres klopt niet meer of heeft nooit bestaan. Deze pagina&apos;s wel:
+      </p>
+      <div class="links">
+        <a href={routes.home.nl}>Homepage →</a>
+        <a href={routes.resources.nl}>Kennisbank →</a>
+        <a href={routes.servicesIndex.nl}>Diensten →</a>
+        <a href={routes.claire.nl}>Claire →</a>
+      </div>
+      <p class="en-line">
+        This page does not exist. Try the <a href={routes.home.en}>English homepage</a>.
+      </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .inner { padding-top: 88px; padding-bottom: 96px; }
+  .col { max-width: 720px; }
+  h1 {
+    margin: 0 0 16px;
+    font-size: clamp(2rem, 3.8vw, 2.875rem);
+    line-height: 1.1;
+    font-weight: 700;
+    letter-spacing: -0.035em;
+  }
+  .body { margin: 0 0 22px; font-size: 1.0625rem; line-height: 1.7; color: var(--muted); }
+  .links { display: flex; flex-wrap: wrap; gap: 12px 28px; }
+  .links a { font-size: 0.9375rem; font-weight: 700; }
+  .en-line { margin: 40px 0 0; font-size: 0.875rem; color: var(--muted); }
+  .en-line a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
+  .en-line a:hover { color: var(--hl); }
+</style>

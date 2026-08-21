@@ -1,0 +1,156 @@
+---
+/**
+ * Newsletter signup form. Posts to /api/subscribe, which forwards the address
+ * to the mailing provider (src/lib/mailing.ts).
+ *
+ * Progressive enhancement: with JS the submit turns into a fetch and the
+ * result lands inline; without JS the native post redirects to the
+ * thank-you page (routes.newsletterThanks). The "website" field is a
+ * honeypot: visually parked off-screen, ignored by people, filled by bots.
+ *
+ * variant="row"  : input and button side by side (footer block)
+ * variant="card" : stacked, for narrow containers (article sidebar)
+ */
+import { routes, ui, type Lang } from '../lib/site';
+
+interface Props {
+  lang: Lang;
+  variant?: 'row' | 'card';
+}
+const { lang, variant = 'row' } = Astro.props;
+const t = ui[lang];
+const fieldId = `nl-email-${Math.random().toString(36).slice(2, 8)}`;
+const strings = JSON.stringify({ busy: t.newsBusy, done: t.newsDone, errEmail: t.newsErrEmail, errDown: t.newsErrDown });
+---
+<form
+  class={`nl-form nl-form--${variant}`}
+  method="post"
+  action="/api/subscribe"
+  data-newsletter-form
+  data-strings={strings}
+>
+  <input type="hidden" name="kind" value="newsletter" />
+  <input type="hidden" name="lang" value={lang} />
+  <input type="hidden" name="source" value={Astro.url.pathname} />
+  <p class="hp" aria-hidden="true">
+    <label>
+      Website
+      <input type="text" name="website" tabindex="-1" autocomplete="off" />
+    </label>
+  </p>
+  <div class="row" data-fields>
+    <label class="sr-only" for={fieldId}>{t.newsLabel}</label>
+    <input
+      id={fieldId}
+      class="email"
+      type="email"
+      name="email"
+      required
+      maxlength="254"
+      placeholder={t.newsPlaceholder}
+      autocomplete="email"
+    />
+    <button type="submit" class="btn-signal submit">{t.newsSubmit}</button>
+  </div>
+  <p class="fine" data-fine>{t.newsFinePre}<a href={routes.legal.privacy[lang]}>{t.newsFineLink}</a>{t.newsFinePost}</p>
+  <p class="msg" data-msg hidden aria-live="polite"></p>
+</form>
+
+<script>
+  for (const form of document.querySelectorAll<HTMLFormElement>('[data-newsletter-form]')) {
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const strings = JSON.parse(form.dataset.strings ?? '{}');
+      const fields = form.querySelector<HTMLElement>('[data-fields]');
+      const fine = form.querySelector<HTMLElement>('[data-fine]');
+      const msg = form.querySelector<HTMLElement>('[data-msg]');
+      const button = form.querySelector<HTMLButtonElement>('button[type="submit"]');
+      if (!fields || !msg || !button) return;
+
+      const label = button.textContent;
+      button.disabled = true;
+      button.textContent = strings.busy;
+      msg.hidden = true;
+
+      let ok = false;
+      let error = 'provider_error';
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify(Object.fromEntries(new FormData(form).entries())),
+        });
+        const body = await res.json().catch(() => ({}));
+        ok = res.ok && body.ok === true;
+        if (typeof body.error === 'string') error = body.error;
+      } catch {
+        /* network failure: fall through to the error message */
+      }
+
+      if (ok) {
+        fields.hidden = true;
+        if (fine) fine.hidden = true;
+        msg.textContent = strings.done;
+        msg.classList.add('msg--ok');
+        msg.hidden = false;
+      } else {
+        button.disabled = false;
+        button.textContent = label;
+        msg.textContent = error === 'invalid_email' ? strings.errEmail : strings.errDown;
+        msg.classList.remove('msg--ok');
+        msg.hidden = false;
+      }
+    });
+  }
+</script>
+
+<style>
+  .nl-form { min-width: 0; }
+  .hp { position: absolute; left: -9999px; top: 0; margin: 0; }
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+  .row { display: flex; gap: 12px; }
+  .email {
+    flex: 1;
+    min-width: 0;
+    box-sizing: border-box;
+    height: 48px;
+    border-radius: 10px;
+    border: 1.5px solid var(--line);
+    background: #ffffff;
+    padding: 0 16px;
+    font-family: inherit;
+    font-size: 0.96875rem;
+    color: var(--brand);
+  }
+  .email::placeholder { color: color-mix(in srgb, var(--muted) 62%, transparent); }
+  .email:focus {
+    outline: none;
+    border-color: var(--hl);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--hl) 18%, transparent);
+  }
+  .submit {
+    border: 0;
+    cursor: pointer;
+    padding: 13px 26px;
+    font-size: 0.9375rem;
+    white-space: nowrap;
+  }
+  .submit:disabled { opacity: 0.7; cursor: default; transform: none; box-shadow: none; }
+  .fine { margin: 12px 0 0; font-size: 0.78125rem; line-height: 1.6; color: var(--muted); }
+  .fine a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
+  .fine a:hover { color: var(--hl); }
+  .msg { margin: 12px 0 0; font-size: 0.875rem; font-weight: 600; color: var(--signal); }
+  .msg--ok { color: var(--posText); }
+
+  .nl-form--card .row { flex-direction: column; gap: 10px; }
+  .nl-form--card .email { height: 44px; padding: 0 14px; font-size: 0.90625rem; }
+  .nl-form--card .submit { width: 100%; padding: 12px 20px; font-size: 0.90625rem; }
+  .nl-form--card .fine { font-size: 0.75rem; }
+</style>

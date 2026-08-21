@@ -7,6 +7,7 @@
 import { Image } from 'astro:assets';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ClaireMark from '../ClaireMark.astro';
+import NewsletterForm from '../NewsletterForm.astro';
 import { abs, routes, ui, type ArticleKey, type Lang } from '../../lib/site';
 import { articles, articleUi, authors, readTime } from '../../data/articles';
 
@@ -165,8 +166,24 @@ const schema = [
             <p>{t.claireBody}</p>
             <a href={routes.claire[lang]}>{s.claireCta}</a>
           </div>
+          <div class="news-card">
+            <h3>{s.newsCardTitle}</h3>
+            <p>{s.newsCardBody}</p>
+            <NewsletterForm lang={lang} variant="card" />
+          </div>
         </aside>
       </div>
+
+      {/* The whitepaper is the next step for a reader who just finished an
+          article; the band offers it once, before the "more" cards. */}
+      <aside class="wp-band">
+        <div class="wp-copy">
+          <p class="eyebrow eyebrow--teal wp-eyebrow">{s.wpEyebrow}</p>
+          <h2>{s.wpTitle}</h2>
+          <p class="wp-body">{s.wpBody}</p>
+        </div>
+        <a class="btn-signal wp-cta" href={routes.whitepaper[lang]}>{s.wpCta}</a>
+      </aside>
     </article>
 
     <section class="more">
@@ -317,6 +334,27 @@ const schema = [
     border-radius: 99px;
   }
   .claire-promo a:hover { background: #164E93; color: #fff; }
+  .news-card { border: 1px solid var(--line); border-radius: 16px; padding: 22px; background: #ffffff; }
+  .news-card h3 { margin: 0 0 8px; font-size: 1.0625rem; font-weight: 700; letter-spacing: -0.015em; }
+  .news-card p { margin: 0 0 16px; font-size: 0.875rem; line-height: 1.6; color: var(--muted); }
+
+  .wp-band {
+    margin-top: 64px;
+    background: var(--brand);
+    border-radius: 20px;
+    padding: 44px 48px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 40px;
+    align-items: center;
+  }
+  @media (max-width: 860px) {
+    .wp-band { grid-template-columns: minmax(0, 1fr); padding: 34px 30px; }
+  }
+  .wp-eyebrow { margin-bottom: 14px; font-size: 0.8125rem; }
+  .wp-band h2 { margin: 0 0 10px; font-size: clamp(1.4375rem, 2.4vw, 1.875rem); line-height: 1.15; font-weight: 700; letter-spacing: -0.025em; color: var(--bg); }
+  .wp-body { margin: 0; font-size: 0.96875rem; line-height: 1.65; color: color-mix(in srgb, var(--bg) 72%, transparent); max-width: 560px; }
+  .wp-cta { padding: 14px 26px; font-size: 0.96875rem; white-space: nowrap; justify-self: start; }
 
   .more { margin-top: 80px; background: var(--bg); border-top: 1px solid var(--line); }
   .more-inner { padding-top: 72px; padding-bottom: 72px; }
