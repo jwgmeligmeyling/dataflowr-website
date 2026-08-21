@@ -128,11 +128,13 @@ The demo copy staged in those specs is published copy: it is rendered into the
 images on the live site. The copy rules apply to it in full, and changing it
 means re-capturing the images, or the screenshots and the source drift apart.
 
-One exception: `copilot-facturen.jpg` is the YouTube thumbnail of the Copilot
-demo video (the article embeds the video itself in the hero slot via
-`heroVideo` in `articles.ts`). It comes from the video, not from a capture
-spec; a new video thumbnail means downloading it again from
-`i.ytimg.com/vi/<id>/maxresdefault.jpg`.
+The exception is the video articles. `copilot-facturen.jpg`,
+`claude-exact-demo-video.jpg` and `cashflowprognose-video.jpg` are YouTube
+thumbnails, not captures: those articles set `heroVideo` in `articles.ts` and
+embed the video itself in the hero slot, so the thumbnail only serves the share
+card and the overview cards. They come from the video, so a new thumbnail means
+downloading it again from `i.ytimg.com/vi/<id>/maxresdefault.jpg`, at 1280×720
+rather than the 2880×1620 of a capture.
 
 ## Share images
 

@@ -77,7 +77,7 @@ https://dataflowr.nl/en/services).
 - [Over ons](https://dataflowr.nl/over-ons): founders and background.
 - [Kennisbank](https://dataflowr.nl/kennisbank): practical guides on finance automation,
   written by the founders from real Exact Online administrations. English at
-  https://dataflowr.nl/en/resources. The seven articles:
+  https://dataflowr.nl/en/resources. The eight articles:
   - Waarom de maandafsluiting nog een week kost, en wat er écht helpt:
     https://dataflowr.nl/kennisbank/waarom-de-maandafsluiting-nog-een-week-kost
     (EN: https://dataflowr.nl/en/resources/why-the-month-end-close-still-takes-a-week)
@@ -97,6 +97,9 @@ https://dataflowr.nl/en/services).
     met demovideo:
     https://dataflowr.nl/kennisbank/van-vraag-tot-aandeelhoudersrapportage-met-claude
     (EN: https://dataflowr.nl/en/resources/from-question-to-shareholder-report-with-claude)
+  - Elke maandag een cashflowprognose in je mail (with video demo):
+    https://dataflowr.nl/kennisbank/elke-maandag-een-cashflowprognose-in-je-mail
+    (EN: https://dataflowr.nl/en/resources/a-cashflow-forecast-in-your-inbox-every-monday)
   - Facturen maken tijdens de meeting, met Copilot in Teams (with a video demo):
     https://dataflowr.nl/kennisbank/facturen-maken-tijdens-de-meeting-met-copilot
     (EN: https://dataflowr.nl/en/resources/creating-invoices-during-the-meeting-with-copilot)

@@ -119,6 +119,10 @@ const articleRoutes = {
     nl: '/kennisbank/van-vraag-tot-aandeelhoudersrapportage-met-claude',
     en: '/en/resources/from-question-to-shareholder-report-with-claude',
   },
+  cashflowprognose: {
+    nl: '/kennisbank/elke-maandag-een-cashflowprognose-in-je-mail',
+    en: '/en/resources/a-cashflow-forecast-in-your-inbox-every-monday',
+  },
   'copilot-facturen': {
     nl: '/kennisbank/facturen-maken-tijdens-de-meeting-met-copilot',
     en: '/en/resources/creating-invoices-during-the-meeting-with-copilot',

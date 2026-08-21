@@ -1035,6 +1035,177 @@ export const articles: Record<ArticleKey, Article> = {
     },
   },
 
+  cashflowprognose: {
+    author: 'daan',
+    dateIso: '2026-08-17',
+    nl: {
+      metaTitle: 'Elke maandag een cashflowprognose in je mail',
+      metaDescription:
+        'Eén opdracht aan Claude en er staat elke maandagochtend een cashflowprognose in je mailbox, met het Excel-bestand in OneDrive. Hoe scheduled tasks, MCP-koppelingen en de prognoseagent dat samen mogelijk maken.',
+      crumbCurrent: 'Wekelijkse cashflowprognose',
+      cat: 'AI',
+      tag: 'Praktijkcase',
+      date: '17 augustus 2026',
+      title: 'Elke maandag een cashflowprognose in je mail',
+      lead:
+        'In de video hieronder zie je het van begin tot eind gebeuren: één opdracht aan Claude, en voortaan staat er elke maandagochtend een verse cashflowprognose in je mailbox, met het Excel-bestand erbij in OneDrive. Dit artikel legt uit wat daar onder water gebeurt.',
+      hero: {
+        src: '/kennisbank/cashflowprognose-video.jpg',
+        alt: 'Beginbeeld van de video: de titel “Claude maakt je cashflowprognose, rechtstreeks uit Exact Online” over een cashflowgrafiek in Claude',
+        width: 1280,
+        height: 720,
+      },
+      heroVideo: {
+        embedUrl: 'https://www.youtube-nocookie.com/embed/yiIjpAwJCDI',
+        title: 'Demo: een wekelijkse cashflowprognose uit Exact Online met Claude',
+      },
+      blocks: [
+        {
+          type: 'p',
+          text: 'Wat je in de video ziet, is geen maatwerkproject en geen koppeling die speciaal voor deze demo is gebouwd. Het is een keten van vier onderdelen die elk één ding goed doen: Claude als assistent, de MCP-koppeling op Exact Online voor de cijfers, een prognoseagent voor het rekenwerk en een scheduled task voor de herhaling. Elk onderdeel is los te begrijpen, en dat is precies wat de opzet controleerbaar houdt.',
+        },
+        { type: 'h2', id: 'prognose', text: 'Waar de prognose vandaan komt' },
+        {
+          type: 'p',
+          text: 'De vraag in de video is simpel: draai een cashflowprognose voor de komende zes maanden. Claude heeft zelf geen cijfers, dus de eerste stap is altijd een leesverzoek aan de administratie, via de MCP-koppeling en je eigen Exact Online-toegang. Daarna roept Claude de prognoseagent aan, en die bouwt de prognose op uit wat er werkelijk in de administratie staat: de openstaande debiteuren en crediteuren met hun vervaldatums, het feitelijke betaalgedrag uit de historie, het werkkapitaal en het budget voor de perioden die nog komen.',
+        },
+        {
+          type: 'p',
+          text: 'De methode is hybride. Voor de eerste weken telt de agent de openstaande posten en hun vervaldatums direct op; voor de maanden daarna schuift hij naar een indirecte benadering op basis van de resultatenrekening en het werkkapitaalverloop. De aannames die daarbij gelden, hoeveel weken de directe telling beslaat, welk betaalgedrag wordt aangehouden, staan in het dashboard en pas je daar ook aan. Het rekenwerk zelf gebeurt in een deterministische rekenlaag; het taalmodel formuleert alleen wat eruit komt.',
+        },
+        {
+          type: 'quote',
+          text: '"Claude rekent niet zelf. De prognose komt elke week uit dezelfde rekenlaag, met aannames die je kunt nalezen en cijfers die op dat moment uit je eigen administratie komen."',
+        },
+        { type: 'h2', id: 'drie-systemen', text: 'Eén opdracht, drie systemen' },
+        {
+          type: 'p',
+          text: 'Het tweede deel van de video draait om de vervolgvraag: maak hier een Excel-bestand van, zet het in OneDrive en mail me elke maandag een update. Die ene zin raakt drie systemen: Exact Online voor de cijfers, OneDrive voor het bestand en Outlook voor de mail. Voor Claude zijn dat drie losse koppelingen die alle drie hetzelfde protocol spreken, MCP. Daardoor kan één opdracht er dwars doorheen lopen zonder dat er ergens een integratieproject voor nodig was.',
+        },
+        {
+          type: 'p',
+          text: 'Claude doet daarbij niets stilzwijgend. In de video zie je Claude eerst toestemming vragen om in Exact Online mee te kijken, en daarna nog eens om de prognose te draaien; voor het versturen van mail geldt hetzelfde. Wie welke aanroep deed, staat achteraf in het auditlog van de koppeling.',
+        },
+        { type: 'h2', id: 'scheduled-task', text: 'Van vraag naar routine: de scheduled task' },
+        {
+          type: 'p',
+          text: 'Het sluitstuk is de scheduled task: een opdracht in gewone taal die Claude op een vast moment opnieuw uitvoert. In de video: roep de prognoseagent aan, sla het bestand op in OneDrive en stuur elke maandag om 08:00 uur een mail. De taak toont de prompt, de status en het volgende moment waarop hij draait, en je kunt hem op elk moment pauzeren of aanpassen.',
+        },
+        {
+          type: 'p',
+          text: 'Belangrijk om te zien: er wordt geen rapport bewaard en opnieuw verstuurd. Elke maandag draait de hele keten opnieuw, tegen de administratie van dat moment. Facturen die vorige week zijn betaald, zijn uit de prognose verdwenen; nieuwe inkoopfacturen zitten erin. De mail die binnenkomt vat de uitkomst samen, met de beginstand, de verwachte eindstand, de nettoverandering en de aandachtspunten, en daaronder het volledige Excel-bestand in je OneDrive.',
+        },
+        { type: 'h2', id: 'grenzen', text: 'Wat je ervan mag verwachten, en wat niet' },
+        {
+          type: 'p',
+          text: 'Een prognose is zo goed als de administratie eronder. Vervaldatums die niet worden bijgehouden, een budget dat halverwege het jaar ophoudt of inkoopfacturen die weken blijven liggen, komen allemaal terug als ruis in de uitkomst. De agent geeft daarom een bandbreedte in plaats van één lijn, gemeten aan hoe goed dezelfde methode het in het verleden op je eigen cijfers deed.',
+        },
+        {
+          type: 'p',
+          text: 'Het wekelijkse ritme heeft daarbij een eigen functie: wijkt de nieuwe prognose ineens af van die van vorige week, dan is er iets veranderd in de administratie dat je wilt zien. Zo wordt de prognose een signaal dat naar je toe komt, in plaats van een rapport dat je moet onthouden te openen. Het oordeel blijft bij jou; de prognose vertelt je waar je moet kijken.',
+        },
+        { type: 'h2', id: 'zelf-doen', text: 'Zelf opzetten' },
+        {
+          type: 'ol',
+          items: [
+            { strong: 'Koppel je assistent aan Exact Online.', rest: ' Dat is de MCP-koppeling van DataFlowr: inloggen met je eigen Exact Online-account, en de assistent ziet precies wat jij mag zien.' },
+            { strong: 'Koppel je mail en opslag.', rest: ' In Claude voeg je Outlook en OneDrive als connector toe, zodat de uitkomst ergens kan landen. Werk je met Gmail en Drive, dan werkt dat net zo.' },
+            { strong: 'Stel de vraag eerst één keer los.', rest: ' Draai de prognose, loop de aannames in het dashboard na en toets de uitkomst aan je eigen beeld van de cijfers. Pas daarna maak je er een scheduled task van.' },
+          ],
+        },
+        {
+          type: 'p',
+          text: 'Vragen over deze opzet, of hulp nodig om de aannames op jouw administratie goed te zetten? Neem gerust contact op; we zetten hem graag samen met je aan.',
+        },
+      ],
+      claireTitle: 'Claire maakt je cashflowprognose',
+      claireBody: 'Rechtstreeks uit je eigen administratie, wekelijks in je mail als je dat wilt.',
+    },
+    en: {
+      metaTitle: 'A cashflow forecast in your inbox every Monday',
+      metaDescription:
+        'One instruction to Claude and a cashflow forecast lands in your inbox every Monday morning, with the Excel file in OneDrive. How scheduled tasks, MCP connections and the forecasting agent make that work together.',
+      crumbCurrent: 'Weekly cashflow forecast',
+      cat: 'AI',
+      tag: 'Use case',
+      date: '17 August 2026',
+      title: 'A cashflow forecast in your inbox every Monday',
+      lead:
+        'The video below shows it end to end: one instruction to Claude, and from then on a fresh cashflow forecast lands in your inbox every Monday morning, with the Excel file in OneDrive. The video is Dutch-spoken; this article explains what happens under the surface.',
+      hero: {
+        src: '/kennisbank/cashflowprognose-video.jpg',
+        alt: 'Opening frame of the video: the Dutch title “Claude maakt je cashflowprognose, rechtstreeks uit Exact Online” over a cash forecast chart in Claude',
+        width: 1280,
+        height: 720,
+      },
+      heroVideo: {
+        embedUrl: 'https://www.youtube-nocookie.com/embed/yiIjpAwJCDI',
+        title: 'Demo: a weekly cashflow forecast from Exact Online with Claude (Dutch spoken)',
+      },
+      blocks: [
+        {
+          type: 'p',
+          text: 'What you see in the video is not a bespoke project, and not a connection built specially for the demo. It is a chain of four parts that each do one thing well: Claude as the assistant, the MCP connection to Exact Online for the figures, a forecasting agent for the number-crunching and a scheduled task for the repetition. Each part can be understood on its own, and that is exactly what keeps the setup controllable.',
+        },
+        { type: 'h2', id: 'forecast', text: 'Where the forecast comes from' },
+        {
+          type: 'p',
+          text: 'The question in the video is simple: run a cashflow forecast for the next six months. Claude has no figures of its own, so the first step is always a read request to the administration, through the MCP connection and your own Exact Online access. Claude then calls the forecasting agent, which builds the forecast from what is actually in the books: open receivables and payables with their due dates, actual payment behaviour from history, working capital and the budget for the periods still to come.',
+        },
+        {
+          type: 'p',
+          text: 'The method is hybrid. For the first weeks the agent adds up the open items and their due dates directly; for the months after that it shifts to an indirect approach based on the profit and loss account and the working capital pattern. The assumptions involved, how many weeks the direct count covers, what payment behaviour is assumed, sit in the dashboard and can be adjusted there. The number-crunching itself happens in a deterministic calculation layer; the language model only phrases what comes out.',
+        },
+        {
+          type: 'quote',
+          text: '"Claude does not do the maths itself. The forecast comes out of the same calculation layer every week, with assumptions you can read back and figures pulled from your own administration at that moment."',
+        },
+        { type: 'h2', id: 'three-systems', text: 'One instruction, three systems' },
+        {
+          type: 'p',
+          text: 'The second part of the video turns on the follow-up question: make this into an Excel file, put it in OneDrive and mail me an update every Monday. That one sentence touches three systems: Exact Online for the figures, OneDrive for the file and Outlook for the mail. To Claude these are three separate connections that all speak the same protocol, MCP. That is why one instruction can run straight through them without an integration project anywhere.',
+        },
+        {
+          type: 'p',
+          text: 'Claude does none of this silently. In the video you see Claude first ask permission to look into Exact Online, and then again to run the forecast; the same applies to sending mail. Afterwards, the connection’s audit log shows who made which call.',
+        },
+        { type: 'h2', id: 'scheduled-task', text: 'From question to routine: the scheduled task' },
+        {
+          type: 'p',
+          text: 'The closing piece is the scheduled task: an instruction in plain language that Claude runs again at a fixed moment. In the video: call the forecasting agent, save the file to OneDrive and send a mail every Monday at 08:00. The task shows the prompt, its status and the next moment it will run, and you can pause or change it at any time.',
+        },
+        {
+          type: 'p',
+          text: 'The important part: no report is stored and resent. Every Monday the whole chain runs again, against the administration as it stands at that moment. Invoices paid last week have dropped out of the forecast; new purchase invoices are in. The mail that arrives summarises the outcome, with the opening position, the expected end position, the net change and the points of attention, and the full Excel file in your OneDrive underneath.',
+        },
+        { type: 'h2', id: 'limits', text: 'What to expect from it, and what not' },
+        {
+          type: 'p',
+          text: 'A forecast is only as good as the administration underneath it. Due dates nobody maintains, a budget that stops halfway through the year or purchase invoices that sit unbooked for weeks all come back as noise in the outcome. That is why the agent gives a band rather than a single line, measured against how well the same method did on your own figures in the past.',
+        },
+        {
+          type: 'p',
+          text: 'The weekly rhythm has a function of its own: if the new forecast suddenly deviates from last week’s, something changed in the administration that you want to see. The forecast becomes a signal that comes to you, instead of a report you have to remember to open. The judgement stays with you; the forecast tells you where to look.',
+        },
+        { type: 'h2', id: 'set-up', text: 'Setting it up yourself' },
+        {
+          type: 'ol',
+          items: [
+            { strong: 'Connect your assistant to Exact Online.', rest: ' That is DataFlowr’s MCP connection: sign in with your own Exact Online account, and the assistant sees exactly what you are allowed to see.' },
+            { strong: 'Connect your mail and storage.', rest: ' In Claude you add Outlook and OneDrive as connectors, so the outcome has somewhere to land. If you work with Gmail and Drive, that works the same way.' },
+            { strong: 'Ask the question once, on its own, first.', rest: ' Run the forecast, walk through the assumptions in the dashboard and check the outcome against your own sense of the numbers. Only then turn it into a scheduled task.' },
+          ],
+        },
+        {
+          type: 'p',
+          text: 'Questions about this setup, or would you like help getting the assumptions right on your own administration? Do get in touch; we are happy to switch it on together with you.',
+        },
+      ],
+      claireTitle: 'Claire builds your cashflow forecast',
+      claireBody: 'Straight from your own administration, weekly in your inbox if you want it.',
+    },
+  },
+
   'copilot-facturen': {
     author: 'daan',
     dateIso: '2026-08-20',
