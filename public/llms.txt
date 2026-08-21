@@ -18,6 +18,42 @@ DataFlowr combines three disciplines in one team: deep Exact Online ecosystem kn
   so it works in Claude, ChatGPT, Microsoft Copilot or any MCP client. Reads freely,
   writes only after explicit user approval; no shadow copy of your data. Live within a day.
 
+## Documentation
+
+- [Documentatie](https://dataflowr.nl/documentatie): the Claire product documentation,
+  included with every plan (customers on Standard support work from these pages). English
+  at https://dataflowr.nl/en/docs. The twelve pages:
+  - Aan de slag met Claire: https://dataflowr.nl/documentatie/aan-de-slag-met-claire
+    (EN: https://dataflowr.nl/en/docs/getting-started-with-claire)
+  - Claude koppelen aan Exact Online:
+    https://dataflowr.nl/documentatie/claude-koppelen-aan-exact-online
+    (EN: https://dataflowr.nl/en/docs/connect-claude-to-exact-online)
+  - ChatGPT koppelen aan Exact Online:
+    https://dataflowr.nl/documentatie/chatgpt-koppelen-aan-exact-online
+    (EN: https://dataflowr.nl/en/docs/connect-chatgpt-to-exact-online)
+  - Microsoft 365 Copilot koppelen aan Exact Online:
+    https://dataflowr.nl/documentatie/copilot-koppelen-aan-exact-online
+    (EN: https://dataflowr.nl/en/docs/connect-copilot-to-exact-online)
+  - Make, Zapier en n8n koppelen aan Exact Online:
+    https://dataflowr.nl/documentatie/make-zapier-n8n-koppelen-aan-exact-online
+    (EN: https://dataflowr.nl/en/docs/connect-make-zapier-n8n-to-exact-online)
+  - Werken met Claire: https://dataflowr.nl/documentatie/werken-met-claire
+    (EN: https://dataflowr.nl/en/docs/working-with-claire)
+  - Wat je Claire kunt vragen: https://dataflowr.nl/documentatie/wat-je-claire-kunt-vragen
+    (EN: https://dataflowr.nl/en/docs/what-to-ask-claire)
+  - Debiteurenbeheer met Claire:
+    https://dataflowr.nl/documentatie/debiteurenbeheer-met-claire
+    (EN: https://dataflowr.nl/en/docs/receivables-management-with-claire)
+  - De maandafsluiting en planningen:
+    https://dataflowr.nl/documentatie/maandafsluiting-en-planningen
+    (EN: https://dataflowr.nl/en/docs/month-end-close-and-schedules)
+  - Team, toegang en logboek: https://dataflowr.nl/documentatie/team-toegang-en-logboek
+    (EN: https://dataflowr.nl/en/docs/team-access-and-audit-log)
+  - Abonnement en facturen: https://dataflowr.nl/documentatie/abonnement-en-facturen
+    (EN: https://dataflowr.nl/en/docs/subscription-and-invoices)
+  - Problemen oplossen: https://dataflowr.nl/documentatie/problemen-oplossen
+    (EN: https://dataflowr.nl/en/docs/troubleshooting)
+
 ## Services
 
 All six services are listed at https://dataflowr.nl/diensten (English:
@@ -41,7 +77,7 @@ https://dataflowr.nl/en/services).
 - [Over ons](https://dataflowr.nl/over-ons): founders and background.
 - [Kennisbank](https://dataflowr.nl/kennisbank): practical guides on finance automation,
   written by the founders from real Exact Online administrations. English at
-  https://dataflowr.nl/en/resources. The five articles:
+  https://dataflowr.nl/en/resources. The eight articles:
   - Waarom de maandafsluiting nog een week kost, en wat er écht helpt:
     https://dataflowr.nl/kennisbank/waarom-de-maandafsluiting-nog-een-week-kost
     (EN: https://dataflowr.nl/en/resources/why-the-month-end-close-still-takes-a-week)
@@ -57,7 +93,22 @@ https://dataflowr.nl/en/services).
   - Wat er nieuw is in de nieuwe release van onze MCP-koppeling:
     https://dataflowr.nl/kennisbank/wat-er-nieuw-is-in-de-mcp-release
     (EN: https://dataflowr.nl/en/resources/what-is-new-in-the-mcp-release)
-- Contact: daan@dataflowr.nl · janwillem@dataflowr.nl · +31 23 2052813 · book a call at https://dataflowr.nl/over-ons
+  - Van vraag tot aandeelhoudersrapportage: Claude op je Exact Online administratie,
+    met demovideo:
+    https://dataflowr.nl/kennisbank/van-vraag-tot-aandeelhoudersrapportage-met-claude
+    (EN: https://dataflowr.nl/en/resources/from-question-to-shareholder-report-with-claude)
+  - Elke maandag een cashflowprognose in je mail (with video demo):
+    https://dataflowr.nl/kennisbank/elke-maandag-een-cashflowprognose-in-je-mail
+    (EN: https://dataflowr.nl/en/resources/a-cashflow-forecast-in-your-inbox-every-monday)
+  - Facturen maken tijdens de meeting, met Copilot in Teams (with a video demo):
+    https://dataflowr.nl/kennisbank/facturen-maken-tijdens-de-meeting-met-copilot
+    (EN: https://dataflowr.nl/en/resources/creating-invoices-during-the-meeting-with-copilot)
+- [Contact](https://dataflowr.nl/contact): phone +31 23 2052813, info@dataflowr.nl,
+  daan@dataflowr.nl, janwillem@dataflowr.nl, or book a 30-minute call. English at
+  https://dataflowr.nl/en/contact.
+- [Ondersteuning](https://dataflowr.nl/ondersteuning): support for Claire and the
+  integrations, by phone (+31 23 2052813), email (info@dataflowr.nl) or a scheduled call.
+  English at https://dataflowr.nl/en/support.
 - LinkedIn: https://linkedin.com/company/dataflowr
 
 ## Legal
