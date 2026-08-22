@@ -103,6 +103,12 @@ https://dataflowr.nl/en/services).
   - Facturen maken tijdens de meeting, met Copilot in Teams (with a video demo):
     https://dataflowr.nl/kennisbank/facturen-maken-tijdens-de-meeting-met-copilot
     (EN: https://dataflowr.nl/en/resources/creating-invoices-during-the-meeting-with-copilot)
+- [Whitepaper](https://dataflowr.nl/whitepaper): "AI in je Exact Online-administratie", a
+  12-page PDF for controllers and CFOs: what MCP is, the four tasks Claire takes over,
+  security and control, pricing, getting started. Free download behind an email form.
+  English at https://dataflowr.nl/en/whitepaper.
+- [Nieuwsbrief](https://dataflowr.nl/nieuwsbrief): about one email a month with new
+  knowledge-base articles and Claire releases. English at https://dataflowr.nl/en/newsletter.
 - [Contact](https://dataflowr.nl/contact): phone +31 23 2052813, info@dataflowr.nl,
   daan@dataflowr.nl, janwillem@dataflowr.nl, or book a 30-minute call. English at
   https://dataflowr.nl/en/contact.
@@ -114,7 +120,7 @@ https://dataflowr.nl/en/services).
 ## Legal
 
 - [Privacyverklaring](https://dataflowr.nl/privacyverklaring): what data DataFlowr processes,
-  which processors are involved (Auth0, Stripe, OpenRouter, hosting), retention periods, and
+  which processors are involved (Auth0, Stripe, OpenRouter, hosting, mailing), retention periods, and
   what happens to an Exact Online administration when Claire is used. English at
   https://dataflowr.nl/en/privacy; the published short link https://dataflowr.nl/privacy
   redirects here.

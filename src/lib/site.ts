@@ -170,6 +170,22 @@ export const routes = {
    */
   article: articleRoutes.maandafsluiting,
   /**
+   * Whitepaper funnel. The landing page carries the download form; the
+   * thank-you pages are the form's redirect targets (noindex, out of the
+   * sitemap). "Whitepaper" is the loanword Dutch finance uses, so the slug
+   * is the same in both languages.
+   */
+  whitepaper: { nl: '/whitepaper', en: '/en/whitepaper' },
+  whitepaperThanks: { nl: '/whitepaper/bedankt', en: '/en/whitepaper/thank-you' },
+  /**
+   * Newsletter landing page: the link target from the footer and elsewhere,
+   * so the footer itself stays a footer (design review). The signup form
+   * also appears in the article sidebar.
+   */
+  newsletter: { nl: '/nieuwsbrief', en: '/en/newsletter' },
+  /** No-JS redirect target of the newsletter forms (noindex, out of the sitemap). */
+  newsletterThanks: { nl: '/nieuwsbrief/bedankt', en: '/en/newsletter/thank-you' },
+  /**
    * Legal pages. The English slugs are the ones the previous site served, and
    * shipped artefacts still point at the bare `/privacy` and `/terms`: the
    * Codex plugin manifest, the Copilot package and the marketplace
@@ -227,6 +243,22 @@ export const ui = {
     contactPage: 'Contact',
     supportPage: 'Ondersteuning',
     docsPage: 'Documentatie',
+    whitepaperPage: 'Whitepaper',
+    newsletterPage: 'Nieuwsbrief',
+    /** Newsletter signup (landing page and the compact card variants). */
+    newsHeading: 'Nieuwsbrief',
+    newsTitle: 'Nieuwe artikelen en Claire-releases in je mail',
+    newsBody: 'Ongeveer één mail per maand. Geen verkooppraatjes.',
+    newsLabel: 'E-mailadres',
+    newsPlaceholder: 'je@bedrijf.nl',
+    newsSubmit: 'Aanmelden',
+    newsBusy: 'Aanmelden…',
+    newsFinePre: 'Afmelden kan altijd. Zie de ',
+    newsFineLink: 'privacyverklaring',
+    newsFinePost: '.',
+    newsDone: 'Je aanmelding is binnen.',
+    newsErrEmail: 'Controleer je e-mailadres.',
+    newsErrDown: 'Aanmelden lukt nu even niet. Probeer het later opnieuw of mail info@dataflowr.nl.',
     serviceNavDescriptions: {
       'exact-online-premium': 'Implementatie & partner',
       integraties: 'Systemen & data koppelen',
@@ -274,6 +306,22 @@ export const ui = {
     contactPage: 'Contact',
     supportPage: 'Support',
     docsPage: 'Documentation',
+    whitepaperPage: 'Whitepaper',
+    newsletterPage: 'Newsletter',
+    /** Newsletter signup (landing page and the compact card variants). */
+    newsHeading: 'Newsletter',
+    newsTitle: 'New articles and Claire releases in your inbox',
+    newsBody: 'About one email a month. No sales pitches.',
+    newsLabel: 'Email address',
+    newsPlaceholder: 'you@company.com',
+    newsSubmit: 'Subscribe',
+    newsBusy: 'Subscribing…',
+    newsFinePre: 'Unsubscribe any time. See the ',
+    newsFineLink: 'privacy policy',
+    newsFinePost: '.',
+    newsDone: 'You are subscribed.',
+    newsErrEmail: 'Check your email address.',
+    newsErrDown: 'Subscribing is not working right now. Try again later or email info@dataflowr.nl.',
     serviceNavDescriptions: {
       'exact-online-premium': 'Implementation & partner',
       integraties: 'Connect systems & data',
@@ -291,6 +339,15 @@ export const ui = {
       training: 'Training',
     } as Record<ServiceKey, string>,
   },
+} as const;
+
+/**
+ * The whitepaper PDFs behind the download form. Generated into public/ by
+ * scripts/generate-whitepaper.ts; regenerate rather than editing the files.
+ */
+export const WHITEPAPER_PDF = {
+  nl: '/downloads/dataflowr-claire-whitepaper-nl.pdf',
+  en: '/downloads/dataflowr-claire-whitepaper-en.pdf',
 } as const;
 
 /** Absolute URL helper. */

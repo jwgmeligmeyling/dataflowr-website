@@ -1,0 +1,197 @@
+---
+/**
+ * Thank-you pages behind the signup forms; /api/subscribe redirects here.
+ * kind="whitepaper": the download itself lives on this page, so a reader
+ * gets the PDF right away and never waits for mail. kind="newsletter":
+ * the no-JS confirmation (with JS the forms confirm inline).
+ *
+ * `?status=fout` marks a failed submission (invalid address); a tiny inline
+ * script swaps in the error copy. The pages are noindex and stay out of
+ * the sitemap (see astro.config.mjs).
+ */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { routes, ui, WHITEPAPER_PDF, type Lang } from '../../lib/site';
+
+interface Props {
+  lang: Lang;
+  kind: 'whitepaper' | 'newsletter';
+}
+const { lang, kind } = Astro.props;
+const other: Lang = lang === 'nl' ? 'en' : 'nl';
+
+const nl = {
+  whitepaper: {
+    metaTitle: 'De whitepaper staat voor je klaar',
+    eyebrow: 'Whitepaper',
+    title: 'De whitepaper staat voor je klaar',
+    body: 'Download de PDF hieronder. Doorpraten over de inhoud? Plan een kennismaking of mail naar info@dataflowr.nl.',
+    docTitle: 'AI in je Exact Online-administratie',
+    docMeta: 'PDF · 12 pagina’s · Nederlands',
+    download: 'Download de PDF',
+    errTitle: 'Dat ging niet goed',
+    errBody: 'Je e-mailadres kwam niet goed door. Ga terug naar de whitepaperpagina en probeer het opnieuw.',
+    errLink: 'Naar de whitepaperpagina →',
+    links: [
+      { label: 'Plan een kennismaking →', href: routes.about.nl },
+      { label: 'Terug naar de kennisbank →', href: routes.resources.nl },
+    ],
+  },
+  newsletter: {
+    metaTitle: 'Je aanmelding is binnen',
+    eyebrow: 'Nieuwsbrief',
+    title: 'Je aanmelding is binnen',
+    body: 'Ongeveer één mail per maand, met nieuwe artikelen en Claire-releases. Afmelden kan onderaan elke mail.',
+    docTitle: '',
+    docMeta: '',
+    download: '',
+    errTitle: 'Dat ging niet goed',
+    errBody: 'Je aanmelding is niet gelukt. Probeer het opnieuw, of mail naar info@dataflowr.nl.',
+    errLink: 'Naar de nieuwsbriefpagina →',
+    links: [
+      { label: 'Naar de kennisbank →', href: routes.resources.nl },
+      { label: 'Naar de homepage →', href: routes.home.nl },
+    ],
+  },
+};
+
+const en: typeof nl = {
+  whitepaper: {
+    metaTitle: 'Your whitepaper is ready',
+    eyebrow: 'Whitepaper',
+    title: 'Your whitepaper is ready',
+    body: 'Download the PDF below. Want to talk it through? Book an intro call or email info@dataflowr.nl.',
+    docTitle: 'AI in your Exact Online administration',
+    docMeta: 'PDF · 12 pages · English',
+    download: 'Download the PDF',
+    errTitle: 'That did not work',
+    errBody: 'Your email address did not come through. Go back to the whitepaper page and try again.',
+    errLink: 'To the whitepaper page →',
+    links: [
+      { label: 'Book an intro call →', href: routes.about.en },
+      { label: 'Back to the knowledge base →', href: routes.resources.en },
+    ],
+  },
+  newsletter: {
+    metaTitle: 'You are subscribed',
+    eyebrow: 'Newsletter',
+    title: 'You are subscribed',
+    body: 'About one email a month, with new articles and Claire releases. Unsubscribe at the bottom of every email.',
+    docTitle: '',
+    docMeta: '',
+    download: '',
+    errTitle: 'That did not work',
+    errBody: 'Subscribing did not work. Try again, or email info@dataflowr.nl.',
+    errLink: 'To the newsletter page →',
+    links: [
+      { label: 'To the knowledge base →', href: routes.resources.en },
+      { label: 'To the homepage →', href: routes.home.en },
+    ],
+  },
+};
+
+const t = (lang === 'nl' ? nl : en)[kind];
+const retryHref = kind === 'whitepaper' ? routes.whitepaper[lang] : routes.newsletter[lang];
+const thanksRoute = kind === 'whitepaper' ? routes.whitepaperThanks : routes.newsletterThanks;
+---
+<BaseLayout
+  lang={lang}
+  title={t.metaTitle}
+  description={t.body}
+  path={thanksRoute[lang]}
+  altPath={thanksRoute[other]}
+  navVariant="solid"
+  footer="compact-white"
+  noindex={true}
+>
+  <section class="page">
+    <div class="wrap inner">
+      <div class="col" data-state="ok">
+        <p class="eyebrow">{t.eyebrow}</p>
+        <h1>{t.title}</h1>
+        <p class="body">{t.body}</p>
+
+        {kind === 'whitepaper' && (
+          <div class="doc">
+            <span class="doc-icon" aria-hidden="true">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M14 3H7a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V7l-4-4Z" stroke="var(--hl)" stroke-width="1.7" stroke-linejoin="round" />
+                <path d="M14 3v4h4" stroke="var(--hl)" stroke-width="1.7" stroke-linejoin="round" />
+                <path d="M12 11v6m0 0-2.4-2.4M12 17l2.4-2.4" stroke="var(--hl)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </span>
+            <div class="doc-text">
+              <p class="doc-title">{t.docTitle}</p>
+              <p class="doc-meta">{t.docMeta}</p>
+            </div>
+            <a class="btn-signal doc-btn" href={WHITEPAPER_PDF[lang]} download>{t.download}</a>
+          </div>
+        )}
+
+        <div class="links">
+          {t.links.map((link) => <a href={link.href}>{link.label}</a>)}
+        </div>
+      </div>
+
+      <div class="col" data-state="fout" hidden>
+        <p class="eyebrow">{t.eyebrow}</p>
+        <h1>{t.errTitle}</h1>
+        <p class="body">{t.errBody}</p>
+        <div class="links">
+          <a href={retryHref}>{t.errLink}</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* The redirect carries ?status=fout when the address was refused. */}
+  <script is:inline>
+    if (new URLSearchParams(location.search).get('status') === 'fout') {
+      document.querySelector('[data-state="ok"]').hidden = true;
+      document.querySelector('[data-state="fout"]').hidden = false;
+    }
+  </script>
+</BaseLayout>
+
+<style>
+  .inner { padding-top: 72px; padding-bottom: 88px; }
+  .col { max-width: 660px; }
+  h1 {
+    margin: 0 0 18px;
+    font-size: clamp(1.875rem, 3.4vw, 2.5rem);
+    line-height: 1.1;
+    font-weight: 700;
+    letter-spacing: -0.035em;
+  }
+  .body { margin: 0 0 34px; font-size: 1.0625rem; line-height: 1.7; color: var(--muted); text-wrap: pretty; }
+
+  .doc {
+    background: #ffffff;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 22px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px;
+    align-items: center;
+  }
+  .doc-icon {
+    width: 56px;
+    height: 56px;
+    flex: none;
+    border-radius: 99px;
+    background: color-mix(in srgb, var(--hl) 9%, transparent);
+    display: grid;
+    place-items: center;
+  }
+  .doc-icon svg { display: block; }
+  .doc-text { min-width: 0; }
+  .doc-title { margin: 0 0 3px; font-size: 0.9375rem; font-weight: 700; letter-spacing: -0.01em; }
+  .doc-meta { margin: 0; font-size: 0.8125rem; color: var(--muted); }
+  .doc-btn { margin-left: auto; padding: 13px 22px; font-size: 0.90625rem; white-space: nowrap; }
+  @media (max-width: 560px) {
+    .doc-btn { margin-left: 0; }
+  }
+
+  .links { display: flex; flex-wrap: wrap; gap: 12px 28px; margin-top: 26px; }
+  .links a { font-size: 0.90625rem; font-weight: 700; }
+</style>

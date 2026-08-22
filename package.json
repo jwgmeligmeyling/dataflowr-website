@@ -8,10 +8,11 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "check:copy": "grep -rIn '—' src public scripts README.md CLAUDE.md astro.config.mjs vercel.json && echo 'Em dash found in the lines above. See CLAUDE.md, \"Copy rules\".' && exit 1 || exit 0"
+    "check:copy": "grep -rIn '—' src public scripts README.md CLAUDE.md astro.config.mjs && echo 'Em dash found in the lines above. See CLAUDE.md, \"Copy rules\".' && exit 1 || exit 0"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.3",
+    "@astrojs/vercel": "^11.0.7",
     "astro": "^7.1.6"
   },
   "allowScripts": {

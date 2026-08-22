@@ -1,0 +1,361 @@
+---
+/**
+ * Whitepaper landing page: the one fixed place the whitepaper lives, linked
+ * from the footer, the band under every article and the kennisbank overview.
+ *
+ * The form posts natively to /api/subscribe (kind=whitepaper): the endpoint
+ * answers with a redirect to the thank-you page, where the download lives.
+ * No client JS involved; the download does not depend on the mailing
+ * provider being up. The optional checkbox joins the newsletter list too.
+ */
+import { Image } from 'astro:assets';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Logo from '../Logo.astro';
+import { abs, routes, ui, type Lang } from '../../lib/site';
+import { authors } from '../../data/articles';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const other: Lang = lang === 'nl' ? 'en' : 'nl';
+
+const nl = {
+  metaTitle: 'Whitepaper: AI in je Exact Online-administratie',
+  metaDescription:
+    'Whitepaper voor controllers en CFO’s: welke taken Claire vandaag overneemt in Exact Online, hoe de beveiliging in elkaar zit en hoe je klein begint. Direct te downloaden als PDF.',
+  eyebrow: 'Whitepaper · PDF',
+  titlePre: 'AI in je ',
+  titleAccent: 'Exact Online',
+  titlePost: '-administratie',
+  lead:
+    'Voor controllers en CFO’s die willen weten wat een AI-assistent op de boekhouding vandaag kan: welke taken Claire overneemt, hoe de beveiliging in elkaar zit en hoe je klein begint.',
+  tocTitle: 'Wat staat erin',
+  chapters: [
+    {
+      title: 'Wat MCP is en waarom het voor finance uitmaakt',
+      sub: 'De koppelstandaard achter Claude, ChatGPT en Copilot, en wat die met je administratie kan.',
+    },
+    {
+      title: 'Vier taken die Claire vandaag overneemt',
+      sub: 'Vragen aan je cijfers, de maandafsluiting voorbereiden, debiteuren bewaken en terugkerende planningen.',
+    },
+    {
+      title: 'Veiligheid en controle',
+      sub: 'Lezen mag vrij, schrijven pas na jouw akkoord. Elke actie in het logboek, geen schaduwkopie van je data.',
+    },
+    {
+      title: 'Wat het kost',
+      sub: 'De abonnementen en wat erbij zit, van documentatie tot support.',
+    },
+    {
+      title: 'Aan de slag',
+      sub: 'Van koppelen tot eerste antwoord: live binnen een dag, zonder migratie.',
+    },
+  ],
+  metaLine: '12 pagina’s · PDF · Nederlands en Engels',
+  formTitle: 'Ontvang de whitepaper',
+  formBody: 'Laat je e-mailadres achter; direct daarna staat de download voor je klaar.',
+  coverSub: 'Whitepaper · PDF · 12 pagina’s',
+  emailLabel: 'E-mailadres',
+  checkbox: 'Stuur me ook nieuwe kennisbankartikelen. Ongeveer één mail per maand.',
+  submit: 'Ontvang de whitepaper',
+  finePre: 'Afmelden kan altijd. Hoe we met je adres omgaan staat in de ',
+  fineLink: 'privacyverklaring',
+  finePost: '.',
+  authorsPre: 'Geschreven door ',
+  authorsMid: ' en ',
+  authorsPost: ', vanuit echte Exact Online-administraties.',
+};
+
+const en: typeof nl = {
+  metaTitle: 'Whitepaper: AI in your Exact Online administration',
+  metaDescription:
+    'Whitepaper for controllers and CFOs: which tasks Claire takes over in Exact Online today, how the security works and how to start small. Direct PDF download.',
+  eyebrow: 'Whitepaper · PDF',
+  titlePre: 'AI in your ',
+  titleAccent: 'Exact Online',
+  titlePost: ' administration',
+  lead:
+    'For controllers and CFOs who want to know what an AI assistant on the books can do today: which tasks Claire takes over, how the security works and how to start small.',
+  tocTitle: 'What is inside',
+  chapters: [
+    {
+      title: 'What MCP is and why it matters for finance',
+      sub: 'The connection standard behind Claude, ChatGPT and Copilot, and what it can do with your administration.',
+    },
+    {
+      title: 'Four tasks Claire takes over today',
+      sub: 'Questions about your figures, preparing the month-end close, watching receivables and recurring schedules.',
+    },
+    {
+      title: 'Security and control',
+      sub: 'Reading is free, writing only after your approval. Every action in the audit log, no shadow copy of your data.',
+    },
+    {
+      title: 'What it costs',
+      sub: 'The plans and what they include, from documentation to support.',
+    },
+    {
+      title: 'Getting started',
+      sub: 'From connecting to a first answer: live within a day, no migration.',
+    },
+  ],
+  metaLine: '12 pages · PDF · Dutch and English',
+  formTitle: 'Get the whitepaper',
+  formBody: 'Leave your email address; the download is ready right after.',
+  coverSub: 'Whitepaper · PDF · 12 pages',
+  emailLabel: 'Email address',
+  checkbox: 'Also send me new knowledge-base articles. About one email a month.',
+  submit: 'Get the whitepaper',
+  finePre: 'Unsubscribe any time. How we handle your address is in the ',
+  fineLink: 'privacy policy',
+  finePost: '.',
+  authorsPre: 'Written by ',
+  authorsMid: ' and ',
+  authorsPost: ', from real Exact Online administrations.',
+};
+
+const t = lang === 'nl' ? nl : en;
+const u = ui[lang];
+const path = routes.whitepaper[lang];
+
+const schema = [
+  {
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: u.home, item: abs(routes.home[lang]) },
+      { '@type': 'ListItem', position: 2, name: u.whitepaperPage, item: abs(path) },
+    ],
+  },
+];
+---
+<BaseLayout
+  lang={lang}
+  title={t.metaTitle}
+  description={t.metaDescription}
+  path={path}
+  altPath={routes.whitepaper[other]}
+  navVariant="solid"
+  footer="full"
+  schema={schema}
+>
+  <div class="page">
+    <section class="wrap head">
+      <p class="eyebrow">{t.eyebrow}</p>
+      <h1>{t.titlePre}<span class="accent">{t.titleAccent}</span>{t.titlePost}</h1>
+      <p class="lead">{t.lead}</p>
+    </section>
+
+    <section class="wrap grid">
+      <div class="toc">
+        <p class="toc-title">{t.tocTitle}</p>
+        <ol class="chapters">
+          {t.chapters.map((chapter, i) => (
+            <li class="chapter">
+              <span class="num">{i + 1}</span>
+              <div>
+                <p class="ch-title">{chapter.title}</p>
+                <p class="ch-sub">{chapter.sub}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+        <p class="meta-line">{t.metaLine}</p>
+      </div>
+
+      <form class="card" method="post" action="/api/subscribe">
+        <input type="hidden" name="kind" value="whitepaper" />
+        <input type="hidden" name="lang" value={lang} />
+        <input type="hidden" name="source" value={path} />
+        <p class="hp" aria-hidden="true">
+          <label>
+            Website
+            <input type="text" name="website" tabindex="-1" autocomplete="off" />
+          </label>
+        </p>
+        <div class="preview">
+          <span class="cover" aria-hidden="true">
+            <Logo mode="mark" h={15} style="--logoBase: transparent" />
+            <span class="cover-lines">
+              <span class="cover-line cover-line--1"></span>
+              <span class="cover-line cover-line--2"></span>
+              <span class="cover-line cover-line--accent"></span>
+            </span>
+          </span>
+          <span class="preview-text">
+            <strong>{t.titlePre}{t.titleAccent}{t.titlePost}</strong>
+            <span>{t.coverSub}</span>
+          </span>
+        </div>
+        <p class="form-body">{t.formBody}</p>
+        <label class="label" for="wp-email">{t.emailLabel}</label>
+        <input
+          id="wp-email"
+          class="email"
+          type="email"
+          name="email"
+          required
+          maxlength="254"
+          placeholder={u.newsPlaceholder}
+          autocomplete="email"
+        />
+        <label class="check">
+          <input type="checkbox" name="newsletter" value="on" />
+          <span>{t.checkbox}</span>
+        </label>
+        <button type="submit" class="btn-signal submit">{t.submit}</button>
+        <p class="fine">{t.finePre}<a href={routes.legal.privacy[lang]}>{t.fineLink}</a>{t.finePost}</p>
+      </form>
+    </section>
+
+    <section class="authors">
+      <div class="wrap authors-inner">
+        <div class="photos">
+          <Image src={authors.daan.photo} alt={authors.daan.name} width={88} height={88} class="photo" />
+          <Image src={authors.janwillem.photo} alt={authors.janwillem.name} width={88} height={88} class="photo photo--overlap" />
+        </div>
+        <p class="authors-line">
+          {t.authorsPre}<strong>{authors.daan.name}</strong>{t.authorsMid}<strong>{authors.janwillem.name}</strong>{t.authorsPost}
+        </p>
+      </div>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  .head { padding-top: 64px; }
+  h1 {
+    margin: 0 0 22px;
+    font-size: clamp(2.125rem, 4.2vw, 3.25rem);
+    line-height: 1.08;
+    font-weight: 700;
+    letter-spacing: -0.035em;
+    max-width: 880px;
+    text-wrap: balance;
+  }
+  .accent { color: var(--hl); }
+  .lead { margin: 0; font-size: 1.28125rem; line-height: 1.65; color: var(--muted); max-width: 720px; text-wrap: pretty; }
+
+  .grid {
+    padding-top: 48px;
+    padding-bottom: 72px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 460px;
+    gap: 72px;
+    align-items: start;
+  }
+  @media (max-width: 980px) {
+    .grid { grid-template-columns: minmax(0, 1fr); gap: 44px; }
+  }
+
+  .toc-title {
+    margin: 0 0 10px;
+    font-size: 0.71875rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .chapters { margin: 0; padding: 0; list-style: none; }
+  .chapter {
+    display: grid;
+    grid-template-columns: 44px minmax(0, 1fr);
+    gap: 18px;
+    padding: 18px 0;
+  }
+  .chapter + .chapter { border-top: 1px solid var(--line); }
+  .num {
+    width: 34px;
+    height: 34px;
+    border-radius: 99px;
+    background: color-mix(in srgb, var(--hl) 9%, transparent);
+    color: var(--hl);
+    font-size: 0.9375rem;
+    font-weight: 700;
+    display: grid;
+    place-items: center;
+  }
+  .ch-title { margin: 0; font-size: 1.09375rem; font-weight: 700; letter-spacing: -0.015em; }
+  .ch-sub { margin: 4px 0 0; font-size: 0.90625rem; line-height: 1.6; color: var(--muted); }
+  .meta-line { margin: 14px 0 0; font-size: 0.84375rem; color: var(--muted); }
+
+  .card {
+    background: #ffffff;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 28px;
+    box-shadow: 0 16px 44px rgba(13, 27, 39, 0.08);
+  }
+  .hp { position: absolute; left: -9999px; top: 0; margin: 0; }
+  .preview {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 18px;
+  }
+  .cover {
+    width: 64px;
+    height: 90px;
+    flex: none;
+    background: var(--brand);
+    border-radius: 6px;
+    padding: 9px 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .cover-lines { display: flex; flex-direction: column; gap: 3px; }
+  .cover-line { display: block; height: 3px; border-radius: 2px; background: color-mix(in srgb, var(--bg) 85%, transparent); }
+  .cover-line--1 { width: 36px; }
+  .cover-line--2 { width: 26px; background: color-mix(in srgb, var(--bg) 55%, transparent); }
+  .cover-line--accent { width: 18px; height: 2px; background: var(--teal); margin-top: 3px; }
+  .preview-text { display: grid; gap: 3px; min-width: 0; }
+  .preview-text strong { font-size: 0.9375rem; font-weight: 700; letter-spacing: -0.01em; }
+  .preview-text span { font-size: 0.8125rem; color: var(--muted); }
+  .form-body { margin: 0 0 18px; font-size: 0.90625rem; line-height: 1.6; color: var(--muted); }
+  .label { display: block; font-size: 0.8125rem; font-weight: 600; margin-bottom: 6px; }
+  .email {
+    width: 100%;
+    box-sizing: border-box;
+    height: 48px;
+    border-radius: 10px;
+    border: 1.5px solid var(--line);
+    background: #ffffff;
+    padding: 0 16px;
+    font-family: inherit;
+    font-size: 0.96875rem;
+    color: var(--brand);
+  }
+  .email::placeholder { color: color-mix(in srgb, var(--muted) 62%, transparent); }
+  .email:focus {
+    outline: none;
+    border-color: var(--hl);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--hl) 18%, transparent);
+  }
+  .check { display: flex; gap: 10px; align-items: flex-start; margin-top: 16px; cursor: pointer; }
+  .check input { width: 18px; height: 18px; margin: 2px 0 0; accent-color: var(--hl); flex: none; }
+  .check span { font-size: 0.875rem; line-height: 1.55; color: var(--muted); }
+  .submit {
+    display: block;
+    width: 100%;
+    margin-top: 20px;
+    border: 0;
+    cursor: pointer;
+    padding: 15px 24px;
+    font-size: 0.96875rem;
+  }
+  .fine { margin: 14px 0 0; font-size: 0.78125rem; line-height: 1.6; color: var(--muted); }
+  .fine a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
+  .fine a:hover { color: var(--hl); }
+
+  .authors { background: #ffffff; border-top: 1px solid var(--line); }
+  .authors-inner { padding-top: 26px; padding-bottom: 26px; display: flex; align-items: center; gap: 16px; }
+  .photos { display: flex; flex: none; }
+  .photo { display: block; width: 44px; height: 44px; border-radius: 50%; object-fit: cover; border: 2px solid #ffffff; }
+  .photo--overlap { margin-left: -12px; }
+  .authors-line { margin: 0; font-size: 0.90625rem; line-height: 1.6; color: var(--muted); }
+  .authors-line strong { color: var(--brand); font-weight: 700; }
+</style>

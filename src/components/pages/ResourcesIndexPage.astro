@@ -30,6 +30,10 @@ const nl = {
   ctaTitle: 'Speelt hier iets van bij jou?',
   ctaSub: 'Plan een kennismaking van 30 minuten, vrijblijvend, en je spreekt direct een founder.',
   ctaBtn: 'Plan een kennismaking',
+  wpKicker: 'Whitepaper · PDF',
+  wpTitle: 'AI in je Exact Online-administratie',
+  wpSub: 'Wat Claire vandaag kan, waar de grenzen liggen en hoe je veilig begint. Voor controllers en CFO’s.',
+  wpLink: 'Download de whitepaper →',
 };
 
 const en: typeof nl = {
@@ -47,6 +51,10 @@ const en: typeof nl = {
   ctaTitle: 'Does any of this sound familiar?',
   ctaSub: 'Book a no-obligation 30-minute call and you speak to a founder directly.',
   ctaBtn: 'Get in touch',
+  wpKicker: 'Whitepaper · PDF',
+  wpTitle: 'AI in your Exact Online administration',
+  wpSub: 'What Claire can do today, where the limits are and how to start safely. For controllers and CFOs.',
+  wpLink: 'Download the whitepaper →',
 };
 
 const t = lang === 'nl' ? nl : en;
@@ -141,6 +149,17 @@ const schema = [
           </a>
         ))}
       </div>
+
+      {/* One quiet route into the whitepaper page; the dark closing CTA
+          below keeps the call itself. */}
+      <a href={routes.whitepaper[lang]} class="wp-strip">
+        <div class="wp-strip-text">
+          <span class="cat">{t.wpKicker}</span>
+          <h2>{t.wpTitle}</h2>
+          <p>{t.wpSub}</p>
+        </div>
+        <span class="wp-strip-link">{t.wpLink}</span>
+      </a>
     </section>
 
     <section class="cta">
@@ -224,6 +243,27 @@ const schema = [
   .lead-media img, .card-media img { display: block; width: 100%; height: 100%; object-fit: cover; }
   .cat { font-size: 0.71875rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--posText); }
   .meta { font-size: 0.84375rem; color: var(--muted); }
+
+  .wp-strip {
+    margin-top: 18px;
+    background: #ffffff;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 26px 30px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px 40px;
+    align-items: center;
+    justify-content: space-between;
+    color: var(--brand);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .wp-strip:hover { transform: translateY(-3px); box-shadow: 0 16px 44px rgba(13, 27, 39, 0.10); color: var(--brand); }
+  .wp-strip-text { min-width: 0; display: grid; gap: 6px; }
+  .wp-strip h2 { margin: 0; font-size: 1.28125rem; line-height: 1.25; font-weight: 700; letter-spacing: -0.015em; }
+  .wp-strip p { margin: 0; font-size: 0.90625rem; line-height: 1.6; color: var(--muted); max-width: 640px; }
+  .wp-strip-link { font-size: 0.90625rem; font-weight: 700; color: var(--hl); white-space: nowrap; }
+  .wp-strip:hover .wp-strip-link { color: var(--teal); }
 
   .cta { background: var(--bg); border-top: 1px solid var(--line); }
   .cta-inner { padding-top: 72px; padding-bottom: 72px; display: grid; gap: 14px; justify-items: start; }

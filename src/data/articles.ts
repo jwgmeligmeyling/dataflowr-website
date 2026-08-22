@@ -86,6 +86,14 @@ export const articleUi = {
     tocTitle: 'Op deze pagina',
     claireCta: 'Bekijk Claire',
     moreTitle: 'Meer uit de kennisbank',
+    /** Newsletter card in the article sidebar. */
+    newsCardTitle: 'Dit soort artikelen in je mail',
+    newsCardBody: 'Ongeveer één mail per maand, met nieuwe stukken uit de kennisbank.',
+    /** Whitepaper band between the article and the "more" cards. */
+    wpEyebrow: 'Whitepaper · PDF',
+    wpTitle: 'AI in je Exact Online-administratie',
+    wpBody: 'Wat Claire vandaag kan, waar de grenzen liggen en hoe je veilig begint. Geschreven voor controllers en CFO’s.',
+    wpCta: 'Download de whitepaper',
   },
   en: {
     crumbResources: 'Resources',
@@ -94,6 +102,14 @@ export const articleUi = {
     tocTitle: 'On this page',
     claireCta: 'Discover Claire',
     moreTitle: 'More from the knowledge base',
+    /** Newsletter card in the article sidebar. */
+    newsCardTitle: 'Articles like this in your inbox',
+    newsCardBody: 'About one email a month, with new pieces from the knowledge base.',
+    /** Whitepaper band between the article and the "more" cards. */
+    wpEyebrow: 'Whitepaper · PDF',
+    wpTitle: 'AI in your Exact Online administration',
+    wpBody: 'What Claire can do today, where the limits are and how to start safely. Written for controllers and CFOs.',
+    wpCta: 'Download the whitepaper',
   },
 } as const;
 

@@ -20,14 +20,15 @@ component; put it in the data file and render it from there.
 
 | File | Copy it holds |
 | --- | --- |
-| `src/lib/site.ts` | Nav, footer, breadcrumbs, shared UI strings, route table |
+| `src/lib/site.ts` | Nav, footer, breadcrumbs, shared UI strings (incl. the newsletter form), route table |
 | `src/data/services.ts` | The six service pages, NL + EN |
-| `src/data/articles.ts` | Knowledge-base articles, NL + EN |
+| `src/data/articles.ts` | Knowledge-base articles and the article-page furniture (newsletter card, whitepaper band), NL + EN |
 | `src/data/legal.ts` | Privacy statement and terms of service, NL + EN |
 | `src/components/pages/*.astro` | Page-specific copy, parameterised by `lang` |
 | `public/llms.txt` | Machine-readable summary for generative engines |
 | `scripts/*.spec.ts` | Demo copy that gets rendered into the article screenshots |
 | `scripts/generate-og.ts` | The headline and kicker rendered into the share cards |
+| `scripts/lib/whitepaper-copy.ts` | The whitepaper PDF, NL + EN (see "Newsletter and whitepaper") |
 
 Every string exists twice, `nl` and `en`. A copy change that lands in one
 language and not the other is an unfinished change.
@@ -114,8 +115,60 @@ typography rule holds. The register rules above still need a read.
   alternates and the language switcher all read from it.
 - Dutch sits at the root with Dutch slugs; English lives under `/en` with
   English slugs. Slugs are translated, not copied.
-- The build uses `build.format: 'file'`, so Vercel needs `"cleanUrls": true`
-  in `vercel.json` or every page except the homepage 404s.
+- The site is static except `POST /api/subscribe` (see "Newsletter and
+  whitepaper"). That one on-demand route is why `@astrojs/vercel` is in
+  astro.config.mjs; every page keeps prerendering by default, and the adapter
+  restructures the `build.format: 'file'` output so clean URLs work without
+  further host config.
+- There is no vercel.json: with the adapter, Vercel routes from the emitted
+  build output and ignores it. Redirects live in astro.config.mjs (and in
+  `public/_redirects` for Netlify). `src/pages/404.astro` is prerendered so
+  stray URLs hit the CDN, not the serverless function.
+
+## Newsletter and whitepaper
+
+Two email-capture funnels share one endpoint, `POST /api/subscribe`
+(`src/pages/api/subscribe.ts`, the only non-prerendered route; it runs as a
+Vercel serverless function). `src/lib/mailing.ts` forwards each signup to the
+mailing provider chosen with env vars; see `.env.example` for the exact names
+(Laposta and Brevo are implemented). Until those vars are set in Vercel, the
+endpoint returns `not_configured` and logs the address in the function logs,
+so nothing is silently lost, but nothing is stored either.
+
+- Newsletter: the form (`src/components/NewsletterForm.astro`) sits on
+  `/nieuwsbrief` and in the article sidebar. With JS it confirms inline;
+  without, the endpoint redirects to `/nieuwsbrief/bedankt`.
+- Whitepaper: the form on `/whitepaper` posts natively (no JS) and always
+  lands on `/whitepaper/bedankt`, where the download link is. The PDF is
+  deliberately not held hostage by mailing uptime; treat the email gate as
+  soft. The optional checkbox also joins the newsletter list.
+- The thank-you pages are noindex and filtered out of the sitemap
+  (astro.config.mjs).
+- Double opt-in, the welcome mail and unsubscribing are configured on the
+  list in the provider's dashboard, not in this repo. If you enable double
+  opt-in, reword `newsDone` in `src/lib/site.ts` (it currently says the
+  signup is complete).
+- The providers store no language of their own. To mail Dutch and English
+  readers separately, configure a list per language with the `_NL` / `_EN`
+  env var suffixes (see `.env.example`); an unsuffixed list takes both.
+- The endpoint throttles per IP and per address (five per ten minutes),
+  in-memory per serverless instance. Enough against naive abuse; put a WAF
+  rule in front if the endpoint draws real traffic.
+- The privacy statement names the mailing processor generically; a CONFIRM
+  comment in `src/data/legal.ts` marks where to name the chosen tool.
+
+The PDFs in `public/downloads/` are generated, never edited:
+
+```bash
+npm i --no-save playwright && npx tsx scripts/generate-whitepaper.ts
+```
+
+Copy lives in `scripts/lib/whitepaper-copy.ts` and is published copy; each
+entry in its `pages` array is one A4 page, and the generator fails when a
+page overflows. Claims must keep matching the site (pricing comes from the
+Claire page, MCP from the kennisbank article; sources are listed in the
+file header). If the page count changes, update the "12 pagina's" mentions
+in `WhitepaperPage.astro` and `SignupThanksPage.astro`.
 
 ## Article screenshots
 

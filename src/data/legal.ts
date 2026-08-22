@@ -96,6 +96,10 @@ const privacyNl: LegalContent = {
               rest: 'Je naam, e-mailadres, telefoonnummer, bedrijfsnaam en de inhoud van je bericht, wanneer je ons mailt of een kennismaking inplant.',
             },
             {
+              strong: 'Nieuwsbrief- en downloadgegevens.',
+              rest: 'Je e-mailadres, het aanmeldmoment en de pagina waarvandaan je je aanmeldde, wanneer je je aanmeldt voor de nieuwsbrief of de whitepaper downloadt.',
+            },
+            {
               strong: 'Accountgegevens.',
               rest: 'Je naam, e-mailadres en het inlogaccount waarmee je je aanmeldt bij app.dataflowr.nl. Het inloggen zelf loopt via onze identiteitsleverancier. Wij bewaren geen wachtwoorden.',
             },
@@ -188,6 +192,9 @@ const privacyNl: LegalContent = {
             { strong: 'Betalingen.', rest: 'Stripe verwerkt de abonnementsbetalingen en bewaart de betaalgegevens.' },
             { strong: 'AI-modellen.', rest: 'OpenRouter routeert je vraag naar het taalmodel dat het antwoord opstelt.' },
             { strong: 'Hosting en database.', rest: 'Onze hostingpartij draait de applicatie en de database waarin je account staat.' },
+            // CONFIRM: noem hier de gekozen mailingtool (bijv. Laposta of Brevo)
+            // zodra het account bestaat; zie CLAUDE.md, "Nieuwsbrief en whitepaper".
+            { strong: 'Nieuwsbrief en whitepaper.', rest: 'Onze mailingsoftware bewaart de aanmeldingen en verzorgt het versturen en het afmelden.' },
           ],
         },
         { type: 'p', text: 'Daarnaast verstrekken wij gegevens wanneer de wet ons daartoe verplicht.' },
@@ -204,6 +211,7 @@ const privacyNl: LegalContent = {
             // CONFIRM: 24 maanden, 90 dagen en 12 maanden zijn beleidskeuzes, geen
             // feiten uit de code. Vaststellen voordat dit live gaat.
             { strong: 'Contactgegevens.', rest: 'Tot 24 maanden na het laatste contact, tenzij er een opdracht uit voortkomt.' },
+            { strong: 'Nieuwsbriefaanmeldingen.', rest: 'Tot je je afmeldt. Afmelden kan onderaan elke mail; daarna verdwijnt je adres uit de verzendlijst.' },
             { strong: 'Account en gesprekken.', rest: 'Zolang je abonnement loopt. Na opzegging verwijderen wij het account en de bewaarde gesprekken binnen 90 dagen.' },
             { strong: 'Koppelingsgegevens.', rest: 'Tot je de koppeling intrekt of je account opzegt. Daarna vervallen de tokens en verwijderen wij ze.' },
             { strong: 'Logs.', rest: 'Twaalf maanden, zodat wij een incident achteraf kunnen onderzoeken.' },
@@ -299,6 +307,10 @@ const privacyEn: LegalContent = {
               rest: 'Your name, email address, phone number, company name and the content of your message, when you email us or book an intro call.',
             },
             {
+              strong: 'Newsletter and download data.',
+              rest: 'Your email address, the signup moment and the page you signed up from, when you subscribe to the newsletter or download the whitepaper.',
+            },
+            {
               strong: 'Account details.',
               rest: 'Your name, email address and the login account you sign in with at app.dataflowr.nl. Signing in runs through our identity provider. We hold no passwords.',
             },
@@ -391,6 +403,9 @@ const privacyEn: LegalContent = {
             { strong: 'Payments.', rest: 'Stripe processes subscription payments and holds the payment details.' },
             { strong: 'AI models.', rest: 'OpenRouter routes your question to the language model that drafts the answer.' },
             { strong: 'Hosting and database.', rest: 'Our hosting provider runs the application and the database your account lives in.' },
+            // CONFIRM: name the chosen mailing tool (e.g. Laposta or Brevo) once
+            // the account exists; see CLAUDE.md, "Newsletter and whitepaper".
+            { strong: 'Newsletter and whitepaper.', rest: 'Our mailing software stores the signups and handles sending and unsubscribing.' },
           ],
         },
         { type: 'p', text: 'Beyond that, we disclose data where the law obliges us to.' },
@@ -405,6 +420,7 @@ const privacyEn: LegalContent = {
           type: 'list',
           items: [
             { strong: 'Contact details.', rest: 'Up to 24 months after the last contact, unless an engagement follows from it.' },
+            { strong: 'Newsletter signups.', rest: 'Until you unsubscribe. You can unsubscribe at the bottom of every email; after that your address disappears from the mailing list.' },
             { strong: 'Account and conversations.', rest: 'For as long as your subscription runs. After you cancel, we delete the account and the stored conversations within 90 days.' },
             { strong: 'Connection data.', rest: 'Until you revoke the connection or cancel your account. The tokens then lapse and we delete them.' },
             { strong: 'Logs.', rest: 'Twelve months, so we can investigate an incident after the fact.' },
