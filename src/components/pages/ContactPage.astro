@@ -1,0 +1,202 @@
+---
+/**
+ * Contact page. Exists as an explicit page (next to the footer and the about
+ * page) because the Exact Online App Store review expects contact details,
+ * including a phone number, on their own page.
+ */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import {
+  abs,
+  routes,
+  COMPANY,
+  EMAIL_DAAN,
+  EMAIL_JANWILLEM,
+  EMAIL_INFO,
+  PHONE_DISPLAY,
+  PHONE_TEL,
+  type Lang,
+} from '../../lib/site';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const other: Lang = lang === 'nl' ? 'en' : 'nl';
+
+const nl = {
+  metaTitle: 'Contact, bel of mail direct met de founders',
+  metaDescription:
+    'Bel DataFlowr op 023-2052813, mail naar info@dataflowr.nl of plan een kennismaking van 30 minuten. Je spreekt direct een van de twee founders.',
+  eyebrow: 'Contact',
+  title: 'Je spreekt direct een founder.',
+  intro:
+    'DataFlowr is het bedrijf van twee founders. Er zit geen keuzemenu of ticketsysteem tussen: wie belt of mailt, krijgt een van ons.',
+  phoneTitle: 'Bellen',
+  phoneBody: 'Bereikbaar op werkdagen tijdens kantooruren. Krijg je ons niet te pakken, dan bellen we je terug.',
+  mailTitle: 'Mailen',
+  mailBody: 'Voor alle vragen. Liever rechtstreeks naar een van ons?',
+  meetTitle: 'Afspraak plannen',
+  meetBody: 'Een kennismaking duurt 30 minuten en is geheel vrijblijvend. Kies zelf een moment in de agenda.',
+  meetCta: 'Plan een kennismaking',
+  supportPre: 'Gebruik je Claire of een van onze integraties en heb je een supportvraag? Kijk op de pagina ',
+  supportLink: 'Ondersteuning',
+  supportPost: '.',
+  detailsTitle: 'Bedrijfsgegevens',
+  detailsAddress: 'Vestigingsadres',
+  detailsPhone: 'Telefoon',
+  detailsKvk: 'KVK-nummer',
+  detailsBranch: 'Vestigingsnummer',
+};
+
+const en: typeof nl = {
+  metaTitle: 'Contact, call or email the founders directly',
+  metaDescription:
+    'Call DataFlowr on +31 23 2052813, email info@dataflowr.nl or book a 30-minute intro call. You speak to one of the two founders directly.',
+  eyebrow: 'Contact',
+  title: 'You speak to a founder directly.',
+  intro:
+    'DataFlowr is a two-founder company. There is no phone menu or ticket system in between: whoever calls or emails gets one of us.',
+  phoneTitle: 'Call',
+  phoneBody: 'Available on working days during office hours. If you cannot reach us, we call you back.',
+  mailTitle: 'Email',
+  mailBody: 'For any question. Prefer to reach one of us directly?',
+  meetTitle: 'Book a call',
+  meetBody: 'An intro call takes 30 minutes and is entirely without obligation. Pick a time in the calendar.',
+  meetCta: 'Book an intro call',
+  supportPre: 'Using Claire or one of our integrations and have a support question? See the ',
+  supportLink: 'Support',
+  supportPost: ' page.',
+  detailsTitle: 'Company details',
+  detailsAddress: 'Registered address',
+  detailsPhone: 'Phone',
+  detailsKvk: 'Chamber of Commerce (KVK)',
+  detailsBranch: 'Branch number',
+};
+
+const t = lang === 'nl' ? nl : en;
+const path = routes.contact[lang];
+const altPath = routes.contact[other];
+const calendlyHref = `${routes.about[lang]}#plan-afspraak`;
+
+const schema = [
+  {
+    '@type': 'ContactPage',
+    '@id': abs(`${path}#page`),
+    url: abs(path),
+    name: t.metaTitle,
+    description: t.metaDescription,
+    about: { '@id': abs('/#organization') },
+  },
+];
+---
+<BaseLayout
+  lang={lang}
+  title={t.metaTitle}
+  description={t.metaDescription}
+  path={path}
+  altPath={altPath}
+  navVariant="solid"
+  ctaHref={calendlyHref}
+  footer="compact-bg"
+  schema={schema}
+>
+  <section class="wrap contact">
+    <p class="eyebrow eyebrow--thin contact-eyebrow">{t.eyebrow}</p>
+    <h1>{t.title}</h1>
+    <p class="intro">{t.intro}</p>
+    <div class="channels">
+      <div class="channel">
+        <h2>{t.phoneTitle}</h2>
+        <a href={`tel:${PHONE_TEL}`} class="channel-main">{PHONE_DISPLAY[lang]}</a>
+        <p>{t.phoneBody}</p>
+      </div>
+      <div class="channel">
+        <h2>{t.mailTitle}</h2>
+        <a href={`mailto:${EMAIL_INFO}`} class="channel-main">{EMAIL_INFO}</a>
+        <p>{t.mailBody}</p>
+        <p class="channel-links">
+          <a href={`mailto:${EMAIL_DAAN}`}>{EMAIL_DAAN}</a>
+          <a href={`mailto:${EMAIL_JANWILLEM}`}>{EMAIL_JANWILLEM}</a>
+        </p>
+      </div>
+      <div class="channel">
+        <h2>{t.meetTitle}</h2>
+        <a href={calendlyHref} class="channel-main">{t.meetCta}</a>
+        <p>{t.meetBody}</p>
+      </div>
+    </div>
+    <p class="support-note">{t.supportPre}<a href={routes.support[lang]}>{t.supportLink}</a>{t.supportPost}</p>
+    <div class="company-details">
+      <h2>{t.detailsTitle}</h2>
+      <dl>
+        <div>
+          <dt>{t.detailsAddress}</dt>
+          <dd>{COMPANY.legalName}<br />{COMPANY.street}<br />{COMPANY.postalCode} {COMPANY.city}</dd>
+        </div>
+        <div>
+          <dt>{t.detailsPhone}</dt>
+          <dd><a href={`tel:${PHONE_TEL}`}>{PHONE_DISPLAY[lang]}</a></dd>
+        </div>
+        <div>
+          <dt>{t.detailsKvk}</dt>
+          <dd>{COMPANY.kvk}</dd>
+        </div>
+        <div>
+          <dt>{t.detailsBranch}</dt>
+          <dd>{COMPANY.vestigingsnummer}</dd>
+        </div>
+      </dl>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .contact { padding-top: 96px; padding-bottom: 110px; }
+  .contact-eyebrow { color: color-mix(in srgb, var(--hl) 85%, var(--brand)); margin-bottom: 18px; gap: 14px; }
+  h1 {
+    margin: 0 0 22px;
+    font-size: clamp(2.5rem, 4.5vw, 3.625rem);
+    line-height: 1.06;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    text-wrap: balance;
+  }
+  .intro { margin: 0 0 56px; max-width: 720px; font-size: 1.125rem; line-height: 1.7; color: var(--muted); text-wrap: pretty; }
+  .channels { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr)); gap: 20px; }
+  .channel {
+    background: #ffffff;
+    border: 1px solid color-mix(in srgb, var(--brand) 9%, transparent);
+    border-radius: 20px;
+    padding: 30px;
+  }
+  .channel h2 {
+    margin: 0 0 12px;
+    font-size: 0.78125rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: color-mix(in srgb, var(--hl) 85%, var(--brand));
+  }
+  .channel-main { display: inline-block; margin: 0 0 10px; font-size: 1.25rem; font-weight: 700; letter-spacing: -0.01em; overflow-wrap: anywhere; }
+  .channel p { margin: 0; font-size: 0.96875rem; line-height: 1.65; color: var(--muted); }
+  .channel-links { display: flex; flex-wrap: wrap; gap: 4px 18px; margin-top: 10px !important; }
+  .channel-links a { font-size: 0.90625rem; font-weight: 700; overflow-wrap: anywhere; }
+  .support-note { margin: 28px 0 0; font-size: 0.96875rem; line-height: 1.65; color: var(--muted); }
+  .support-note a { color: var(--hl); font-weight: 600; }
+  .company-details {
+    margin-top: 64px;
+    padding-top: 44px;
+    border-top: 1px solid color-mix(in srgb, var(--brand) 9%, transparent);
+  }
+  .company-details h2 { margin: 0 0 10px; font-size: 1.5rem; font-weight: 700; letter-spacing: -0.02em; }
+  .company-details dl { margin: 0; display: flex; flex-wrap: wrap; gap: 28px 64px; }
+  .company-details dt {
+    margin: 0 0 6px;
+    font-size: 0.78125rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: color-mix(in srgb, var(--hl) 85%, var(--brand));
+  }
+  .company-details dd { margin: 0; font-size: 1rem; line-height: 1.65; color: var(--muted); }
+</style>

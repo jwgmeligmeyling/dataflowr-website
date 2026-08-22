@@ -1,0 +1,233 @@
+---
+/**
+ * Knowledge-base overview. The card markup matches the "Meer uit de
+ * kennisbank" grid at the foot of an article, so a reader arriving from a
+ * piece lands on the same shape they just clicked out of. Ordered newest
+ * first on dateIso.
+ */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { abs, routes, ui, type ArticleKey, type Lang } from '../../lib/site';
+import { articles, readTime } from '../../data/articles';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const other: Lang = lang === 'nl' ? 'en' : 'nl';
+
+const nl = {
+  metaTitle: 'Kennisbank | Exact Online, finance en automatisering',
+  metaDescription:
+    'Praktijkgidsen over de maandafsluiting, PSP-reconciliatie, Premium-features en werken met AI in Exact Online. Geschreven door de founders van DataFlowr, op basis van echte administraties.',
+  eyebrow: 'Kennisbank',
+  title: 'Wat wij tegenkomen in de administratie, opgeschreven.',
+  intro:
+    'Geen productnieuws en geen algemeenheden. Elk stuk gaat over één probleem dat wij bij klanten op Exact Online tegenkomen, met de cijfers en de stappen erbij. Geschreven door de founders zelf.',
+  countOne: 'artikel',
+  countMany: 'artikelen',
+  latest: 'Meest recent',
+  readOn: 'Lees verder →',
+  ctaTitle: 'Speelt hier iets van bij jou?',
+  ctaSub: 'Plan een kennismaking van 30 minuten, vrijblijvend, en je spreekt direct een founder.',
+  ctaBtn: 'Plan een kennismaking',
+};
+
+const en: typeof nl = {
+  metaTitle: 'Knowledge base | Exact Online, finance and automation',
+  metaDescription:
+    'Practical guides on the month-end close, PSP reconciliation, Premium features and working with AI in Exact Online. Written by the founders of DataFlowr, from real administrations.',
+  eyebrow: 'Knowledge base',
+  title: 'What we run into in the books, written down.',
+  intro:
+    'No product news and no generalities. Each piece covers one problem we meet at clients running Exact Online, with the figures and the steps included. Written by the founders themselves.',
+  countOne: 'article',
+  countMany: 'articles',
+  latest: 'Most recent',
+  readOn: 'Read on →',
+  ctaTitle: 'Does any of this sound familiar?',
+  ctaSub: 'Book a no-obligation 30-minute call and you speak to a founder directly.',
+  ctaBtn: 'Get in touch',
+};
+
+const t = lang === 'nl' ? nl : en;
+const s = ui[lang];
+const path = routes.resources[lang];
+
+const posts = (Object.keys(articles) as ArticleKey[])
+  .map((key) => ({
+    key,
+    href: routes.articles[key][lang],
+    dateIso: articles[key].dateIso,
+    ...articles[key][lang],
+    time: readTime(articles[key][lang], lang),
+  }))
+  .sort((a, b) => b.dateIso.localeCompare(a.dateIso));
+
+const [lead, ...rest] = posts;
+const count = `${posts.length} ${posts.length === 1 ? t.countOne : t.countMany}`;
+
+const schema = [
+  {
+    '@type': 'CollectionPage',
+    '@id': abs(`${path}#collection`),
+    name: t.eyebrow,
+    description: t.metaDescription,
+    url: abs(path),
+    inLanguage: lang === 'nl' ? 'nl-NL' : 'en',
+    isPartOf: { '@id': abs('/#organization') },
+    mainEntity: {
+      '@type': 'ItemList',
+      numberOfItems: posts.length,
+      itemListElement: posts.map((post, i) => ({
+        '@type': 'ListItem',
+        position: i + 1,
+        url: abs(post.href),
+        name: post.title,
+      })),
+    },
+  },
+  {
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: s.home, item: abs(routes.home[lang]) },
+      { '@type': 'ListItem', position: 2, name: t.eyebrow, item: abs(path) },
+    ],
+  },
+];
+---
+<BaseLayout
+  lang={lang}
+  title={t.metaTitle}
+  description={t.metaDescription}
+  path={path}
+  altPath={routes.resources[other]}
+  navVariant="solid"
+  footer="full"
+  schema={schema}
+>
+  <div class="page">
+    <section class="wrap head">
+      <nav aria-label={lang === 'nl' ? 'Kruimelpad' : 'Breadcrumb'} class="crumbs">
+        <a href={routes.home[lang]}>{s.home}</a><span>/</span>
+        <span class="crumb-current">{t.eyebrow}</span>
+      </nav>
+      <p class="eyebrow">{t.eyebrow} · {count}</p>
+      <h1>{t.title}</h1>
+      <p class="intro">{t.intro}</p>
+    </section>
+
+    <section class="wrap listing">
+      <a href={lead.href} class="lead-card">
+        <div class="lead-media"><img src={lead.hero.src} alt={lead.hero.alt} width={lead.hero.width ?? 2880} height={lead.hero.height ?? 1620} /></div>
+        <div class="lead-body">
+          <span class="flag">{t.latest}</span>
+          <span class="cat">{lead.cat}</span>
+          <h2>{lead.title}</h2>
+          <p>{lead.lead}</p>
+          <span class="meta"><time datetime={lead.dateIso}>{lead.date}</time> · {lead.time}</span>
+          <span class="more-link">{t.readOn}</span>
+        </div>
+      </a>
+
+      <div class="grid">
+        {rest.map((post) => (
+          <a href={post.href} class="card">
+            <div class="card-media"><img src={post.hero.src} alt="" loading="lazy" width={post.hero.width ?? 2880} height={post.hero.height ?? 1620} /></div>
+            <div class="card-body">
+              <span class="cat">{post.cat}</span>
+              <h3>{post.title}</h3>
+              <span class="meta"><time datetime={post.dateIso}>{post.date}</time> · {post.time}</span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <section class="cta">
+      <div class="wrap cta-inner">
+        <h2>{t.ctaTitle}</h2>
+        <p>{t.ctaSub}</p>
+        <a href={routes.about[lang]} class="btn-signal cta-btn">{t.ctaBtn}</a>
+      </div>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  .page { background: #ffffff; }
+  .head { padding-top: 56px; padding-bottom: 44px; }
+  .crumbs { display: flex; align-items: center; gap: 10px; margin-bottom: 34px; font-size: 0.84375rem; color: var(--muted); }
+  .crumb-current { color: var(--brand); font-weight: 600; }
+  .eyebrow {
+    margin: 0 0 20px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--hl);
+  }
+  h1 {
+    margin: 0 0 22px;
+    max-width: 18ch;
+    font-size: clamp(2.125rem, 4.2vw, 3.25rem);
+    line-height: 1.08;
+    font-weight: 700;
+    letter-spacing: -0.035em;
+    text-wrap: balance;
+  }
+  .intro { margin: 0; max-width: 62ch; font-size: 1.09375rem; line-height: 1.7; color: var(--muted); }
+
+  .listing { padding-bottom: 88px; display: grid; gap: 18px; }
+
+  .lead-card,
+  .card {
+    display: block;
+    color: var(--brand);
+    text-decoration: none;
+    background: #ffffff;
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    overflow: hidden;
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+  }
+  .lead-card:hover,
+  .card:hover { transform: translateY(-3px); box-shadow: 0 16px 44px rgba(13, 27, 39, 0.10); color: var(--brand); }
+
+  .lead-card { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); align-items: stretch; }
+  @media (max-width: 900px) { .lead-card { grid-template-columns: 1fr; } }
+  .lead-media { aspect-ratio: 16 / 9; background: var(--bg); }
+  /* Two-column layout: the text column sets the row height, and an aspect
+     ratio would then derive a width that overflows the media column and puts
+     the image behind the text. Fill the cell and let object-fit crop instead. */
+  @media (min-width: 901px) { .lead-media { aspect-ratio: auto; min-width: 0; } }
+  .lead-body { padding: 34px; display: grid; gap: 12px; align-content: center; }
+  .lead-body h2 { margin: 0; font-size: clamp(1.4375rem, 2.4vw, 1.875rem); line-height: 1.2; font-weight: 700; letter-spacing: -0.025em; text-wrap: balance; }
+  .lead-body p { margin: 0; font-size: 1rem; line-height: 1.65; color: var(--muted); }
+  .flag {
+    justify-self: start;
+    font-size: 0.71875rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--hl);
+    background: color-mix(in srgb, var(--hl) 9%, transparent);
+    border-radius: 99px;
+    padding: 6px 13px;
+  }
+  .more-link { font-size: 0.9375rem; font-weight: 600; color: var(--hl); }
+
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); gap: 18px; }
+  .card-media { aspect-ratio: 16 / 9; background: var(--bg); }
+  .card-body { padding: 22px; display: grid; gap: 8px; }
+  .card-body h3 { margin: 0; font-size: 1.15625rem; line-height: 1.3; font-weight: 700; letter-spacing: -0.015em; text-wrap: balance; }
+
+  .lead-media img, .card-media img { display: block; width: 100%; height: 100%; object-fit: cover; }
+  .cat { font-size: 0.71875rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--posText); }
+  .meta { font-size: 0.84375rem; color: var(--muted); }
+
+  .cta { background: var(--bg); border-top: 1px solid var(--line); }
+  .cta-inner { padding-top: 72px; padding-bottom: 72px; display: grid; gap: 14px; justify-items: start; }
+  .cta h2 { margin: 0; font-size: clamp(1.5rem, 2.6vw, 2rem); line-height: 1.15; font-weight: 700; letter-spacing: -0.025em; }
+  .cta p { margin: 0; max-width: 60ch; font-size: 1rem; line-height: 1.65; color: var(--muted); }
+  .cta-btn { margin-top: 8px; font-size: 1.09375rem; padding: 17px 40px; }
+</style>

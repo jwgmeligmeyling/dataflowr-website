@@ -1,8 +1,7 @@
 /**
- * Minimal PNG codec and a high-quality downscaler, shared by the asset
- * generators in scripts/ (generate-icons.ts, generate-og.ts).
+ * Minimal PNG codec and a high-quality downscaler, used by generate-og.ts.
  *
- * Everything here is dependency-free on purpose: the generators run by hand a
+ * Everything here is dependency-free on purpose: the generator runs by hand a
  * few times a year, and adding sharp or jimp to the project would mean Vercel
  * installing them on every build for no runtime benefit.
  *

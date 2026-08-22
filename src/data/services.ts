@@ -40,7 +40,7 @@ export const services: Record<Lang, Record<ServiceKey, ServiceContent>> = {
       eyebrow: 'Exact Online Premium',
       title: 'Alles uit Exact Online Premium halen.',
       intro:
-        'Wij kennen het ecosysteem door en door, van de Power BI Connector en Smart Closing tot de API’s eronder. Als early adopter van de Premium-features weten we wat werkt, wat nog niet werkt en waar u omheen moet.',
+        'Wij kennen het ecosysteem door en door, van de Power BI Connector en Smart Closing tot de API’s eronder. Als early adopter van de Premium-features weten we wat werkt, wat nog niet werkt en waar je omheen moet.',
       facts: [
         'Early adopter Power BI Connector & Smart Closing',
         'Multi-entiteit en multi-administratie',
@@ -49,10 +49,10 @@ export const services: Record<Lang, Record<ServiceKey, ServiceContent>> = {
       ],
       doTitle: 'Van licentie naar werkend platform.',
       deliverables: [
-        { num: '01', title: 'Implementatie & migratie', body: 'Inrichting van administraties, grootboek, dagboeken en rollen, of een volledige migratie vanuit uw huidige pakket.' },
+        { num: '01', title: 'Implementatie & migratie', body: 'Inrichting van administraties, grootboek, dagboeken en rollen, of een volledige migratie vanuit je huidige pakket.' },
         { num: '02', title: 'Premium-features inrichten', body: 'Smart Closing, de Power BI Connector en de Premium-API’s daadwerkelijk in gebruik, niet alleen aangezet.' },
         { num: '03', title: 'Multi-entiteit op één lijn', body: 'Eén manier van boeken, rapporteren en beheersen over alle entiteiten en merken heen.' },
-        { num: '04', title: 'Governance & controls', body: 'Autorisaties, procuratie en audit trail zo ingericht dat uw accountant er zonder vragen doorheen loopt.' },
+        { num: '04', title: 'Governance & controls', body: 'Autorisaties, procuratie en audit trail zo ingericht dat je accountant er zonder vragen doorheen loopt.' },
       ],
       related: ['integraties', 'claire', 'training'],
       metaTitle: 'Exact Online Premium implementatie & partner',
@@ -62,7 +62,7 @@ export const services: Record<Lang, Record<ServiceKey, ServiceContent>> = {
     integraties: {
       nav: 'Integraties',
       eyebrow: 'Integraties',
-      title: 'Uw systemen praten met elkaar. Eindelijk.',
+      title: 'Je systemen praten met elkaar. Eindelijk.',
       intro:
         'Webshops, PSP’s, CRM, WMS en portalen gekoppeld aan Exact Online, met integraties die blijven werken als volumes verdubbelen. Geen exports, geen tussenbestanden, geen overtypwerk.',
       facts: [
@@ -71,12 +71,12 @@ export const services: Record<Lang, Record<ServiceKey, ServiceContent>> = {
         'Idempotent en herstelbaar bij storingen',
         'Monitoring en alerting standaard mee',
       ],
-      doTitle: 'Koppelingen die u kunt vergeten.',
+      doTitle: 'Koppelingen die je kunt vergeten.',
       deliverables: [
         { num: '01', title: 'API-integraties', body: 'Koppelingen op de Exact Online-API met foutafhandeling, retries en idempotentie, bestand tegen storingen en volumepieken.' },
         { num: '02', title: 'PSP-reconciliatie', body: 'Mollie, Pay.nl en Adyen automatisch gematcht met bank en grootboek, inclusief afwijkingen die om aandacht vragen.' },
         { num: '03', title: 'Webshop & order-to-cash', body: 'Van order in de shop tot factuur en betaling in Exact, zonder tussenkomst van een medewerker.' },
-        { num: '04', title: 'Monitoring & alerting', body: 'U ziet het als een koppeling stilvalt, niet pas als de klant belt. Met logging die herleidbaar is per transactie.' },
+        { num: '04', title: 'Monitoring & alerting', body: 'Je ziet het als een koppeling stilvalt, niet pas als de klant belt. Met logging die herleidbaar is per transactie.' },
       ],
       results: [
         { stat: '100%', title: 'PSP-reconciliatie', body: 'Geautomatiseerd gematcht met bank en grootboek.' },
@@ -93,29 +93,29 @@ export const services: Record<Lang, Record<ServiceKey, ServiceContent>> = {
       eyebrow: 'Make · n8n · low-code',
       title: 'Automatiseren zonder afhankelijk te worden van ons.',
       intro:
-        'Met Make en n8n bouwen we automatiseringen die uw team zelf kan lezen, begrijpen en aanpassen. Snel live, zichtbaar in één canvas, en met eigen connectors waar de standaard tekortkomt.',
+        'Met Make en n8n bouwen we automatiseringen die je team zelf kan lezen, begrijpen en aanpassen. Snel live, zichtbaar in één canvas, en met eigen connectors waar de standaard tekortkomt.',
       facts: [
         'Eigen Exact Online-connectors voor Make',
-        'Zichtbaar canvas: uw team leest mee',
+        'Zichtbaar canvas: je team leest mee',
         'In dagen live, niet in kwartalen',
         'Overdracht en documentatie inbegrepen',
       ],
-      doTitle: 'Flows die uw team zelf beheert.',
+      doTitle: 'Flows die je team zelf beheert.',
       deliverables: [
-        { num: '01', title: 'Scenario-ontwerp', body: 'Wij ontwerpen de flow rond uw proces, met duidelijke stappen, foutpaden en verantwoordelijkheden.' },
+        { num: '01', title: 'Scenario-ontwerp', body: 'Wij ontwerpen de flow rond je proces, met duidelijke stappen, foutpaden en verantwoordelijkheden.' },
         { num: '02', title: 'Eigen connectors', body: 'Waar de standaard-modules tekortschieten bouwen wij eigen Exact Online-modules voor Make en n8n.' },
-        { num: '03', title: 'Bouw & test', body: 'Getest op uw echte data, met logging per stap zodat u ziet wat er gebeurd is en waarom.' },
-        { num: '04', title: 'Overdracht', body: 'Documentatie en training zodat uw team zelf kan aanpassen. Wij blijven achter de hand.' },
+        { num: '03', title: 'Bouw & test', body: 'Getest op je echte data, met logging per stap zodat je ziet wat er gebeurd is en waarom.' },
+        { num: '04', title: 'Overdracht', body: 'Documentatie en training zodat je team zelf kan aanpassen. Wij blijven achter de hand.' },
       ],
       results: [
         { stat: 'Dagen', title: 'Tot live', body: 'Een eerste werkende flow binnen enkele dagen.' },
-        { stat: 'Zelf', title: 'Aanpasbaar', body: 'Uw team leest en wijzigt de flow in het canvas.' },
+        { stat: 'Zelf', title: 'Aanpasbaar', body: 'Je team leest en wijzigt de flow in het canvas.' },
         { stat: '1', title: 'Plek voor logica', body: 'Geen verborgen scripts of laptop-macro’s meer.' },
       ],
       related: ['integraties', 'rpa', 'claire'],
       metaTitle: 'Make & low-code automatisering voor Exact Online',
       metaDescription:
-        'Automatiseringen in Make en n8n die uw team zelf kan lezen en aanpassen, met eigen Exact Online-connectors. In dagen live, inclusief overdracht en documentatie.',
+        'Automatiseringen in Make en n8n die je team zelf kan lezen en aanpassen, met eigen Exact Online-connectors. In dagen live, inclusief overdracht en documentatie.',
     },
     camunda: {
       nav: 'Camunda',
@@ -131,14 +131,14 @@ export const services: Record<Lang, Record<ServiceKey, ServiceContent>> = {
       ],
       doTitle: 'Van impliciet proces naar bewaakte workflow.',
       deliverables: [
-        { num: '01', title: 'Procesmodellering', body: 'Uw proces vastgelegd in BPMN: taken, rollen, termijnen en uitzonderingspaden expliciet in beeld.' },
+        { num: '01', title: 'Procesmodellering', body: 'Je proces vastgelegd in BPMN: taken, rollen, termijnen en uitzonderingspaden expliciet in beeld.' },
         { num: '02', title: 'Beslisregels in DMN', body: 'Grenzen, mandaten en tariefregels in beheersbare beslistabellen, aanpasbaar zonder code.' },
-        { num: '03', title: 'Systeemintegratie', body: 'Camunda orkestreert Exact Online en uw overige systemen, met compensatie als een stap faalt.' },
+        { num: '03', title: 'Systeemintegratie', body: 'Camunda orkestreert Exact Online en je overige systemen, met compensatie als een stap faalt.' },
         { num: '04', title: 'Audit trail', body: 'Elke stap, elk besluit en elke wachttijd vastgelegd per instantie. Herleidbaar tot op de dag.' },
       ],
       results: [
         { stat: '100%', title: 'Herleidbaar', body: 'Elke processtap en elk besluit vastgelegd.' },
-        { stat: 'Live', title: 'Procesinzicht', body: 'U ziet waar elke instantie op wacht, en op wie.' },
+        { stat: 'Live', title: 'Procesinzicht', body: 'Je ziet waar elke instantie op wacht, en op wie.' },
         { stat: 'Nul', title: 'Verloren zaken', body: 'Termijnen en escalaties bewaakt door het systeem.' },
       ],
       related: ['integraties', 'exact-online-premium', 'claire'],
@@ -151,7 +151,7 @@ export const services: Record<Lang, Record<ServiceKey, ServiceContent>> = {
       eyebrow: 'RPA · robotic process automation',
       title: 'Ook zonder API valt er te automatiseren.',
       intro:
-        'Sommige systemen geven u geen koppeling, een oud portaal, een bankomgeving, een leveranciersapplicatie. RPA neemt daar het klikwerk over: dezelfde handelingen, elke keer identiek, zonder dat iemand ernaar hoeft te kijken.',
+        'Sommige systemen geven je geen koppeling, een oud portaal, een bankomgeving, een leveranciersapplicatie. RPA neemt daar het klikwerk over: dezelfde handelingen, elke keer identiek, zonder dat iemand ernaar hoeft te kijken.',
       facts: [
         'Voor systemen zonder API of export',
         'Draait op schema of op een trigger',
@@ -160,9 +160,9 @@ export const services: Record<Lang, Record<ServiceKey, ServiceContent>> = {
       ],
       doTitle: 'Het klikwerk overgenomen, en bewaakt.',
       deliverables: [
-        { num: '01', title: 'Procesopname', body: 'Wij leggen de exacte handelingen vast, inclusief de uitzonderingen die uw medewerker uit het hoofd kent.' },
+        { num: '01', title: 'Procesopname', body: 'Wij leggen de exacte handelingen vast, inclusief de uitzonderingen die je medewerker uit het hoofd kent.' },
         { num: '02', title: 'Robot bouwen', body: 'De robot doorloopt de stappen identiek, met validaties zodat hij stopt in plaats van fouten doorvoert.' },
-        { num: '03', title: 'Bewaking', body: 'Elke run gelogd met screenshots. Bij een afwijking krijgt u bericht, geen stille fout.' },
+        { num: '03', title: 'Bewaking', body: 'Elke run gelogd met screenshots. Bij een afwijking krijg je bericht, geen stille fout.' },
         { num: '04', title: 'Uitfaseerpad', body: 'Komt er later een API? Dan vervangen we de robot door een echte integratie, het proces blijft gelijk.' },
       ],
       results: [
@@ -178,31 +178,31 @@ export const services: Record<Lang, Record<ServiceKey, ServiceContent>> = {
     training: {
       nav: 'Training',
       eyebrow: 'Training & onboarding',
-      title: 'Uw team neemt het over. Dat is het doel.',
+      title: 'Je team neemt het over. Dat is het doel.',
       intro:
-        'Automatisering die alleen wij begrijpen, is een risico. Wij leiden uw finance team op in de tools die ze nu echt gebruiken, Exact Online Premium, Make, en het werken met een AI-assistent in de administratie.',
+        'Automatisering die alleen wij begrijpen, is een risico. Wij leiden je finance team op in de tools die ze nu echt gebruiken, Exact Online Premium, Make, en het werken met een AI-assistent in de administratie.',
       facts: [
-        'Op uw eigen administratie, niet op een demo',
+        'Op je eigen administratie, niet op een demo',
         'Voor finance, niet voor ontwikkelaars',
         'Inclusief werkinstructies en beslisregels',
         'Losse sessies of doorlopend meelopen',
       ],
-      doTitle: 'Kennis die bij u blijft.',
+      doTitle: 'Kennis die bij jou blijft.',
       deliverables: [
-        { num: '01', title: 'Exact Online Premium', body: 'Uw team leert de features die u al betaalt daadwerkelijk gebruiken, geoefend op uw eigen administratie.' },
-        { num: '02', title: 'AI in de administratie', body: 'Hoe stelt u een goede vraag, wanneer vertrouwt u het antwoord en wanneer controleert u het? Praktisch, met echte cijfers.' },
-        { num: '03', title: 'Zelf automatiseren', body: 'Uw team leert flows in Make lezen en aanpassen, zodat kleine wijzigingen geen project worden.' },
-        { num: '04', title: 'Werkinstructies', body: 'Vastgelegd in uw eigen taal, zodat een nieuwe collega binnen een dag mee kan.' },
+        { num: '01', title: 'Exact Online Premium', body: 'Je team leert de features die je al betaalt daadwerkelijk gebruiken, geoefend op je eigen administratie.' },
+        { num: '02', title: 'AI in de administratie', body: 'Hoe stel je een goede vraag, wanneer vertrouw je het antwoord en wanneer controleer je het? Praktisch, met echte cijfers.' },
+        { num: '03', title: 'Zelf automatiseren', body: 'Je team leert flows in Make lezen en aanpassen, zodat kleine wijzigingen geen project worden.' },
+        { num: '04', title: 'Werkinstructies', body: 'Vastgelegd in je eigen taal, zodat een nieuwe collega binnen een dag mee kan.' },
       ],
       results: [
-        { stat: 'Zelf', title: 'Aan het roer', body: 'Uw team beheert de oplossing zonder ons.' },
-        { stat: '1 dag', title: 'Nieuwe collega mee', body: 'Werkinstructies die aansluiten op uw praktijk.' },
+        { stat: 'Zelf', title: 'Aan het roer', body: 'Je team beheert de oplossing zonder ons.' },
+        { stat: '1 dag', title: 'Nieuwe collega mee', body: 'Werkinstructies die aansluiten op je praktijk.' },
         { stat: 'Blijvend', title: 'Kennis intern', body: 'Geen afhankelijkheid van één externe partij.' },
       ],
       related: ['claire', 'exact-online-premium', 'make'],
-      metaTitle: 'Training & enablement voor uw finance team',
+      metaTitle: 'Training & enablement voor je finance team',
       metaDescription:
-        'Training op uw eigen administratie: Exact Online Premium, Make en werken met AI in finance. Kennis blijft intern, geen afhankelijkheid van één externe partij.',
+        'Training op je eigen administratie: Exact Online Premium, Make en werken met AI in finance. Kennis blijft intern, geen afhankelijkheid van één externe partij.',
     },
   },
   en: {
@@ -384,10 +384,10 @@ export const relatedCards: Record<Lang, Record<RelatedKey, { kind: string; title
     claire: { kind: 'Product', title: 'Claire', body: 'De AI-laag boven op Exact Online: vragen stellen in gewone taal, agents die volgens schema werken.', cta: 'Bekijk Claire →' },
     'exact-online-premium': { kind: 'Dienst', title: 'Exact Online Premium', body: 'Implementatie, migratie en het echt in gebruik nemen van de Premium-features.', cta: 'Bekijk dienst →' },
     integraties: { kind: 'Dienst', title: 'Integraties', body: 'Webshops, PSP’s, CRM en portalen gekoppeld aan Exact Online.', cta: 'Bekijk dienst →' },
-    make: { kind: 'Dienst', title: 'Make & low-code', body: 'Automatiseringen die uw team zelf kan lezen en aanpassen.', cta: 'Bekijk dienst →' },
+    make: { kind: 'Dienst', title: 'Make & low-code', body: 'Automatiseringen die je team zelf kan lezen en aanpassen.', cta: 'Bekijk dienst →' },
     camunda: { kind: 'Dienst', title: 'Camunda', body: 'Orkestratie voor processen met veel stappen en uitzonderingen.', cta: 'Bekijk dienst →' },
     rpa: { kind: 'Dienst', title: 'RPA', body: 'Klikwerk overnemen waar een systeem geen API heeft.', cta: 'Bekijk dienst →' },
-    training: { kind: 'Dienst', title: 'Training', body: 'Uw team leert het zelf beheren, zodat kennis bij u blijft.', cta: 'Bekijk dienst →' },
+    training: { kind: 'Dienst', title: 'Training', body: 'Je team leert het zelf beheren, zodat kennis bij jou blijft.', cta: 'Bekijk dienst →' },
   },
   en: {
     claire: { kind: 'Product', title: 'Claire', body: 'The AI layer on top of Exact Online: ask questions in plain language, agents that work on schedule.', cta: 'See Claire →' },

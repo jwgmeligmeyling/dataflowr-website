@@ -7,9 +7,8 @@
  * the aspect LinkedIn, X, Slack and WhatsApp all unfurl) and public/og/
  * logo-mark.png (512x512, the Organization logo in the JSON-LD).
  *
- * Like generate-icons.ts this runs by hand, so playwright stays out of
- * package.json: Vercel installs devDependencies on every build and none of
- * this happens at build time.
+ * This runs by hand, so playwright stays out of package.json: Vercel installs
+ * devDependencies on every build and none of this happens at build time.
  *
  * Nothing here restates the design. The card is composed from the same three
  * locked sources the site renders from, so a palette or logo change lands here

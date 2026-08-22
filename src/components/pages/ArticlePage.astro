@@ -8,7 +8,7 @@ import { Image } from 'astro:assets';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ClaireMark from '../ClaireMark.astro';
 import { abs, routes, ui, type ArticleKey, type Lang } from '../../lib/site';
-import { articles, articleUi, authors } from '../../data/articles';
+import { articles, articleUi, authors, readTime } from '../../data/articles';
 
 interface Props {
   lang: Lang;
@@ -32,7 +32,7 @@ const more = (Object.keys(articles) as ArticleKey[])
     href: routes.articles[key][lang],
     cat: articles[key][lang].cat,
     title: articles[key][lang].title,
-    time: articles[key][lang].readTime,
+    time: readTime(articles[key][lang], lang),
     hero: articles[key][lang].hero,
   }));
 
@@ -49,11 +49,26 @@ const schema = [
     author: { '@type': 'Person', name: author.name, jobTitle: author.jobTitle, email: `mailto:${author.email}` },
     publisher: { '@id': abs('/#organization') },
   },
+  ...(t.heroVideo
+    ? [
+        {
+          '@type': 'VideoObject',
+          '@id': abs(`${path}#video`),
+          name: t.heroVideo.title,
+          description: t.metaDescription,
+          thumbnailUrl: abs(t.hero.src),
+          uploadDate: article.dateIso,
+          embedUrl: t.heroVideo.embedUrl,
+          inLanguage: 'nl-NL',
+          publisher: { '@id': abs('/#organization') },
+        },
+      ]
+    : []),
   {
     '@type': 'BreadcrumbList',
     itemListElement: [
       { '@type': 'ListItem', position: 1, name: ui[lang].home, item: abs(routes.home[lang]) },
-      { '@type': 'ListItem', position: 2, name: s.crumbResources },
+      { '@type': 'ListItem', position: 2, name: s.crumbResources, item: abs(routes.resources[lang]) },
       { '@type': 'ListItem', position: 3, name: t.crumbCurrent, item: abs(path) },
     ],
   },
@@ -68,27 +83,38 @@ const schema = [
   navVariant="solid"
   footer="compact-white"
   ogType="article"
-  ogImage={{ src: t.hero.src, width: 2880, height: 1620, alt: t.hero.alt }}
+  ogImage={{ src: t.hero.src, width: t.hero.width ?? 2880, height: t.hero.height ?? 1620, alt: t.hero.alt }}
   schema={schema}
 >
   <div class="page">
     <article class="wrap article">
       <nav aria-label={lang === 'nl' ? 'Kruimelpad' : 'Breadcrumb'} class="crumbs">
         <a href={routes.home[lang]}>{ui[lang].home}</a><span>/</span>
-        <a href={routes.article[lang]}>{s.crumbResources}</a><span>/</span>
+        <a href={routes.resources[lang]}>{s.crumbResources}</a><span>/</span>
         <span class="crumb-current">{t.crumbCurrent}</span>
       </nav>
       <div class="grid">
         <div class="body">
           <div class="meta">
             <span class="tag">{t.tag}</span>
-            <span class="date"><time datetime={article.dateIso}>{t.date}</time> · {t.readTime}</span>
+            <span class="date"><time datetime={article.dateIso}>{t.date}</time> · {readTime(t, lang)}</span>
           </div>
           <h1>{t.title}</h1>
           <p class="lead">{t.lead}</p>
 
           <div class="hero-media">
-            <img src={t.hero.src} alt={t.hero.alt} width="2880" height="1620" />
+            {t.heroVideo ? (
+              <iframe
+                src={t.heroVideo.embedUrl}
+                title={t.heroVideo.title}
+                loading="lazy"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allowfullscreen
+              />
+            ) : (
+              <img src={t.hero.src} alt={t.hero.alt} width={t.hero.width ?? 2880} height={t.hero.height ?? 1620} />
+            )}
           </div>
 
           {t.blocks.map((block) => {
@@ -149,7 +175,7 @@ const schema = [
         <div class="more-grid">
           {more.map((post) => (
             <a href={post.href} class="more-card">
-              <div class="more-media"><img src={post.hero.src} alt="" loading="lazy" width="2880" height="1620" /></div>
+              <div class="more-media"><img src={post.hero.src} alt="" loading="lazy" width={post.hero.width ?? 2880} height={post.hero.height ?? 1620} /></div>
               <div class="more-body">
                 <span class="more-cat">{post.cat}</span>
                 <h3>{post.title}</h3>
@@ -203,6 +229,7 @@ const schema = [
   .lead { margin: 0 0 34px; font-size: 1.28125rem; line-height: 1.65; font-weight: 400; color: var(--muted); text-wrap: pretty; }
   .hero-media { margin: 0 0 40px; border-radius: 16px; overflow: hidden; aspect-ratio: 16 / 9; background: var(--bg); border: 1px solid var(--line); }
   .hero-media img, .more-media img { display: block; width: 100%; height: 100%; object-fit: cover; }
+  .hero-media iframe { display: block; width: 100%; height: 100%; border: 0; }
   .body > p { margin: 0 0 24px; font-size: 1.125rem; line-height: 1.8; color: var(--brand); }
   .shot { margin: 34px 0; }
   .shot img {
