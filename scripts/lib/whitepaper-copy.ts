@@ -53,7 +53,7 @@ const nl: WpDoc = {
     eyebrow: 'Whitepaper · augustus 2026',
     titlePre: 'AI in je ',
     titleAccent: 'Exact Online',
-    titlePost: ' administratie',
+    titlePost: '-administratie',
     sub: 'Wat een AI-assistent op de boekhouding vandaag kan, waar de grenzen liggen en hoe je veilig begint. Geschreven voor controllers en CFO’s.',
     foot: 'Claire · de AI-laag boven op Exact Online',
   },
@@ -69,7 +69,7 @@ const nl: WpDoc = {
   audience:
     'Voor controllers, CFO’s en accountants die met Exact Online werken en willen beoordelen of een AI-assistent op de administratie iets voor hun team is. Je hoeft er niets van AI voor te weten; waar techniek langskomt, leggen we die uit.',
   colophon: 'DataFlowr B.V. · augustus 2026 · Vragen over deze whitepaper: info@dataflowr.nl',
-  footer: 'DataFlowr · AI in je Exact Online administratie',
+  footer: 'DataFlowr · AI in je Exact Online-administratie',
   pages: [
     {
       chapter: { num: 1, title: 'Wat MCP is en waarom het voor finance uitmaakt' },

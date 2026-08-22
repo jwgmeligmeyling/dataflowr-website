@@ -91,7 +91,7 @@ export const articleUi = {
     newsCardBody: 'Ongeveer één mail per maand, met nieuwe stukken uit de kennisbank.',
     /** Whitepaper band between the article and the "more" cards. */
     wpEyebrow: 'Whitepaper · PDF',
-    wpTitle: 'AI in je Exact Online administratie',
+    wpTitle: 'AI in je Exact Online-administratie',
     wpBody: 'Wat Claire vandaag kan, waar de grenzen liggen en hoe je veilig begint. Geschreven voor controllers en CFO’s.',
     wpCta: 'Download de whitepaper',
   },
