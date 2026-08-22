@@ -320,7 +320,7 @@ export const services: Record<Lang, Record<ServiceKey, ServiceContent>> = {
     rpa: {
       nav: 'RPA',
       eyebrow: 'RPA · robotic process automation',
-      title: 'Even without an API, there is automation to be had.',
+      title: 'No API? You can still automate.',
       intro:
         'Some systems give you no connection, an old portal, a banking environment, a supplier application. RPA takes over the click-work there: the same actions, identical every time, without anyone having to watch.',
       facts: [
