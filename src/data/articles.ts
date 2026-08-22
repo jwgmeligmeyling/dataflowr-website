@@ -1353,8 +1353,8 @@ export const articles: Record<ArticleKey, Article> = {
           type: 'ol',
           items: [
             { strong: 'The balance sheet stays in balance.', rest: ' Assets and liabilities move together, so you immediately see what the purchase does to the proportions on the balance sheet.' },
-            { strong: 'The profit and loss statement counts along.', rest: ' Interest charges and depreciation land in the result, from the month of purchase. An investment that fits on the balance sheet but weighs too heavily on the result gets caught right here.' },
-            { strong: 'The monthly burden becomes explicit.', rest: ' Interest and repayment become a fixed amount per month: the figure the cashflow forecast needs, and the one that comes back in every conversation about financing.' },
+            { strong: 'The profit and loss statement moves with it.', rest: ' Interest charges and depreciation land in the result, from the month of purchase. An investment that fits on the balance sheet but weighs too heavily on the result gets caught right here.' },
+            { strong: 'The monthly payment becomes explicit.', rest: ' Interest and repayment become a fixed amount per month: the figure the cashflow forecast needs, and the one that comes back in every conversation about financing.' },
           ],
         },
         {
@@ -1377,7 +1377,7 @@ export const articles: Record<ArticleKey, Article> = {
         { type: 'h2', id: 'interest', text: 'A follow-up costs one sentence' },
         {
           type: 'p',
-          text: 'Then the step that rarely gets taken in a spreadsheet, because it is too much work: variants. What if the interest rate is fixed lower after six months? Claire runs the scenario again: the remaining principal at that point, the new monthly burden and a fresh forecast with the turning point in it. Question and answer, no rebuilding formulas.',
+          text: 'Then the step that rarely gets taken in a spreadsheet, because it is too much work: variants. What if the interest rate is fixed lower after six months? Claire runs the scenario again: the remaining principal at that point, the new monthly payment and a fresh forecast with the turning point in it. Question and answer, no rebuilding formulas.',
         },
         {
           type: 'p',
