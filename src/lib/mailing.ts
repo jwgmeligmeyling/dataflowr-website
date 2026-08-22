@@ -16,6 +16,12 @@
  *   BREVO_LIST_NEWSLETTER=...     (numeric list id)
  *   BREVO_LIST_WHITEPAPER=...     (numeric list id)
  *
+ * The site is bilingual and the providers store no language of their own, so
+ * each list id can be split per language with an optional _NL / _EN suffix
+ * (e.g. LAPOSTA_LIST_NEWSLETTER_EN). A suffixed var wins for that language;
+ * without one the unsuffixed list takes both languages, and a mailing then
+ * cannot tell Dutch and English readers apart.
+ *
  * Double opt-in, the welcome mail that delivers the whitepaper and the
  * unsubscribe flow are configured on the list in the provider's dashboard,
  * not here. Without configuration subscribe() reports `not_configured` and
@@ -53,16 +59,25 @@ const env = (name: string): string | undefined => {
 const listKinds = (signup: Signup): SignupKind[] =>
   signup.kind === 'whitepaper' && signup.alsoNewsletter ? ['whitepaper', 'newsletter'] : [signup.kind];
 
+/** Per-language list when configured (…_NL / …_EN), the shared one otherwise. */
+const listEnv = (provider: 'LAPOSTA' | 'BREVO', kind: SignupKind, lang: Signup['lang']): string | undefined => {
+  const base = `${provider}_LIST_${kind.toUpperCase()}`;
+  return env(`${base}_${lang.toUpperCase()}`) ?? env(base);
+};
+
+/**
+ * A provider that accepts the connection but never answers would otherwise
+ * hold the serverless invocation open until the platform kills it, and the
+ * no-JS whitepaper post would never reach its fallback redirect.
+ */
+const PROVIDER_TIMEOUT_MS = 8000;
+
 async function subscribeLaposta(signup: Signup): Promise<SubscribeResult> {
   const apiKey = env('LAPOSTA_API_KEY');
-  const lists: Record<SignupKind, string | undefined> = {
-    newsletter: env('LAPOSTA_LIST_NEWSLETTER'),
-    whitepaper: env('LAPOSTA_LIST_WHITEPAPER'),
-  };
   if (!apiKey) return { ok: false, reason: 'not_configured' };
 
   for (const kind of listKinds(signup)) {
-    const listId = lists[kind];
+    const listId = listEnv('LAPOSTA', kind, signup.lang);
     if (!listId) return { ok: false, reason: 'not_configured' };
     const body = new URLSearchParams({
       list_id: listId,
@@ -77,6 +92,7 @@ async function subscribeLaposta(signup: Signup): Promise<SubscribeResult> {
       method: 'POST',
       headers: { Authorization: `Basic ${Buffer.from(`${apiKey}:`).toString('base64')}` },
       body,
+      signal: AbortSignal.timeout(PROVIDER_TIMEOUT_MS),
     });
     if (!res.ok) {
       console.error(`laposta: ${res.status} for list ${kind}`, await res.text().catch(() => ''));
@@ -88,15 +104,11 @@ async function subscribeLaposta(signup: Signup): Promise<SubscribeResult> {
 
 async function subscribeBrevo(signup: Signup): Promise<SubscribeResult> {
   const apiKey = env('BREVO_API_KEY');
-  const lists: Record<SignupKind, string | undefined> = {
-    newsletter: env('BREVO_LIST_NEWSLETTER'),
-    whitepaper: env('BREVO_LIST_WHITEPAPER'),
-  };
   if (!apiKey) return { ok: false, reason: 'not_configured' };
 
   const listIds: number[] = [];
   for (const kind of listKinds(signup)) {
-    const listId = Number(lists[kind]);
+    const listId = Number(listEnv('BREVO', kind, signup.lang));
     if (!Number.isInteger(listId) || listId <= 0) return { ok: false, reason: 'not_configured' };
     listIds.push(listId);
   }
@@ -104,6 +116,7 @@ async function subscribeBrevo(signup: Signup): Promise<SubscribeResult> {
     method: 'POST',
     headers: { 'api-key': apiKey, 'content-type': 'application/json' },
     body: JSON.stringify({ email: signup.email, listIds, updateEnabled: true }),
+    signal: AbortSignal.timeout(PROVIDER_TIMEOUT_MS),
   });
   // 201 created, 204 updated; anything else is the provider refusing.
   if (!res.ok) {

@@ -148,6 +148,12 @@ so nothing is silently lost, but nothing is stored either.
   list in the provider's dashboard, not in this repo. If you enable double
   opt-in, reword `newsDone` in `src/lib/site.ts` (it currently says the
   signup is complete).
+- The providers store no language of their own. To mail Dutch and English
+  readers separately, configure a list per language with the `_NL` / `_EN`
+  env var suffixes (see `.env.example`); an unsuffixed list takes both.
+- The endpoint throttles per IP and per address (five per ten minutes),
+  in-memory per serverless instance. Enough against naive abuse; put a WAF
+  rule in front if the endpoint draws real traffic.
 - The privacy statement names the mailing processor generically; a CONFIRM
   comment in `src/data/legal.ts` marks where to name the chosen tool.
 

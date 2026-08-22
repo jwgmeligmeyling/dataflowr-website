@@ -16,6 +16,31 @@ import { subscribe, type SignupKind } from '../../lib/mailing';
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+/**
+ * Abuse throttle, per IP and per address. In-memory, so it is per serverless
+ * instance and resets on cold starts: enough against naive subscription
+ * bombing and quota burn from a single source, not a substitute for a WAF
+ * rule when the endpoint draws real abuse. Nobody signs up five times in
+ * ten minutes with good intentions.
+ */
+const RATE_WINDOW_MS = 10 * 60_000;
+const RATE_MAX = 5;
+const rateHits = new Map<string, number[]>();
+
+function rateLimited(...keys: string[]): boolean {
+  const now = Date.now();
+  // Bound the map so rotating keys cannot grow the instance's memory.
+  if (rateHits.size > 10_000) rateHits.clear();
+  let limited = false;
+  for (const key of keys.filter(Boolean)) {
+    const kept = (rateHits.get(key) ?? []).filter((t) => now - t < RATE_WINDOW_MS);
+    if (kept.length >= RATE_MAX) limited = true;
+    else kept.push(now);
+    rateHits.set(key, kept);
+  }
+  return limited;
+}
+
 interface Submission {
   email: string;
   kind: SignupKind;
@@ -76,6 +101,12 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
     ip = clientAddress;
   } catch {
     ip = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? '';
+  }
+
+  // Over the limit: nothing reaches the provider. The form post gets the
+  // same friendly dead end as the honeypot; JSON callers get a real 429.
+  if (rateLimited(ip && `ip:${ip}`, `email:${sub.email.toLowerCase()}`)) {
+    return wantsJson ? json(429, { ok: false, error: 'rate_limited' }) : redirect(thanksPath);
   }
 
   const result = await subscribe({
