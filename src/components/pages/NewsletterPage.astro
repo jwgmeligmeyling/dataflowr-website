@@ -4,6 +4,10 @@
  * footer, per design review) and from social posts. The same form appears
  * as a card in the article sidebar; this page is the full-size version with
  * proof of what subscribers actually get: the most recent articles.
+ *
+ * Layout mirrors the whitepaper page: content left, the form as a card on
+ * the right. On narrow screens the card slots in between the lead and the
+ * article list, so the action stays near the top.
  */
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import NewsletterForm from '../NewsletterForm.astro';
@@ -20,6 +24,7 @@ const nl = {
   metaTitle: 'Nieuwsbrief: nieuwe artikelen en Claire-releases in je mail',
   metaDescription:
     'Ongeveer één mail per maand: nieuwe kennisbankartikelen over Exact Online en finance-automatisering, en wat er in Claire is bijgekomen. Geen verkooppraatjes, afmelden kan altijd.',
+  formTitle: 'Meld je aan',
   recentTitle: 'Recent verschenen',
   allArticles: 'Alle artikelen →',
 };
@@ -28,6 +33,7 @@ const en: typeof nl = {
   metaTitle: 'Newsletter: new articles and Claire releases in your inbox',
   metaDescription:
     'About one email a month: new knowledge-base articles on Exact Online and finance automation, and what changed in Claire. No sales pitches, unsubscribe any time.',
+  formTitle: 'Sign up',
   recentTitle: 'Recently published',
   allArticles: 'All articles →',
 };
@@ -57,34 +63,56 @@ const recent = (Object.keys(articles) as ArticleKey[])
   footer="full"
 >
   <div class="page">
-    <section class="wrap head">
-      <p class="eyebrow">{u.newsHeading}</p>
-      <h1>{u.newsTitle}</h1>
-      <p class="lead">{t.metaDescription}</p>
-      <div class="form-slot">
-        <NewsletterForm lang={lang} variant="row" />
+    <section class="wrap grid">
+      <div class="head">
+        <p class="eyebrow">{u.newsHeading}</p>
+        <h1>{u.newsTitle}</h1>
+        <p class="lead">{t.metaDescription}</p>
       </div>
-    </section>
 
-    <section class="wrap recent">
-      <p class="recent-title">{t.recentTitle}</p>
-      <ul class="posts">
-        {recent.map((post) => (
-          <li>
-            <a href={post.href} class="post">
-              <span class="post-title">{post.title}</span>
-              <span class="post-meta"><time datetime={post.dateIso}>{post.date}</time> · {post.time}</span>
-            </a>
-          </li>
-        ))}
-      </ul>
-      <a class="all" href={routes.resources[lang]}>{t.allArticles}</a>
+      <div class="card">
+        <p class="card-title">{t.formTitle}</p>
+        <NewsletterForm lang={lang} variant="card" />
+      </div>
+
+      <div class="recent">
+        <p class="recent-title">{t.recentTitle}</p>
+        <ul class="posts">
+          {recent.map((post) => (
+            <li>
+              <a href={post.href} class="post">
+                <span class="post-title">{post.title}</span>
+                <span class="post-meta"><time datetime={post.dateIso}>{post.date}</time> · {post.time}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+        <a class="all" href={routes.resources[lang]}>{t.allArticles}</a>
+      </div>
     </section>
   </div>
 </BaseLayout>
 
 <style>
-  .head { padding-top: 64px; }
+  .grid {
+    padding-top: 64px;
+    padding-bottom: 88px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 420px;
+    grid-template-areas:
+      'head card'
+      'recent card';
+    gap: 0 72px;
+    align-items: start;
+  }
+  @media (max-width: 980px) {
+    .grid {
+      grid-template-columns: minmax(0, 1fr);
+      grid-template-areas: 'head' 'card' 'recent';
+    }
+  }
+
+  .head { grid-area: head; }
   h1 {
     margin: 0 0 18px;
     font-size: clamp(2rem, 3.8vw, 2.875rem);
@@ -94,10 +122,22 @@ const recent = (Object.keys(articles) as ArticleKey[])
     max-width: 760px;
     text-wrap: balance;
   }
-  .lead { margin: 0 0 30px; font-size: 1.15625rem; line-height: 1.65; color: var(--muted); max-width: 680px; text-wrap: pretty; }
-  .form-slot { max-width: 560px; }
+  .lead { margin: 0; font-size: 1.15625rem; line-height: 1.65; color: var(--muted); max-width: 640px; text-wrap: pretty; }
 
-  .recent { padding-top: 64px; padding-bottom: 80px; }
+  .card {
+    grid-area: card;
+    background: #ffffff;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 28px;
+    box-shadow: 0 16px 44px rgba(13, 27, 39, 0.08);
+  }
+  @media (max-width: 980px) {
+    .card { margin-top: 34px; max-width: 480px; }
+  }
+  .card-title { margin: 0 0 14px; font-size: 1.0625rem; font-weight: 700; letter-spacing: -0.015em; }
+
+  .recent { grid-area: recent; padding-top: 56px; }
   .recent-title {
     margin: 0 0 14px;
     font-size: 0.71875rem;
@@ -106,7 +146,7 @@ const recent = (Object.keys(articles) as ArticleKey[])
     text-transform: uppercase;
     color: var(--muted);
   }
-  .posts { margin: 0; padding: 0; list-style: none; max-width: 760px; }
+  .posts { margin: 0; padding: 0; list-style: none; }
   .post {
     display: flex;
     flex-wrap: wrap;
