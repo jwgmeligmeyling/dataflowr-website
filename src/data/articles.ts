@@ -1206,6 +1206,203 @@ export const articles: Record<ArticleKey, Article> = {
     },
   },
 
+  'balans-scenarios': {
+    author: 'daan',
+    dateIso: '2026-08-19',
+    nl: {
+      metaTitle: 'Wat als we dat pand kopen? Scenario’s doorrekenen op je eigen balans',
+      metaDescription:
+        'Videodemo: Claire haalt de balans live uit Exact Online, rekent een bedrijfspand met hypotheek door als scenario en maakt er een cashflowprognose bij. Hoe de wat-als-scenario’s werken en waar de grenzen liggen.',
+      crumbCurrent: 'Wat-als-scenario’s',
+      cat: 'AI',
+      tag: 'Use case',
+      date: '19 augustus 2026',
+      title: 'Wat als we dat pand kopen? Scenario’s doorrekenen op je eigen balans',
+      lead:
+        'Kunnen we dit dragen? Elke investeringsbeslissing komt neer op die ene vraag, en het antwoord leeft meestal in een spreadsheet naast de boekhouding. In de video hieronder beantwoordt Claire hem op de administratie zelf: de balans live uit Exact Online, de investering als scenario erbovenop, en een cashflowprognose die laat zien wat er van je liquiditeit overblijft.',
+      hero: {
+        src: '/kennisbank/balans-scenarios-video.jpg',
+        alt: 'Openingsbeeld van de videodemo “Elk scenario doorgerekend op je cijfers”: een maandelijkse liquiditeitsprognose in Claire onder de kicker “Balans, hypotheek en cashflow”',
+        width: 1280,
+        height: 720,
+      },
+      heroVideo: {
+        embedUrl: 'https://www.youtube-nocookie.com/embed/Zv2OoRBf23o',
+        title: 'Videodemo: de balans uit Exact Online en wat-als-scenario’s doorrekenen met Claire',
+      },
+      blocks: [
+        {
+          type: 'p',
+          text: 'De demo begint gewoon: open Claire, vraag de balans per een peildatum. Daarna wordt diezelfde balans het vertrekpunt voor vragen die nog niet gebeurd zijn: een bedrijfspand erbij, een hypotheek eronder, een rente die halverwege wijzigt. Dit artikel loopt langs wat Claire bij elke stap doet, en waarom dat verschilt van een som in een spreadsheet.',
+        },
+        { type: 'h2', id: 'balans', text: 'De balans, live uit Exact Online' },
+        {
+          type: 'p',
+          text: 'De eerste vraag in de video kan elk boekhoudpakket beantwoorden: maak de balans per een peildatum. Het verschil zit in hoe het antwoord tot stand komt. Claire maakt op dat moment verbinding met Exact Online, via je eigen toegang, en haalt de grootboekrekeningen, de winst- en verliesrekening en de balansposten op zoals ze er dan bij staan. Geen export die alweer een week oud is, maar de balans van dit moment, of van elke andere peildatum die je noemt.',
+        },
+        {
+          type: 'p',
+          text: 'Het rekenwerk gebeurt daarbij niet in het taalmodel maar in een deterministische rekenlaag: dezelfde administratie geeft dezelfde balans, hoe vaak je ook vraagt. Het taalmodel formuleert alleen het antwoord. Dat klinkt als een detail, maar het is de reden dat je op de uitkomst kunt bouwen zodra er scenario’s bovenop komen.',
+        },
+        {
+          type: 'quote',
+          text: '"Een scenario is zoveel waard als zijn vertrekpunt. Daarom begint elke wat-als-vraag bij de balans zoals die er nu bij staat, niet bij een kopie van vorig kwartaal."',
+        },
+        { type: 'h2', id: 'scenario', text: 'Een investering als scenario, zonder één boeking' },
+        {
+          type: 'p',
+          text: 'Dan de vraag waar het om draait: stel dat we een bedrijfspand kopen, volledig gefinancierd met een hypotheek. In een spreadsheet betekent dat een middag bouwen. Claire zet de doorrekening in één stap neer: het pand verschijnt aan de activazijde, de hypotheekschuld aan de passivazijde, en de gevolgen lopen door tot in het resultaat. Drie dingen houdt Claire daarbij consequent bij elkaar:',
+        },
+        {
+          type: 'ol',
+          items: [
+            { strong: 'De balans blijft in evenwicht.', rest: ' Activa en passiva schuiven samen op, zodat je meteen ziet wat de aankoop met de verhoudingen op de balans doet.' },
+            { strong: 'De winst- en verliesrekening rekent mee.', rest: ' Rentelasten en afschrijvingen landen in het resultaat, vanaf de maand van aankoop. Een investering die op de balans past maar het resultaat te zwaar drukt, valt hier al door de mand.' },
+            { strong: 'De maandlast wordt expliciet.', rest: ' Rente en aflossing worden een vast bedrag per maand: het getal dat de cashflowprognose nodig heeft, en dat in elk gesprek over financiering terugkomt.' },
+          ],
+        },
+        {
+          type: 'p',
+          text: 'Belangrijk om te zien: dit is een doorrekening, geen boeking. Er verandert niets in Exact Online, er staat geen journaalpost klaar en er hoeft niets teruggedraaid te worden. Het scenario leeft in het gesprek; de administratie blijft zoals hij was.',
+        },
+        { type: 'h2', id: 'prognose', text: 'De cashflowprognose die het scenario meeneemt' },
+        {
+          type: 'p',
+          text: 'Een nieuwe balans is een momentopname; de echte vraag is wat de investering met je liquiditeit doet. Daarvoor roept Claire de prognoseagent aan. Die bouwt de prognose op uit wat er werkelijk in de administratie staat: het betaalgedrag uit de historie, de openstaande posten met hun vervaldatums en het ritme van je vaste lasten. Daar bovenop legt hij het scenario: de aankoop als eenmalige uitgave, de schuldendienst als vast maandbedrag.',
+        },
+        {
+          type: 'p',
+          text: 'De prognose kijkt een jaar vooruit en doet dat langs twee wegen tegelijk. Voor de eerste weken telt een directe methode de verwachte ontvangsten en uitgaven per week op, tot en met de bankstand; voor de maanden daarna schuift een indirecte methode aan op basis van resultaat en werkkapitaal. Twee methodes die elkaar controleren, en allebei dezelfde vraag beantwoorden: waar staat de liquiditeit als we dit doen?',
+        },
+        {
+          type: 'p',
+          text: 'Het antwoord is geen los getal maar een vergelijking. De lijn met pand ligt lager dan de lijn zonder, en precies dat verschil wil je zien: niet of er geld uitgaat, maar of de buffer die overblijft groot genoeg is voor de maanden waarin het tegenzit.',
+        },
+        { type: 'h2', id: 'rente', text: 'Doorvragen kost één zin' },
+        {
+          type: 'p',
+          text: 'Dan de stap die in een spreadsheet zelden wordt gezet, omdat hij te veel werk is: varianten. Wat als de rente na een half jaar lager wordt vastgezet? Claire rekent het scenario opnieuw door: de resterende hoofdsom op dat moment, de nieuwe maandlast en een verse prognose met het omslagpunt erin. Vraag en antwoord, geen formules verbouwen.',
+        },
+        {
+          type: 'p',
+          text: 'Daar wordt scenariowerk met een agent anders dan scenariowerk in Excel. Elke variant kost één zin, dus je stopt niet na de eerste doorrekening. Een hogere rente, een langere looptijd, een deel eigen geld erin: je rekent net zo lang tot je de knikpunten kent, en elke uitkomst rust op dezelfde cijfers uit de administratie.',
+        },
+        { type: 'h2', id: 'grenzen', text: 'Wat dit wel en niet is' },
+        {
+          type: 'p',
+          text: 'De hele demo is lezen, geen schrijven: er verandert niets in Exact Online, en boekingen via Claire vragen altijd een handmatig akkoord. De video draait bovendien op een demo-administratie, dus de bedragen zijn niet echt; de route van vraag naar doorrekening is precies hoe het op een echte administratie werkt.',
+        },
+        {
+          type: 'p',
+          text: 'En een prognose blijft een prognose. De kwaliteit staat of valt met de administratie eronder: vervaldatums die worden bijgehouden, inkoopfacturen die op tijd geboekt zijn. Claire laat zien wat een beslissing met je balans en je liquiditeit doet; of de investering verstandig is, blijft een besluit dat jij neemt, met je accountant of financier aan tafel.',
+        },
+        { type: 'h2', id: 'zelf-proberen', text: 'Zelf proberen' },
+        {
+          type: 'p',
+          text: 'Claire werkt op je eigen Exact Online-administratie: inloggen met je eigen account, administratie kiezen, vragen stellen. Begin zoals de video begint, met de balans per vandaag, en stel daarna de wat-als-vraag die nu op tafel ligt: een pand, een machine, een lening die je wilt oversluiten. De doorrekening staat er binnen hetzelfde gesprek.',
+        },
+      ],
+      claireTitle: 'Reken je scenario’s door met Claire',
+      claireBody: 'De balans live uit Exact Online, wat-als-scenario’s erbovenop en een cashflowprognose die laat zien of het past.',
+    },
+    en: {
+      metaTitle: 'What if we buy that building? Running scenarios on your own balance sheet',
+      metaDescription:
+        'Video demo: Claire pulls the balance sheet live from Exact Online, runs a premises purchase with a mortgage as a scenario and adds a cashflow forecast. How the what-if scenarios work and where the limits are.',
+      crumbCurrent: 'What-if scenarios',
+      cat: 'AI',
+      tag: 'Use case',
+      date: '19 August 2026',
+      title: 'What if we buy that building? Running scenarios on your own balance sheet',
+      lead:
+        'Can we carry this? Every investment decision comes down to that one question, and the answer usually lives in a spreadsheet next to the books. In the video below Claire answers it on the administration itself: the balance sheet live from Exact Online, the investment layered on top as a scenario, and a cashflow forecast that shows what is left of your liquidity.',
+      hero: {
+        src: '/kennisbank/balans-scenarios-video.jpg',
+        alt: 'Opening frame of the video demo, Dutch title “Elk scenario doorgerekend op je cijfers”: a monthly liquidity forecast in Claire under the kicker “Balans, hypotheek en cashflow”',
+        width: 1280,
+        height: 720,
+      },
+      heroVideo: {
+        embedUrl: 'https://www.youtube-nocookie.com/embed/Zv2OoRBf23o',
+        title: 'Video demo (in Dutch): the balance sheet from Exact Online and what-if scenarios with Claire',
+      },
+      blocks: [
+        {
+          type: 'p',
+          text: 'The demo, recorded in Dutch, starts plainly: open Claire, ask for the balance sheet as at a chosen date. Then that same balance sheet becomes the starting point for questions that have not happened yet: a business premises added, a mortgage underneath it, an interest rate that changes halfway through. This article walks through what Claire does at each step, and why that differs from a sum in a spreadsheet.',
+        },
+        { type: 'h2', id: 'balance', text: 'The balance sheet, live from Exact Online' },
+        {
+          type: 'p',
+          text: 'The first question in the video is one any accounting package can answer: produce the balance sheet as at a chosen date. The difference is in how the answer comes about. Claire connects to Exact Online at that moment, through your own access, and fetches the general ledger accounts, the profit and loss statement and the balance sheet items as they stand right then. Not an export that is already a week old, but the balance sheet of this moment, or of any other date you name.',
+        },
+        {
+          type: 'p',
+          text: 'The number-crunching does not happen in the language model but in a deterministic calculation layer: the same administration gives the same balance sheet, however often you ask. The language model only phrases the answer. That sounds like a detail, but it is the reason you can build on the outcome once scenarios come on top.',
+        },
+        {
+          type: 'quote',
+          text: '"A scenario is worth as much as its starting point. That is why every what-if question starts from the balance sheet as it stands right now, not from a copy of last quarter."',
+        },
+        { type: 'h2', id: 'scenario', text: 'An investment as a scenario, without a single posting' },
+        {
+          type: 'p',
+          text: 'Then the question it is all about: suppose we buy a business premises, fully financed with a mortgage. In a spreadsheet that means an afternoon of building. Claire lays down the full calculation in one step: the building appears on the asset side, the mortgage debt on the liability side, and the consequences carry through into the result. Three things Claire consistently keeps together:',
+        },
+        {
+          type: 'ol',
+          items: [
+            { strong: 'The balance sheet stays in balance.', rest: ' Assets and liabilities move together, so you immediately see what the purchase does to the proportions on the balance sheet.' },
+            { strong: 'The profit and loss statement moves with it.', rest: ' Interest charges and depreciation land in the result, from the month of purchase. An investment that fits on the balance sheet but weighs too heavily on the result gets caught right here.' },
+            { strong: 'The monthly payment becomes explicit.', rest: ' Interest and repayment become a fixed amount per month: the figure the cashflow forecast needs, and the one that comes back in every conversation about financing.' },
+          ],
+        },
+        {
+          type: 'p',
+          text: 'Important to see: this is a calculation, not a posting. Nothing changes in Exact Online, no journal entry sits ready and nothing needs to be rolled back. The scenario lives in the conversation; the administration stays as it was.',
+        },
+        { type: 'h2', id: 'forecast', text: 'The cashflow forecast that carries the scenario' },
+        {
+          type: 'p',
+          text: 'A new balance sheet is a snapshot; the real question is what the investment does to your liquidity. For that Claire calls the forecasting agent. It builds the forecast from what is actually in the books: payment behaviour from history, the open items with their due dates and the rhythm of your fixed costs. On top of that it lays the scenario: the purchase as a one-off outflow, the debt service as a fixed monthly amount.',
+        },
+        {
+          type: 'p',
+          text: 'The forecast looks a year ahead and does so along two routes at once. For the first weeks a direct method adds up the expected receipts and payments per week, down to the bank balance; for the months after that an indirect method takes over, based on result and working capital. Two methods that check each other, both answering the same question: where does liquidity stand if we do this?',
+        },
+        {
+          type: 'p',
+          text: 'The answer is not a single figure but a comparison. The line with the building sits lower than the line without, and that gap is exactly what you want to see: not whether money goes out, but whether the buffer that remains is large enough for the months when things go against you.',
+        },
+        { type: 'h2', id: 'interest', text: 'A follow-up costs one sentence' },
+        {
+          type: 'p',
+          text: 'Then the step that rarely gets taken in a spreadsheet, because it is too much work: variants. What if the interest rate is fixed lower after six months? Claire runs the scenario again: the remaining principal at that point, the new monthly payment and a fresh forecast with the turning point in it. Question and answer, no rebuilding formulas.',
+        },
+        {
+          type: 'p',
+          text: 'That is where scenario work with an agent differs from scenario work in Excel. Every variant costs one sentence, so you do not stop after the first calculation. A higher rate, a longer term, some equity in the mix: you keep going until you know the tipping points, and every outcome rests on the same figures from the administration.',
+        },
+        { type: 'h2', id: 'limits', text: 'What this is and is not' },
+        {
+          type: 'p',
+          text: 'The entire demo is reading, not writing: nothing changes in Exact Online, and postings through Claire always require manual approval. The video also runs on a demo administration, so the amounts are not real; the route from question to calculation is exactly how it works on a real one.',
+        },
+        {
+          type: 'p',
+          text: 'And a forecast remains a forecast. Its quality stands or falls with the administration underneath: due dates that are maintained, purchase invoices booked on time. Claire shows what a decision does to your balance sheet and your liquidity; whether the investment is wise remains a decision you take, with your accountant or financier at the table.',
+        },
+        { type: 'h2', id: 'try-it', text: 'Try it yourself' },
+        {
+          type: 'p',
+          text: 'Claire works on your own Exact Online administration: sign in with your own account, pick the administration, ask away. Start the way the video starts, with the balance sheet as at today, and then ask the what-if question that is on the table right now: a building, a machine, a loan you want to refinance. The calculation is there within the same conversation.',
+        },
+      ],
+      claireTitle: 'Run your scenarios with Claire',
+      claireBody: 'The balance sheet live from Exact Online, what-if scenarios on top and a cashflow forecast that shows whether it fits.',
+    },
+  },
+
   'copilot-facturen': {
     author: 'daan',
     dateIso: '2026-08-20',
